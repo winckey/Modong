@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import actionCreators from '../actions/actionCreators';
 
-function Login(props) {
-  const setIsLogin = () => {
-    props.setIsLogin();
-  }
+function Login() {
+  const dispatch = useDispatch();
+    const setIsLogin = () => {
+        dispatch(actionCreators.setIsLogin(true));
+    }
   return (
     <div>
         <p>Login</p>

@@ -1,6 +1,7 @@
-const test = (state = {
+const ischeck = (state = {
     data : {
         index1 : 1,
+        isLogin : false,
     }
 }, action) => {
     switch (action.type) {
@@ -12,10 +13,18 @@ const test = (state = {
                     index1: action.index1
                 }
             }
+        case "setIsLogin":
+            return {
+                ...state,
+                data : {
+                    ...state.data,
+                    isLogin: action.isLogin
+                }
+            }
         default:
             return state;
     };
     
 }
 
-export default test;
+export default ischeck;

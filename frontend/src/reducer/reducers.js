@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import test from "./test";
+import ischeck from "./ischeck";
 
 export default combineReducers({
-    test,
+    ischeck,
 });

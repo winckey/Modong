@@ -4,21 +4,20 @@ import './App.css';
 
 import Account from './components/Account'
 import Nav from './components/Nav'
+import { useSelector } from "react-redux";
 
-// import Test1 from './componets/Test1';
-// import Test2 from './componets/Test2';
+
 
 function App() {
-  const [isLogin, setIsLogin] = useState(true);
-  const setIsLoginchange = () =>{
-    setIsLogin(!isLogin);
-  }
+  const { isLogin } = useSelector(state => ({
+    isLogin : state.ischeck.data.isLogin
+  }))
   return (
     <BrowserRouter>
       <div className="App">
         {isLogin 
-          ? <Account setIsLogin={setIsLoginchange}/>
-          : <Nav/>}
+          ? <Nav/>
+          : <Account/>}
       </div>
     </BrowserRouter>
   );

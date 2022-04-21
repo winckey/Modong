@@ -6,7 +6,7 @@ function Signup() {
   return (
     <div>
         <p>Signup</p>
-        <Link to="/login">Login</Link>
+        <Link to="/">Login</Link>
     </div>
   );
 }
