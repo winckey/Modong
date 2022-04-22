@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
 import redis
 
+import yogiyo
 
 app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
 
 
 # 메뉴 크롤링, post 로 식당 정보를 받아서 크롤링 실시
@@ -20,7 +22,9 @@ def crawling_delete():
 # 메뉴 크롤링 체크
 @app.route('/crawling-service/delivery/<board_id>', methods=['GET'])
 def menu_crawling_check(board_id):
-    return jsonify()
+    server = yogiyo.UpdateMenu(file="./connection.txt")
+    menus = server.menu_information(board_id)
+    return jsonify(menus)
 
 
 if __name__ == "__main__":
