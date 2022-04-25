@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a2e430bb-b416-4e08-899f-90e16a23e4be" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../kafka_2.13-3.1.0/confluent-6.1.0/share/java/kafka/kafka.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../../../kafka_2.13-3.1.0/confluent-6.1.0/share/java/kafka/kafka.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../msa 필기.hwp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../msa 필기.hwp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../git-repo" beforeDir="false" afterPath="$PROJECT_DIR$/../../git-repo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../apigateway/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../apigateway/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../apigateway/src/main/java/com/example/apigateway/config/AuthorizationHeaderFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../apigateway/src/main/java/com/example/apigateway/config/AuthorizationHeaderFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../apigateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../apigateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user-service/src/main/java/com/example/userservice/UserServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user-service/src/main/java/com/example/userservice/UserServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user-service/src/main/java/com/example/userservice/client/OrderServiceClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user-service/src/main/java/com/example/userservice/client/OrderServiceClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user-service/src/main/java/com/example/userservice/security/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user-service/src/main/java/com/example/userservice/security/AuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user-service/src/main/java/com/example/userservice/security/WebSecurity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user-service/src/main/java/com/example/userservice/security/WebSecurity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user-service/src/main/java/com/example/userservice/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user-service/src/main/java/com/example/userservice/service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../user-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user-service/src/main/resources/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../user-service/src/main/resources/bootstrap.yml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="27xaNyGG5wTnDIvowEpcMgzVUoC" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RunManager">
+    <configuration name="ConfigSerivceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="config-serivce.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.configserivce.ConfigSerivceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a2e430bb-b416-4e08-899f-90e16a23e4be" name="Changes" comment="" />
+      <created>1650264155849</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1650264155849</updated>
+      <workItem from="1650264157421" duration="3038000" />
+      <workItem from="1650298599344" duration="833000" />
+      <workItem from="1650323798132" duration="4856000" />
+      <workItem from="1650411761654" duration="1271000" />
+      <workItem from="1650499098634" duration="1183000" />
+      <workItem from="1650760414887" duration="594000" />
+      <workItem from="1650868566109" duration="1505000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
