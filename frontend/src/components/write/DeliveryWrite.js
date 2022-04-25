@@ -5,7 +5,7 @@ function DeliveryWrite() {
     return (
         <div>
             <p>배달 쓰기</p>
-            <Link to="/home">Home</Link>
+            <Link to="/">Home</Link>
         </div>
     );
 }

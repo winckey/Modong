@@ -5,7 +5,7 @@ function GroupBuyingWrite() {
     return (
         <div>
             <p>공구 쓰기</p>
-            <Link to="/home">Home</Link>
+            <Link to="/">Home</Link>
         </div>
     );
 }
