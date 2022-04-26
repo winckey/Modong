@@ -1,26 +1,10 @@
-import json
-import os
-import sys
-from datetime import datetime
-
 import requests
-from flask import jsonify
 
 API_header = {'x-apisecret': 'fe5183cc3dea12bd0ce299cf110a75a2',
               'x-apikey': 'iphoneap'}
 
 
 class UpdateMenu:
-    def __init__(self, file=None):
-        if not file:
-            _id = input("input id(root) : ")
-            _pw = input("input pw       : ")
-            _db = input("databases      : ")
-            connect_info = ("localhost", 3306, _id, _pw, _db)
-        else:
-            with open(os.path.join(sys.path[0], file), "r") as f:
-                connect_info = list(map(lambda x: x.strip(), f.read().split(",")))
-
     def menu_information(self, restaurant_id):
         response = requests.get(f"https://www.yogiyo.co.kr/api/v1/restaurants/{restaurant_id}/menu", headers=API_header)
         try:
@@ -73,12 +57,3 @@ class UpdateMenu:
         return MENUS
 
 
-if __name__ == "__main__":
-    server = UpdateMenu(file="../connection.txt")
-
-    cnt = 0
-    MENU = []
-
-    print("****** INITIATING MENU CRAWLING *******")
-    for i in range(0, 10):
-        cnt += server.menu_information(224204 + i)
