@@ -1,0 +1,46 @@
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #C4C4C4;
+    padding: 15px;
+    p{
+        font-size: 23px;
+        margin: 0;
+    }
+    div{
+        display: flex;
+        align-items: center;
+        svg{
+            margin-right: 15px;
+            font-size: 25px;
+            color: #FCE832;
+        }
+        div{
+            overflow: hidden;
+            height: 40px;
+            width: 40px;
+            border-radius: 20px;
+        }
+    }
+}
+footer{
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    a{
+        text-decoration: none;
+        color: black; 
+        padding: 15px;
+        width: 25%;
+        border-top: 1px solid #C4C4C4;
+        svg{
+            font-size: 25px;
+        }
+    }
+}
+.footeractive{
+    color: #3684F1;
+    border-color: #3684F1;
+}

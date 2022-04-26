@@ -2,6 +2,7 @@ const ischeck = (state = {
     data : {
         index1 : 1,
         isLogin : false,
+        footerSelected : 5,
     }
 }, action) => {
     switch (action.type) {
@@ -19,6 +20,14 @@ const ischeck = (state = {
                 data : {
                     ...state.data,
                     isLogin: action.isLogin
+                }
+            }
+        case "setFooterSelected":
+            return {
+                ...state,
+                data : {
+                    ...state.data,
+                    footerSelected: action.footerSelected
                 }
             }
         default:

@@ -6,6 +6,7 @@ function Community() {
   return (
     <div>
         <p>Community</p>
+        <Link to="/write">Write</Link>
         <Link to='/communitydetail'>communitydetail</Link>
     </div>
   );
