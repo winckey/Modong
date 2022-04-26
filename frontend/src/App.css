@@ -2,6 +2,13 @@
   text-align: center;
 }
 
+@font-face {
+  font-family: 'LeferiPoint-WhiteObliqueA';
+  src: url('./style/font/LeferiBaseRegular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

@@ -7,7 +7,6 @@ import Signup from './Signup';
 function Account() {
   return (
     <div>
-        Account
         <Routes>
           <Route path="/" element={<Login/>}/>
           <Route path="/signup" element={<Signup/>}/> 
