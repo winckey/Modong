@@ -13,8 +13,15 @@ spring:
     config:
       server:
         git:
-          uri: file:\\\SSAFY\msa\msa_with_spring_cloud-main\git-repo
-#          http://localhost:8888/ecommerce/default ?? ?? ??
+          uri: https://lab.ssafy.com/s06-final/S06P31E102.git
+          default-label: backend/application-yml/develop
+          search-paths: backend/yml/
+          username: winckey3@gmail.com
+          password: WKDGUSWLS12@
+#          uri: https://github.com/winckey/my-repo-git.git
+#          default-label: abranch/test3/test3
+#          searchPaths: test\test2
+#
 
 management:
   endpoints:
