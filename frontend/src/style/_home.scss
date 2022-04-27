@@ -7,6 +7,7 @@
     padding: 7px;
     z-index: 1;
     position: relative;
+    align-items: center;
     justify-content: space-around;
     div{
         width: 50%;
@@ -14,7 +15,7 @@
     }
     .deliverySelected{
         position: absolute;
-        height: 24px;
+        height: 23px;
         z-index: 5;
         border-radius: 20px;
         background-color: aliceblue;

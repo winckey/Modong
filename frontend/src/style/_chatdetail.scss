@@ -1,0 +1,76 @@
+.chatDetailOutLine{
+    height: 82vh;
+    background-color: #F5F5F5;
+    position: relative;
+}
+.chatDetailInnerCard{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    div{
+        display: flex;
+        flex-direction: column;
+        div:nth-child(3){
+            align-self: flex-end;
+        }
+        div:nth-child(2){
+            min-width: 200px;
+            height: 30px;
+            padding: 10px;
+            border-radius: 15px;
+            margin: 5px;
+            box-shadow: 1px 1px 3px 1px #dadce0;
+        }
+    }
+    .myChat{
+        align-self: flex-end;
+        div:first-child{
+            text-align: end;
+        }
+        div:nth-child(2){
+            background-color: white;
+            text-align: end;
+        }
+    }
+    .otherChat{
+        align-self: flex-start;
+        div:first-child{
+            text-align: start;
+        }
+        div:nth-child(2){
+            background-color: #9AD4E4;
+            text-align: start;
+        }
+    }
+}
+.chatinput{
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    background-color: #F5F5F5;
+    width: 100%;
+    z-index: 10;
+    padding-bottom: 15px;
+    padding-top: 5px;
+    bottom: 0;
+    input{
+        font-size: 18px;
+        border: none;
+        padding: 10px;
+        width: 370px;
+        margin-right: 10px;
+        border-radius: 15px;
+        box-shadow: 1px 1px 3px 1px #dadce0;
+    }
+    div{
+        font-size: 28px;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 50px;
+        width:50px;
+        color: #2F88FF;
+        background-color: #9AD4E4;
+    }
+}

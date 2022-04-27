@@ -10,7 +10,7 @@ function delivery() {
     return (
         <div className='inList'>
             {data.map((d, index) =>(
-                <div key={index}>
+                <div className='shadow' key={index}>
                     <div>{d.name}</div>
                     <div>{d.arrivepoint}</div>
                     <div>{d.lefttime}분 남았습니다.</div>

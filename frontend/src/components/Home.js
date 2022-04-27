@@ -18,17 +18,19 @@ function Home() {
   }
   return (
     <>
-      <div className='homeNav'>
-        <div onClick={() =>{categoryChange(1)}}>배달</div>
-        <div onClick={() =>{categoryChange(2)}}>공구</div>
-        <div className={(category === 1 ? 'deliverySelected':'groupBuyingSelected')}></div>
+      <div className='outLine'>
+        <div className='homeNav'>
+          <div onClick={() =>{categoryChange(1)}}>배달</div>
+          <div onClick={() =>{categoryChange(2)}}>공구</div>
+          <div className={(category === 1 ? 'deliverySelected':'groupBuyingSelected')}></div>
+        </div>
+        <div>
+          {category === 1
+          ? <Delivery/>
+          : <GroupBuying/>}
+        </div>
+        <Link to="/write" className="writemark"><FontAwesomeIcon icon={faPen}/></Link>
       </div>
-      <div>
-        {category === 1
-        ? <Delivery/>
-        : <GroupBuying/>}
-      </div>
-      <Link to="/write" className="writemark"><FontAwesomeIcon icon={faPen}/></Link>
     </>
   );
 }
