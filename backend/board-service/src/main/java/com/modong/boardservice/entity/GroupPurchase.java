@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class GroupPurchase {
+public class GroupPurchase extends Board{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
