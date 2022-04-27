@@ -1,7 +1,16 @@
+buildscript {
+    ext {
+        queryDslVersion = "5.0.0"
+    }
+}
+
 plugins {
     id 'org.springframework.boot' version '2.6.6'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+
+    //querydsl 추가
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 group = 'com.example'
@@ -58,6 +67,19 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
 
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+    //mysql
+    runtimeOnly 'mysql:mysql-connector-java'
+
+    //redis 추가
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.session:spring-session-data-redis'
+
+//querydsl 추가
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+    implementation "com.querydsl:querydsl-core:${queryDslVersion}"
+
 }
 
 dependencyManagement {
@@ -68,4 +90,29 @@ dependencyManagement {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+//querydsl 추가 시작
+//querydsl q클래스 폴더
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+sourceSets {
+    main.java.srcDir querydslDir
+}
+compileQuerydsl{
+    options.annotationProcessorPath = configurations.querydsl
+}
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    querydsl.extendsFrom compileClasspath
+}
+
+compileQuerydsl.doFirst {
+    if (file(querydslDir).exists())
+        delete(file(querydslDir))
 }

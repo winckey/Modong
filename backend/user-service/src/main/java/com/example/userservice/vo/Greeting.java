@@ -11,6 +11,6 @@ import org.springframework.stereotype.Component;
 //@AllArgsConstructor
 //@NoArgsConstructor
 public class Greeting {
-    @Value("${greeting.message}")// yml 값 가져오기!
+    @Value("${greeting.message}")
     private String message;
 }

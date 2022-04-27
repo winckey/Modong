@@ -1,6 +1,6 @@
-package com.example.userservice.repository;
+package com.example.userservice.db.repository;
 
-import com.example.userservice.repository.UserEntity;
+import com.example.userservice.db.entity.UserEntity;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

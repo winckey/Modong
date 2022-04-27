@@ -2,8 +2,10 @@ package com.example.userservice.security;
 
 import com.example.userservice.dto.UserDto;
 import com.example.userservice.service.UserService;
+import com.example.userservice.util.JwtTokenUtil;
 import com.example.userservice.vo.RequestLogin;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.NoArgsConstructor;
@@ -31,12 +33,14 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private UserService userService;
     private Environment env;
 
+
     public AuthenticationFilter(AuthenticationManager authenticationManager,
                                 UserService userService,
-                                Environment env) {
+                                Environment env ) {
         super.setAuthenticationManager(authenticationManager);
         this.userService = userService;
         this.env = env;
+
     }
 
     @Override
@@ -62,16 +66,20 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                                             HttpServletResponse response,
                                             FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
+
+        JwtTokenUtil jwtTokenUtil   = new JwtTokenUtil(env);
         String userName = ((User)authResult.getPrincipal()).getUsername();
+
         UserDto userDetails = userService.getUserDetailsByEmail(userName);
-        String token = Jwts.builder()
-                .setSubject(userDetails.getUserId())
-                .setExpiration(new Date(System.currentTimeMillis() +
-                        Long.parseLong(env.getProperty("token.expiration_time"))))// yml 에서 가져와서 만료기간 세팅
-                .signWith(SignatureAlgorithm.HS512, env.getProperty("token.secret"))// yml에 키저장하고 암호화
-                .compact();// 세팅완료
+
+        String jwtToken = jwtTokenUtil.generateAccessToken(userDetails.getUserId());
+        String refreshToken = userService.saveRefreshToken(userName).getRefreshToken();
+        // 리프레쉬 토큰 레디스에 저장하고 반환
+        
         System.out.println("token : " + env.getProperty("token.expiration_time"));
-        response.addHeader("token", token);
+        
+        response.addHeader("jwtToken", jwtToken);
+        response.addHeader("refreshToken", refreshToken);
         response.addHeader("userId", userDetails.getUserId());
 //        RefreshToken refreshToken = saveRefreshToken(username);
 //        리프레쉬 토큰 발행 추가

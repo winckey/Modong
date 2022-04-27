@@ -245,3 +245,10 @@ gradle-app.setting
 .classpath
 
 # End of https://www.toptal.com/developers/gitignore/api/java,gradle,windows,intellij,intellij+all
+backend/user-service/.idea/compiler.xml
+backend/user-service/.idea/gradle.xml
+backend/user-service/.idea/jarRepositories.xml
+backend/user-service/.idea/jpa-buddy.xml
+backend/user-service/.idea/misc.xml
+backend/user-service/.idea/vcs.xml
+backend/user-service/.idea/workspace.xml

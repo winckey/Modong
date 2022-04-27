@@ -1,11 +1,12 @@
 package com.example.userservice.service;
 
-import com.example.userservice.client.OrderServiceClient;
+import com.example.userservice.db.repository.RefreshTokenRedisRepository;
 import com.example.userservice.dto.UserDto;
-import com.example.userservice.repository.UserEntity;
-import com.example.userservice.repository.UserRepository;
+import com.example.userservice.db.entity.UserEntity;
+import com.example.userservice.db.repository.UserRepository;
+import com.example.userservice.util.JwtTokenUtil;
+import com.example.userservice.util.RefreshToken;
 import com.example.userservice.vo.ResponseOrder;
-import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,35 +14,26 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import java.util.*;
 
 @Service
 @Slf4j
-
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
 
-    UserRepository userRepository;
-    BCryptPasswordEncoder bCryptPasswordEncoder;
-
-
-
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository , BCryptPasswordEncoder bCryptPasswordEncoder ) {
-                                                                //BCryptPasswordEncoder 여기 뜨는 에러는 빈으로 생성한적이 없기때문에
-                                                                //Autowired할수없음 -> 등록과정이 필요하다.
-        this.userRepository =userRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-
-    }
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final RefreshTokenRedisRepository refreshTokenRedisRepository;
+    private final JwtTokenUtil jwtTokenUtil;
+    private final Environment env;
 
     @Override
     public UserDto createUser(UserDto userDto) {
@@ -127,5 +119,11 @@ public class UserServiceImpl implements UserService {
 //            this.accountNonLocked = accountNonLocked;
 //            this.authorities = Collections.unmodifiableSet(sortAuthorities(authorities));
 //        }
+    }
+
+
+    public RefreshToken saveRefreshToken(String username) {
+        return refreshTokenRedisRepository.save(RefreshToken.createRefreshToken(username,
+                jwtTokenUtil.generateRefreshToken(username), Long.parseLong(env.getProperty("token.re_expiration_time"))));
     }
 }
