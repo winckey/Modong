@@ -1,19 +1,10 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/java,gradle
-# Edit at https://www.toptal.com/developers/gitignore?templates=java,gradle
-
-### Java ###
-
 # Log file
 *.log
 *.xml
 
 
-# BlueJ files
-*.ctxt
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
 
 # Package Files #
 *.jar
@@ -23,3 +14,4 @@
 *.zip
 *.tar.gz
 *.rar
+
