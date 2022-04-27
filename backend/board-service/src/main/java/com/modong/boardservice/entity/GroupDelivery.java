@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Delivery {
+public class GroupDelivery {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
