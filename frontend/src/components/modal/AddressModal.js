@@ -1,26 +1,33 @@
 import React from 'react';
-import '../../style/_Modal.scss'
-
-// import * as React from 'react';
+import '../../style/_detailModal.scss'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import DetailModal from './DetailModal'
 
-export default function ModalBig() {
+
+export default function AddressModal() {
   const [open, setOpen] = React.useState(false);
-  
+  const [ modalOpen, setModalOpen] = React.useState(false);
+  const addressList = ['서울특별시', '부산광역시', '대구광역시','인천광역시','광주광역시','대전광역시']
+
+
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
 
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   return (
     <div>
@@ -28,52 +35,62 @@ export default function ModalBig() {
                   id="filled-basic" 
                   label="주소를 입력해주세요" 
                   variant="filled" />
+      
+      <Dialog 
+      PaperProps={{ sx: { width: "100%", height: "55vh", 
+      position: "fixed", bottom: 0, m: 0, 
+      borderTopLeftRadius: 30, borderTopRightRadius: 30 } }}
+       open={open} onClose={handleClose}  fullScreen>
 
-      <Dialog open={open} onClose={handleClose} fullScreen style={{height:'80vh', position:'absolute', top: 170}}>
-        <DialogTitle>주소를 입력해주세요</DialogTitle>
+        <DialogTitle style={{margin:"4%", textAlign:"center"}}><b>주소를 입력해주세요</b></DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            하,,,,
-          </DialogContentText>
           <TextField
-            autoFocus
             margin="dense"
             id="name"
-            label="주소"
+            label="시/도 선택하기"
             type="email"
             fullWidth
             variant="filled"
+            onClick={openModal}
+            autoComplete="off"
+          />
+          <DetailModal open={modalOpen}  close={closeModal} header="선택해주세요" addressList={addressList}>
+          </DetailModal>
+          
+          <TextField
+            margin="dense"
+            id="name"
+            label="구/군 선택하기"
+            type="email"
+            fullWidth
+            variant="filled"
+            autoComplete="off"
+            onClick={openModal}
           />
           <TextField
-            autoFocus
             margin="dense"
             id="name"
-            label="주소"
+            label="동/읍/면 선택하기"
             type="email"
             fullWidth
             variant="filled"
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="주소"
-            type="email"
-            fullWidth
-            variant="filled"
+            autoComplete="off"
+            onClick={openModal}
           />
         </DialogContent>
         <DialogActions>
           <Button
-          onClick={handleClose}
+              onClick={handleClose}
               type="submit"
-              fullWidth
+              // fullWidth
               variant="contained"
-              sx={{ mt: 10, mb: 1 }}
+              sx={{ mt: 5, mb: 2, width: "90%", mx:"auto" }}
             >
               확인
             </Button>
         </DialogActions>
+
+        
       </Dialog>
     </div>
   );
