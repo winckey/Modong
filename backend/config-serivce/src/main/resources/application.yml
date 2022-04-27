@@ -1,0 +1,30 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-service
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://lab.ssafy.com/s06-final/S06P31E102.git
+          default-label: backend/application-yml/develop
+          search-paths: backend/yml/
+          username: winckey3@gmail.com
+          password: WKDGUSWLS12@
+#          uri: https://github.com/winckey/my-repo-git.git
+#          default-label: abranch/test3/test3
+#          searchPaths: test\test2
+#
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, busrefresh, info, metrics, prometheus
