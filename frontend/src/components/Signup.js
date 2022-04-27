@@ -9,21 +9,11 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from "axios";
-import Modal from './modal/ModalBig'
+import Modal from './modal/AddressModal'
 
 const theme = createTheme();
 
 export default function SignUp(props) {
-
-  // const [modalOpen, setModalOpen] = useState(false);
-
-  // const openModal = () => {
-  //   setModalOpen(true);
-  // };
-  // const closeModal = () => {
-  //   setModalOpen(false);
-  // };
-  
 
   //이메일 중복 확인
   const emailCheck = () => {
