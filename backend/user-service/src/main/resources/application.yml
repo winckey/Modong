@@ -2,13 +2,13 @@ server:
   port: 0
 #  port: ${random.int(50000,50001)}
 #  address: 61.253.156.192
-  redis:
-    host: k6e102.p.ssafy.io
-    port: 6379
+
 spring:
   application:
     name: user-service
-
+  redis:
+    host: k6e102.p.ssafy.io
+    port: 6379
   rabbitmq:
     host: 127.0.0.1
     port: 5672
@@ -44,7 +44,7 @@ eureka:
   #    ip-address: ${server.address}
   client:
     service-url:
-      defaultZone: http://k6e102.p.ssafy.io:8761/eureka
+      defaultZone: http://localhost:8761/eureka
     fetch-registry: true
     register-with-eureka: true
 
