@@ -1,35 +1,26 @@
 server:
   port: 0
 #  port: ${random.int(50000,50001)}
-#  address: 127.0.0.1
+#  address: 61.253.156.192
   redis:
-    host: localhost
+    host: k6e102.p.ssafy.io.docker.internal
     port: 6379
 spring:
   application:
     name: user-service
-  zipkin:
-    base-url: http://127.0.0.1:9411
-    enabled: true
-  #  sleuth:
-  #    sampler:
-  #      probability: 1.0
+
   rabbitmq:
     host: 127.0.0.1
     port: 5672
     username: guest
     password: guest
+
   datasource:
-    url: jdbc:mysql://localhost:3306/msa_db?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://k6e102.p.ssafy.io:3306/modong?serverTimezone=UTC&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       username: root
-      password: admin
-  #    url: jdbc:mysql://j6e206.p.ssafy.io:3306/jpmp?serverTimezone=UTC&characterEncoding=UTF-8
-  #    driver-class-name : com.mysql.cj.jdbc.Driver
-  #    hikari:
-  #      username: SSAFY
-  #      password: SSAFY
+      password: plainYorgurt%
 
   jpa:
     hibernate:
@@ -41,6 +32,7 @@ spring:
         format_sql: true
         default_batch_fetch_size: 100
     database: mysql
+
   devtools:
     livereload:
       enabled: true
@@ -52,7 +44,7 @@ eureka:
   #    ip-address: ${server.address}
   client:
     service-url:
-      defaultZone: http://127.0.0.1:8761/eureka
+      defaultZone: http://k6e102.p.ssafy.io:8761/eureka
     fetch-registry: true
     register-with-eureka: true
 
