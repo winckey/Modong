@@ -15,7 +15,7 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
     public GlobalFilter() {
         super(Config.class);
     }
-// 커스텀필터는 라우터 마다 등록해야하지만 글로벌필터는 그런거없이 한방에 등록
+    // 커스텀필터는 라우터 마다 등록해야하지만 글로벌필터는 그런거없이 한방에 등록
     @Override
     public GatewayFilter apply(Config config) {
         return ((exchange, chain) -> {
