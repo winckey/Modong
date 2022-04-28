@@ -1,5 +1,7 @@
 package com.example.userservice.db.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -7,6 +9,8 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "users")
+@Builder
+@AllArgsConstructor
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,4 +25,7 @@ public class UserEntity {
     @Column(nullable = false, unique = true)
     private String encryptedPwd;
 
+    public UserEntity() {
+
+    }
 }

@@ -6,14 +6,14 @@ import com.example.userservice.db.entity.UserEntity;
 import com.example.userservice.db.repository.UserRepository;
 import com.example.userservice.util.JwtTokenUtil;
 import com.example.userservice.util.RefreshToken;
-import com.example.userservice.vo.ResponseOrder;
+import com.example.userservice.vo.ReponseLogin;
+import com.example.userservice.vo.RequestUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,20 +36,22 @@ public class UserServiceImpl implements UserService {
     private final Environment env;
 
     @Override
-    public UserDto createUser(UserDto userDto) {
-        userDto.setUserId(UUID.randomUUID().toString());
+    public UserDto createUser(RequestUser requestUser) {
 
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);// 모델 매핑전략지정 : STRICT 일치하지 않으면 실행 x
-        UserEntity userEntity = modelMapper.map(userDto , UserEntity.class);
+        //     UserEntity userEntity = modelMapper.map(userDto, UserEntity.class);
 
-
-        userEntity.setEncryptedPwd(bCryptPasswordEncoder.encode(userDto.getPwd()));// 비밀번호 암호화
+        UserEntity userEntity = UserEntity.builder()
+                .userId(UUID.randomUUID().toString())
+                .email(requestUser.getEmail())
+                .name(requestUser.getName())
+                .encryptedPwd(bCryptPasswordEncoder.encode(requestUser.getPwd())).build();
 
 
         userRepository.save(userEntity);
 
-        UserDto returnUserDto = modelMapper.map(userEntity , UserDto.class);
+        UserDto returnUserDto = modelMapper.map(userEntity, UserDto.class);
         return returnUserDto;
     }
 
@@ -74,9 +76,6 @@ public class UserServiceImpl implements UserService {
         /* Feign exception handling */
 //        List<ResponseOrder> ordersList = orderServiceClient.getOrders(userId);
 
-
-        userDto.setOrders(orders);
-
         return userDto;
     }
 
@@ -87,7 +86,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserDetailsByEmail(String email) {
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException(email));
+        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email));
 
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -100,7 +99,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity userEntity =userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("user not found"));
+        UserEntity userEntity = userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("user not found"));
 
 
         return new User(userEntity.getEmail(), userEntity.getEncryptedPwd(),
@@ -125,5 +124,30 @@ public class UserServiceImpl implements UserService {
     public RefreshToken saveRefreshToken(String username) {
         return refreshTokenRedisRepository.save(RefreshToken.createRefreshToken(username,
                 jwtTokenUtil.generateRefreshToken(username), Long.parseLong(env.getProperty("token.re_expiration_time"))));
+    }
+
+    @Override
+    public ReponseLogin reissue(String refreshToken, RequestUser requestUser) {
+        UserEntity userEntity = userRepository.findByEmail(requestUser.getEmail()).get();
+        RefreshToken redisRefreshToken = refreshTokenRedisRepository.findById(userEntity.getEmail()).orElseThrow(NoSuchElementException::new);
+
+        if (refreshToken.equals(redisRefreshToken.getRefreshToken())) {
+            return reissueRefreshToken(refreshToken, userEntity);
+        }
+        throw new IllegalArgumentException("토큰이 일치하지 않습니다.");
+    }
+
+    private ReponseLogin reissueRefreshToken(String refreshToken, UserEntity userEntity) {
+        String username = userEntity.getName();
+        if (lessThanReissueExpirationTimesLeft(refreshToken)) {
+            String accessToken = jwtTokenUtil.generateAccessToken(username);
+            return ReponseLogin.of(accessToken, saveRefreshToken(username).getRefreshToken(), userEntity);
+        }
+        return ReponseLogin.of(jwtTokenUtil.generateAccessToken(username), refreshToken, userEntity);
+    }
+
+
+    private boolean lessThanReissueExpirationTimesLeft(String refreshToken) {
+        return jwtTokenUtil.getRemainMilliSeconds(refreshToken) < Long.parseLong(env.getProperty("token.re_expiration_time"));
     }
 }

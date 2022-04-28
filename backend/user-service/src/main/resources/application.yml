@@ -2,7 +2,9 @@ server:
   port: 0
 #  port: ${random.int(50000,50001)}
 #  address: 127.0.0.1
-
+  redis:
+    host: localhost
+    port: 6379
 spring:
   application:
     name: user-service
@@ -17,17 +19,31 @@ spring:
     port: 5672
     username: guest
     password: guest
-  h2:
-    console:
-      enabled: true
-      settings:
-        web-allow-others: true
-      path: /h2-console
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb
-#    username: sa
-#    password: 12345
+    url: jdbc:mysql://localhost:3306/msa_db?serverTimezone=UTC&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      username: root
+      password: admin
+  #    url: jdbc:mysql://j6e206.p.ssafy.io:3306/jpmp?serverTimezone=UTC&characterEncoding=UTF-8
+  #    driver-class-name : com.mysql.cj.jdbc.Driver
+  #    hikari:
+  #      username: SSAFY
+  #      password: SSAFY
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+        default_batch_fetch_size: 100
+    database: mysql
+  devtools:
+    livereload:
+      enabled: true
 
 eureka:
   instance:
