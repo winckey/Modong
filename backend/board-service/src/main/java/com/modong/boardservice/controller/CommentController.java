@@ -1,2 +1,4 @@
-package com.modong.boardservice.controller;public class CommentController {
+package com.modong.boardservice.controller;
+
+public class CommentController {
 }

@@ -2,7 +2,9 @@ plugins {
     id 'org.springframework.boot' version '2.5.13'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
 }
+
 
 group = 'com.modong'
 version = '0.0.1-SNAPSHOT'
@@ -25,7 +27,11 @@ ext {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    implementation 'io.springfox:springfox-swagger2:3.0.0'
+    implementation group: 'com.querydsl', name: 'querydsl-jpa', version: '4.4.0'
+    implementation group: 'com.querydsl', name: 'querydsl-apt', version: '4.4.0'
+
+    runtimeOnly 'mysql:mysql-connector-java'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
     annotationProcessor 'org.projectlombok:lombok'
@@ -40,4 +46,26 @@ dependencyManagement {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+def querydslSrcDir = 'src/main/generated'
+
+querydsl {
+    library = 'com.querydsl:querydsl-apt'
+    jpa = true
+    querydslSourcesDir = querydslSrcDir
+}
+
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
+}
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java', querydslSrcDir]
+        }
+    }
 }

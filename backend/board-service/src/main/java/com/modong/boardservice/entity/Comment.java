@@ -9,7 +9,7 @@ import javax.persistence.*;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Comment extends Board implements Comparable<Comment> {
+public class Comment implements Comparable<Comment> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
