@@ -1,12 +1,15 @@
 package com.example.userservice.controller;
 
 
+import com.example.userservice.db.repository.UserRepository;
 import com.example.userservice.dto.UserDto;
 import com.example.userservice.db.entity.UserEntity;
 import com.example.userservice.service.UserService;
 import com.example.userservice.vo.Greeting;
+import com.example.userservice.vo.ReponseLogin;
 import com.example.userservice.vo.RequestUser;
 import com.example.userservice.vo.ResponseUser;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,24 +18,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import static com.example.userservice.util.ModelMapperUtils.getModelMapper;
 
 @RestController
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class UserController {
 
-    private Environment env;
-    private UserService userService;
+    private final Environment env;
+    private final UserService userService;
+    private final UserRepository userRepository;
 
     @Autowired
     private Greeting greeting;
 
-    @Autowired
-    public UserController(Environment env, UserService userService) {
-        this.env = env;
-        this.userService = userService;
-    }
+
 
     @GetMapping("/health_check")
     public String status() {
@@ -58,9 +61,7 @@ public class UserController {
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
-        UserDto userDto = mapper.map(user, UserDto.class);
-//       ;
-        ResponseUser responseUser = mapper.map(userService.createUser(userDto), ResponseUser.class);
+        ResponseUser responseUser = mapper.map(userService.createUser(user), ResponseUser.class);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
     }
@@ -87,4 +88,13 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
+
+    @PostMapping("/reissue")
+    public ResponseEntity<ReponseLogin> reissue(@RequestHeader("RefreshToken") String refreshToken, @Valid @RequestBody RequestUser requestUser) {
+
+        ReponseLogin reponseLogin = userService.reissue(refreshToken , requestUser);
+
+        return ResponseEntity.status(HttpStatus.OK).body(reponseLogin);
+    }
+
 }
