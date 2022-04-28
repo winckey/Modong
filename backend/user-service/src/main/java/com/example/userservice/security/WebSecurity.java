@@ -32,7 +32,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override// 시큐리티가 필터앞에 동작할때 comfigure 함수가 동작한다
     protected void configure(HttpSecurity http) throws Exception {// 권한부여 설정
         http.csrf().disable();
-        http.authorizeRequests().antMatchers("/actutator/**").permitAll();
+        http.authorizeRequests().antMatchers("/actuator/**").permitAll();
         http.authorizeRequests().antMatchers("/**").permitAll()
 //                .hasIpAddress(env.getProperty("127.0.0.0")) // <- IP 변경
                 .and()
