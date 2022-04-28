@@ -225,6 +225,8 @@ $RECYCLE.BIN/
 .gradle
 **/build/
 !src/**/build/
+build/
+.gradle/
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -252,3 +254,15 @@ backend/user-service/.idea/jpa-buddy.xml
 backend/user-service/.idea/misc.xml
 backend/user-service/.idea/vcs.xml
 backend/user-service/.idea/workspace.xml
+backend/apigateway/.idea/compiler.xml
+backend/apigateway/.idea/gradle.xml
+backend/apigateway/.idea/jarRepositories.xml
+backend/apigateway/.idea/misc.xml
+backend/apigateway/.idea/vcs.xml
+backend/user-service/.gradle/file-system.probe
+backend/user-service/.gradle/7.4.1/executionHistory/executionHistory.bin
+backend/user-service/.gradle/7.4.1/executionHistory/executionHistory.lock
+backend/user-service/.gradle/7.4.1/fileHashes/fileHashes.bin
+backend/user-service/.gradle/7.4.1/fileHashes/fileHashes.lock
+backend/user-service/.gradle/7.4.1/fileHashes/resourceHashesCache.bin
+backend/user-service/.gradle/buildOutputCleanup/buildOutputCleanup.lock
