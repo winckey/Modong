@@ -1,12 +1,11 @@
 import React from 'react';
-import '../../style/_detailModal.scss'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import DetailModal from './DetailModal'
+import Modal from './MiniModal'
 
 
 export default function AddressModal() {
@@ -54,8 +53,8 @@ export default function AddressModal() {
             onClick={openModal}
             autoComplete="off"
           />
-          <DetailModal open={modalOpen}  close={closeModal} header="선택해주세요" addressList={addressList}>
-          </DetailModal>
+          <Modal open={modalOpen}  close={closeModal} header="선택해주세요" addressList={addressList}>
+          </Modal>
           
           <TextField
             margin="dense"

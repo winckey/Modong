@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../style/_detailModal.scss'
+import '../../style/_miniModal.scss'
 
 export default function DetailModal(props)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
@@ -20,5 +20,6 @@ export default function DetailModal(props)  {
         </section>
       ) : null}
     </div>
+       
   );
 };
