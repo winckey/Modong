@@ -3,7 +3,7 @@ server:
 #  port: ${random.int(50000,50001)}
 #  address: 61.253.156.192
   redis:
-    host: host.docker.interna
+    host: host.docker.internal
     port: 6379
 spring:
   application:
