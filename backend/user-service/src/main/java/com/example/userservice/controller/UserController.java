@@ -9,6 +9,7 @@ import com.example.userservice.vo.Greeting;
 import com.example.userservice.vo.ReponseLogin;
 import com.example.userservice.vo.RequestUser;
 import com.example.userservice.vo.ResponseUser;
+import io.micrometer.core.annotation.Timed;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
