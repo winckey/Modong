@@ -11,6 +11,8 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class RequestUser {
 
+    private Long id;
+
 
     @NotEmpty(message = "id입력 필수")
     @Schema(example = "test_id")

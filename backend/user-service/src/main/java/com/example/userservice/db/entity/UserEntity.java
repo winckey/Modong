@@ -1,5 +1,6 @@
 package com.example.userservice.db.entity;
 
+import com.example.userservice.vo.RequestUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -41,6 +42,17 @@ public class UserEntity {
     private String image;
 
     public UserEntity() {
+
+    }
+
+    public void changeUser(RequestUser requestUser) {
+
+        this.userId = requestUser.getUserId();
+        this.age = requestUser.getAge();
+        this.name = requestUser.getName();
+        this.nickname = requestUser.getNickname();
+        this.phone = requestUser.getPhone();
+
 
     }
 }

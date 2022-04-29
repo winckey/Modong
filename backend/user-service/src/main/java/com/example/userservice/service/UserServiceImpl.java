@@ -24,6 +24,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static com.example.userservice.util.ModelMapperUtils.getModelMapper;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -78,12 +80,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getUserDetailsByEmail(String email) {
         UserEntity userEntity = userRepository.findByUserId(email).orElseThrow(() -> new UsernameNotFoundException(email));
-
-        ModelMapper mapper = new ModelMapper();
-        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        //이거 커스텀해서 계속 사용할수 있는지 찾아보기
-
-        UserDto userDto = mapper.map(userEntity, UserDto.class);
+        UserDto userDto = getModelMapper().map(userEntity, UserDto.class);
         return userDto;
     }
 
@@ -114,6 +111,20 @@ public class UserServiceImpl implements UserService {
             return reissueRefreshToken(refreshToken, userEntity);
         }
         throw new IllegalArgumentException("토큰이 일치하지 않습니다.");
+    }
+
+    @Override
+    public UserDto modifyUser(Long userId , RequestUser requestUser) {
+
+        UserEntity userEntity = userRepository.findById(userId).get();
+
+        userEntity.changeUser(requestUser);
+
+        userRepository.save(userEntity);
+
+        UserDto userDto = getModelMapper().map(userEntity, UserDto.class);
+
+        return userDto;
     }
 
     private ReponseLogin reissueRefreshToken(String refreshToken, UserEntity userEntity) {

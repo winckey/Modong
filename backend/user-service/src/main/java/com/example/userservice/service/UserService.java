@@ -22,4 +22,6 @@ public interface UserService extends UserDetailsService {
     RefreshToken saveRefreshToken(String userName);
 
     ReponseLogin reissue(String refreshToken, RequestUser requestUser);
+
+    UserDto modifyUser(Long userId , RequestUser requestUser);
 }
