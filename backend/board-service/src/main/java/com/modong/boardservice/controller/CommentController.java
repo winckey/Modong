@@ -27,17 +27,18 @@ public class CommentController {
 
     //댓글 삭제
     @DeleteMapping
-    public ResponseEntity commentDelete(@RequestBody String a ) {
+    public ResponseEntity commentDelete(@RequestBody CommentRequest commentRequest ) {
 
-
+        commentService.deleteComment(commentRequest);
 
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 
     // 댓글 수정
     @PutMapping
-    public ResponseEntity commentUpdate( ) {
+    public ResponseEntity commentUpdate(@RequestBody CommentRequest commentRequest ) {
 
+        commentService.updateComment(commentRequest);
 
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }

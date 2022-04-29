@@ -52,10 +52,6 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Page<Board> boardListCalling(Pageable pageable) {
-
-
-        Page<Board> board =  boardRepository.findAllByDeletedIsFalse(pageable);
-
-        return board;
+        return boardRepository.findAllByDeletedIsFalse(pageable);
     }
 }

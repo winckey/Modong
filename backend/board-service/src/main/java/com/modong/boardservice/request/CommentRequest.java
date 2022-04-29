@@ -6,7 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CommentRequest {
-
+    
+    //댓글 번호
+    private  Long id;
+    
     //글 번호
     private Long boardId;
 

@@ -36,16 +36,27 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     public Comment deleteComment(CommentRequest commentRequest) {
-        return null;
+        Long id = commentRequest.getId();
+
+        Comment comment = commentRepository.getById(id);
+
+        comment.setDeleted(true);
+        return commentRepository.save(comment);
     }
 
     @Override
     public Comment updateComment(CommentRequest commentRequest) {
-        return null;
+        Long id = commentRequest.getId();
+
+        Comment comment = commentRepository.getById(id);
+
+        comment.setDescription(commentRequest.getDescription());
+
+        return commentRepository.save(comment);
     }
 
     @Override
     public Page<Comment> commentListCalling(Pageable pageable) {
-        return null;
+        return commentRepository.findAllByDeletedIsFalse(pageable);
     }
 }
