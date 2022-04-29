@@ -33,7 +33,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {// 권한부여 설정
         http.csrf().disable();
         http.authorizeRequests().antMatchers("/actuator/**").permitAll();
+        http.authorizeRequests().antMatchers("/swagger-ui/**", "/bus/v3/api-docs/**").permitAll();
         http.authorizeRequests().antMatchers("/**").permitAll()
+
 //                .hasIpAddress(env.getProperty("127.0.0.0")) // <- IP 변경
                 .and()
                 .addFilter(getAuthenticationFilter());
@@ -43,6 +45,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
         //h2-console접근을 위한 설정정
     }
+    @Override
+    public void configure(org.springframework.security.config.annotation.web.builders.WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/swagger-ui/**", "/v3/api-docs/**");
+    }
+
 
     @Override// 인증의 설정
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
