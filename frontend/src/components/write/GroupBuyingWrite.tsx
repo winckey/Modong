@@ -9,17 +9,17 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
 function GroupBuyingWrite() {
-    const [productName, setProductName] =useState("");
-    const [productURL, setProductURL] =useState("");
-    const [productCost, setProductCost] =useState("");
-    const [GroupBuyingTime, setGroupBuyingTime] = useState(null);
-    const handleURLchange= (e)=>{
+    const [productName, setProductName] =useState<string>("");
+    const [productURL, setProductURL] =useState<string>("");
+    const [productCost, setProductCost] =useState<string>("");
+    const [GroupBuyingTime, setGroupBuyingTime] = useState<Date>(null);
+    const handleURLchange= (e:React.ChangeEvent<HTMLTextAreaElement>)=>{
         setProductURL(e.target.value);
     }
-    const handleNamechange= (e)=>{
+    const handleNamechange= (e:React.ChangeEvent<HTMLTextAreaElement>)=>{
         setProductName(e.target.value);
     }
-    const handleCostchange= (e)=>{
+    const handleCostchange= (e:React.ChangeEvent<HTMLTextAreaElement>)=>{
         setProductCost(e.target.value);
     }
     return (
@@ -47,7 +47,6 @@ function GroupBuyingWrite() {
             />
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <TimePicker
-                    margin="normal"
                     label="마감시간"
                     value={GroupBuyingTime||null}
                     onChange={(newValue) => {

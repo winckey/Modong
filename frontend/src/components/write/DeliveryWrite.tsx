@@ -10,9 +10,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
 function DeliveryWrite() {
-    const[ deliveryURL, setDeliveryURL ] = useState("");
-    const[ deliveryTime, setDeliveryTime ] = useState(null);
-    const handleURLchange= (e)=>{
+    const[ deliveryURL, setDeliveryURL ] = useState<string>("");
+    const[ deliveryTime, setDeliveryTime ] = useState<Date>(null);
+    const handleURLchange= (e:React.ChangeEvent<HTMLTextAreaElement>)=>{
         setDeliveryURL(e.target.value);
     }
     const handleSubmit=()=>{
@@ -29,7 +29,6 @@ function DeliveryWrite() {
             />
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <TimePicker
-                    margin="normal"
                     label="마감시간"
                     value={deliveryTime||null}
                     onChange={(newValue) => {

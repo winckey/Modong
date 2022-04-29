@@ -1,10 +1,11 @@
 import React from 'react';
 
-import '../../style/_groupBuying.scss'
+import '../../style/_delivery.scss'
 
-const data = [{name:"갓김치 1KG", arrivepoint:"sk뷰 아파트 106동 1101호", lefttime:10}, {name:"여수밤밥", arrivepoint:"sk뷰 아파트 106동 1102호", lefttime:20}]
-function GroupBuying() {
-    const handleModalOpen = (data) =>{
+const data = [{name:"오나라식탁", arrivepoint:"sk뷰 아파트 106동 1101호", lefttime:10}, {name:"오나라2식탁", arrivepoint:"sk뷰 아파트 106동 1102호", lefttime:20}]
+
+function delivery() {
+    const handleModalOpen = (data:any) =>{
         alert(data)
     }
     return (
@@ -14,11 +15,11 @@ function GroupBuying() {
                     <div>{d.name}</div>
                     <div>{d.arrivepoint}</div>
                     <div>{d.lefttime}분 남았습니다.</div>
-                    <div onClick={()=>{handleModalOpen(data)}}>신청하기</div>
+                    <div onClick={()=>{handleModalOpen(d)}}>신청하기</div>
                 </div>
             ))}
         </div>
     );
 }
 
-export default GroupBuying;
+export default delivery;

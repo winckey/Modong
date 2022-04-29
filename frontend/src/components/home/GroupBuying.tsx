@@ -1,10 +1,10 @@
 import React from 'react';
 
-import '../../style/_delivery.scss'
+import '../../style/_groupBuying.scss'
 
-const data = [{name:"오나라식탁", arrivepoint:"sk뷰 아파트 106동 1101호", lefttime:10}, {name:"오나라2식탁", arrivepoint:"sk뷰 아파트 106동 1102호", lefttime:20}]
-function delivery() {
-    const handleModalOpen = (data) =>{
+const data = [{name:"갓김치 1KG", arrivepoint:"sk뷰 아파트 106동 1101호", lefttime:10}, {name:"여수밤밥", arrivepoint:"sk뷰 아파트 106동 1102호", lefttime:20}]
+function GroupBuying() {
+    const handleModalOpen = (data:any) =>{
         alert(data)
     }
     return (
@@ -21,4 +21,4 @@ function delivery() {
     );
 }
 
-export default delivery;
+export default GroupBuying;

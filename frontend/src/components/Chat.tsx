@@ -11,11 +11,11 @@ const handleExit=()=>{
   alert("삭제하시겠습니까?")
 }
 
-function Chat() {
+export default function Chat() {
   return (
     <div className='chatOutLine'>
         {data.map((d, index)=>(
-          <Link to='/chatdetail' className='chatCard'>
+          <Link key={index} to='/chatdetail' className='chatCard'>
             <div className='leftChattxt'>{d.chatName}</div>
             <FontAwesomeIcon onClick={handleExit} className='rightChatExitIcon' icon={faRightToBracket}/>
             {d.category == 1 && <FontAwesomeIcon className='leftChatDisplayIcon' icon={faBowlFood}/>}
@@ -26,5 +26,3 @@ function Chat() {
     </div>
   );
 }
-
-export default Chat;

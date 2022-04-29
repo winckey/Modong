@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import CommunityWrite from './write/CommunityWrite';
-import DeliveryWrite from './write/DeliveryWrite';
-import GroupBuyingWrite from './write/GroupBuyingWrite';
+import CommunityWrite from './write/CommunityWrite.tsx';
+import DeliveryWrite from './write/DeliveryWrite.tsx';
+import GroupBuyingWrite from './write/GroupBuyingWrite.tsx';
 
 import '../style/_write.scss'
 
@@ -11,8 +11,8 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 function Write() {
-  const [Wcategory, setWCategory]=useState(1);
-  const handleWcategory =(e) =>{
+  const [Wcategory, setWCategory]=useState<number>(1);
+  const handleWcategory =(e:any) =>{
     console.log(e.target.value)
     setWCategory(e.target.value);
   }

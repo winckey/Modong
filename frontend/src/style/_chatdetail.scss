@@ -1,5 +1,6 @@
 .chatDetailOutLine{
     height: 82vh;
+    width: 100%;
     background-color: #F5F5F5;
     position: relative;
 }
@@ -43,21 +44,20 @@
         }
     }
 }
-.chatinput{
+.replywrite{
     display: flex;
     justify-content: center;
-    position: absolute;
     background-color: #F5F5F5;
     width: 100%;
-    z-index: 10;
     padding-bottom: 15px;
-    padding-top: 5px;
-    bottom: 0;
+    padding-bottom: 5px;
+    margin-top: 15px;
+    margin-bottom: 10px;
     input{
         font-size: 18px;
         border: none;
         padding: 10px;
-        width: 370px;
+        width: 330px;
         margin-right: 10px;
         border-radius: 15px;
         box-shadow: 1px 1px 3px 1px #dadce0;

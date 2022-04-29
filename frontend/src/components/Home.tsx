@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import Delivery from './home/Delivery';
-import GroupBuying from './home/GroupBuying';
+import Delivery from './home/Delivery.tsx';
+import GroupBuying from './home/GroupBuying.tsx';
 
 import '../style/_home.scss'
 
@@ -11,9 +11,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 function Home() {
-  const [category, setCategory] = useState(1);
+  const [category, setCategory] = useState<number>(1);
 
-  const categoryChange = (catenum) =>{
+  const categoryChange = (catenum:number) =>{
     setCategory(catenum)
   }
   return (

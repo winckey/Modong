@@ -1,35 +1,37 @@
 import React, { useState } from 'react';
 
-import Community from './Community';
-import Chat from './Chat';
+import Community from './Community.tsx';
+import Chat from './Chat.tsx';
 import Mypage from './Mypage';
-import Home from './Home';
-import Write from './Write';
+import Home from './Home.tsx';
+import Write from './Write.tsx';
 import MyCommunityRecord from './mypage/MyCommunityRecord';
-import ChatDetail from './chat/ChatDetail';
+import ChatDetail from './chat/ChatDetail.tsx';
 import Profile from './mypage/Profile';
 import MyApplication from './mypage/MyApplication';
-import CommunityDetail from './community/CommunityDetail';
+import CommunityDetail from './community/CommunityDetail.tsx';
 import { Routes, Route , Link } from 'react-router-dom';
 
 import '../style/_nav.scss'
 
+import RootState from "../reducer/reducers.tsx"
+
 import { useSelector , useDispatch } from "react-redux";
-import actionCreators from '../actions/actionCreators';
+import actionCreators from '../actions/actionCreators.tsx';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faHouse, faList, faComment, faUser } from "@fortawesome/free-solid-svg-icons";
 
 function Nav() {
   const dispatch = useDispatch();
-  const [dongName, setDongName] = useState('구서동');
-  const handleDongname = (name) => {
+  const [dongName, setDongName] = useState<string>('구서동');
+  const handleDongname = (name:string) => {
     setDongName(name);
   }
-  const { footerSelected } = useSelector(state => ({
-    footerSelected : state.ischeck.data.footerSelected
-  }))
-  const setFooterSelected = (num) => {
+  const footerSelected = useSelector((state:RootState) => {
+    return state.ischeck.data.footerSelected
+  })
+  const setFooterSelected = (num:number) => {
     dispatch(actionCreators.setFooterSelected(num));
   }
   return (

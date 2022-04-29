@@ -4,7 +4,7 @@ const ischeck = (state = {
         isLogin : false,
         footerSelected : 5,
     }
-}, action) => {
+}, action:any) => {
     switch (action.type) {
         case "setIndex1":
             return {

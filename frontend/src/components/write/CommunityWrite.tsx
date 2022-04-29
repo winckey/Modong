@@ -1,11 +1,11 @@
-import { React, useState } from 'react';
+import  React,{ useState } from 'react';
 import { Link } from 'react-router-dom';
 import "../../style/_communityWrite.scss"
 
 function CommunityWrite() {
-    const [contents, setContnets] = useState("");
-    const handleContentsChange =(e) =>{
-        setContnets(e.target);
+    const [contents, setContnets] = useState<string>("");
+    const handleContentsChange =(e:React.ChangeEvent<HTMLTextAreaElement>) =>{
+        setContnets(e.target.value);
     }
     return (
         <div className='ccoutLine'>
