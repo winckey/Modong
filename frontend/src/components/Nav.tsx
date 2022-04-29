@@ -14,6 +14,8 @@ import { Routes, Route , Link } from 'react-router-dom';
 
 import '../style/_nav.scss'
 
+import Alarm from "./Alarm.tsx"
+
 import RootState from "../reducer/reducers.tsx"
 
 import { useSelector , useDispatch } from "react-redux";
@@ -25,21 +27,26 @@ import { faBell, faHouse, faList, faComment, faUser } from "@fortawesome/free-so
 function Nav() {
   const dispatch = useDispatch();
   const [dongName, setDongName] = useState<string>('구서동');
+  const [alarmOpen, setAlarmOpen] = useState<boolean>(false);
   const handleDongname = (name:string) => {
     setDongName(name);
   }
   const footerSelected = useSelector((state:RootState) => {
     return state.ischeck.data.footerSelected
   })
-  const setFooterSelected = (num:number) => {
+  const handlesetFooterSelected = (num:number) => {
     dispatch(actionCreators.setFooterSelected(num));
+  }
+  const handlealarmOpen = () => {
+    setAlarmOpen(!alarmOpen);
   }
   return (
     <div>
         <header>
           <p>{dongName}</p>
           <div>
-            <FontAwesomeIcon icon={faBell}/>
+            <FontAwesomeIcon onClick={()=>{handlealarmOpen()}} icon={faBell}/>
+            {alarmOpen && <Alarm/>}
             <div>
               <img src={ require('../assets/dd.png') } alt="사진"/>
             </div>
@@ -58,10 +65,10 @@ function Nav() {
             <Route path="/communitydetail" element={<CommunityDetail/>}/>
         </Routes>
         <footer>
-          <Link to="/" className={(footerSelected === 1 ? "footeractive":"nostyle")} onClick={()=>{setFooterSelected(1)}} ><FontAwesomeIcon icon={faHouse} className="icon" /><div>홈</div></Link>
-          <Link to="/community" className={(footerSelected === 2 ? "footeractive":"nostyle")} onClick={()=>{setFooterSelected(2)}}><FontAwesomeIcon icon={faList} className="icon" /><div>게시판</div></Link>
-          <Link to="/chat" className={(footerSelected === 3 ? "footeractive":"nostyle")} onClick={()=>{setFooterSelected(3)}}><FontAwesomeIcon icon={faComment} className="icon" /><div>채팅</div></Link>
-          <Link to="/mypage" className={(footerSelected === 4 ? "footeractive":"nostyle")} onClick={()=>{setFooterSelected(4)}}><FontAwesomeIcon icon={faUser} className="icon" /><div>내정보</div></Link>
+          <Link to="/" className={(footerSelected === 1 ? "footeractive":"nostyle")} onClick={()=>{handlesetFooterSelected(1)}} ><FontAwesomeIcon icon={faHouse} className="icon" /><div>홈</div></Link>
+          <Link to="/community" className={(footerSelected === 2 ? "footeractive":"nostyle")} onClick={()=>{handlesetFooterSelected(2)}}><FontAwesomeIcon icon={faList} className="icon" /><div>게시판</div></Link>
+          <Link to="/chat" className={(footerSelected === 3 ? "footeractive":"nostyle")} onClick={()=>{handlesetFooterSelected(3)}}><FontAwesomeIcon icon={faComment} className="icon" /><div>채팅</div></Link>
+          <Link to="/mypage" className={(footerSelected === 4 ? "footeractive":"nostyle")} onClick={()=>{handlesetFooterSelected(4)}}><FontAwesomeIcon icon={faUser} className="icon" /><div>내정보</div></Link>
         </footer>
     </div>
   );

@@ -1,4 +1,6 @@
 .myGroupBuyingInList{
+    overflow: auto;
+    height: 600px;
     >div{
         border-radius: 20px;
         display: flex;

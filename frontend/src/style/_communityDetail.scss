@@ -1,6 +1,8 @@
 .communityDetailOutLine{
     background-color: #F5F5F5;
     min-height: 82vh;
+    overflow: auto;
+    height: 600px;
     .userdiv{
         display: flex;
         padding: 15px;
