@@ -3,6 +3,8 @@ server:
 #  port: ${random.int(50000,50001)}
 #  address: 61.253.156.192
 
+
+
 spring:
   application:
     name: user-service
@@ -16,16 +18,16 @@ spring:
     password: guest
 
   datasource:
-    url: jdbc:mysql://k6e102.p.ssafy.io:3306/modong?serverTimezone=UTC&characterEncoding=UTF-8
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      username: root
-      password: plainYorgurt%
-#    url: jdbc:mysql://localhost:3306/msa_db?serverTimezone=UTC&characterEncoding=UTF-8
+#    url: jdbc:mysql://k6e102.p.ssafy.io:3306/modong?serverTimezone=UTC&characterEncoding=UTF-8
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 #    hikari:
 #      username: root
-#      password: admin
+#      password: plainYorgurt%
+    url: jdbc:mysql://localhost:3306/msa_db?serverTimezone=UTC&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      username: root
+      password: admin
   jpa:
     hibernate:
       ddl-auto: update
