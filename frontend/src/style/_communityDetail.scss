@@ -1,0 +1,102 @@
+.communityDetailOutLine{
+    background-color: #F5F5F5;
+    .userdiv{
+        display: flex;
+        padding: 15px;
+        border-bottom: 1px solid black;
+        >div:nth-child(1){
+            overflow: hidden;
+            height: 50px;
+            width: 50px;
+            border-radius: 30px;
+            position: relative;
+            img{
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                top:0;
+                left:0;
+            }
+        }
+        >div:nth-child(2){
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-left: 15px;
+            div{
+                text-align: start;
+            }
+            >div:nth-child(1){
+                font-size: 22px;
+            }
+            >div:nth-child(2){
+                font-size: 16px;
+            }
+        }
+    }
+    .contentsdiv{
+        display: flex;
+        text-decoration: none;
+        color: black;
+        flex-direction: column;
+        margin-top: 5px;
+        padding: 5px;
+        margin-bottom: 7px;
+        border-bottom: 1px solid black;
+        >div{
+            padding: 10px 20px 10px 20px;
+            box-sizing: border-box;
+            width: 100%;
+            text-align: start;
+        }
+        >div:first-child{
+            font-size: 24px;
+            min-height: 200px;
+        }
+        >div:nth-child(2){
+            text-align: end;
+            padding-bottom: 0;
+        }
+        >div:nth-child(3){
+            padding-top: 0;
+            color:#C4C4C4;
+        }
+    }
+    .userdiv2{
+        display: flex;
+        padding: 15px;
+        >div:nth-child(1){
+            overflow: hidden;
+            height: 30px;
+            width: 30px;
+            border-radius: 20px;
+            position: relative;
+            img{
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                top:0;
+                left:0;
+            }
+        }
+        >div:nth-child(2){
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-left: 15px;
+            div{
+                text-align: start;
+            }
+            >div:nth-child(1){
+                font-size: 16px;
+            }
+            >div:nth-child(2){
+                font-size: 12px;
+            }
+            >div:nth-child(3){
+                margin-top: 10px;
+                font-size: 22px;
+            }
+        }
+    }
+}

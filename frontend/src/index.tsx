@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './style/_index.scss';
-import App from './App';
+import App from './App.tsx';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-import reducers from "./reducer/reducers";
+import reducers from "./reducer/reducers.tsx";
 
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore } from "redux"; 

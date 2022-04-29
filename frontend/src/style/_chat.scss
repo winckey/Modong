@@ -1,0 +1,42 @@
+.chatOutLine{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    .chatCard{
+        border-radius: 15px;
+        background-color: #F5F5F5;
+        width: 90%;
+        height: 150px;
+        margin: 10px;
+        position: relative;
+        text-decoration: none;
+        color: black;
+        overflow: hidden;
+        box-shadow: 1px 1px 3px 1px #dadce0;
+        .leftChattxt{
+            font-size: 22px;
+            position: absolute;
+            left:20px;
+            top:10px;
+        }
+        .rightChattxt{
+            font-size: 16px;
+            position: absolute;
+            right:20px;
+            bottom:10px;
+        }
+        .rightChatExitIcon{
+            font-size: 24px;
+            right:14px;
+            top:14px;
+            position: absolute;
+        }
+        .leftChatDisplayIcon{
+            font-size: 90px;
+            left:-20px;
+            bottom:-14px;
+            position: absolute;
+            color:#9AD4E4;
+        }
+    }
+}
