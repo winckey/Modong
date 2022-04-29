@@ -48,6 +48,15 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(org.springframework.security.config.annotation.web.builders.WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/swagger-ui/**", "/v3/api-docs/**");
+        web.ignoring().antMatchers("/swagger-ui.html/**", "/v3/api-docs/**");
+        web.ignoring().antMatchers("/modong.html/**", "/v3/api-docs/**");
+        web.ignoring().antMatchers("/user-service/swagger-ui/**", "/user-service/v3/api-docs/**");
+        web.ignoring().antMatchers("/user-service/modong.html/**", "/user-service/v3/api-docs/**");
+        web.ignoring().antMatchers("/user-service/swagger-ui.html/**", "/user-service/v3/api-docs/**");
+        web.ignoring().antMatchers("/swagger.json");
+        web.ignoring().antMatchers("/swagger-ui/**");
+        web.ignoring().antMatchers("/swagger-resources/**");
+        web.ignoring().antMatchers("/webjars/**");
     }
 
 
