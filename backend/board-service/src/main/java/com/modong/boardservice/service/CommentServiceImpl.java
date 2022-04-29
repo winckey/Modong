@@ -56,7 +56,7 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public Page<Comment> commentListCalling(Pageable pageable) {
-        return commentRepository.findAllByDeletedIsFalse(pageable);
+    public Page<Comment> commentListCalling(Long id, Pageable pageable) {
+        return commentRepository.findAllByDeletedIsFalseAndBoard_Id(id, pageable);
     }
 }

@@ -11,5 +11,5 @@ public interface CommentService {
     Comment deleteComment(CommentRequest commentRequest);
     Comment updateComment(CommentRequest commentRequest);
 
-    Page<Comment> commentListCalling(Pageable pageable);
+    Page<Comment> commentListCalling(Long id, Pageable pageable);
 }
