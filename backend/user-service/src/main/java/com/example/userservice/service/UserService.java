@@ -11,7 +11,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface UserService extends UserDetailsService {
     UserDto createUser(RequestUser userDto);
 
-    UserDto getUserByUserId(String userId);
+
+
+    UserDto getUserByUserId(Long userId);
 
     Iterable<UserEntity> getUserByAll();
 

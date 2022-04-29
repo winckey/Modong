@@ -60,24 +60,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getUserByUserId(String userId) {
+    public UserDto getUserByUserId(Long userId) {
 
-        UserEntity userEntity = userRepository.findByUserId(userId)
+        UserEntity userEntity = userRepository.findById(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
-
-        /* Using as rest template */
-//        String orderUrl = String.format(env.getProperty("order_service.url"), userId);
-//        ResponseEntity<List<ResponseOrder>> orderListResponse =
-//                restTemplate.exchange(orderUrl, HttpMethod.GET, null,
-//                                            new ParameterizedTypeReference<List<ResponseOrder>>() {
-//                });
-//        List<ResponseOrder> ordersList = orderListResponse.getBody();
-
-        /* Using a feign client */
-        /* Feign exception handling */
-//        List<ResponseOrder> ordersList = orderServiceClient.getOrders(userId);
 
         return userDto;
     }
