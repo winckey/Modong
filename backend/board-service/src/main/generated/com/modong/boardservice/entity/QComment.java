@@ -22,17 +22,21 @@ public class QComment extends EntityPathBase<Comment> {
 
     public static final QComment comment = new QComment("comment");
 
+    public final QBaseEntity _super = new QBaseEntity(this);
+
     public final QBoard board;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> dateCreated = _super.dateCreated;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> dateLastUpdated = _super.dateLastUpdated;
 
     public final BooleanPath deleted = createBoolean("deleted");
 
     public final StringPath description = createString("description");
 
-    public final NumberPath<Integer> groupNum = createNumber("groupNum", Integer.class);
-
     public final NumberPath<Long> id = createNumber("id", Long.class);
-
-    public final NumberPath<Integer> layer = createNumber("layer", Integer.class);
 
     public final NumberPath<Long> userId = createNumber("userId", Long.class);
 

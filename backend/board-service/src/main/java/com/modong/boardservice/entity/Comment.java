@@ -9,7 +9,7 @@ import javax.persistence.*;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Comment implements Comparable<Comment> {
+public class Comment extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,27 +24,10 @@ public class Comment implements Comparable<Comment> {
     private String description;
 
     @Column(nullable = false)
-    private int groupNum;
-
-    @Column(nullable = false)
-    private int layer;
-
-    @Column(nullable = false)
     private boolean deleted;
 
 
     @Column(nullable = false)
     private Long userId;
 
-    @Override
-    public int compareTo(Comment other) {
-
-        if (this.groupNum != other.groupNum)
-            return this.groupNum - other.groupNum;
-
-        if (this.layer != other.layer)
-            return this.layer - other.layer;
-
-        return (int) (this.id - other.id);
-    }
 }
