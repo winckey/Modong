@@ -1,35 +1,26 @@
 package com.example.userservice.vo;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-@Getter
-@Setter
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Data
 public class RequestUser {
+    @NotNull(message = "Email cannot be null")
+    @Size(min = 2, message = "Email not be less than two characters")
+    @Email
+    private String email;
 
-    private Long id;
-
-    private String userId;
-
-    private String userPw;
-
-    private int age;
-
-    private String date_create;
-
-    private String date_withdraw;
-
+    @NotNull(message = "Name cannot be null")
+    @Size(min = 2, message = "Name not be less than two characters")
     private String name;
 
-    private String nickname;
-
-    private String phone;
-
-    private boolean deleted;
-
-    private boolean banned;
-
-    private String image;
-
-
+    @NotNull(message = "Password cannot be null")
+    @Size(min = 8, message = "Password must be equal or grater than 8 characters")
+    private String pwd;
 }

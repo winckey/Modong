@@ -21,7 +21,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -44,14 +43,11 @@ public class UserServiceImpl implements UserService {
         //     UserEntity userEntity = modelMapper.map(userDto, UserEntity.class);
 
         UserEntity userEntity = UserEntity.builder()
-                .userId(requestUser.getUserId())
+                .userId(UUID.randomUUID().toString())
+                .email(requestUser.getEmail())
                 .name(requestUser.getName())
-                .nickname(requestUser.getNickname())
-                .userPwEn(bCryptPasswordEncoder.encode(requestUser.getUserPw()))
-                .date_create(LocalDateTime.now())
-                .age(requestUser.getAge())
-                .phone(requestUser.getPhone())
-                .build();
+                .encryptedPwd(bCryptPasswordEncoder.encode(requestUser.getPwd())).build();
+
 
         userRepository.save(userEntity);
 
@@ -89,7 +85,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserDetailsByEmail(String email) {
-        UserEntity userEntity = userRepository.findByUserId(email).orElseThrow(() -> new UsernameNotFoundException(email));
+        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email));
 
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -102,12 +98,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.findByUserId(username).orElseThrow(() -> new UsernameNotFoundException("user not found"));
+        UserEntity userEntity = userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("user not found"));
 
 
-        return new User(userEntity.getUserId(), userEntity.getUserPwEn(),
+        return new User(userEntity.getEmail(), userEntity.getEncryptedPwd(),
                 true, true, true, true,
                 new ArrayList<>());
+//        public User(String username, String password, boolean enabled, boolean accountNonExpired,
+//        boolean credentialsNonExpired, boolean accountNonLocked,
+//        Collection<? extends GrantedAuthority> authorities) {
+//            Assert.isTrue(username != null && !"".equals(username) && password != null,
+//                    "Cannot pass null or empty values to constructor");
+//            this.username = username;
+//            this.password = password;
+//            this.enabled = enabled;
+//            this.accountNonExpired = accountNonExpired;
+//            this.credentialsNonExpired = credentialsNonExpired;
+//            this.accountNonLocked = accountNonLocked;
+//            this.authorities = Collections.unmodifiableSet(sortAuthorities(authorities));
 //        }
     }
 
@@ -119,8 +127,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ReponseLogin reissue(String refreshToken, RequestUser requestUser) {
-        UserEntity userEntity = userRepository.findByUserId(requestUser.getUserId()).get();
-        RefreshToken redisRefreshToken = refreshTokenRedisRepository.findById(userEntity.getUserId()).orElseThrow(NoSuchElementException::new);
+        UserEntity userEntity = userRepository.findByEmail(requestUser.getEmail()).get();
+        RefreshToken redisRefreshToken = refreshTokenRedisRepository.findById(userEntity.getEmail()).orElseThrow(NoSuchElementException::new);
 
         if (refreshToken.equals(redisRefreshToken.getRefreshToken())) {
             return reissueRefreshToken(refreshToken, userEntity);

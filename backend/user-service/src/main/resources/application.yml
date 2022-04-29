@@ -16,16 +16,12 @@ spring:
     password: guest
 
   datasource:
-#    url: jdbc:mysql://k6e102.p.ssafy.io:3306/modong?serverTimezone=UTC&characterEncoding=UTF-8
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    hikari:
-#      username: root
-#      password: plainYorgurt%
-    url: jdbc:mysql://localhost:3306/msa_db?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://k6e102.p.ssafy.io:3306/modong?serverTimezone=UTC&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       username: root
-      password: admin
+      password: plainYorgurt%
+
   jpa:
     hibernate:
       ddl-auto: update
