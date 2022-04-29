@@ -4,19 +4,19 @@ header{
     align-items: center;
     border-bottom: 1px solid #C4C4C4;
     padding: 15px;
-    p{
+    >p{
         font-size: 23px;
         margin: 0;
     }
-    div{
+    >div{
         display: flex;
         align-items: center;
-        svg{
+        >svg{
             margin-right: 15px;
             font-size: 25px;
             color: #FCE832;
         }
-        div{
+        >div{
             overflow: hidden;
             height: 40px;
             width: 40px;
@@ -29,13 +29,13 @@ footer{
     position: absolute;
     bottom: 0;
     width: 100%;
-    a{
+    >a{
         text-decoration: none;
         color: black; 
         padding: 15px;
         width: 25%;
         border-top: 1px solid #C4C4C4;
-        svg{
+        >svg{
             font-size: 25px;
         }
     }

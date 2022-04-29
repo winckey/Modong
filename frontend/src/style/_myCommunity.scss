@@ -1,4 +1,4 @@
-.deliveryinList{
+.myCommunity{
     >div{
         border-radius: 20px;
         display: flex;
@@ -16,18 +16,14 @@
         >div:nth-child(1){
             align-self: flex-start;
             font-size: 20px;
-            min-height: 50px;
+            margin-bottom: 30px;
         }
         >div:nth-child(2){
             align-self: flex-end;
-            word-break: break-all;
-            margin: 2px 15px 2px 15px;
         }
         >div:nth-child(3){
-            align-self: flex-end;
-            margin: 2px 15px 2px 15px;
-        }
-        >div:nth-child(4){
+            display: flex;
+            justify-content: space-around;
             align-self: center;
             background-color: #3684F1;
             width: 100%;
@@ -38,7 +34,4 @@
             margin: 2px 15px 0px 15px;
         }
     }
-}
-.shadow{
-    box-shadow: 1px 1px 3px 1px #dadce0;
 }

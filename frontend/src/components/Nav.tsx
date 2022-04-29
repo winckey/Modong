@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 
 import Community from './Community.tsx';
 import Chat from './Chat.tsx';
-import Mypage from './Mypage';
+import Mypage from './Mypage.tsx';
 import Home from './Home.tsx';
 import Write from './Write.tsx';
-import MyCommunityRecord from './mypage/MyCommunityRecord';
+import MyCommunityRecord from './mypage/MyCommunityRecord.tsx';
 import ChatDetail from './chat/ChatDetail.tsx';
 import Profile from './mypage/Profile';
-import MyApplication from './mypage/MyApplication';
+import MyApplication from './mypage/MyApplication.tsx';
 import CommunityDetail from './community/CommunityDetail.tsx';
 import { Routes, Route , Link } from 'react-router-dom';
 
