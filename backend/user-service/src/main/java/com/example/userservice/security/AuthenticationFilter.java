@@ -51,8 +51,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
             return getAuthenticationManager().authenticate(
                     new UsernamePasswordAuthenticationToken(/// authenticate 에 넣기 위한 변환 과정UsernamePasswordAuthenticationToken
-                            creds.getEmail(),
-                            creds.getPassword(),
+                            creds.getUserId(),
+                            creds.getUserPw(),
                             new ArrayList<>()
                     )
             );

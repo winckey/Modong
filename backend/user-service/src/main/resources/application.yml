@@ -21,7 +21,11 @@ spring:
     hikari:
       username: root
       password: plainYorgurt%
-
+#    url: jdbc:mysql://localhost:3306/msa_db?serverTimezone=UTC&characterEncoding=UTF-8
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    hikari:
+#      username: root
+#      password: admin
   jpa:
     hibernate:
       ddl-auto: update
