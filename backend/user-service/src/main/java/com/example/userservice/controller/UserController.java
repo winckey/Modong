@@ -67,7 +67,7 @@ public class UserController {
     }
 
 
-    @PostMapping("/users")
+    @PostMapping("/register")
     @Operation(summary = "회원 가입", description  = "<strong>아이디와 패스워드</strong>를 통해 회원가입 한다.")
     public ResponseEntity<ResponseUser> createUser(@RequestBody RequestUser user) {
         ModelMapper mapper = new ModelMapper();
@@ -79,7 +79,7 @@ public class UserController {
     }
 
     
-    @GetMapping("/users/{userId}")
+    @GetMapping("{userId}")
     @Operation(summary = "정보 조회", description  = "유저id로 정보 조회")
     public ResponseEntity<ResponseUser> getUser(@PathVariable("userId") Long userId) {
         UserDto userDto = userService.getUserByUserId(userId);
@@ -87,6 +87,14 @@ public class UserController {
         ResponseUser returnValue = new ModelMapper().map(userDto, ResponseUser.class);
 
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
+    }
+
+    @PutMapping("/")
+    @Operation(summary = "정보 수정", description  = "유저id로 정보 수정")
+    public ResponseEntity<UserDto> modifyUser(@Valid @RequestBody RequestUser requestUser) {
+        UserDto userDto = userService.modifyUser(requestUser.getId() , requestUser);
+
+        return ResponseEntity.status(HttpStatus.OK).body(userDto);
     }
 
     @PostMapping("/reissue")
