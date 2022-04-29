@@ -97,6 +97,15 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userDto);
     }
 
+    @DeleteMapping("/")
+    @Operation(summary = "유저 임시 탈퇴", description  = "유저 임시 탈퇴")
+    public ResponseEntity deleteUser(@Valid @RequestBody Long id) {
+        userService.deleteUser(id);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+
     @PostMapping("/reissue")
     public ResponseEntity<ReponseLogin> reissue(@RequestHeader("RefreshToken") String refreshToken, @Valid @RequestBody RequestUser requestUser) {
 

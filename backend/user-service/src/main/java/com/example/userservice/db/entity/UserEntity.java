@@ -55,4 +55,8 @@ public class UserEntity {
 
 
     }
+
+    public void deleteUser() {
+        this.deleted = true;
+    }
 }

@@ -24,4 +24,6 @@ public interface UserService extends UserDetailsService {
     ReponseLogin reissue(String refreshToken, RequestUser requestUser);
 
     UserDto modifyUser(Long userId , RequestUser requestUser);
+
+    void deleteUser(Long id);
 }

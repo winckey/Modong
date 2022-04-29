@@ -67,6 +67,10 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = userRepository.findById(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
+        if(userEntity.isDeleted())
+            new UsernameNotFoundException("User not found");
+
+
         UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
 
         return userDto;
@@ -125,6 +129,15 @@ public class UserServiceImpl implements UserService {
         UserDto userDto = getModelMapper().map(userEntity, UserDto.class);
 
         return userDto;
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        UserEntity userEntity = userRepository.findById(id).get();
+
+        userEntity.deleteUser();
+
+        userRepository.save(userEntity);
     }
 
     private ReponseLogin reissueRefreshToken(String refreshToken, UserEntity userEntity) {
