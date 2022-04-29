@@ -10,6 +10,6 @@ import java.util.List;
 public class ResponseUser {
     private String userId;
     private String name;
-    private String id;
+    private Long id;
 
 }
