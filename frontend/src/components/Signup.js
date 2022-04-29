@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from "axios";
-import Modal from './modal/AddressModal'
+import Modal from './modal/_AddressModal.tsx'
 
 const theme = createTheme();
 
