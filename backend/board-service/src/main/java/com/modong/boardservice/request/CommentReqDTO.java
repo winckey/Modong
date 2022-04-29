@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CommentRequest {
+public class CommentReqDTO {
     
     //댓글 번호
     private  Long id;
