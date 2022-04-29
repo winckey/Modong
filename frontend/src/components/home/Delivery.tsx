@@ -22,7 +22,7 @@ function Delivery() {
    
     return (
         <div>
-            <div className='inList'>
+            <div className='deliveryinList'>
                 {data.map((d, index) =>(
                     <div className='shadow' key={index}>
                         <div>{d.name}</div>

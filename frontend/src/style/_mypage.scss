@@ -1,0 +1,13 @@
+.mypageOutLine{
+    display: flex;
+    flex-direction: column;
+    >a{
+        text-decoration: none;
+        text-align: start;
+        font-size: 22px;
+        border-bottom: 1px solid #C4C4C4;
+        padding: 20px;
+        font-weight: bolder;
+        color:black;
+    }
+}
