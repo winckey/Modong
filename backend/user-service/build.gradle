@@ -88,7 +88,8 @@ dependencies {
     // 2.6 버전에서는 이거 쓰기
     implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.8'
 
-
+    // prometheus 추가
+    implementation 'io.micrometer:micrometer-registry-prometheus:1.0.0-rc.1'
 }
 
 dependencyManagement {
