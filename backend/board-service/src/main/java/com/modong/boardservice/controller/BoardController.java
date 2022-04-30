@@ -1,8 +1,11 @@
 package com.modong.boardservice.controller;
 
 
-import com.modong.boardservice.request.BoardRequest;
+import com.modong.boardservice.request.BoardReqDTO;
+import com.modong.boardservice.response.BoardResDTO;
+import com.modong.boardservice.response.CommentResDTO;
 import com.modong.boardservice.service.BoardService;
+import com.modong.boardservice.service.CommentService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 
 @Api(value = "게시판 api", tags = {"board"})
@@ -20,31 +24,34 @@ public class BoardController {
     @Autowired
     BoardService boardService;
 
+    @Autowired
+    CommentService commentService;
+
     //글 등록
     @PostMapping
-    public ResponseEntity boardCreate(@RequestBody BoardRequest boardRequest) {
+    public ResponseEntity boardCreate(@RequestBody BoardReqDTO boardReqDTO) {
 
 
-        boardService.createBoard(boardRequest);
+        boardService.createBoard(boardReqDTO);
 
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 
     //글 삭제
     @DeleteMapping
-    public ResponseEntity boardDelete(@RequestBody BoardRequest boardRequest) {
+    public ResponseEntity boardDelete(@RequestBody BoardReqDTO boardReqDTO) {
 
 
-        boardService.deleteBoard(boardRequest);
+        boardService.deleteBoard(boardReqDTO);
 
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 
     // 글 수정
     @PutMapping
-    public ResponseEntity boardUpdate(@RequestBody BoardRequest boardRequest) {
+    public ResponseEntity boardUpdate(@RequestBody BoardReqDTO boardReqDTO) {
 
-        boardService.updateBoard(boardRequest);
+        boardService.updateBoard(boardReqDTO);
 
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
@@ -54,15 +61,13 @@ public class BoardController {
     public ResponseEntity boardList(@PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 
-        return new ResponseEntity<>(boardService.boardListCalling(pageable), HttpStatus.OK);
+        return new ResponseEntity<>(BoardResDTO.of(boardService.boardListCalling(pageable)), HttpStatus.OK);
     }
 
     //상세 조회
     @GetMapping("/{boardId}")
-    public ResponseEntity boardRead(@PathVariable String boardId) {
-
-
-        return new ResponseEntity<>("Success", HttpStatus.OK);
+    public ResponseEntity boardRead(@PathVariable Long boardId, @PageableDefault(page = 0, size = 10) Pageable pageable) {
+        return new ResponseEntity<>(CommentResDTO.of(commentService.commentListCalling(boardId, pageable)), HttpStatus.OK);
     }
 
 }

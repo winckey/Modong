@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BoardRequest {
+public class BoardReqDTO {
     //글 번호
     private Long id;
 

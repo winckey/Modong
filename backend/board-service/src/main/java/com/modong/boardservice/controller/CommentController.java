@@ -1,7 +1,7 @@
 package com.modong.boardservice.controller;
 
 
-import com.modong.boardservice.request.CommentRequest;
+import com.modong.boardservice.request.CommentReqDTO;
 import com.modong.boardservice.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,28 +17,28 @@ public class CommentController {
 
     //댓글 등록
     @PostMapping
-    public ResponseEntity commentCreate(@RequestBody CommentRequest commentRequest) {
+    public ResponseEntity commentCreate(@RequestBody CommentReqDTO commentReqDTO) {
 
 
-        commentService.createComment(commentRequest);
+        commentService.createComment(commentReqDTO);
 
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 
     //댓글 삭제
     @DeleteMapping
-    public ResponseEntity commentDelete(@RequestBody CommentRequest commentRequest ) {
+    public ResponseEntity commentDelete(@RequestBody CommentReqDTO commentReqDTO ) {
 
-        commentService.deleteComment(commentRequest);
+        commentService.deleteComment(commentReqDTO);
 
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 
     // 댓글 수정
     @PutMapping
-    public ResponseEntity commentUpdate(@RequestBody CommentRequest commentRequest ) {
+    public ResponseEntity commentUpdate(@RequestBody CommentReqDTO commentReqDTO ) {
 
-        commentService.updateComment(commentRequest);
+        commentService.updateComment(commentReqDTO);
 
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }

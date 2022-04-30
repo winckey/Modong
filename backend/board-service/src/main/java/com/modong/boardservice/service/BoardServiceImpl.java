@@ -2,7 +2,7 @@ package com.modong.boardservice.service;
 
 import com.modong.boardservice.entity.Board;
 import com.modong.boardservice.repository.BoardRepository;
-import com.modong.boardservice.request.BoardRequest;
+import com.modong.boardservice.request.BoardReqDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,19 +17,19 @@ public class BoardServiceImpl implements BoardService {
     BoardRepository boardRepository;
 
     @Override
-    public Board createBoard(BoardRequest boardRequest) {
+    public Board createBoard(BoardReqDTO boardReqDTO) {
 
         Board board = Board.builder()
-                .description(boardRequest.getDescription())
-                .userId(boardRequest.getUserId())
+                .description(boardReqDTO.getDescription())
+                .userId(boardReqDTO.getUserId())
                 .build();
 
         return boardRepository.save(board);
     }
 
     @Override
-    public Board deleteBoard(BoardRequest boardRequest) {
-        Long id = boardRequest.getId();
+    public Board deleteBoard(BoardReqDTO boardReqDTO) {
+        Long id = boardReqDTO.getId();
 
         Board board = boardRepository.getById(id);
 
@@ -39,12 +39,12 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Board updateBoard(BoardRequest boardRequest) {
-        Long id = boardRequest.getId();
+    public Board updateBoard(BoardReqDTO boardReqDTO) {
+        Long id = boardReqDTO.getId();
 
         Board board = boardRepository.getById(id);
 
-        board.setDescription(boardRequest.getDescription());
+        board.setDescription(boardReqDTO.getDescription());
 
         return boardRepository.save(board);
 

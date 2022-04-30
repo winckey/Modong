@@ -4,7 +4,7 @@ import com.modong.boardservice.entity.Board;
 import com.modong.boardservice.entity.Comment;
 import com.modong.boardservice.repository.BoardRepository;
 import com.modong.boardservice.repository.CommentRepository;
-import com.modong.boardservice.request.CommentRequest;
+import com.modong.boardservice.request.CommentReqDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,12 +21,12 @@ public class CommentServiceImpl implements CommentService{
     CommentRepository commentRepository;
 
     @Override
-    public Comment createComment(CommentRequest commentRequest) {
-        Board board = boardRepository.getById(commentRequest.getBoardId());
+    public Comment createComment(CommentReqDTO commentReqDTO) {
+        Board board = boardRepository.getById(commentReqDTO.getBoardId());
 
         Comment comment = Comment.builder()
-                .description(commentRequest.getDescription())
-                .userId(commentRequest.getUserId())
+                .description(commentReqDTO.getDescription())
+                .userId(commentReqDTO.getUserId())
                 .board(board)
                 .build();
 
@@ -35,8 +35,8 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public Comment deleteComment(CommentRequest commentRequest) {
-        Long id = commentRequest.getId();
+    public Comment deleteComment(CommentReqDTO commentReqDTO) {
+        Long id = commentReqDTO.getId();
 
         Comment comment = commentRepository.getById(id);
 
@@ -45,18 +45,18 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public Comment updateComment(CommentRequest commentRequest) {
-        Long id = commentRequest.getId();
+    public Comment updateComment(CommentReqDTO commentReqDTO) {
+        Long id = commentReqDTO.getId();
 
         Comment comment = commentRepository.getById(id);
 
-        comment.setDescription(commentRequest.getDescription());
+        comment.setDescription(commentReqDTO.getDescription());
 
         return commentRepository.save(comment);
     }
 
     @Override
-    public Page<Comment> commentListCalling(Pageable pageable) {
-        return commentRepository.findAllByDeletedIsFalse(pageable);
+    public Page<Comment> commentListCalling(Long id, Pageable pageable) {
+        return commentRepository.findAllByDeletedIsFalseAndBoard_Id(id, pageable);
     }
 }

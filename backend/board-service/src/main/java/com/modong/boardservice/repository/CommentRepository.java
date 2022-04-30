@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CommentRepository extends JpaRepository<Comment, Long > {
 
-    Page<Comment> findAllByDeletedIsFalse(Pageable pageable);
+    Page<Comment> findAllByDeletedIsFalseAndBoard_Id(Long id, Pageable pageable);
 
 }
