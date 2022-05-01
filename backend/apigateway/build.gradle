@@ -50,7 +50,7 @@ dependencies {
 
     
     // prometheus 추가
-    implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.0.0-rc.1'
+    implementation 'io.micrometer:micrometer-registry-prometheus'
 }
 
 dependencyManagement {
