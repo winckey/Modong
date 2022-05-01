@@ -10,6 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn
 @Entity
 public class Board extends BaseEntity {
 
@@ -25,6 +26,13 @@ public class Board extends BaseEntity {
 
     @Column(nullable = false)
     private Long userId;
+
+    public Board(String description, Long userId) {
+        this.description = description;
+        this.userId = userId;
+        this.deleted = false;
+    }
+
 
     @PrePersist
     public void prePersist() {

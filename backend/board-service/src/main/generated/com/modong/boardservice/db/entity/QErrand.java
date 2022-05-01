@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -18,13 +17,9 @@ public class QErrand extends EntityPathBase<Errand> {
 
     private static final long serialVersionUID = 92007665L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QErrand errand = new QErrand("errand");
 
     public final QBoard _super = new QBoard(this);
-
-    public final QBoard board;
 
     public final StringPath category = createString("category");
 
@@ -47,24 +42,15 @@ public class QErrand extends EntityPathBase<Errand> {
     public final NumberPath<Long> userId = _super.userId;
 
     public QErrand(String variable) {
-        this(Errand.class, forVariable(variable), INITS);
+        super(Errand.class, forVariable(variable));
     }
 
     public QErrand(Path<? extends Errand> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QErrand(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QErrand(PathMetadata metadata, PathInits inits) {
-        this(Errand.class, metadata, inits);
-    }
-
-    public QErrand(Class<? extends Errand> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.board = inits.isInitialized("board") ? new QBoard(forProperty("board")) : null;
+        super(Errand.class, metadata);
     }
 
 }
