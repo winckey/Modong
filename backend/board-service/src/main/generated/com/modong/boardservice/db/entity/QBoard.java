@@ -1,4 +1,4 @@
-package com.modong.boardservice.entity;
+package com.modong.boardservice.db.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -15,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QBoard extends EntityPathBase<Board> {
 
-    private static final long serialVersionUID = 668172927L;
+    private static final long serialVersionUID = 1108470887L;
 
     public static final QBoard board = new QBoard("board");
 

@@ -1,4 +1,4 @@
-package com.modong.boardservice.entity;
+package com.modong.boardservice.db.entity;
 
 import lombok.*;
 
@@ -9,26 +9,25 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Inheritance(strategy = InheritanceType.JOINED)
 @Entity
-public class Comment extends BaseEntity {
+public class Board extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id", referencedColumnName = "id", nullable = false)
-    private Board board;
-
-
     @Column(nullable = false)
     private String description;
 
     @Column(nullable = false)
-    private boolean deleted;
-
+    private Boolean deleted;
 
     @Column(nullable = false)
     private Long userId;
 
+    @PrePersist
+    public void prePersist() {
+        this.deleted = this.deleted != null && this.deleted;
+    }
 }

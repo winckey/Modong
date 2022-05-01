@@ -1,4 +1,4 @@
-package com.modong.boardservice.entity;
+package com.modong.boardservice.db.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -11,16 +11,16 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QDelivery is a Querydsl query type for Delivery
+ * QGroupPurchase is a Querydsl query type for GroupPurchase
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QDelivery extends EntityPathBase<Delivery> {
+public class QGroupPurchase extends EntityPathBase<GroupPurchase> {
 
-    private static final long serialVersionUID = 1874015675L;
+    private static final long serialVersionUID = 2129222945L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QDelivery delivery = new QDelivery("delivery");
+    public static final QGroupPurchase groupPurchase = new QGroupPurchase("groupPurchase");
 
     public final QBoard _super = new QBoard(this);
 
@@ -42,34 +42,34 @@ public class QDelivery extends EntityPathBase<Delivery> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final NumberPath<Integer> minPrice = createNumber("minPrice", Integer.class);
+    public final NumberPath<Integer> maxPeopleNum = createNumber("maxPeopleNum", Integer.class);
+
+    public final NumberPath<Integer> minPeopleNum = createNumber("minPeopleNum", Integer.class);
 
     public final StringPath pickupLocation = createString("pickupLocation");
-
-    public final StringPath storeName = createString("storeName");
 
     public final StringPath url = createString("url");
 
     //inherited
     public final NumberPath<Long> userId = _super.userId;
 
-    public QDelivery(String variable) {
-        this(Delivery.class, forVariable(variable), INITS);
+    public QGroupPurchase(String variable) {
+        this(GroupPurchase.class, forVariable(variable), INITS);
     }
 
-    public QDelivery(Path<? extends Delivery> path) {
+    public QGroupPurchase(Path<? extends GroupPurchase> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QDelivery(PathMetadata metadata) {
+    public QGroupPurchase(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QDelivery(PathMetadata metadata, PathInits inits) {
-        this(Delivery.class, metadata, inits);
+    public QGroupPurchase(PathMetadata metadata, PathInits inits) {
+        this(GroupPurchase.class, metadata, inits);
     }
 
-    public QDelivery(Class<? extends Delivery> type, PathMetadata metadata, PathInits inits) {
+    public QGroupPurchase(Class<? extends GroupPurchase> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.board = inits.isInitialized("board") ? new QBoard(forProperty("board")) : null;
     }

@@ -1,4 +1,4 @@
-package com.modong.boardservice.entity;
+package com.modong.boardservice.db.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QComment extends EntityPathBase<Comment> {
 
-    private static final long serialVersionUID = -1232470088L;
+    private static final long serialVersionUID = 987074464L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 

@@ -1,4 +1,4 @@
-package com.modong.boardservice.entity;
+package com.modong.boardservice.db.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

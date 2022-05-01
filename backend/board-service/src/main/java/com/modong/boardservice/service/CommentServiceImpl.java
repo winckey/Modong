@@ -1,9 +1,9 @@
 package com.modong.boardservice.service;
 
-import com.modong.boardservice.entity.Board;
-import com.modong.boardservice.entity.Comment;
-import com.modong.boardservice.repository.BoardRepository;
-import com.modong.boardservice.repository.CommentRepository;
+import com.modong.boardservice.db.entity.Board;
+import com.modong.boardservice.db.entity.Comment;
+import com.modong.boardservice.db.repository.BoardRepository;
+import com.modong.boardservice.db.repository.CommentRepository;
 import com.modong.boardservice.request.CommentReqDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

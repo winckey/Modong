@@ -1,8 +1,7 @@
 package com.modong.boardservice.response;
 
 
-import com.modong.boardservice.entity.Board;
-import com.modong.boardservice.entity.Comment;
+import com.modong.boardservice.db.entity.Board;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +9,6 @@ import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Getter

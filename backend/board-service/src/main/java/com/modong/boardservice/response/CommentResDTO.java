@@ -1,7 +1,7 @@
 package com.modong.boardservice.response;
 
 
-import com.modong.boardservice.entity.Comment;
+import com.modong.boardservice.db.entity.Comment;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

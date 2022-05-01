@@ -1,4 +1,4 @@
-package com.modong.boardservice.entity;
+package com.modong.boardservice.db.entity;
 
 import lombok.*;
 
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Delivery extends Board {
+public class GroupPurchase extends Board{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,17 +21,17 @@ public class Delivery extends Board {
     private Board board;
 
     @Column(nullable = false)
-    private String storeName;
+    private Integer minPeopleNum;
 
     @Column(nullable = false)
-    private LocalDateTime closeTime;
+    private Integer maxPeopleNum;
 
     @Column(nullable = false)
-    private Integer minPrice;
+    private String url;
 
     @Column(nullable = false)
     private String pickupLocation;
 
     @Column(nullable = false)
-    private String url;
+    private LocalDateTime closeTime;
 }
