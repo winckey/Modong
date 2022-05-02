@@ -22,7 +22,7 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     public Comment createComment(CommentReqDTO commentReqDTO) {
-        Board board = boardRepository.getById(commentReqDTO.getBoardId());
+        Board board = (Board) boardRepository.getById(commentReqDTO.getBoardId());
 
         Comment comment = Comment.builder()
                 .description(commentReqDTO.getDescription())

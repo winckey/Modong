@@ -30,7 +30,7 @@ public class ErrandController {
     @DeleteMapping
     public ResponseEntity errandDelete(@RequestBody ErrandReqDTO errandReqDTO) {
 
-
+        errandService.deleteErrand(errandReqDTO);
 
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
@@ -39,7 +39,7 @@ public class ErrandController {
     @PutMapping
     public ResponseEntity errandUpdate(@RequestBody ErrandReqDTO errandReqDTO) {
 
-
+        errandService.updateErrand(errandReqDTO);
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 
@@ -47,6 +47,7 @@ public class ErrandController {
     @GetMapping
     public ResponseEntity errandList(@PageableDefault(page = 0, size = 10) Pageable pageable) {
 
+        errandService.errandListCalling(pageable);
 
         return new ResponseEntity<>("s", HttpStatus.OK);
     }

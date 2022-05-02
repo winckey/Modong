@@ -3,6 +3,7 @@ package com.modong.boardservice.service;
 
 import com.modong.boardservice.db.entity.Board;
 import com.modong.boardservice.db.entity.Errand;
+import com.modong.boardservice.db.repository.BoardRepository;
 import com.modong.boardservice.db.repository.ErrandRepository;
 import com.modong.boardservice.request.ErrandReqDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,12 @@ import org.springframework.stereotype.Service;
 @Service("errandService")
 public class ErrandServiceImpl implements ErrandService{
 
+
     @Autowired
     ErrandRepository errandRepository;
+
+    @Autowired
+    BoardRepository<Board> boardRepository;
 
     @Override
     public Errand createErrand(ErrandReqDTO errandReqDTO) {
@@ -27,21 +32,34 @@ public class ErrandServiceImpl implements ErrandService{
                 .build();
 
 
-        return errandRepository.save(errand);
+        return boardRepository.save(errand);
     }
 
     @Override
     public Errand deleteErrand(ErrandReqDTO errandReqDTO) {
-        return null;
+
+        Board board = errandRepository.getById(errandReqDTO.getId());
+
+        board.setDeleted(true);
+
+        return (Errand) boardRepository.save(board);
     }
 
     @Override
     public Errand updateErrand(ErrandReqDTO errandReqDTO) {
-        return null;
+
+        Board board = errandRepository.getById(errandReqDTO.getId());
+
+        board.setDescription(errandReqDTO.getDescription());
+
+        return (Errand) boardRepository.save(board);
     }
 
     @Override
     public Page<Errand> errandListCalling(Pageable pageable) {
-        return null;
+
+        Page<Errand> errand = errandRepository.findAllByDeletedIsFalse(pageable);
+
+        return errand;
     }
 }
