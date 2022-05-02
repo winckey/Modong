@@ -5,7 +5,7 @@ buildscript {
 }
 
 plugins {
-    id 'org.springframework.boot' version '2.6.1'
+    id 'org.springframework.boot' version '2.5.6'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 
@@ -28,7 +28,7 @@ repositories {
 }
 
 ext {
-    set('springCloudVersion', "2021.0.1")
+    set('springCloudVersion', "2020.0.3")
 }
 
 dependencies {
@@ -81,12 +81,10 @@ dependencies {
     implementation "com.querydsl:querydsl-core:${queryDslVersion}"
 
     //https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
-    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
-    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
 
-    // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui
-    // 2.6 버전에서는 이거 쓰기
-    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.8'
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
+    implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+
 
     // prometheus 추가
     implementation 'io.micrometer:micrometer-registry-prometheus'

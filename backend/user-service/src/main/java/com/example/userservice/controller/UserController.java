@@ -82,15 +82,15 @@ public class UserController {
     }
 
     
-    @GetMapping("{userId}")
-    @Operation(summary = "정보 조회", description  = "유저id로 정보 조회")
-    public ResponseEntity<ResponseUser> getUser(@PathVariable("userId") Long userId) {
-        UserDto userDto = userService.getUserByUserId(userId);
-
-        ResponseUser returnValue = new ModelMapper().map(userDto, ResponseUser.class);
-
-        return ResponseEntity.status(HttpStatus.OK).body(returnValue);
-    }
+//    @GetMapping("{userId}")
+//    @Operation(summary = "정보 조회", description  = "유저id로 정보 조회")
+//    public ResponseEntity<ResponseUser> getUser(@PathVariable("userId") Long userId) {
+//        UserDto userDto = userService.getUserByUserId(userId);
+//
+//        ResponseUser returnValue = new ModelMapper().map(userDto, ResponseUser.class);
+//
+//        return ResponseEntity.status(HttpStatus.OK).body(returnValue);
+//    }
 
     @PutMapping("/")
     @Operation(summary = "정보 수정", description  = "유저id로 정보 수정")
