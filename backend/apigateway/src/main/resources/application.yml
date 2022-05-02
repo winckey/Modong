@@ -26,6 +26,19 @@ spring:
             preLogger: true
             postLogger: true
       routes:
+
+
+
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/v3/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            #            - AuthorizationHeaderFilter
+            #post는 인증없이되어야하지만 다른경우 인증요구
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
@@ -34,26 +47,14 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
 
-
-        - id: user-service
-          uri: lb://USER-SERVICE
-          predicates:
-            - Path=/user-service/v3/
-            - Method=GET
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
-            #            - AuthorizationHeaderFilter
-            #post는 인증없이되어야하지만 다른경우 인증요구
-
         - id: board-service
           uri: lb://BOARD-SERVICE
           predicates:
-            - Path=/board-service/v3/
+            - Path=/board-service/v3/**
             - Method=GET, POST, DELETE, PUT
           filters:
             - RemoveRequestHeader=Cookie
-            - RewritePath=/board-service/(?<segment>.*), /${segment}
+            - RewritePath=/board-service/(?<segment>.*), /$\{segment}
 
         - id: board-service
           uri: lb://BOARD-SERVICE
