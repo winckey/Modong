@@ -80,13 +80,21 @@ spring:
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
 
         - id: board-service
-          uri: lb://USER-SERVICE
+          uri: lb://BOARD-SERVICE
           predicates:
-            - Path=/board-service/**
-            - Method=GET
+            - Path=/board-service/v3/
+            - Method=GET, POST, DELETE, PUT
           filters:
             - RemoveRequestHeader=Cookie
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            - RewritePath=/board-service/(?<segment>.*), /${segment}
+
+        - id: board-service
+          uri: lb://BOARD-SERVICE
+          predicates:
+            - Path=/board-service/**
+            - Method=GET, POST, DELETE, PUT
+          filters:
+            - RemoveRequestHeader=Cookie
 #            - AuthorizationHeaderFilter
             #post는 인증없이되어야하지만 다른경우 인증요구
 
