@@ -46,5 +46,7 @@ public class RequestUser {
 
     private String image;
 
+    private Long dongcode;
+
 
 }
