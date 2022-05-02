@@ -1,10 +1,12 @@
 package com.example.userservice.security;
 
+import com.example.userservice.dto.LoginDto;
 import com.example.userservice.dto.UserDto;
 import com.example.userservice.service.UserService;
 import com.example.userservice.util.JwtTokenUtil;
 import com.example.userservice.vo.RequestLogin;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -26,6 +28,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -81,6 +85,20 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         response.addHeader("jwtToken", jwtToken);
         response.addHeader("refreshToken", refreshToken);
         response.addHeader("userId", userDetails.getUserId());
+
+
+        LoginDto loginDto = new LoginDto();
+
+        loginDto.setUserDto(userDetails);
+        loginDto.setToken(jwtToken);
+        loginDto.setRefeshToken(refreshToken);
+
+        String json = new Gson().toJson(loginDto);
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
+
 //        RefreshToken refreshToken = saveRefreshToken(username);
 //        리프레쉬 토큰 발행 추가
     }
