@@ -29,55 +29,22 @@ spring:
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
-            - Path=/user-service/login
-            - Method=POST
-          filters:
-            - RemoveRequestHeader=Cookie #헤더값 초기화
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
-
-        - id: user-service
-          uri: lb://USER-SERVICE
-          predicates:
-            - Path=/user-service/users
-            - Method=POST
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
-
-        - id: user-service
-          uri: lb://USER-SERVICE
-          predicates:
-            - Path=/user-service/actuator/**
-            - Method=GET,POST
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
-
-        - id: user-service
-          uri: lb://USER-SERVICE
-          predicates:
-            - Path=/user-service/health_check
-            - Method=GET
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
-        - id: user-service
-          uri: lb://USER-SERVICE
-          predicates:
-            - Path=/user-service/reissue
-            - Method=POST
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
-
-        - id: user-service
-          uri: lb://USER-SERVICE
-          predicates:
             - Path=/user-service/**
+            - Method=GET , POST , DELETE , PUT
+          filters:
+            - RemoveRequestHeader=Cookie
+
+
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/v3/
             - Method=GET
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            #            - AuthorizationHeaderFilter
+            #post는 인증없이되어야하지만 다른경우 인증요구
 
         - id: board-service
           uri: lb://BOARD-SERVICE
