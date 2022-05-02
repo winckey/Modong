@@ -1,0 +1,31 @@
+@mixin flex-col{
+    display: flex;
+    flex-direction: column;
+}
+@mixin flex-row{
+    display: flex;
+}
+@mixin noneA {
+    text-decoration: none;
+    color: black;
+}
+@mixin noneA-w {
+    text-decoration: none;
+    color: white;
+}
+@mixin absolute-loc($top:auto, $right:auto, $bottom:auto, $left:auto) {
+    position: absolute;
+    top:$top;
+    right:$right;
+    bottom:$bottom;
+    left:$left;
+}
+@mixin shadow{
+    box-shadow: 1px 1px 3px 1px #dadce0;
+}
+$gray1:#F5F5F5;
+$gray2:#C4C4C4;
+$blue1:#2F88FF;
+$blue2:#3684F1;
+$blue3:#0064FF;
+$mint1:#9AD4E4;

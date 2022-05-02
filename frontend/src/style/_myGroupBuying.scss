@@ -1,11 +1,12 @@
+@import '_base';
+
 .myGroupBuyingInList{
     overflow: auto;
     height: 600px;
     >div{
         border-radius: 20px;
-        display: flex;
-        flex-direction: column;
-        background-color: #F5F5F5;
+        @include flex-col;
+        background-color: $gray1;
         margin-top: 16px;
         overflow: hidden;
         >div{
@@ -27,7 +28,7 @@
             display: flex;
             justify-content: space-around;
             align-self: center;
-            background-color: #3684F1;
+            background-color: $blue2;
             width: 100%;
             color: white;
             padding:8px;

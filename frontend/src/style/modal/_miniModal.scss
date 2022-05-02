@@ -1,3 +1,5 @@
+@import '../_base';
+
 .minimodal {
     display: none;
     position: fixed;
@@ -27,7 +29,7 @@
 
         header {
             position: relative;
-            background-color: #0064FF;
+            background-color: $blue3;
             font-weight: 700;
             color: white;
             display: flex;
@@ -35,15 +37,13 @@
             
 
             button {
-                position: absolute;
-                top: 15px;
-                right: 15px;
-                width: 30px;
-                font-size: 21px;
-                font-weight: 700;
-                text-align: center;
-                color: #999;
-                background-color: transparent;
+              @include absolute-loc($top:15px, $right:15px);
+              width: 30px;
+              font-size: 21px;
+              font-weight: 700;
+              text-align: center;
+              color: #999;
+              background-color: transparent;
               }
 
         }

@@ -1,12 +1,12 @@
+@import '_base';
+
 .communityOutLine{
     overflow: auto;
     height: 600px;
     .communityCard{
-        display: flex;
-        text-decoration: none;
-        color: black;
-        flex-direction: column;
-        background-color: #F5F5F5;
+        @include flex-col;
+        @include noneA;
+        background-color: $gray1;
         margin-top: 5px;
         padding: 5px;
         margin-bottom: 7px;
@@ -26,7 +26,7 @@
         }
         >div:nth-child(3){
             padding-top: 0;
-            color:#C4C4C4;
+            color:$gray2;
         }
         >div:nth-child(4){
             border-top: 1px solid black;
@@ -43,12 +43,12 @@
     justify-content: center;
     width: 90px;
     height: 90px;
-    background-color: #9AD4E4;
+    background-color: $mint1;
     border-radius: 200px;
     margin:auto;
     font-size: 45px;
     right:30px;
     bottom: 110px;
     z-index:10;
-    color: #2F88FF;
+    color: $blue1;
 }

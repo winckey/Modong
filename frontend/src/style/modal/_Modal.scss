@@ -1,3 +1,5 @@
+@import '../_base';
+
 .modal {
     display: none;
     position: fixed;
@@ -10,7 +12,7 @@
   
 
     section {
-        position: absolute;
+      @include absolute-loc($bottom:0);
         bottom: 0;
         width: 100%;
         height: 75%;
@@ -32,15 +34,13 @@
             text-align: center;
   
             button {
-              position: absolute;
-              left: 5%;
-              bottom: 3%;
+              @include absolute-loc($bottom:3%, $left:5%);
               width: 90%;
               height: 9%;
               font-size: 1.3rem;
               text-align: center;
               color: white;
-              background-color: #0064FF;
+              background-color: $blue3;
               border: none;
               border-radius: 10px;
             }
