@@ -29,7 +29,6 @@ public class RequestUser {
 
     private String date_withdraw;
 
-    @NotEmpty(message = "name입력 필수")
     @Schema(example = "test_name")
     private String name;
 
