@@ -1,13 +1,16 @@
 package com.modong.boardservice.controller;
 
 
+import com.modong.boardservice.db.entity.Comment;
 import com.modong.boardservice.request.BoardReqDTO;
 import com.modong.boardservice.response.BoardResDTO;
 import com.modong.boardservice.response.CommentResDTO;
 import com.modong.boardservice.service.BoardService;
 import com.modong.boardservice.service.CommentService;
+import com.modong.boardservice.service.UserClientService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -27,6 +30,9 @@ public class BoardController {
 
     @Autowired
     CommentService commentService;
+
+    @Autowired
+    UserClientService userClientService;
 
     //글 등록
     @PostMapping
@@ -68,7 +74,10 @@ public class BoardController {
     //상세 조회
     @GetMapping("/{boardId}")
     public ResponseEntity boardRead(@PathVariable Long boardId, @PageableDefault(page = 0, size = 10) Pageable pageable) {
-        return new ResponseEntity<>(CommentResDTO.of(commentService.commentListCalling(boardId, pageable)), HttpStatus.OK);
+
+        List<CommentResDTO> commentRestDTO = commentService.commentListCalling(boardId, pageable);
+
+        return new ResponseEntity<>(commentRestDTO, HttpStatus.OK);
     }
 
 }
