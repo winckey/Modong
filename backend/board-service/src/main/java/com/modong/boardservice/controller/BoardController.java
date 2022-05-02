@@ -18,6 +18,7 @@ import java.util.List;
 
 
 @Api(value = "게시판 api", tags = {"board"})
+@RequestMapping("/board-service")
 @RestController
 public class BoardController {
 

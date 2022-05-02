@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/errand")
+@RequestMapping("/board-service/errand")
 public class ErrandController {
 
     @Autowired
