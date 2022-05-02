@@ -22,29 +22,29 @@ public class BoardServiceImpl implements BoardService {
                 .userId(boardReqDTO.getUserId())
                 .build();
 
-        return boardRepository.save(board);
+        return (Board) boardRepository.save(board);
     }
 
     @Override
     public Board deleteBoard(BoardReqDTO boardReqDTO) {
         Long id = boardReqDTO.getId();
 
-        Board board = boardRepository.getById(id);
+        Board board = (Board) boardRepository.getById(id);
 
         board.setDeleted(true);
 
-        return boardRepository.save(board);
+        return (Board) boardRepository.save(board);
     }
 
     @Override
     public Board updateBoard(BoardReqDTO boardReqDTO) {
         Long id = boardReqDTO.getId();
 
-        Board board = boardRepository.getById(id);
+        Board board = (Board) boardRepository.getById(id);
 
         board.setDescription(boardReqDTO.getDescription());
 
-        return boardRepository.save(board);
+        return (Board) boardRepository.save(board);
 
     }
 
