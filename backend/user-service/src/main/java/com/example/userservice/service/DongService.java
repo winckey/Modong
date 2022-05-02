@@ -11,7 +11,7 @@ public interface DongService {
     List<ResponseCity> getCitys();
 
 
-    List<ResponseCity> getGugun(RequestCity requestCity);
+    List<ResponseCity> getGugun(String requestCity);
 
-    List<ResponseCity> getDong(RequestCity requestCity);
+    List<ResponseCity> getDong(String requestCity);
 }

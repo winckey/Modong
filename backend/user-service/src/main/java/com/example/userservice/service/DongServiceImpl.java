@@ -50,9 +50,9 @@ public class DongServiceImpl implements DongService {
     }
 
     @Override
-    public List<ResponseCity> getGugun(RequestCity requestCity) {
+    public List<ResponseCity> getGugun(String city) {
 
-        List<String> gugunByCity = dongQueryRepository.findDistinctGugunByCity(requestCity.getCity());
+        List<String> gugunByCity = dongQueryRepository.findDistinctGugunByCity(city);
         List<ResponseCity> responseCities = new ArrayList<>();
         for(String gugun : gugunByCity) {
             responseCities.add(new ResponseCity(gugun));
@@ -61,8 +61,8 @@ public class DongServiceImpl implements DongService {
     }
 
     @Override
-    public List<ResponseCity> getDong(RequestCity requestCity) {
-        List<Dongcode> dongcodes = dongyRepository.findByGugun(requestCity.getCity());
+    public List<ResponseCity> getDong(String gugun) {
+        List<Dongcode> dongcodes = dongyRepository.findByGugun(gugun);
         List<ResponseCity> responseCities = new ArrayList<>();
         for(Dongcode d : dongcodes) {
             responseCities.add(ResponseCity.of(d));

@@ -21,6 +21,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Slf4j
@@ -44,19 +45,19 @@ public class DongController {
 
         return ResponseEntity.status(HttpStatus.OK).body(ResponseCitys);
     }
-    @GetMapping("/gugun")
-    public ResponseEntity<List<ResponseCity>> getGugun(@Valid @RequestBody RequestCity requestCity) {
+    @GetMapping("/gugun/{city}")
+    public ResponseEntity<List<ResponseCity>> getGugun(@NotBlank @PathVariable String city) {
 
 
-        List<ResponseCity> ResponseCitys = dongService.getGugun(requestCity);
+        List<ResponseCity> ResponseCitys = dongService.getGugun(city);
 
         return ResponseEntity.status(HttpStatus.OK).body(ResponseCitys);
     }
-    @GetMapping("/dong")
-    public ResponseEntity<List<ResponseCity>> getDong(@Valid @RequestBody RequestCity requestCity) {
+    @GetMapping("/dong/{gugun}")
+    public ResponseEntity<List<ResponseCity>> getDong(@NotBlank @PathVariable String gugun) {
 
 
-        List<ResponseCity> ResponseCitys = dongService.getDong(requestCity);
+        List<ResponseCity> ResponseCitys = dongService.getDong(gugun);
 
         return ResponseEntity.status(HttpStatus.OK).body(ResponseCitys);
     }
