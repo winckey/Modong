@@ -1,17 +1,17 @@
+@import '_base';
+
 .chatDetailOutLine{
     width: 100%;
-    background-color: #F5F5F5;
+    background-color: $gray1;
     position: relative;
     height: 82vh;
     overflow: auto;
 }
 .chatDetailInnerCard{
-    display: flex;
-    flex-direction: column;
+    @include flex-col;
     padding: 10px;
     >div{
-        display: flex;
-        flex-direction: column;
+        @include flex-col;
         >div:nth-child(3){
             align-self: flex-end;
         }
@@ -20,7 +20,7 @@
             padding: 8px;
             border-radius: 15px;
             margin: 5px;
-            box-shadow: 1px 1px 3px 1px #dadce0;
+            @include shadow;
         }
     }
     .myChat{
@@ -39,7 +39,7 @@
             text-align: start;
         }
         div:nth-child(2){
-            background-color: #9AD4E4;
+            background-color: $mint1;
             text-align: start;
         }
     }
@@ -47,11 +47,9 @@
 .chatinput{
     display: flex;
     justify-content: center;
-    background-color: #F5F5F5;
-    position: absolute;
-    bottom:0;
+    background-color: $gray1;
+    @include absolute-loc($bottom:0);
     width: 100%;
-    padding-bottom: 15px;
     padding-bottom: 5px;
     margin-top: 15px;
     margin-bottom: 10px;
@@ -62,7 +60,7 @@
         width: 330px;
         margin-right: 10px;
         border-radius: 15px;
-        box-shadow: 1px 1px 3px 1px #dadce0;
+        @include shadow;
     }
     >div{
         font-size: 28px;
@@ -72,7 +70,7 @@
         justify-content: center;
         height: 50px;
         width:50px;
-        color: #2F88FF;
-        background-color: #9AD4E4;
+        color: $blue1;
+        background-color: $mint1;
     }
 }

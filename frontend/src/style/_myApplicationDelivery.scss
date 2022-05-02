@@ -1,13 +1,14 @@
+@import '_base';
+
 .madeliverycard{
-    display: flex;
-    flex-direction: column;
+    @include flex-col;
     padding: 10px;
     align-items: flex-end;
     border-radius: 10px;
-    background-color: #F5F5F5;
+    background-color: $gray1;
     margin-top: 10px;
     margin-bottom: 10px;
-    box-shadow: 1px 1px 3px 1px #dadce0;
+    @include shadow;
     position: relative;
     overflow: auto;
     >div{
@@ -35,16 +36,13 @@
             word-break:break-all;
         }
         justify-content: space-between;
-        align-items: flex-start;
-        flex-direction: column;
+        @include flex-col;
     }
     >div:nth-child(3){
         margin: 0;
         height: 10px;
-        position: absolute;
+        @include absolute-loc($bottom:0, $left:0);
         width: 500px;
-        bottom: 0;
-        left :0;
-        background-color: #3684F1;
+        background-color: $blue2;
     }
 }

@@ -1,8 +1,10 @@
+@import '_base';
+
 header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #C4C4C4;
+    border-bottom: 1px solid $gray2;
     padding: 15px;
     >p{
         font-size: 23px;
@@ -26,22 +28,20 @@ header{
 }
 footer{
     display: flex;
-    position: absolute;
-    bottom: 0;
+    @include absolute-loc($bottom:0);
     width: 100%;
     background-color: white;
     >a{
-        text-decoration: none;
-        color: black; 
+        @include noneA;
         padding: 15px;
         width: 25%;
-        border-top: 1px solid #C4C4C4;
+        border-top: 1px solid $gray2;
         >svg{
             font-size: 25px;
         }
     }
 }
 .footeractive{
-    color: #3684F1;
-    border-color: #3684F1;
+    color: $blue2;
+    border-color: $blue2;
 }

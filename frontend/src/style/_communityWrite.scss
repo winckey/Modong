@@ -1,6 +1,7 @@
+@import '_base';
+
 .ccoutLine {
-    display: flex;
-    flex-direction: column;
+    @include flex-col;
     align-items: center;
 }
 textarea{
@@ -8,19 +9,18 @@ textarea{
     margin-top: 15px;
     height: 480px;
     border: none;
-    background-color: #F5F5F5;
+    background-color: $gray1;
     border-radius: 15px;
     resize: none;
     box-shadow: 1px 1px 3px 1px #e3e5e9;
 }
 .button{
-    position: absolute;
+    @include absolute-loc($bottom:86px);
     bottom: 86px;
     border-radius: 15px;
-    color: white;
-    text-decoration: none;
+    @include noneA-w;
     width: 80%;
     margin-top: 10px;
     padding: 20px;
-    background-color: #3684F1;
+    background-color: $blue2;
 }

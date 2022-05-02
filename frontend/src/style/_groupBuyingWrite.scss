@@ -1,16 +1,15 @@
+@import '_base';
+
 .gboutLine {
-    display: flex;
-    flex-direction: column;
+    @include flex-col;
     align-items: center;
 }
 .button{
-    position: absolute;
-    bottom: 86px;
+    @include absolute-loc($bottom:86px);
     border-radius: 15px;
-    color: white;
-    text-decoration: none;
+    @include noneA-w;
     width: 80%;
     margin-top: 10px;
     padding: 20px;
-    background-color: #3684F1;
+    background-color: $blue2;
 }
