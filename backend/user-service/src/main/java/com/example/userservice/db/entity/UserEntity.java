@@ -42,6 +42,11 @@ public class UserEntity {
     private String image;
 
 
+    @OneToOne
+    @JoinColumn(name = "dongcode")
+    private Dongcode dongcode;
+
+
 
     public UserEntity() {
 

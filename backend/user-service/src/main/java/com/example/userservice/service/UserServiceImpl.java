@@ -1,5 +1,6 @@
 package com.example.userservice.service;
 
+import com.example.userservice.db.repository.DongyRepository;
 import com.example.userservice.db.repository.RefreshTokenRedisRepository;
 import com.example.userservice.dto.UserDto;
 import com.example.userservice.db.entity.UserEntity;
@@ -33,10 +34,12 @@ public class UserServiceImpl implements UserService {
 
 
     private final UserRepository userRepository;
+    private final DongyRepository dongyRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final RefreshTokenRedisRepository refreshTokenRedisRepository;
     private final JwtTokenUtil jwtTokenUtil;
     private final Environment env;
+
 
     @Override
     public UserDto createUser(RequestUser requestUser) {
@@ -53,6 +56,7 @@ public class UserServiceImpl implements UserService {
                 .date_create(LocalDateTime.now())
                 .age(requestUser.getAge())
                 .phone(requestUser.getPhone())
+                .dongcode(dongyRepository.findById(requestUser.getDongcode()).get())
                 .build();
 
         userRepository.save(userEntity);
