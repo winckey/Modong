@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 
-import Account from './components/Account'
+import Account from './components/Account.tsx'
 import Nav from './components/Nav.tsx'
 
 import RootState from "../reducer/reducers.tsx"

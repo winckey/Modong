@@ -17,7 +17,7 @@ export default function SignUp(props) {
 
   //이메일 중복 확인
   const emailCheck = () => {
-
+    console.log('emailCheck')
   };
 
 
@@ -42,15 +42,12 @@ export default function SignUp(props) {
       })
       .then((response) => {
         console.log(response)
-        // handleCloseModal();
       })
       .catch((response) => {
         console.log("Error!");
         console.log(response);
       });
-  // const handleCloseModal = () => {
-  //   props.closemodal();
-  // };
+
   };
 
   return (
@@ -59,7 +56,7 @@ export default function SignUp(props) {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: "30%",
             marginX:2,
             display: 'flex',
             flexDirection: 'column',
@@ -67,13 +64,15 @@ export default function SignUp(props) {
             textAlign: 'left'
           }}
         >
-          {/* <button onClick={openModal}>모달팝업</button> */}
+          <div>
+            <img style={{ width: "20%", position:"absolute", top: "2%", right: "5%" }} src={ require('../assets/logo.png') } alt="사진"/>
+          </div>
           <Typography component="h1" variant="h5">
-              입력한 정보가 맞다면
+              <b>입력한 정보가 맞다면</b>
              <br/>
-              가입하기 버튼을 눌러주세요!
+              <b>가입하기 버튼을 눌러주세요!</b>
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: "6%" }}>
             <Grid container spacing={3}>
               <Grid item xs={8}>
                   <TextField
@@ -88,7 +87,7 @@ export default function SignUp(props) {
                   />
               </Grid>
               <Grid item xs={4}>
-                <Button variant="contained" size="small">중복확인</Button>
+                <Button variant="contained" size="small" onClick={emailCheck}>중복확인</Button>
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -141,6 +140,7 @@ export default function SignUp(props) {
                   variant="standard"
                 />
               </Grid>
+
               <Grid item xs={3} 
                 style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
                   주소

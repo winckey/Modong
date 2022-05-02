@@ -7,7 +7,7 @@ import Home from './Home.tsx';
 import Write from './Write.tsx';
 import MyCommunityRecord from './mypage/MyCommunityRecord.tsx';
 import ChatDetail from './chat/ChatDetail.tsx';
-import Profile from './mypage/Profile';
+import Profile from './mypage/Profile.tsx';
 import MyApplication from './mypage/MyApplication.tsx';
 import CommunityDetail from './community/CommunityDetail.tsx';
 import { Routes, Route , Link } from 'react-router-dom';

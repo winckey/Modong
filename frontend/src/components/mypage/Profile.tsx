@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../style/_profile.scss'
+import Modal from '../modal/ProfileEditModal.tsx'
 
 
 function Profile() {
@@ -7,7 +8,7 @@ function Profile() {
         <div className="profile">
 
             <div>
-                <button>수정</button>
+                <Modal/>
             </div>
 
             <div>

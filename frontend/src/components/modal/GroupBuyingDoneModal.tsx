@@ -5,7 +5,7 @@ import { faCircleExclamation} from "@fortawesome/free-solid-svg-icons";
 import Modal from '../modal/_ApplyHistoryModal.tsx'
 
 
-export default function _DoneModal(props)  {
+export default function GroupBuyingDoneModal(props)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, info } = props;
   const data =["dd"]

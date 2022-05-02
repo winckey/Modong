@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../style/modal/_Modal.scss'
 
-export default function Modal(props)  {
+export default function DeliveryRequestedModal(props)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, info } = props;
 
@@ -21,11 +21,10 @@ export default function Modal(props)  {
         <div style={{margin: "5%"}}>
 
           <header>
-            기본 모달
+            오나라 식탁 신청 내역 
           </header>
 
           <main>
-            {info.map((region, index) => (<div key={index}>{region}</div>))}
             <button onClick={close} >확인</button>
           </main>
 
