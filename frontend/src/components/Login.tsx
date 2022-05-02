@@ -48,16 +48,11 @@ export default function Login(props) {
         console.log(response, "from login");
         localStorage.setItem("jwt", response.data.token);
         localStorage.setItem("user_email", data.get("email"));
-        handleCloseModal();
       })
       .catch((response) => {
         console.log("Error!");
         console.log(response, "from login");
       });
-  };
-
-  const handleCloseModal = () => {
-    props.closemodal();
   };
 
   return (
@@ -73,12 +68,10 @@ export default function Login(props) {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            로그인
-          </Typography>
+          <div>
+            <img style={{ width: "70%" }} src={ require('../assets/logo.png') } alt="사진"/>
+          </div>
+
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"

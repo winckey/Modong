@@ -11,7 +11,7 @@ import Modal from './_AddressDetailModal.tsx'
 export default function AddressModal() {
   const [open, setOpen] = React.useState(false);
   const [ modalOpen, setModalOpen] = React.useState(false);
-  const addressList = ['서울특별시', '부산광역시', '대구광역시','인천광역시','광주광역시','대전광역시']
+  const info = ['서울특별시', '부산광역시', '대구광역시','인천광역시','광주광역시','대전광역시']
 
 
   const handleClickOpen = () => {
@@ -53,7 +53,7 @@ export default function AddressModal() {
             onClick={openModal}
             autoComplete="off"
           />
-          <Modal open={modalOpen}  close={closeModal} header="선택해주세요" addressList={addressList}>
+          <Modal open={modalOpen}  close={closeModal} header="선택해주세요" info={info}>
           </Modal>
           
           <TextField

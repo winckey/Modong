@@ -5,7 +5,7 @@ import { faCircleExclamation} from "@fortawesome/free-solid-svg-icons";
 import Modal from '../modal/_ApplyHistoryModal.tsx'
 
 
-export default function _DoneModal(props)  {
+export default function DeliveryDoneModal(props)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, info } = props;
   const data =["dd"]
@@ -39,7 +39,7 @@ export default function _DoneModal(props)  {
 
               <div>
                   <button onClick={()=>{openModal();}}>신청 내역 확인</button>
-                  <p>내용</p>
+                  <p>배달 신청 완료해썽</p>
                   <p>{info}</p>
               </div>
 
