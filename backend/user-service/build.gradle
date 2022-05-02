@@ -88,6 +88,10 @@ dependencies {
 
     // prometheus 추가
     implementation 'io.micrometer:micrometer-registry-prometheus'
+
+
+    //gson = json 파싱
+    implementation 'com.google.code.gson:gson:2.8.6'
 }
 
 dependencyManagement {

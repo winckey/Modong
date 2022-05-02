@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
 
 
         UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
-
+        userDto.setDongDto(userEntity.getDongcode());
         return userDto;
     }
 
@@ -89,6 +89,7 @@ public class UserServiceImpl implements UserService {
     public UserDto getUserDetailsByEmail(String email) {
         UserEntity userEntity = userRepository.findByUserId(email).orElseThrow(() -> new UsernameNotFoundException(email));
         UserDto userDto = getModelMapper().map(userEntity, UserDto.class);
+        userDto.setDongDto(userEntity.getDongcode());
         return userDto;
     }
 

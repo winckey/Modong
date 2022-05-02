@@ -1,13 +1,9 @@
 package com.example.userservice.dto;
 
+import com.example.userservice.db.entity.Dongcode;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
+
 
 @Data
 public class UserDto {
@@ -21,9 +17,6 @@ public class UserDto {
 
     private String date_create;
 
-    private String date_withdraw;
-
-    private String name;
 
     private String nickname;
 
@@ -34,4 +27,11 @@ public class UserDto {
     private boolean banned;
 
     private String image;
+
+    private DongDto dongDto;
+
+
+    public void setDongDto(Dongcode dongcode) {
+        this.dongDto = DongDto.of(dongcode);
+    }
 }
