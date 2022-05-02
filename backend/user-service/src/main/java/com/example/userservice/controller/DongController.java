@@ -36,14 +36,28 @@ public class DongController {
 
 
 
-    @GetMapping("/city")
-    public ResponseEntity<List<ResponseCity>> getCity() {
+    @GetMapping("/sigu")
+    public ResponseEntity<List<ResponseCity>> getSigu() {
 
 
         List<ResponseCity> ResponseCitys = dongService.getCitys();
 
         return ResponseEntity.status(HttpStatus.OK).body(ResponseCitys);
     }
+    @GetMapping("/gugun")
+    public ResponseEntity<List<ResponseCity>> getGugun(@Valid @RequestBody RequestCity requestCity) {
 
 
+        List<ResponseCity> ResponseCitys = dongService.getGugun(requestCity);
+
+        return ResponseEntity.status(HttpStatus.OK).body(ResponseCitys);
+    }
+    @GetMapping("/dong")
+    public ResponseEntity<List<ResponseCity>> getDong(@Valid @RequestBody RequestCity requestCity) {
+
+
+        List<ResponseCity> ResponseCitys = dongService.getDong(requestCity);
+
+        return ResponseEntity.status(HttpStatus.OK).body(ResponseCitys);
+    }
 }
