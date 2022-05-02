@@ -5,4 +5,6 @@ import java.util.List;
 
 public interface DongQueryRepository  {
     public List<String> findDistinctCityAll();
+
+    List<String> findDistinctGugunByCity(String city);
 }

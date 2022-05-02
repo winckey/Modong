@@ -30,4 +30,14 @@ public class DongQueryRepositoryImpl implements DongQueryRepository {
                 .fetch();
     }
 
+    @Override
+    public List<String> findDistinctGugunByCity(String city) {
+        return jpaQueryFactory
+                .select(qDongcode.gugun).distinct()
+                .from(qDongcode)
+                .where(qDongcode.city.eq(city))
+                .fetch();
+    }
+
+
 }
