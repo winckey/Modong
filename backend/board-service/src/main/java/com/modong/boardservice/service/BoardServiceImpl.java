@@ -2,17 +2,24 @@ package com.modong.boardservice.service;
 
 import com.modong.boardservice.db.entity.Board;
 import com.modong.boardservice.db.repository.BoardRepository;
+import com.modong.boardservice.db.repository.BoardRepositorySupport;
 import com.modong.boardservice.request.BoardReqDTO;
+import com.modong.boardservice.response.BoardResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
 
     @Autowired
     BoardRepository boardRepository;
+
+    @Autowired
+    BoardRepositorySupport boardRepositorySupport;
 
     @Override
     public Board createBoard(BoardReqDTO boardReqDTO) {
@@ -49,7 +56,11 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Page<Board> boardListCalling(Pageable pageable) {
-        return boardRepository.findAllByDeletedIsFalse(pageable);
+    public List<BoardResDTO> boardListCalling(Pageable pageable) {
+        List<BoardResDTO> boards = boardRepositorySupport.findAllByDeletedIsFalseAndCommentNumber(pageable);
+
+
+
+        return boards;
     }
 }

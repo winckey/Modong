@@ -2,8 +2,11 @@ package com.modong.boardservice.service;
 
 import com.modong.boardservice.db.entity.Board;
 import com.modong.boardservice.request.BoardReqDTO;
+import com.modong.boardservice.response.BoardResDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface BoardService {
 
@@ -17,7 +20,7 @@ public interface BoardService {
     Board updateBoard(BoardReqDTO boardReqDTO);
 
 //  게시글 목록 불러오기
-    Page<Board> boardListCalling(Pageable pageable);
+    List<BoardResDTO> boardListCalling(Pageable pageable);
 
 
 }

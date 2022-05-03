@@ -65,10 +65,10 @@ public class BoardController {
 
     //목록 조회(Pagination, 10개)
     @GetMapping
-    public ResponseEntity boardList(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+    public ResponseEntity boardList(@PageableDefault(page = 0, size = 2) Pageable pageable) {
 
 
-        return new ResponseEntity<>(BoardResDTO.of(boardService.boardListCalling(pageable)), HttpStatus.OK);
+        return new ResponseEntity<>(boardService.boardListCalling(pageable), HttpStatus.OK);
     }
 
     //상세 조회
