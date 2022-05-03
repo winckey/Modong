@@ -4,7 +4,9 @@ package com.modong.boardservice.controller;
 import com.modong.boardservice.db.entity.Comment;
 import com.modong.boardservice.request.BoardReqDTO;
 import com.modong.boardservice.response.BoardResDTO;
+import com.modong.boardservice.response.BoardResDetailDTO;
 import com.modong.boardservice.response.CommentResDTO;
+import com.modong.boardservice.response.UserResDTO;
 import com.modong.boardservice.service.BoardService;
 import com.modong.boardservice.service.CommentService;
 import com.modong.boardservice.service.UserClientService;
@@ -72,12 +74,12 @@ public class BoardController {
     }
 
     //상세 조회
-    @GetMapping("/{boardId}")
-    public ResponseEntity boardRead(@PathVariable Long boardId, @PageableDefault(page = 0, size = 10) Pageable pageable) {
+    @GetMapping("/{boardId}/{userId}")
+    public ResponseEntity boardRead(@PathVariable("boardId") Long boardId, @PageableDefault(page = 0, size = 10) Pageable pageable, @PathVariable("userId") Long userId) {
 
-        List<CommentResDTO> commentRestDTO = commentService.commentListCalling(boardId, pageable);
-
-        return new ResponseEntity<>(commentRestDTO, HttpStatus.OK);
+        Page<CommentResDTO> commentResDTO = commentService.commentListCalling(boardId, pageable);
+        UserResDTO userInfo = userClientService.getUser(userId);
+        return new ResponseEntity<>(BoardResDetailDTO.of(userInfo,commentResDTO), HttpStatus.OK);
     }
 
 }

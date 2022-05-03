@@ -9,6 +9,7 @@ import com.modong.boardservice.response.CommentResDTO;
 import com.modong.boardservice.response.UserResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -64,10 +65,10 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public List<CommentResDTO> commentListCalling(Long id, Pageable pageable) {
+    public Page<CommentResDTO> commentListCalling(Long id, Pageable pageable) {
         Page<Comment> commentList = commentRepository.findAllByDeletedIsFalseAndBoard_Id(id, pageable);
-
-        List<CommentResDTO> res = new ArrayList<>();
+        long total = commentList.getTotalElements();
+        List<CommentResDTO> temp = new ArrayList<>();
 
 
         for (Comment c: commentList.getContent() ) {
@@ -79,8 +80,10 @@ public class CommentServiceImpl implements CommentService{
                     .user(userResDTO).build();
 
 
-            res.add(dto);
+            temp.add(dto);
         }
+        Page<CommentResDTO> res = new PageImpl<>(temp,pageable,total);
+
 
 
         return res;
