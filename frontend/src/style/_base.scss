@@ -20,9 +20,17 @@
     bottom:$bottom;
     left:$left;
 }
+@mixin fixed-loc($top:auto, $right:auto, $bottom:auto, $left:auto) {
+    position: fixed;
+    top:$top;
+    right:$right;
+    bottom:$bottom;
+    left:$left;
+}
 @mixin shadow{
     box-shadow: 1px 1px 3px 1px #dadce0;
 }
+
 $gray1:#F5F5F5;
 $gray2:#C4C4C4;
 $blue1:#2F88FF;

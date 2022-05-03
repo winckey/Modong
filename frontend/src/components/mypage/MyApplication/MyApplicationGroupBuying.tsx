@@ -27,8 +27,7 @@ function MyApplicationGroupBuying() {
                         <div>
                             <div>{d.title}</div>
                             <div onClick={openModal}>
-                                <FontAwesomeIcon icon={faFile} />
-                                내역보기
+                                <FontAwesomeIcon icon={faFile} /> 내역보기
                             </div>
                         </div>
                         <div>

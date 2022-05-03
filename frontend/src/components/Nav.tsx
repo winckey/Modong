@@ -46,7 +46,7 @@ function Nav() {
           <p>{dongName}</p>
           <div>
             <FontAwesomeIcon onClick={()=>{handlealarmOpen()}} icon={faBell}/>
-            {alarmOpen && <Alarm/>}
+            {alarmOpen && <Alarm closealarm={handlealarmOpen}/>}
             <div>
               <img src={ require('../assets/dd.png') } alt="사진"/>
             </div>

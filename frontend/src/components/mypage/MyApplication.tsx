@@ -3,6 +3,7 @@ import MyApplicationDelivery from './MyApplication/MyApplicationDelivery.tsx';
 import MyApplicationGroupBuying from './MyApplication/MyApplicationGroupBuying.tsx';
 
 import "../../style/_myApplication.scss"
+
 function MyApplication() {
     const [MAcategory, setMAcategory] = useState<number>(1);
     const ChangeMAcategory = (catenum:number) =>{

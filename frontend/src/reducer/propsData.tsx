@@ -1,10 +1,11 @@
 const propsData = (state = {
     data : {
         communityPropsData : {
-            commucontents:"23",
-            commutiem:0,
-            commutag:[""],
-            repnum:0
+            id: null,
+            description: null,
+            userId: null,
+            createdDate: null,
+            modifiedDate: null
         }
     }
 }, action:any) => {

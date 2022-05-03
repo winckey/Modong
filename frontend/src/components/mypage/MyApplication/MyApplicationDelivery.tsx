@@ -26,15 +26,13 @@ function MyApplicationDelivery() {
                         <div>
                             <div>{d.title}</div>
                             <div onClick={openModal}>
-                                <FontAwesomeIcon icon={faFile} />
-                                내역보기
+                                <FontAwesomeIcon icon={faFile} /> 내역보기
                             </div>
                         </div>
                         <div>
                             <div>수령지</div>
                             <div>{d.arrive}</div>
                         </div>
-                        
                     </div>
                 ))}            
             </div>

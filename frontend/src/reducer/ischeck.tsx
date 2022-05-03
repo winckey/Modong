@@ -2,7 +2,7 @@ const ischeck = (state = {
     data : {
         index1 : 1,
         isLogin : false,
-        footerSelected : 5,
+        footerSelected : 1,
     }
 }, action:any) => {
     switch (action.type) {
