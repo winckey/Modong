@@ -42,5 +42,5 @@ public class CommentController {
 
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
-    
+
 }
