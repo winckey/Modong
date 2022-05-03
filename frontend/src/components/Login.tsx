@@ -3,13 +3,10 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import actionCreators from '../actions/actionCreators.tsx';
 
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from "axios";
@@ -17,25 +14,26 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
+
 const theme = createTheme();
 
 export default function Login(props) {
 
   const dispatch = useDispatch();
-    const setIsLogin = () => {
-        dispatch(actionCreators.setIsLogin(true));
-    }
+
+  const setIsLogin = () => {
+      dispatch(actionCreators.setIsLogin(true));
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    alert("A name was submitted: " + data.get("email") + " " + data.get("password"));
     axios
       .post(
-        "/accounts/api-token-auth/",
+        "/user-service/login",
         {
-          email: data.get("email"),
-          password: data.get("password"),
+          userId: data.get("email"),
+          userPw: data.get("password"),
         },
         {
           headers: {
@@ -45,13 +43,18 @@ export default function Login(props) {
         }
       )
       .then((response) => {
-        console.log(response, "from login");
+        console.log(response, "Login Success");
         localStorage.setItem("jwt", response.data.token);
-        localStorage.setItem("user_email", data.get("email"));
+        localStorage.setItem("user_email", data.get("email").toString());
+
+        dispatch(actionCreators.setUser(response.data.user));
+        dispatch(actionCreators.setToken(response.data.token));
+        dispatch(actionCreators.setRefreshToken(response.data.RefreshToken));
+        
+
       })
       .catch((response) => {
-        console.log("Error!");
-        console.log(response, "from login");
+        console.log(response, "Login Error");
       });
   };
 

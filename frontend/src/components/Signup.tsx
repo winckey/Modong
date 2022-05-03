@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -11,42 +11,60 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from "axios";
 import Modal from './modal/_AddressModal.tsx'
 
+import { useSelector } from 'react-redux';
+
 const theme = createTheme();
 
 export default function SignUp(props) {
 
   //이메일 중복 확인
+  const [isValid, setIsValid] = useState(false);
+
   const emailCheck = () => {
     console.log('emailCheck')
   };
 
+
+
+  const dongCodeSelected = useSelector((state:Rootstate)=> {
+    return state.address.data.dongCode
+  });
 
   // 가입하기 버튼
   const handleSubmit = (event) => {
     event.preventDefault();
     const formdata = new FormData(event.currentTarget);
     const data = {
-      email:formdata.get("email"),
-      password:formdata.get("password"),
-      passwordConfirmation:formdata.get("passwordConfirmation"),
-      username:formdata.get("Name"),
-      phone: formdata.get("phone")
+      userId:formdata.get("email"),
+      userPw:formdata.get("password"),
+      nickname:formdata.get("Name"),
+      phone: formdata.get("phone"),
+      // dongcode: "2617010400",
+      dongcode: parseInt(dongCodeSelected)
+      
     }
-    console.log(data);
-    axios
-      .post("/accounts/signup/", data, {
-        headers: {
-          "Content-type": "application/json",
-          Accept: "*/*",
-        },
-      })
-      .then((response) => {
-        console.log(response)
-      })
-      .catch((response) => {
-        console.log("Error!");
-        console.log(response);
-      });
+
+    if (formdata.get("password")===formdata.get("passwordConfirmation")){
+
+      console.log(data);
+      axios
+        .post("/user-service/register", data, {
+          headers: {
+            "Content-type": "application/json",
+            Accept: "*/*",
+          },
+        })
+        .then((response) => {
+          console.log(response)
+          // window.location.href="http://k6e102.p.ssafy.io:8000/"
+        })
+    } else {
+      alert("틀렸슈")
+    }
+      // .catch((response) => {
+      //   console.log("Error!");
+      //   console.log(response);
+      // });
 
   };
 
@@ -65,7 +83,8 @@ export default function SignUp(props) {
           }}
         >
           <div>
-            <img style={{ width: "20%", position:"absolute", top: "2%", right: "5%" }} src={ require('../assets/logo.png') } alt="사진"/>
+            <img style={{ width: "80px", position:"absolute", top: "2%", right: "5%" }} 
+            src={ require('../assets/logo.png') } alt="사진"/>
           </div>
           <Typography component="h1" variant="h5">
               <b>입력한 정보가 맞다면</b>
@@ -130,7 +149,7 @@ export default function SignUp(props) {
 
               <Grid item xs={12}>
                 <TextField
-                  autoComplete="given-name"
+                  autoComplete="tel"
                   name="phone"
                   required
                   fullWidth
@@ -146,7 +165,7 @@ export default function SignUp(props) {
                   주소
               </Grid>
               <Grid item xs={9}>
-                <Modal/>
+                <Modal name="address"/>
               </Grid>
               
             </Grid>

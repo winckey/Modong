@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
 import ischeck from "./ischeck.tsx";
 import propsData from "./propsData.tsx";
+import accounts from "./accounts.tsx"
+import address from "./address.tsx";
 
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
@@ -23,6 +25,8 @@ const persistConfig = {
 export const rootReducer = combineReducers({
     ischeck: ischeck,
     propsData:propsData,
+    accounts: accounts,
+    address: address,
   });
   
 export type RootState = ReturnType<typeof rootReducer>
