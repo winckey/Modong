@@ -5,9 +5,12 @@ import com.modong.boardservice.db.entity.Board;
 import com.modong.boardservice.db.entity.QBoard;
 import com.modong.boardservice.db.entity.QComment;
 import com.modong.boardservice.response.BoardResDTO;
+import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class BoardRepositorySupport {
+public class BoardRepositoryImpl {
 
     @Autowired
     JPAQueryFactory jpaQueryFactory;
@@ -23,13 +26,14 @@ public class BoardRepositorySupport {
     QComment qComment = QComment.comment;
     QBoard qBoard = QBoard.board;
 
-    public List<BoardResDTO>  findAllByDeletedIsFalseAndCommentNumber(Pageable pageable){
+    public Page<BoardResDTO> findAllByDeletedIsFalseAndCommentNumber(Pageable pageable){
 
-        List<Board> boards = jpaQueryFactory.select(qBoard).from(qBoard).where(qBoard.deleted.eq(false))
+        List<Board> boards = jpaQueryFactory.selectFrom(qBoard).where(qBoard.deleted.eq(false))
                 .limit(pageable.getPageSize())
                 .offset(pageable.getOffset())
                 .fetch();
 
+        Long total = jpaQueryFactory.select(qBoard.id.count()).from(qBoard).where(qBoard.deleted.eq(false)).fetchOne();
 
         List<BoardResDTO> result = new ArrayList<>();
 
@@ -53,7 +57,7 @@ public class BoardRepositorySupport {
 
 
 
-        return result;
+        return new PageImpl<>(result, pageable, total);
     }
 
 

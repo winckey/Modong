@@ -20,7 +20,7 @@ public interface BoardService {
     Board updateBoard(BoardReqDTO boardReqDTO);
 
 //  게시글 목록 불러오기
-    List<BoardResDTO> boardListCalling(Pageable pageable);
+    Page<BoardResDTO> boardListCalling(Pageable pageable);
 
 
 }

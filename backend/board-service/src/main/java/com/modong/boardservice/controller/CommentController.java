@@ -42,13 +42,5 @@ public class CommentController {
 
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
-
-
-    //상세 조회
-    @GetMapping("/{boardId}")
-    public ResponseEntity boardRead(@PathVariable String boardId) {
-
-
-        return new ResponseEntity<>("Success", HttpStatus.OK);
-    }
+    
 }
