@@ -89,7 +89,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
         LoginDto loginDto = new LoginDto();
 
-        loginDto.setUserDto(userDetails);
+        loginDto.setUser(userDetails);
         loginDto.setToken(jwtToken);
         loginDto.setRefeshToken(refreshToken);
 

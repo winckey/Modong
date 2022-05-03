@@ -16,8 +16,6 @@ public class ResponseUser {
 
     private String userId;
 
-    private int age;
-
     private String date_create;
 
     private String nickname;

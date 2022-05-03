@@ -3,17 +3,10 @@ package com.example.userservice.controller;
 
 import com.example.userservice.db.repository.UserRepository;
 import com.example.userservice.dto.UserDto;
-import com.example.userservice.db.entity.UserEntity;
 import com.example.userservice.service.UserService;
-import com.example.userservice.vo.Greeting;
-import com.example.userservice.vo.ReponseLogin;
-import com.example.userservice.vo.RequestUser;
-import com.example.userservice.vo.ResponseUser;
+import com.example.userservice.vo.*;
 import io.micrometer.core.annotation.Timed;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,9 +20,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
-import static com.example.userservice.util.ModelMapperUtils.getModelMapper;
 
 @Slf4j
 @Validated
@@ -63,6 +53,7 @@ public class UserController {
     }
 
     @GetMapping("/welcome")
+    @Operation(hidden = true)
     @Timed(value="user.welcome", longTask = true)
     public String welcome() {
         System.out.println("welcome");
@@ -72,7 +63,7 @@ public class UserController {
 
     @PostMapping("/register")
     @Operation(summary = "회원 가입", description  = "<strong>아이디와 패스워드</strong>를 통해 회원가입 한다.")
-    public ResponseEntity<ResponseUser> createUser(@RequestBody RequestUser user) {
+    public ResponseEntity<ResponseUser> createUser(@RequestBody ReqUserRegister user) {
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
@@ -94,8 +85,8 @@ public class UserController {
 
     @PutMapping("/")
     @Operation(summary = "정보 수정", description  = "유저id로 정보 수정")
-    public ResponseEntity<UserDto> modifyUser(@Valid @RequestBody RequestUser requestUser) {
-        UserDto userDto = userService.modifyUser(requestUser.getId() , requestUser);
+    public ResponseEntity<UserDto> modifyUser(@Valid @RequestBody ReqUserModify reqUserModify) {
+        UserDto userDto = userService.modifyUser(reqUserModify.getId() , reqUserModify);
 
         return ResponseEntity.status(HttpStatus.OK).body(userDto);
     }
@@ -110,9 +101,9 @@ public class UserController {
 
 
     @PostMapping("/reissue")
-    public ResponseEntity<ReponseLogin> reissue(@RequestHeader("RefreshToken") String refreshToken, @Valid @RequestBody RequestUser requestUser) {
+    public ResponseEntity<ReponseLogin> reissue(@RequestHeader("RefreshToken") String refreshToken, @Valid @RequestBody ReqUserRegister reqUserRegister) {
 
-        ReponseLogin reponseLogin = userService.reissue(refreshToken , requestUser);
+        ReponseLogin reponseLogin = userService.reissue(refreshToken , reqUserRegister);
 
         return ResponseEntity.status(HttpStatus.OK).body(reponseLogin);
     }

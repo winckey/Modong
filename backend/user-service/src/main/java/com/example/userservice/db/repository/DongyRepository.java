@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface DongyRepository extends CrudRepository<Dongcode, Long> {
 
     List<Dongcode> findByGugun(String Gugun);
+
+    Dongcode findByDongcode(Long dongcode);
 }
