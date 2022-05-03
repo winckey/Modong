@@ -12,12 +12,13 @@ import { useSelector } from "react-redux";
 function App() {
 
   const { isLogin } = useSelector((state:RootState) => ({
-    isLogin : state.ischeck.data.isLogin
+    isLogin : state.accounts.data.token
   }))
+
   return (
     <BrowserRouter>
       <div className="App">
-        {isLogin 
+        {isLogin !== null
           ? <Nav/>
           : <Account/>}
       </div>

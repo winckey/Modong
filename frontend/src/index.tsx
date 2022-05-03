@@ -11,6 +11,11 @@ import { PersistGate } from "redux-persist/integration/react";
 
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore } from "redux"; 
+import axios from "axios"
+axios.defaults.withCredentials = false;
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+
 
 const {store, persistor} = configureStore();
 
