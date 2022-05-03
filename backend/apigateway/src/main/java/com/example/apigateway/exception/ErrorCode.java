@@ -35,6 +35,4 @@ public enum ErrorCode implements Serializable {
     private int errorcode;
 
 
-
-
 }
