@@ -1,5 +1,6 @@
 package com.example.userservice.service;
 
+import com.example.userservice.db.entity.Dongcode;
 import com.example.userservice.db.repository.DongyRepository;
 import com.example.userservice.db.repository.RefreshTokenRedisRepository;
 import com.example.userservice.dto.UserDto;
@@ -8,7 +9,8 @@ import com.example.userservice.db.repository.UserRepository;
 import com.example.userservice.util.JwtTokenUtil;
 import com.example.userservice.util.RefreshToken;
 import com.example.userservice.vo.ReponseLogin;
-import com.example.userservice.vo.RequestUser;
+import com.example.userservice.vo.ReqUserModify;
+import com.example.userservice.vo.ReqUserRegister;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,21 +44,19 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserDto createUser(RequestUser requestUser) {
+    public UserDto createUser(ReqUserRegister reqUserRegister) {
 
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);// 모델 매핑전략지정 : STRICT 일치하지 않으면 실행 x
         //     UserEntity userEntity = modelMapper.map(userDto, UserEntity.class);
 
         UserEntity userEntity = UserEntity.builder()
-                .userId(requestUser.getUserId())
-                .name(requestUser.getName())
-                .nickname(requestUser.getNickname())
-                .userPwEn(bCryptPasswordEncoder.encode(requestUser.getUserPw()))
+                .userId(reqUserRegister.getUserId())
+                .nickname(reqUserRegister.getNickname())
+                .userPwEn(bCryptPasswordEncoder.encode(reqUserRegister.getUserPw()))
                 .date_create(LocalDateTime.now())
-                .age(requestUser.getAge())
-                .phone(requestUser.getPhone())
-                .dongcode(dongyRepository.findById(requestUser.getDongcode()).get())
+                .phone(reqUserRegister.getPhone())
+                .dongcode(dongyRepository.findById(reqUserRegister.getDongcode()).get())
                 .build();
 
         userRepository.save(userEntity);
@@ -112,8 +112,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ReponseLogin reissue(String refreshToken, RequestUser requestUser) {
-        UserEntity userEntity = userRepository.findByUserId(requestUser.getUserId()).get();
+    public ReponseLogin reissue(String refreshToken, ReqUserRegister reqUserRegister) {
+        UserEntity userEntity = userRepository.findByUserId(reqUserRegister.getUserId()).get();
         RefreshToken redisRefreshToken = refreshTokenRedisRepository.findById(userEntity.getUserId()).orElseThrow(NoSuchElementException::new);
 
         if (refreshToken.equals(redisRefreshToken.getRefreshToken())) {
@@ -123,16 +123,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto modifyUser(Long userId , RequestUser requestUser) {
+    public UserDto modifyUser(Long userId , ReqUserModify reqUserModify) {
 
         UserEntity userEntity = userRepository.findById(userId).get();
-
-        userEntity.changeUser(requestUser);
+        reqUserModify.setUserPw(bCryptPasswordEncoder.encode(reqUserModify.getUserPw()));
+        Dongcode dongcode = dongyRepository.findByDongcode(reqUserModify.getDongcode());
+        userEntity.changeUser(reqUserModify);
+        userEntity.changeDong(dongcode);
 
         userRepository.save(userEntity);
 
         UserDto userDto = getModelMapper().map(userEntity, UserDto.class);
-
+        userDto.setDongDto(userEntity.getDongcode());
+        
         return userDto;
     }
 

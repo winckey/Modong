@@ -1,6 +1,7 @@
 package com.example.userservice.db.entity;
 
-import com.example.userservice.vo.RequestUser;
+import com.example.userservice.vo.ReqUserModify;
+import com.example.userservice.vo.ReqUserRegister;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -52,18 +53,20 @@ public class UserEntity {
 
     }
 
-    public void changeUser(RequestUser requestUser) {
+    public void changeUser(ReqUserModify reqUserModify) {
 
-        this.userId = requestUser.getUserId();
-        this.age = requestUser.getAge();
-        this.name = requestUser.getName();
-        this.nickname = requestUser.getNickname();
-        this.phone = requestUser.getPhone();
-
+        this.userId = reqUserModify.getUserId();
+        this.nickname = reqUserModify.getNickname();
+        this.phone = reqUserModify.getPhone();
+        this.userPwEn = reqUserModify.getUserPw();
 
     }
 
     public void deleteUser() {
         this.deleted = true;
+    }
+
+    public void changeDong(Dongcode dongcode) {
+        this.dongcode = dongcode;
     }
 }
