@@ -50,8 +50,8 @@ public class JwtTokenUtil {
     }
 
     public String getUsername(String token) {
-        return extractAllClaims(token).get("username", String.class);
-
+        String username=  extractAllClaims(token).get("username", String.class);
+        return username;
     }
 
     private Key getSigningKey(String secretKey) {// 나중에 사용할지 말지 고민해보기
