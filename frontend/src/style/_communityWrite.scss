@@ -5,13 +5,16 @@
     align-items: center;
 }
 textarea{
+    box-sizing: border-box;
     width: 100%;
     margin-top: 15px;
-    height: 480px;
+    height: 460px;
     border: none;
     background-color: $gray1;
     border-radius: 15px;
     resize: none;
+    padding: 20px;
+    font-size: 20px;
     box-shadow: 1px 1px 3px 1px #e3e5e9;
 }
 .button{

@@ -2,7 +2,6 @@
 
 .mycommunityOutLine{
     margin:12px;
-    overflow: auto;
     height: 600px;
     .applicationNav{
         background-color: $blue2;
@@ -43,5 +42,8 @@
             background-color: aliceblue;
             transition: left 0.3s;
         }
+    }
+    >div:nth-child(2){
+        overflow: auto;
     }
 }

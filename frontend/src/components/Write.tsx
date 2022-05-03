@@ -13,7 +13,6 @@ import Select from '@mui/material/Select';
 function Write() {
   const [Wcategory, setWCategory]=useState<number>(1);
   const handleWcategory =(e:any) =>{
-    console.log(e.target.value)
     setWCategory(e.target.value);
   }
   return (
@@ -24,6 +23,7 @@ function Write() {
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             label="주제 선택"
+            value={Wcategory||1}
             onChange={handleWcategory}
           >
             <MenuItem value={1}>게시판</MenuItem>

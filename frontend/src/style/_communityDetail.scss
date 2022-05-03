@@ -65,6 +65,8 @@
     .userdiv2{
         display: flex;
         padding: 15px;
+        justify-content: flex-start;
+        position: relative;
         >div:nth-child(1){
             overflow: hidden;
             height: 30px;
@@ -79,7 +81,6 @@
         }
         >div:nth-child(2){
             @include flex-col;
-            align-items: flex-start;
             margin-left: 15px;
             >div{
                 text-align: start;
@@ -91,9 +92,12 @@
                 font-size: 12px;
             }
             >div:nth-child(3){
-                margin-top: 10px;
+                margin: 3px;
                 font-size: 22px;
             }
+        }
+        >div:nth-child(3){
+            @include absolute-loc($right:10px);
         }
     }
     .replywrite{

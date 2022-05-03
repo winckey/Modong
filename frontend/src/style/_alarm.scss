@@ -3,16 +3,14 @@
 .alarmOutLine{
     @include absolute-loc($top:75px, $left:10%);
     width: 80%;
-    height: 75%;
-    z-index: 11;
+    height: 600px;
+    z-index: 12;
     background-color: white;
-    @include shadow;
-    overflow: auto;
     >div{
         margin : 10px;
         @include flex-col;
         overflow: auto;
-        height: 550px;
+        height: 530px;
         >div{
             display: flex;
             border-radius: 8px;
@@ -28,4 +26,12 @@
         text-align: end;
         font-size: 14px;
     }
+}
+.closeboard{
+    @include fixed-loc($top:-25px, $left:-25px);
+    z-index: 11;
+    opacity: 0.3;
+    width: 600px;
+    height: 1000px;
+    background-color: black;
 }

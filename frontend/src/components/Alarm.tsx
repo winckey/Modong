@@ -6,9 +6,10 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 
 const data =[{ contents:"제목1"}, { contents:"제목2"}, { contents:"제목3"},{ contents:"제목1"}, { contents:"제목2"}, { contents:"제목3"},{ contents:"제목1"}, { contents:"제목2"}, { contents:"제목3"},{ contents:"제목1"}, { contents:"제목2"}, { contents:"제목3"}]
-function Alarm() {
+function Alarm(props:any) {
   return (
-    <div className='alarmOutLine'>
+    <>
+      <div className='alarmOutLine'>
         <div>
         {data.map((d, index)=>(
             <div key={index}>
@@ -19,8 +20,10 @@ function Alarm() {
             </div>
         ))}
         </div>
-      <p>전체 삭제</p>
-    </div>
+        <p>전체 삭제</p>
+      </div>
+      <div onClick={props.closealarm} className='closeboard'/>
+    </>
   );
 }
 

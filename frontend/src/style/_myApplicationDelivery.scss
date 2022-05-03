@@ -6,23 +6,20 @@
     align-items: flex-end;
     border-radius: 10px;
     background-color: $gray1;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px;
+    margin-bottom: 20px;
     @include shadow;
     position: relative;
-    overflow: auto;
     >div{
         display: flex;
         margin: 10px;
     }
     >div:nth-child(1){
         justify-content: space-between;
-        width: 390px;
+        @include flex-row;
+        width: 95%;
         >div:nth-child(1){
             font-size: 22px;
-        }
-        >svg{
-            margin-right: 10px;
         }
     }
     >div:nth-child(2){
@@ -38,11 +35,11 @@
         justify-content: space-between;
         @include flex-col;
     }
-    >div:nth-child(3){
-        margin: 0;
-        height: 10px;
-        @include absolute-loc($bottom:0, $left:0);
-        width: 500px;
-        background-color: $blue2;
-    }
+    // >div:nth-child(3){
+    //     margin: 0;
+    //     height: 10px;
+    //     @include absolute-loc($bottom:0, $left:0);
+    //     width: 500px;
+    //     background-color: $blue2;
+    // }
 }

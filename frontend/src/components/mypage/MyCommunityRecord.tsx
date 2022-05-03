@@ -29,9 +29,11 @@ function MyCommunityRecord() {
                 <div onClick={()=>{handlemodeChange(3)}}>나의 공구</div>
                 <div className={categoryClassName}></div>
             </div>
-            {MCcategory === 1 && <MyCommunity/>}
-            {MCcategory === 2 && <MyDelivery/>}
-            {MCcategory === 3 && <MyGroupBuying/>}
+            <div>
+                {MCcategory === 1 && <MyCommunity/>}
+                {MCcategory === 2 && <MyDelivery/>}
+                {MCcategory === 3 && <MyGroupBuying/>}
+            </div>
         </div>
     );
 }

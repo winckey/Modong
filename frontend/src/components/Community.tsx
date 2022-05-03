@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import "../style/_community.scss"
 
@@ -8,29 +8,44 @@ import actionCreators from '../actions/actionCreators.tsx';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faComments } from "@fortawesome/free-solid-svg-icons";
 
- export interface datatype  {
-  commucontents:string;
-  commutiem:number;
-  commutag:string[];
-  repnum:number
+import axios, {AxiosResponse, AxiosError} from "axios";
+
+export interface datatype  {
+  id: number,
+  description: string,
+  userId: number,
+  createdDate: Date,
+  modifiedDate: Date
 }
 
-
-const data =[{ commucontents:"제목1", commutiem:10, commutag:["강남구", "고기"], repnum:8}, { commucontents:"제목2", commutiem:20, commutag:["강북구", "수시"], repnum:5}]
 function Community() {
   const dispatch = useDispatch();
   const handleCommunityPropsData=(d:datatype)=>{
     dispatch(actionCreators.setCommunityPropsData(d));
-    alert(d)
   }
+  const [boardData, setBoardData]=useState<datatype[]>([]);
+
+  const handlegetList = (pageNum:number) => {
+    axios.get(`/board-service?pageNumber=${pageNum}&pageSize=10`)
+      .then((response:AxiosResponse) => {
+        console.log(response.data, "from login");
+        setBoardData(response.data)
+      })
+      .catch((error:AxiosError) => {
+        console.log(error, "에러");
+      })
+  };
+  useEffect(()=>{
+    handlegetList(1)
+  },[]);
   return (
     <div className='communityOutLine'>
-      {data.map((d, index)=>(
+      {boardData.map((d:datatype, index:number)=>(
         <Link to='/communitydetail' onClick={()=>{handleCommunityPropsData(d)}} key={index} className='communityCard'>
-          <div>{d.commucontents}</div>
-          <div>{d.commutiem}분 전</div>
-          <div>{d.commutag.join(", ")}</div>
-          <div><FontAwesomeIcon icon={faComments}/>댓글 {d.repnum}</div>
+          <div>{d.description}</div>
+          <div>{d.createdDate.toString()}</div>
+          {/* <div></div>
+          <div><FontAwesomeIcon icon={faComments}/>댓글 {d.}</div> */}
         </Link>
       ))}
         <Link to="/write" className="writemark"><FontAwesomeIcon icon={faPen}/></Link>
