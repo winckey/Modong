@@ -1,13 +1,18 @@
 package com.modong.boardservice.controller;
 
 
+import com.modong.boardservice.db.entity.Comment;
 import com.modong.boardservice.request.BoardReqDTO;
 import com.modong.boardservice.response.BoardResDTO;
+import com.modong.boardservice.response.BoardResDetailDTO;
 import com.modong.boardservice.response.CommentResDTO;
+import com.modong.boardservice.response.UserResDTO;
 import com.modong.boardservice.service.BoardService;
 import com.modong.boardservice.service.CommentService;
+import com.modong.boardservice.service.UserClientService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -27,6 +32,9 @@ public class BoardController {
 
     @Autowired
     CommentService commentService;
+
+    @Autowired
+    UserClientService userClientService;
 
     //글 등록
     @PostMapping
@@ -59,16 +67,19 @@ public class BoardController {
 
     //목록 조회(Pagination, 10개)
     @GetMapping
-    public ResponseEntity boardList(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+    public ResponseEntity boardList(@PageableDefault(page = 0, size = 2) Pageable pageable) {
 
 
-        return new ResponseEntity<>(BoardResDTO.of(boardService.boardListCalling(pageable)), HttpStatus.OK);
+        return new ResponseEntity<>(boardService.boardListCalling(pageable), HttpStatus.OK);
     }
 
     //상세 조회
-    @GetMapping("/{boardId}")
-    public ResponseEntity boardRead(@PathVariable Long boardId, @PageableDefault(page = 0, size = 10) Pageable pageable) {
-        return new ResponseEntity<>(CommentResDTO.of(commentService.commentListCalling(boardId, pageable)), HttpStatus.OK);
+    @GetMapping("/{boardId}/{userId}")
+    public ResponseEntity boardRead(@PathVariable("boardId") Long boardId, @PageableDefault(page = 0, size = 10) Pageable pageable, @PathVariable("userId") Long userId) {
+
+        Page<CommentResDTO> commentResDTO = commentService.commentListCalling(boardId, pageable);
+        UserResDTO userInfo = userClientService.getUser(userId);
+        return new ResponseEntity<>(BoardResDetailDTO.of(userInfo,commentResDTO), HttpStatus.OK);
     }
 
 }

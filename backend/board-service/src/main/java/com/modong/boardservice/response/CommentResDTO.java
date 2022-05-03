@@ -2,9 +2,11 @@ package com.modong.boardservice.response;
 
 
 import com.modong.boardservice.db.entity.Comment;
+import com.modong.boardservice.service.UserClientService;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
@@ -19,23 +21,7 @@ public class CommentResDTO {
     private Long boardId;
     private String description;
     private boolean deleted;
-    private Long userId;
+    UserResDTO user;
 
 
-    public static List<CommentResDTO> of(Page<Comment> commentList){
-        List<CommentResDTO> res = new ArrayList<>();
-
-
-        for (Comment c: commentList.getContent() ) {
-            CommentResDTO dto = CommentResDTO.builder()
-                    .id(c.getId())
-                    .boardId(c.getBoard().getId())
-                    .description(c.getDescription())
-                    .userId(c.getUserId()).build();
-
-
-            res.add(dto);
-        }
-        return res;
-    }
 }
