@@ -53,11 +53,11 @@ public class DongController {
 
         return ResponseEntity.status(HttpStatus.OK).body(ResponseCitys);
     }
-    @GetMapping("/dong/{gugun}")
-    public ResponseEntity<List<ResponseCity>> getDong(@NotBlank @PathVariable String gugun) {
+    @GetMapping("/dong/{gugun}/{city}")
+    public ResponseEntity<List<ResponseCity>> getDong(@NotBlank @PathVariable String gugun ,@NotBlank @PathVariable String city) {
 
 
-        List<ResponseCity> ResponseCitys = dongService.getDong(gugun);
+        List<ResponseCity> ResponseCitys = dongService.getDong(gugun , city);
 
         return ResponseEntity.status(HttpStatus.OK).body(ResponseCitys);
     }
