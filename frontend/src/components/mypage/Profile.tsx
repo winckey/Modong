@@ -10,7 +10,11 @@ function Profile() {
         return state.accounts.data.user
     });
 
+    const dong = useSelector((state:Rootstate) => {
+        return state.address.data.dong
+    });
 
+      
     // 프로필 이미지 수정
     const handleProfileImage = () => {
 
@@ -29,7 +33,7 @@ function Profile() {
                 <button onClick={handleProfileImage}>+</button>
             </div>
 
-            <div>
+            <div style={{borderWidth: "1px", borderColor:"red"}}>
                 <div>
                     <p>닉네임</p>
                     <p>{user.nickname}</p>
@@ -40,7 +44,7 @@ function Profile() {
                 </div>
                 <div>
                     <p>주소</p>
-                    <p>{user.dongDto.dong}</p>
+                    <p>{dong}</p>
                 </div>
                 <div>
                     <p>전화번호</p>

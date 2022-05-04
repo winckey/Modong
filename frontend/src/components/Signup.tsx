@@ -12,7 +12,7 @@ import axios from "axios";
 import Modal from './modal/_AddressModal.tsx'
 
 import { useSelector } from 'react-redux';
-
+import '../style/_base.scss'
 const theme = createTheme();
 
 export default function SignUp(props) {
@@ -75,7 +75,7 @@ export default function SignUp(props) {
         <Box
           sx={{
             marginTop: "30%",
-            marginX:2,
+            marginX:1,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -106,7 +106,7 @@ export default function SignUp(props) {
                   />
               </Grid>
               <Grid item xs={4}>
-                <Button variant="contained" size="small" onClick={emailCheck}>중복확인</Button>
+                <Button style={{backgroundColor:"#0064FF" }} variant="contained" size="small" onClick={emailCheck}>중복확인</Button>
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -131,7 +131,7 @@ export default function SignUp(props) {
                   id="passwordConfirmation"
                   autoComplete="new-password"
                   variant="standard"
-                  autoFocus
+                  // autoFocus
                 />
               </Grid>
               <Grid item xs={12}>
@@ -142,7 +142,7 @@ export default function SignUp(props) {
                   fullWidth
                   id="Name"
                   label="닉네임"
-                  autoFocus
+                  // autoFocus
                   variant="standard"
                 />
               </Grid>
@@ -155,7 +155,7 @@ export default function SignUp(props) {
                   fullWidth
                   id="phone"
                   label="전화번호"
-                  autoFocus
+                  // autoFocus
                   variant="standard"
                 />
               </Grid>
@@ -170,6 +170,9 @@ export default function SignUp(props) {
               
             </Grid>
             <Button
+              className='muiButton'
+              style={{backgroundColor: "#0064FF", fontSize: "1.2rem", borderRadius: "10px"}}
+              size="large"
               type="submit"
               fullWidth
               variant="contained"

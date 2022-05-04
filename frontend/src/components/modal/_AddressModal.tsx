@@ -9,6 +9,7 @@ import Modal from './_AddressDetailModal.tsx'
 
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import '../../style/_base.scss'
 
 
 export default function AddressModal() {
@@ -85,6 +86,7 @@ export default function AddressModal() {
   return (
     <div>
       <TextField onClick={handleClickOpen}
+                  fullWidth
                   id="filled-basic" 
                   value={dongSelected? dongSelected:"주소를 입력해주세요"} 
                   variant="filled" />
@@ -133,6 +135,8 @@ export default function AddressModal() {
         </DialogContent>
         <DialogActions>
           <Button
+              style={{backgroundColor: "#0064FF", fontSize: "1.2rem", borderRadius: "10px"}}
+              size="large"
               onClick={handleClose}
               type="submit"
               // fullWidth

@@ -31,6 +31,24 @@
     box-shadow: 1px 1px 3px 1px #dadce0;
 }
 
+@mixin button {
+    width: 90%;
+    height: 9%;
+    font-size: 1.2rem;
+    text-align: center;
+    color: white;
+    background-color: $blue3;
+    border: none;
+    border-radius: 10px;
+}
+
+
+.muiButton {
+    background-color: #0064FF;
+    font-size: 1.3rem;
+    border-radius: "10px";
+}
+
 $gray1:#F5F5F5;
 $gray2:#C4C4C4;
 $blue1:#2F88FF;
