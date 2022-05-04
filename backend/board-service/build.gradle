@@ -57,7 +57,7 @@ dependencies {
 
 
     // 유레카
-    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+//    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
 }
 

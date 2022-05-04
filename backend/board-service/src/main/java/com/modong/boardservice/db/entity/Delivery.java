@@ -16,10 +16,6 @@ public class Delivery extends Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id", referencedColumnName = "id", nullable = false)
-    private Board board;
-
     @Column(nullable = false)
     private String storeName;
 
