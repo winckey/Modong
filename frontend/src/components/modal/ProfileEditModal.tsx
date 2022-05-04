@@ -1,14 +1,16 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Rootstate from '../../reducer/reducers.tsx'
 import axios from 'axios';
-
+import actionCreators from '../../actions/actionCreators.tsx';
+import '../../style/_base.scss'
+import Modal from './_AddressModal.tsx'
 
 export default function ProfileEditModal() {
   //모달 열고, 닫기
@@ -20,25 +22,58 @@ export default function ProfileEditModal() {
     setOpen(false);
   };
 
-
-  // 프로필 수정 
+  const dispatch = useDispatch();
   const user = useSelector((state:Rootstate) => {
     return state.accounts.data.user
   });
 
+
+
+  const [state, setState] = useState({
+    nickname: user.nickname,
+    userId: user.userId,
+    phone: user.phone,
+    address: user.dongDto.dong
+  });
+
+
+  const handleChangeState = (e) => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value
+    })
+  }
+
+
+
+  // 프로필 수정 
   const handleProfileEdit = (event) => {
     handleClose();
-    const formdata = new FormData(event.currentTarget);
     const data = {
-      userId:formdata.get("email"),
-      nickname:formdata.get("Name"),
-      phone: formdata.get("phone"),
-      dongcode: "2617010400",
-      // dongcode: parseInt(dongCodeSelected)
-    }
-    console.log(data)
-    
+      ...user,
+      userId: state.userId,
+      nickname:state.nickname,
+      phone: state.phone,
+      dongDto: {dong: state.address, dongcode: 2617010400}
+    };
 
+    axios.put("/user-service",
+    {
+      data
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        // "Content-type": "application/json",
+        // Accept: "*/*",
+      }
+    }).then((res)=> {
+      console.log(data)
+      dispatch(actionCreators.setUser(data));
+      console.log(user)
+    }).catch((err)=> {
+      console.log(err)
+    })
   };
 
   return (
@@ -46,7 +81,7 @@ export default function ProfileEditModal() {
       <Button onClick={handleClickOpen} style={{position:"absolute", right: "5%", color: "gray", cursor:"pointer"}}>수정</Button>
       
       <Dialog 
-      PaperProps={{ sx: { width: "100%", height: "75vh", 
+      PaperProps={{ sx: { width: "100%", height: "88vh", 
       position: "fixed", bottom: 0, m: 0, 
       borderTopLeftRadius: 30, borderTopRightRadius: 30 } }}
        open={open} onClose={handleClose}  fullScreen>
@@ -56,56 +91,63 @@ export default function ProfileEditModal() {
             <p>닉네임</p>
             <TextField
                 margin="dense"
-                id="name"
-                name="name"
+                name="nickname"
                 type="email"
                 fullWidth
                 variant="filled"
                 autoComplete="off"
-                // value={user.nickname}
-                label={user.nickname}
+                value={state.nickname}
+                onChange={handleChangeState}
             />
 
             <p>이메일 주소</p>
             <TextField
                 margin="dense"
-                id="email"
-                name="email"
+                // id="email"
+                name="userId"
                 type="email"
                 fullWidth
                 variant="filled"
                 autoComplete="off"
-                value="강냉이"
+                value={state.userId}
+                onChange={handleChangeState}
             />
 
             <p>주소</p>
-            <TextField
+            {/* <TextField
                 margin="dense"
-                id="address"
+                // id="address"
                 name="address"
                 type="email"
                 fullWidth
                 variant="filled"
                 autoComplete="off"
-                value="강냉이"
-            />
+                value={state.address}
+                onChange={handleChangeState}
+            /> */}
+
+            
+            <Modal/>
 
             <p>전화번호</p>
             <TextField
                 margin="dense"
-                id="phone"
+                // id="phone"
                 name="phone"
                 type="phone"
                 fullWidth
                 variant="filled"
                 autoComplete="off"
-                value="강냉이"
+                value={state.phone}
+                onChange={handleChangeState}
             />
           
          
         </DialogContent>
         <DialogActions>
           <Button
+              style={{backgroundColor: "#0064FF", fontSize: "1.2rem", borderRadius: "10px"}}
+              size="large"
               onClick={handleProfileEdit}
               type="submit"
               variant="contained"

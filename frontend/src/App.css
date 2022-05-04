@@ -1,9 +1,11 @@
 .App {
   text-align: center;
+  font-family: 'wow';
+  
 }
 
 @font-face {
-  font-family: 'LeferiPoint-WhiteObliqueA';
+  font-family: 'wow';
   src: url('./style/font/LeferiBaseRegular.ttf');
   font-weight: normal;
   font-style: normal;

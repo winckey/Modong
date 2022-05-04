@@ -15,7 +15,7 @@ import axios from "axios";
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-
+import '../style/_base.scss'
 
 const theme = createTheme();
 
@@ -72,7 +72,7 @@ export default function Login(props) {
         <Box
           sx={{
             marginTop: 8,
-            marginX:2,
+            marginX:1,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -110,10 +110,12 @@ export default function Login(props) {
             </FormGroup>
             
             <Button
+              style={{backgroundColor: "#0064FF", fontSize: "1.2rem", borderRadius: "10px"}}
+              size="large"
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 40, mb: 2 }}
+              sx={{ mt: 40, mb: 1 }}
               onClick={setIsLogin}
             >
               로그인
