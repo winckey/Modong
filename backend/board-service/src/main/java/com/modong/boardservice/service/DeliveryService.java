@@ -12,10 +12,7 @@ public interface DeliveryService {
     Delivery createDelivery(DeliveryReqDTO deliveryReqDTO);
 
 //  게시글 삭제
-    Delivery deleteDelivery(DeliveryReqDTO deliveryReqDTO);
-
-//  게시글 수정
-    Delivery updateDelivery(DeliveryReqDTO deliveryReqDTO);
+    Delivery deleteDelivery(Long id);
 
 //  게시글 목록 불러오기
     Page<DeliveryResDTO> deliveryListCalling(Pageable pageable);
