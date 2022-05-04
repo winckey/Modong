@@ -5,7 +5,6 @@ import com.modong.boardservice.db.repository.BoardRepositoryImpl;
 import com.modong.boardservice.db.repository.DeliveryRepository;
 import com.modong.boardservice.request.DeliveryReqDTO;
 import com.modong.boardservice.response.DeliveryResDTO;
-import com.modong.boardservice.service.DeliveryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,26 +20,38 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Override
     public Delivery createDelivery(DeliveryReqDTO deliveryReqDTO) {
 
-        Delivery delivery = (Delivery) Delivery.builder().build();
+        Delivery delivery = Delivery.DeliveryBuilder()
+                .description(deliveryReqDTO.getDescription())
+                .userId(deliveryReqDTO.getUserId())
+                .closeTime(deliveryReqDTO.getCloseTime())
+                .minPrice(deliveryReqDTO.getMinPrice())
+                .pickupLocation(deliveryReqDTO.getPickupLocation())
+                .storeName(deliveryReqDTO.getStoreName())
+                .url(deliveryReqDTO.getUrl())
+                .build();
 
 
-        return (Delivery) deliveryRepository.save(delivery);
+        return deliveryRepository.save(delivery);
     }
 
     @Override
     public Delivery deleteDelivery(DeliveryReqDTO deliveryReqDTO) {
 
-        Delivery delivery = (Delivery) Delivery.builder().build();
+        Delivery delivery = deliveryRepository.getById(deliveryReqDTO.getBoardId());
+
+        delivery.setDeleted(true);
 
 
-        return (Delivery) deliveryRepository.save(delivery);
+        return deliveryRepository.save(delivery);
     }
 
     @Override
     public Delivery updateDelivery(DeliveryReqDTO deliveryReqDTO) {
-        Delivery delivery = (Delivery) Delivery.builder().build();
+        Delivery delivery = deliveryRepository.getById(deliveryReqDTO.getBoardId());
 
-        return (Delivery) deliveryRepository.save(delivery);
+        delivery.setDeleted(true);
+
+        return deliveryRepository.save(delivery);
 
     }
 

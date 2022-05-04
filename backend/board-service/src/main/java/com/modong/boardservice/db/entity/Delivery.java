@@ -30,4 +30,15 @@ public class Delivery extends Board {
 
     @Column(nullable = false)
     private String url;
+
+    @Builder(builderMethodName = "DeliveryBuilder")
+    public Delivery(String description, Long userId, String storeName, LocalDateTime closeTime, Integer minPrice, String pickupLocation, String url) {
+        super(description, userId);
+        this.storeName = storeName;
+        this.closeTime = closeTime;
+        this.minPrice = minPrice;
+        this.pickupLocation = pickupLocation;
+        this.url = url;
+
+    }
 }
