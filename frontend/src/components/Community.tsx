@@ -4,9 +4,13 @@ import "../style/_community.scss"
 
 import { useDispatch } from "react-redux";
 import actionCreators from '../actions/actionCreators.tsx';
+import useTimeLapse from '../actions/useTimeLapse';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faComments } from "@fortawesome/free-solid-svg-icons";
+
+
+import {datetrans} from '../actions/TimeLapse.tsx'
 
 import axios, {AxiosResponse, AxiosError} from "axios";
 
@@ -15,7 +19,8 @@ export interface datatype  {
   description: string,
   userId: number,
   createdDate: Date,
-  modifiedDate: Date
+  modifiedDate: Date,
+  commentNumber: number
 }
 
 function Community() {
@@ -29,7 +34,7 @@ function Community() {
     axios.get(`/board-service?pageNumber=${pageNum}&pageSize=10`)
       .then((response:AxiosResponse) => {
         console.log(response.data, "from login");
-        setBoardData(response.data)
+        setBoardData(response.data.content)
       })
       .catch((error:AxiosError) => {
         console.log(error, "에러");
@@ -43,9 +48,9 @@ function Community() {
       {boardData.map((d:datatype, index:number)=>(
         <Link to='/communitydetail' onClick={()=>{handleCommunityPropsData(d)}} key={index} className='communityCard'>
           <div>{d.description}</div>
-          <div>{d.createdDate.toString()}</div>
-          {/* <div></div>
-          <div><FontAwesomeIcon icon={faComments}/>댓글 {d.}</div> */}
+          <div>{datetrans(d.createdDate.toString())}</div>
+          <div></div>
+          <div><FontAwesomeIcon icon={faComments}/>댓글 {d.commentNumber}</div>
         </Link>
       ))}
         <Link to="/write" className="writemark"><FontAwesomeIcon icon={faPen}/></Link>

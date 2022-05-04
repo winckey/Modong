@@ -3,18 +3,25 @@ import { Link } from 'react-router-dom';
 import "../../style/_communityWrite.scss"
 
 import axios, {AxiosResponse, AxiosError} from 'axios';
+import { useSelector } from 'react-redux';
+import RootState from "../reducer/reducers.tsx"
+
+
 
 function CommunityWrite() {
     const [contents, setContnets] = useState<string>("");
     const handleContentsChange =(e:React.ChangeEvent<HTMLTextAreaElement>) =>{
         setContnets(e.target.value);
     }
+    const userId = useSelector<number>((state:RootState) => {
+        return state.accounts.data.user.id
+      })
     const handlecreatecommunity = () => {
         axios.post('/board-service',
             {
                 description: contents,
                 id:0,
-                userId: 0
+                userId: userId
             },
             {
                 headers: {

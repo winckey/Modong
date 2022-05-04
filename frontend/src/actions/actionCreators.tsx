@@ -1,6 +1,5 @@
 
 // action type
-const SET_INDEX1 = "setIndex1";
 const SET_ISLOGIN = "setIsLogin";
 const SET_FOOTERSELECTED = "setFooterSelected"
 const SET_COMMUNITYPROPSDATA = "setCommunityPropsData"
@@ -16,12 +15,6 @@ const SET_DONG = "setDong"
 const SET_DONGCODE = "setDongCode"
 
 // action method
-const setIndex1 = (index1:any) => {
-    return {
-        type : SET_INDEX1,
-        index1 : index1,
-    }
-};
 const setIsLogin = (isLogin:number) => {
     return {
         type : SET_ISLOGIN,
@@ -98,7 +91,6 @@ const setDongCode = (dongCode: number) => {
 
 
 export const actionCreators = {
-    setIndex1,
     setIsLogin,
     setFooterSelected,
     setCommunityPropsData,

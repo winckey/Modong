@@ -1,6 +1,7 @@
 const propsData = (state = {
     data : {
         communityPropsData : {
+            commentNumber: null,
             id: null,
             description: null,
             userId: null,
