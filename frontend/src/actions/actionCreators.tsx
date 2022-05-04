@@ -44,7 +44,7 @@ const setCommunityPropsData = (communityPropsData:number) => {
 
 
 // accounts
-const setUser = (user:Array<any>) => {
+const setUser = (user:Object) => {
     return {
         type: SET_USER,
         user: user,

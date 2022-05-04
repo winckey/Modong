@@ -2,12 +2,13 @@
 
 .mypageOutLine{
     @include flex-col;
-    >a{
+    >a, div{
         @include noneA;
         text-align: start;
         font-size: 22px;
         border-bottom: 1px solid $gray2;
         padding: 20px;
         font-weight: bolder;
+        cursor: pointer;
     }
 }

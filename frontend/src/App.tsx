@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 
@@ -14,6 +14,12 @@ function App() {
   const { isLogin } = useSelector((state:RootState) => ({
     isLogin : state.accounts.data.token
   }))
+
+
+  useEffect(()=> {
+
+  }, [isLogin]);
+
 
   return (
     <BrowserRouter>

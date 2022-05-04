@@ -31,7 +31,7 @@ const accounts = (state = {
                 ...state,
                 data: {
                     ...state.data,
-                    token: action.refreshToken
+                    refreshToken: action.refreshToken
                 }
             }
         
