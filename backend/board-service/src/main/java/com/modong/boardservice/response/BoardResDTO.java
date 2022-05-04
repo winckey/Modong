@@ -24,24 +24,4 @@ public class BoardResDTO {
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
-
-    public static List<BoardResDTO> of(Page<Board> boardList){
-        List<BoardResDTO> res = new ArrayList<>();
-
-
-
-        for (Board b: boardList.getContent() ) {
-
-            BoardResDTO dto = BoardResDTO.builder()
-                    .createdDate(b.getDateCreated())
-                    .modifiedDate(b.getDateLastUpdated())
-                    .id(b.getId())
-                    .description(b.getDescription())
-                    .userId(b.getUserId()).build();
-
-
-            res.add(dto);
-        }
-        return res;
-    }
 }

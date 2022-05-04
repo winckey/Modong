@@ -58,8 +58,6 @@ public class ErrandServiceImpl implements ErrandService{
     @Override
     public Page<Errand> errandListCalling(Pageable pageable) {
 
-        Page<Errand> errand = errandRepository.findAllByDeletedIsFalse(pageable);
-
-        return errand;
+        return errandRepository.findAllByDeletedIsFalse(pageable);
     }
 }
