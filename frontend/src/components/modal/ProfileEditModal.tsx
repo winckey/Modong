@@ -5,11 +5,14 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import { useSelector } from 'react-redux';
+import Rootstate from '../../reducer/reducers.tsx'
+import axios from 'axios';
 
 
 export default function ProfileEditModal() {
+  //모달 열고, 닫기
   const [open, setOpen] = React.useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -18,10 +21,29 @@ export default function ProfileEditModal() {
   };
 
 
+  // 프로필 수정 
+  const user = useSelector((state:Rootstate) => {
+    return state.accounts.data.user
+  });
+
+  const handleProfileEdit = (event) => {
+    handleClose();
+    const formdata = new FormData(event.currentTarget);
+    const data = {
+      userId:formdata.get("email"),
+      nickname:formdata.get("Name"),
+      phone: formdata.get("phone"),
+      dongcode: "2617010400",
+      // dongcode: parseInt(dongCodeSelected)
+    }
+    console.log(data)
+    
+
+  };
 
   return (
     <div>
-      <Button onClick={handleClickOpen}>수정</Button>
+      <Button onClick={handleClickOpen} style={{position:"absolute", right: "5%", color: "gray", cursor:"pointer"}}>수정</Button>
       
       <Dialog 
       PaperProps={{ sx: { width: "100%", height: "75vh", 
@@ -35,17 +57,20 @@ export default function ProfileEditModal() {
             <TextField
                 margin="dense"
                 id="name"
+                name="name"
                 type="email"
                 fullWidth
                 variant="filled"
                 autoComplete="off"
-                value="강냉이"
+                // value={user.nickname}
+                label={user.nickname}
             />
 
             <p>이메일 주소</p>
             <TextField
                 margin="dense"
-                id="name"
+                id="email"
+                name="email"
                 type="email"
                 fullWidth
                 variant="filled"
@@ -56,7 +81,8 @@ export default function ProfileEditModal() {
             <p>주소</p>
             <TextField
                 margin="dense"
-                id="name"
+                id="address"
+                name="address"
                 type="email"
                 fullWidth
                 variant="filled"
@@ -67,23 +93,21 @@ export default function ProfileEditModal() {
             <p>전화번호</p>
             <TextField
                 margin="dense"
-                id="name"
-                type="email"
+                id="phone"
+                name="phone"
+                type="phone"
                 fullWidth
                 variant="filled"
                 autoComplete="off"
                 value="강냉이"
             />
           
-
-
          
         </DialogContent>
         <DialogActions>
           <Button
-              onClick={handleClose}
+              onClick={handleProfileEdit}
               type="submit"
-              // fullWidth
               variant="contained"
               sx={{ mt: 5, mb: 2, width: "90%", mx:"auto" }}
             >

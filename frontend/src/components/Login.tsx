@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import actionCreators from '../actions/actionCreators.tsx';
+import { useSelector } from 'react-redux';
+import RootState from "../reducer/reducers.tsx";
 
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -25,6 +27,10 @@ export default function Login(props) {
       dispatch(actionCreators.setIsLogin(true));
   }
 
+  const userInfo = useSelector((state:Rootstate)=> {
+    return state.accounts.data
+  });
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -43,13 +49,14 @@ export default function Login(props) {
         }
       )
       .then((response) => {
+        // localStorage.setItem("user_email", data.get("email").toString());
         console.log(response, "Login Success");
         localStorage.setItem("jwt", response.data.token);
-        localStorage.setItem("user_email", data.get("email").toString());
 
         dispatch(actionCreators.setUser(response.data.user));
         dispatch(actionCreators.setToken(response.data.token));
-        dispatch(actionCreators.setRefreshToken(response.data.RefreshToken));
+        dispatch(actionCreators.setRefreshToken(response.data.RefeshToken));
+        console.log("userInfo-loginpage", userInfo);
         
 
       })
