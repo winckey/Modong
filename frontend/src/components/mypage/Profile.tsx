@@ -23,17 +23,16 @@ function Profile() {
     return (
         <div className="profile">
 
-            <div>
-                <Modal/>
-            </div>
-
+            
+            <Modal/>
+            
             <div>
                 <img onClick={handleProfileImage} 
                 src={ require('../../assets/pingu.png') } alt="사진"/>
-                <button onClick={handleProfileImage}>+</button>
+                <button className="editButton" onClick={handleProfileImage}>+</button>
             </div>
 
-            <div style={{borderWidth: "1px", borderColor:"red"}}>
+            <div>
                 <div>
                     <p>닉네임</p>
                     <p>{user.nickname}</p>
