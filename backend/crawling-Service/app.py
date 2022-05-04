@@ -2,9 +2,20 @@ import json
 
 from flask import Flask, request, jsonify
 import redis
+import py_eureka_client.eureka_client as eureka_client
 
 import yogiyo
 
+rest_port = 8080
+
+# Eureka
+eureka_client.init(eureka_server="http://k6e102.p.ssafy.io:8761/eureka",
+                   app_name="crawling-service",
+                   instance_host='k6e102.p.ssafy.io',
+                   instance_port=rest_port)
+
+
+# Flask
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 
@@ -43,4 +54,4 @@ def menu_crawling():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port=rest_port)
