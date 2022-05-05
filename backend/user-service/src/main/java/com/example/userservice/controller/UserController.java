@@ -60,6 +60,12 @@ public class UserController {
         return greeting.getMessage();
     }
 
+    @PostMapping("/logout")
+    @Operation()
+    public String logout() {
+        System.out.println("welcome");
+        return greeting.getMessage();
+    }
 
     @PostMapping("/register")
     @Operation(summary = "회원 가입", description  = "<strong>아이디와 패스워드</strong>를 통해 회원가입 한다.")
