@@ -125,7 +125,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto modifyUser(Long userId , ReqUserModify reqUserModify) {
 
-        UserEntity userEntity = userRepository.findById(userId).get();
+        UserEntity userEntity = userRepository.findById(userId)
+                .orElseThrow(()-> new UsernameNotFoundException("해당유저id 가 올바르지 않습니다."));
         reqUserModify.setUserPw(bCryptPasswordEncoder.encode(reqUserModify.getUserPw()));
         Dongcode dongcode = dongyRepository.findByDongcode(reqUserModify.getDongcode());
         userEntity.changeUser(reqUserModify);
