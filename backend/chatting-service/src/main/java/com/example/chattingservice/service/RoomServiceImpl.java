@@ -1,15 +1,12 @@
 package com.example.chattingservice.service;
 
-import com.example.chattingservice.data.dto.MessageDto;
 import com.example.chattingservice.data.dto.RoomDto;
 import com.example.chattingservice.data.dto.RoomUserDto;
 import com.example.chattingservice.data.dto.UserDto;
 import com.example.chattingservice.data.entity.RoomEntity;
 import com.example.chattingservice.data.entity.UserEntity;
-import com.example.chattingservice.repository.MessageRepository;
 import com.example.chattingservice.repository.RoomRepository;
 import com.example.chattingservice.repository.UserRepository;
-import org.apache.catalina.User;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class RoomServiceImpl implements RoomService {
@@ -65,6 +61,31 @@ public class RoomServiceImpl implements RoomService {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public List<UserDto> getRoomMember(Long roomId) {
+
+        // 매퍼생성
+        ModelMapper mapper = new ModelMapper();
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+        try{
+            // 반환용 리스트
+            List<UserDto> res = new ArrayList<>();
+            // DB에서 유저목록 가져오기
+            List<UserEntity> userList = userRepository.findByRoomId(roomId).get();
+            for(UserEntity entity:userList){
+                UserDto user = mapper.map(entity, UserDto.class);
+                res.add(user);
+            }
+
+            return res;
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
