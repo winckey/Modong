@@ -58,7 +58,6 @@ public class UserEntity {
         this.userId = reqUserModify.getUserId();
         this.nickname = reqUserModify.getNickname();
         this.phone = reqUserModify.getPhone();
-        this.userPwEn = reqUserModify.getUserPw();
 
     }
 

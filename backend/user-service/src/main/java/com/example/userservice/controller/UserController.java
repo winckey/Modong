@@ -89,7 +89,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userDto);
     }
 
-    @PutMapping("/")
+    @PutMapping("/users")
     @Operation(summary = "정보 수정", description  = "유저id로 정보 수정")
     public ResponseEntity<UserDto> modifyUser(@Valid @RequestBody ReqUserModify reqUserModify) {
         UserDto userDto = userService.modifyUser(reqUserModify.getId() , reqUserModify);
@@ -97,7 +97,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userDto);
     }
 
-    @DeleteMapping("/")
+    @DeleteMapping("/users")
     @Operation(summary = "유저 임시 탈퇴", description  = "유저 임시 탈퇴")
     public ResponseEntity deleteUser(@Valid @RequestBody Long id) {
         userService.deleteUser(id);
