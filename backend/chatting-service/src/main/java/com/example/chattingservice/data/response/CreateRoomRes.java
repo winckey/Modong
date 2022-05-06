@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 // ^^NotNull, Size, Email...등 제약사항 추가
-public class CreateRoomRes {
+public class CreateRoomRes extends BaseRes{
 	@ApiModelProperty(name="채팅방 번호", example = "1234")
 	private Long roomId;
 	
