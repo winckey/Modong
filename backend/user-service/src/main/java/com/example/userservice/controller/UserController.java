@@ -92,6 +92,10 @@ public class UserController {
     @PutMapping("/users")
     @Operation(summary = "정보 수정", description  = "유저id로 정보 수정")
     public ResponseEntity<UserDto> modifyUser(@Valid @RequestBody ReqUserModify reqUserModify) {
+
+
+        System.out.println(reqUserModify);
+
         UserDto userDto = userService.modifyUser(reqUserModify.getId() , reqUserModify);
 
         return ResponseEntity.status(HttpStatus.OK).body(userDto);
