@@ -18,4 +18,6 @@ public interface DeliveryService {
     Page<DeliveryResDTO> deliveryListCalling(Pageable pageable);
 
 
+    Page<DeliveryResDTO> myDeliveryListCalling(Pageable pageable, Long userId);
+
 }
