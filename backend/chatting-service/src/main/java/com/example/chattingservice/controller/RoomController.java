@@ -72,7 +72,7 @@ public class RoomController {
                 // 유저 목록 추가
                 List<UserDto> userList= roomService.getRoomMember(room.getRoomId());
                 roomRes.setUserList(userList);
-                roomRes.setNumberUser(userId.length());
+                roomRes.setNumberUser(userList.size());
                 res.add(roomRes);
             }
 
