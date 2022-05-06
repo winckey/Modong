@@ -137,8 +137,8 @@ spring:
         - id: chat-service
           uri: lb://CHAT-SERVICE
           predicates:
-            - Path=/chat-service/message/**
-            - Method=GET, POST, DELETE, PUT
+            - Path=/ws-stomp/**
+
           filters:
             - RemoveRequestHeader=Cookie
 
