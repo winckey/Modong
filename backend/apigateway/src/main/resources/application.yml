@@ -19,6 +19,7 @@ spring:
     password: guest
   cloud:
     gateway:
+<<<<<<< HEAD
       globalcors:
         corsConfigurations:
           '[/**]':
@@ -37,6 +38,8 @@ spring:
               - PUT
               - OPTIONS
               - DELETE
+=======
+>>>>>>> parent of b3d1c88 (chore : CORS 설정 - allowOrigins *)
       default-filters:
         - name: GlobalFilter
           args:
@@ -44,6 +47,12 @@ spring:
             preLogger: true
             postLogger: true
       routes:
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> parent of b3d1c88 (chore : CORS 설정 - allowOrigins *)
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
