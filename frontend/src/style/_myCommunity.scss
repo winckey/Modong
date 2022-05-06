@@ -1,7 +1,9 @@
 @import '_base';
 
 .myCommunity{
+    overflow: auto;
     height: 600px;
+    padding-bottom: 40px;
     >div{
         border-radius: 20px;
         @include flex-col;
@@ -23,13 +25,13 @@
         >div:nth-child(2){
             align-self: flex-end;
         }
-        >div:nth-child(3){
+        >a{
+            @include noneA-w;
             display: flex;
             justify-content: space-around;
             align-self: center;
             background-color: $blue2;
             width: 100%;
-            color: white;
             padding:8px;
             border-radius: 0 0 15px 15px;
             max-width: 100%;

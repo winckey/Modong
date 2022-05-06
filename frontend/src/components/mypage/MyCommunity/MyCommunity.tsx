@@ -1,20 +1,57 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import "../../../style/_myCommunity.scss"
-const data = [{name:"갓김치 1KG", arrivepoint:"sk뷰 아파트 106동 1101호", lefttime:10}, {name:"여수밤밥", arrivepoint:"sk뷰 아파트 106동 1102호", lefttime:20}]
+import { Link } from 'react-router-dom';
+
+import axios, {AxiosResponse, AxiosError} from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import actionCreators from '../../../actions/actionCreators.tsx';
+
+import RootState from "../../../reducer/reducers.tsx"
+import {datetrans} from '../../../actions/TimeLapse.tsx'
+
+export interface datatype  {
+    id: number,
+    description: string,
+    userId: number,
+    createdDate: Date,
+    modifiedDate: Date,
+    commentNumber: number
+  }
+
 
 function MyCommunity() {
-    const handleModalOpen = (data:any) =>{
-        alert(data)
+    const dispatch = useDispatch();
+    const userId = useSelector((state:RootState) =>{
+        return state.accounts.data.user.id
+    })
+    const[ myCommunityList, setMyCommunityList ] = useState([]);
+
+    const handleCommunityPropsData=(d:datatype)=>{
+        dispatch(actionCreators.setCommunityPropsData(d));
     }
+
+    const getMycommunityList=()=>{
+        axios.get(`/board-service/${userId}`)
+        .then((response:AxiosResponse) => {
+            console.log(response.data, "from qoekf");
+            setMyCommunityList(response.data.content)
+            })
+            .catch((error:AxiosError) => {
+            console.log(error, "에러");
+            })
+    }
+    useEffect(()=>{
+        getMycommunityList();
+    },[])
     return (
         <div className='myCommunity'>
-            {data.map((d, index) =>(
-                <div className='shadow' key={index}>
-                    <div>{d.name}</div>
-                    <div>{d.lefttime}분 남았습니다.</div>
-                    <div>
-                        <div onClick={()=>{handleModalOpen(data)}}>상세보기</div>
-                    </div>
+            {myCommunityList.map((data:datatype) =>(
+                <div className='shadow' key={data.id}>
+                    <div>{data.description}</div>
+                    <div>{datetrans(data.createdDate)}</div>
+                    <Link to="/communitydetail" onClick={()=>{handleCommunityPropsData(data)}}>
+                        <div>상세보기</div>
+                    </Link>
                 </div>
             ))}
         </div>

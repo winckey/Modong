@@ -6,13 +6,14 @@ import "../../style/_groupBuyingWrite.scss"
 import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+
 
 function GroupBuyingWrite() {
     const [productName, setProductName] =useState<string>("");
     const [productURL, setProductURL] =useState<string>("");
     const [productCost, setProductCost] =useState<string>("");
-    const [GroupBuyingTime, setGroupBuyingTime] = useState<Date>(null);
+    const [GroupBuyingTime, setGroupBuyingTime] = useState<Date>(new Date());
     const handleURLchange= (e:React.ChangeEvent<HTMLTextAreaElement>)=>{
         setProductURL(e.target.value);
     }
@@ -46,13 +47,13 @@ function GroupBuyingWrite() {
             onChange={handleCostchange}
             />
             <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <TimePicker
+                <DateTimePicker
+                    renderInput={(props) => <TextField fullWidth {...props} />}
                     label="마감시간"
-                    value={GroupBuyingTime||null}
+                    value={GroupBuyingTime}
                     onChange={(newValue) => {
                         setGroupBuyingTime(newValue);
                     }}
-                    renderInput={(params) => <TextField margin="normal" fullWidth {...params} />}
                 />
             </LocalizationProvider>
             <a href={productURL}> 이 주소가 맞나요?</a>
