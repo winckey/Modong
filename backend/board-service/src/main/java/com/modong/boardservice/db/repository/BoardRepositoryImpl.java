@@ -26,7 +26,7 @@ public class BoardRepositoryImpl {
     QComment qComment = QComment.comment;
     QBoard qBoard = QBoard.board;
 
-    public Page<BoardResDTO> findAllByDeletedIsFalseAndCommentNumber(Pageable pageable){
+    public Page<BoardResDTO> findAllByDeletedIsFalseAndCommentNumber(Pageable pageable) {
 
         List<Board> boards = jpaQueryFactory.selectFrom(qBoard).where(qBoard.deleted.eq(false))
                 .limit(pageable.getPageSize())
@@ -35,9 +35,25 @@ public class BoardRepositoryImpl {
 
         Long total = jpaQueryFactory.select(qBoard.id.count()).from(qBoard).where(qBoard.deleted.eq(false)).fetchOne();
 
+        return getBoardResDTOS(pageable, boards, total);
+    }
+
+    public Page<BoardResDTO> findAllByDeletedIsFalseAndCommentNumberAndByUserId(Pageable pageable, Long userId) {
+
+        List<Board> boards = jpaQueryFactory.selectFrom(qBoard).where(qBoard.deleted.eq(false).and(qBoard.userId.eq(userId)))
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .fetch();
+
+        Long total = jpaQueryFactory.select(qBoard.id.count()).from(qBoard).where(qBoard.deleted.eq(false).and(qBoard.userId.eq(userId))).fetchOne();
+
+        return getBoardResDTOS(pageable, boards, total);
+    }
+
+    private Page<BoardResDTO> getBoardResDTOS(Pageable pageable, List<Board> boards, Long total) {
         List<BoardResDTO> result = new ArrayList<>();
 
-        for(Board b : boards){
+        for (Board b : boards) {
             Long comment = jpaQueryFactory
                     .select(qComment.count())
                     .from(qComment)
@@ -56,13 +72,8 @@ public class BoardRepositoryImpl {
         }
 
 
-
         return new PageImpl<>(result, pageable, total);
     }
-
-
-
-
 
 
 }
