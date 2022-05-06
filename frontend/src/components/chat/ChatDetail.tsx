@@ -62,11 +62,11 @@ function ChatDetail() {
     // websocket 연결
     const socketJs = new SockJS("http://k6e102.p.ssafy.io:8000/ws-stomp");
     const stomp = Stomp.over(socketJs);
-    stomp.debug = function() {};
-    console.log("stomp 연결했쥐렁")
+    // console.log("stomp 연결했쥐렁")
     
     useEffect(()=>{
         console.log("구독 시작 전!")
+        getHistory();
         stomp.connect({}, ()=> {
             stomp.subscribe(`/sub/chat/room/${state.roomId}`, (chat)=>{
                 const content = JSON.parse(chat.body);
@@ -96,7 +96,7 @@ function ChatDetail() {
 
 
     const sendMessage = () => {
-        if (chattxt.trim()) {
+        if (chattxt) {
 
 
             // axios.post("chat-service/chat/message",
