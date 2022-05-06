@@ -1,5 +1,6 @@
 package com.modong.boardservice.service;
 
+import com.modong.boardservice.client.CrawlingClient;
 import com.modong.boardservice.db.entity.Delivery;
 import com.modong.boardservice.db.repository.DeliveryRepository;
 import com.modong.boardservice.db.repository.DeliveryRepositoryImpl;
@@ -28,17 +29,24 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Autowired
     UserClientService userClientService;
 
+    @Autowired
+    CrawlingClient crawlingClient;
 
     @Override
     public Delivery createDelivery(DeliveryReqDTO deliveryReqDTO) {
 
+        String[] urlList = deliveryReqDTO.getUrl().split("/");
+
+        String url = urlList[urlList.length-1];
         Delivery delivery = Delivery.builder()
-                .url(deliveryReqDTO.getUrl())
+                .url(url)
                 .storeName(deliveryReqDTO.getStoreName())
                 .pickupLocation(deliveryReqDTO.getPickupLocation())
                 .closeTime(deliveryReqDTO.getCloseTime())
                 .userId(deliveryReqDTO.getUserId())
                 .build();
+
+        crawlingClient.crawlingMenu(url);
 
 
         return deliveryRepository.save(delivery);
