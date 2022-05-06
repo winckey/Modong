@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import './style/_index.scss';
 import App from './App.tsx';
 import { Provider } from 'react-redux';
@@ -23,7 +23,8 @@ axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 
 
-ReactDOM.render(
+const rootNode = document.getElementById('root')
+ReactDOM.createRoot(rootNode).render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
@@ -31,8 +32,8 @@ ReactDOM.render(
       </PersistGate>
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
 );
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

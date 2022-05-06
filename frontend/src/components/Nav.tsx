@@ -31,6 +31,9 @@ function Nav() {
   const handleDongname = (name:string) => {
     setDongName(name);
   }
+  const userData = useSelector((state:RootState) => {
+    return state.accounts.data.user
+  })
   const footerSelected = useSelector((state:RootState) => {
     return state.ischeck.data.footerSelected
   })
@@ -43,7 +46,7 @@ function Nav() {
   return (
     <div>
         <header>
-          <p>{dongName}</p>
+          <p>{userData.dongDto.dong}</p>
           <div>
             <FontAwesomeIcon onClick={()=>{handlealarmOpen()}} icon={faBell}/>
             {alarmOpen && <Alarm closealarm={handlealarmOpen}/>}
