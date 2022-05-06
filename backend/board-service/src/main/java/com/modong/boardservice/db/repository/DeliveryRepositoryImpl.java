@@ -21,6 +21,7 @@ public class DeliveryRepositoryImpl {
     JPAQueryFactory jpaQueryFactory;
 
     QDelivery qDelivery = QDelivery.delivery;
+
     public Page<Delivery> findAllByTimeLimit(Pageable pageable){
 
 
@@ -36,8 +37,16 @@ public class DeliveryRepositoryImpl {
     }
 
 
+    public Page<Delivery> findAllByTimeLimitAndByUserId(Pageable pageable, Long userId) {
+        List<Delivery> deliveries = jpaQueryFactory.selectFrom(qDelivery).where(qDelivery.userId.eq(userId))
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .fetch();
+
+        Long total = jpaQueryFactory.select(qDelivery.id.count()).from(qDelivery).where(qDelivery.closeTime.gt(LocalDateTime.now())).fetchOne();
 
 
+        return new PageImpl<>(deliveries, pageable, total);
 
-
+    }
 }

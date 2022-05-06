@@ -76,4 +76,28 @@ public class DeliveryServiceImpl implements DeliveryService {
 
         return new PageImpl<>(deliveryResDTOS, pageable, deliveries.getTotalElements());
     }
+
+    @Override
+    public Page<DeliveryResDTO> myDeliveryListCalling(Pageable pageable, Long userId) {
+        Page<Delivery> deliveries = deliveryRepositoryImpl.findAllByTimeLimitAndByUserId(pageable, userId);
+        UserResDTO user = userClientService.getUser(userId);
+
+        List<DeliveryResDTO> deliveryResDTOS = new ArrayList<>();
+
+        for (Delivery d :deliveries.getContent() ) {
+            DeliveryResDTO dto = DeliveryResDTO.builder()
+                    .id(d.getId())
+                    .closeTime(d.getCloseTime())
+                    .pickupLocation(d.getPickupLocation())
+                    .storeName(d.getStoreName())
+                    .url(d.getUrl())
+                    .userInfo(user)
+                    .build();
+
+            deliveryResDTOS.add(dto);
+
+        }
+
+        return new PageImpl<>(deliveryResDTOS, pageable, deliveries.getTotalElements());
+    }
 }

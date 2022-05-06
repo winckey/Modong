@@ -37,10 +37,17 @@ public class DeliveryController {
 
     //목록 조회(Pagination, 10개)
     @GetMapping
-    public ResponseEntity deliveryList(@PageableDefault(page = 0, size = 2) Pageable pageable) {
+    public ResponseEntity deliveryList(@PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 
         return new ResponseEntity<>(deliveryService.deliveryListCalling(pageable), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity myDeliveryList(@PageableDefault(page = 0, size = 10) Pageable pageable, Long userId) {
+
+
+        return new ResponseEntity<>(deliveryService.myDeliveryListCalling(pageable, userId), HttpStatus.OK);
     }
 
 }
