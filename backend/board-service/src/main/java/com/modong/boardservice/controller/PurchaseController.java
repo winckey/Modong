@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/board-service/group-purchase")
 @RestController
-public class GroupPurchaseController {
+public class PurchaseController {
 
     @Autowired
     PurchaseService purchaseService;
@@ -45,7 +45,7 @@ public class GroupPurchaseController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity myPurchaseList(@PageableDefault(page = 0, size = 10) Pageable pageable, Long userId) {
+    public ResponseEntity myPurchaseList(@PageableDefault(page = 0, size = 10) Pageable pageable, @PathVariable Long userId) {
 
 
         return new ResponseEntity<>(purchaseService.myPurchaseListCalling(pageable, userId), HttpStatus.OK);

@@ -44,7 +44,7 @@ public class DeliveryController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity myDeliveryList(@PageableDefault(page = 0, size = 10) Pageable pageable, Long userId) {
+    public ResponseEntity myDeliveryList(@PageableDefault(page = 0, size = 10) Pageable pageable, @PathVariable Long userId) {
 
 
         return new ResponseEntity<>(deliveryService.myDeliveryListCalling(pageable, userId), HttpStatus.OK);
