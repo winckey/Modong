@@ -5,6 +5,7 @@ import com.example.chattingservice.data.dto.RoomDto;
 import com.example.chattingservice.data.dto.UserDto;
 import com.example.chattingservice.data.request.CreateRoomReq;
 import com.example.chattingservice.data.request.MessageReq;
+import com.example.chattingservice.data.response.CreateRoomRes;
 import com.example.chattingservice.service.MessageService;
 import com.example.chattingservice.service.RoomService;
 import io.swagger.annotations.ApiOperation;
@@ -35,16 +36,17 @@ public class RoomController {
     @PostMapping
     @ResponseBody
     @ApiOperation(value = "채팅방 생성", notes = "board-service에서 요청해주세요")
-    public ResponseEntity createRoom(@RequestBody CreateRoomReq req) {
+    public ResponseEntity<CreateRoomRes> createRoom(@RequestBody CreateRoomReq req) {
+        CreateRoomRes res = new CreateRoomRes();
         try{
             Long roomId = roomService.createChatRoom(req.getRoomName(), req.getRoomType());
             roomService.addRoomMember(roomId, req.getUserList());
+            res = new CreateRoomRes(roomId);
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
-
-        return new ResponseEntity(HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 
     // 채팅방 목록
