@@ -39,6 +39,8 @@ function CommunityDetail() {
       }) 
     const [replyDatas, setReplyDatas] = useState<replyData[]>([]);
     const [replytxt, setReplytxt] = useState<string>("");
+    const [usernick, setUserNick] = useState<string>("");
+    const [userLoc, setUserLoc] = useState<string>("");
     const handleReplytxt= (e:React.ChangeEvent<HTMLInputElement>)=>{
         setReplytxt(e.target.value);
     }
@@ -89,6 +91,8 @@ function CommunityDetail() {
         axios.get(`/board-service/${communityPropsData.id}/${communityPropsData.userId}`)
         .then((response:AxiosResponse) => {
             setReplyDatas(response.data.commentList.content);
+            setUserNick(response.data.userInfo.nickname);
+            setUserLoc(response.data.userInfo.dongDto.dong);
             console.log(response.data, "글가져오기");
         })
         .catch((error:AxiosError) => {
@@ -103,8 +107,9 @@ function CommunityDetail() {
             <div className='userdiv'>
                 <div><img src={ require('../../assets/dd.png') } alt="사진"/></div>
                 <div>
-                    <div>강냉이머신</div>
-                    <div>구서동</div>
+                    
+                    <div>{usernick}</div>
+                    <div>{userLoc}</div>
                 </div>
             </div>
             <div className='contentsdiv'>
