@@ -1,0 +1,29 @@
+@import '_base';
+
+.ccoutLine {
+    @include flex-col;
+    align-items: center;
+}
+textarea{
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 15px;
+    height: 460px;
+    border: none;
+    background-color: $gray1;
+    border-radius: 15px;
+    resize: none;
+    padding: 20px;
+    font-size: 20px;
+    box-shadow: 1px 1px 3px 1px #e3e5e9;
+}
+.button{
+    @include absolute-loc($bottom:86px);
+    bottom: 86px;
+    border-radius: 15px;
+    @include noneA-w;
+    width: 80%;
+    margin-top: 10px;
+    padding: 20px;
+    background-color: $blue2;
+}

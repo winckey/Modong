@@ -1,0 +1,76 @@
+@import '_base';
+
+.chatDetailOutLine{
+    width: 100%;
+    background-color: $gray1;
+    position: relative;
+    height: 82vh;
+    overflow: auto;
+}
+.chatDetailInnerCard{
+    @include flex-col;
+    padding: 10px;
+    >div{
+        @include flex-col;
+        >div:nth-child(3){
+            align-self: flex-end;
+        }
+        >div:nth-child(2){
+            min-width: 200px;
+            padding: 8px;
+            border-radius: 15px;
+            margin: 5px;
+            @include shadow;
+        }
+    }
+    .myChat{
+        align-self: flex-end;
+        div:first-child{
+            text-align: end;
+        }
+        div:nth-child(2){
+            background-color: white;
+            text-align: end;
+        }
+    }
+    .otherChat{
+        align-self: flex-start;
+        div:first-child{
+            text-align: start;
+        }
+        div:nth-child(2){
+            background-color: $mint1;
+            text-align: start;
+        }
+    }
+}
+.chatinput{
+    display: flex;
+    justify-content: center;
+    background-color: $gray1;
+    @include absolute-loc($bottom:0);
+    width: 100%;
+    padding-bottom: 5px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    >input{
+        font-size: 18px;
+        border: none;
+        padding: 10px;
+        width: 330px;
+        margin-right: 10px;
+        border-radius: 15px;
+        @include shadow;
+    }
+    >div{
+        font-size: 28px;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 50px;
+        width:50px;
+        color: $blue1;
+        background-color: $mint1;
+    }
+}

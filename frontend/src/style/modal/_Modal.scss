@@ -1,0 +1,83 @@
+@import '../_base';
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 0.6);
+  
+
+    section {
+      @include absolute-loc($bottom:0);
+        bottom: 0;
+        width: 100%;
+        height: 75%;
+        max-width: 450px;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        background-color: #fff;
+        /* 팝업이 열릴때 스르륵 열리는 효과 */
+        animation: modal-show 0.3s;
+        overflow: hidden;
+
+        header {
+          font-size: 1.5rem;
+          font-weight: bold;
+        }
+  
+        main {
+            padding: 16px;
+            text-align: center;
+  
+            button {
+              @include absolute-loc($bottom:3%, $left:5%);
+              width: 90%;
+              height: 9%;
+              font-size: 1.3rem;
+              text-align: center;
+              color: white;
+              background-color: $blue3;
+              border: none;
+              border-radius: 10px;
+            }
+  
+          }
+  
+  
+    }
+  
+    
+  }
+   
+  .modal.openModal {
+    display: flex;
+    align-items: center;
+    /* 팝업이 열릴때 스르륵 열리는 효과 */
+    animation: modal-bg-show 0.3s;
+  }
+  
+  
+  @keyframes modal-show {
+    from {
+      opacity: 0;
+      margin-top: -50px;
+    }
+    to {
+      opacity: 1;
+      margin-top: 0;
+    }
+  }
+  
+  
+  @keyframes modal-bg-show {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }

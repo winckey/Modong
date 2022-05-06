@@ -1,0 +1,57 @@
+@import '_base';
+
+*{
+    box-sizing: border-box;
+}
+.communityOutLine{
+    overflow: auto;
+    height: 650px;
+    padding-bottom: 150px;
+    .communityCard{
+        @include flex-col;
+        @include noneA;
+        background-color: $gray1;
+        margin-top: 5px;
+        padding: 5px;
+        margin-bottom: 7px;
+        >div{
+            padding: 10px 20px 10px 20px;
+            width: 100%;
+            text-align: start;
+        }
+        >div:first-child{
+            font-size: 24px;
+            min-height: 100px;
+        }
+        >div:nth-child(2){
+            text-align: end;
+            padding-bottom: 0;
+        }
+        >div:nth-child(3){
+            padding-top: 0;
+            color:$gray2;
+        }
+        >div:nth-child(4){
+            border-top: 1px solid black;
+            >svg{
+                margin-right: 10px;
+            }
+        }
+    }
+}
+.writemark{
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    background-color: $mint1;
+    border-radius: 200px;
+    margin:auto;
+    font-size: 45px;
+    right:30px;
+    bottom: 110px;
+    z-index:10;
+    color: $blue1;
+}

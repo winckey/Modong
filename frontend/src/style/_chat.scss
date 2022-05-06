@@ -1,0 +1,38 @@
+@import '_base';
+
+.chatOutLine{
+    @include flex-col;
+    align-items: center;
+    overflow: auto;
+    height: 600px;
+    .chatCard{
+        border-radius: 15px;
+        background-color: $gray1;
+        width: 90%;
+        height: 150px;
+        margin: 10px;
+        position: relative;
+        @include noneA;
+        overflow: hidden;
+        @include shadow;
+        .leftChattxt{
+            font-size: 22px;
+            @include absolute-loc($top:10px, $left:20px);
+        }
+        .rightChattxt{
+            font-size: 16px;
+            @include absolute-loc($right:20px, $bottom:10px);
+        }
+        .rightChatExitIcon{
+            font-size: 24px;
+            @include absolute-loc($top:14px, $right:14px);
+        }
+        .leftChatDisplayIcon{
+            font-size: 90px;
+            left:-20px;
+            bottom:-14px;
+            @include absolute-loc($bottom:-14px, $left:-20px);
+            color:$mint1;
+        }
+    }
+}

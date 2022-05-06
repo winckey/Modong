@@ -1,0 +1,51 @@
+@import '_base';
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $gray2;
+    padding: 15px;
+    >p{
+        font-size: 23px;
+        margin: 0;
+    }
+    >div{
+        display: flex;
+        align-items: center;
+        >svg{
+            margin-right: 15px;
+            font-size: 25px;
+            color: #FCE832;
+        }
+        >div{
+            overflow: hidden;
+            height: 40px;
+            width: 40px;
+            border-radius: 20px;
+        }
+    }
+}
+footer{
+    display: flex;
+    @include absolute-loc($bottom:0);
+    width: 100%;
+    background-color: white;
+    >a{
+        @include noneA;
+        padding: 15px;
+        width: 25%;
+        border-top: 1px solid $gray2;
+        >svg{
+            font-size: 25px;
+        }
+    }
+}
+.footeractive{
+    color: $blue2;
+    border-color: $blue2;
+}
+.bodycontents{
+    background-color: black;
+    height: 1000px;
+}
