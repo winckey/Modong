@@ -55,11 +55,17 @@ export default function ProfileEditModal() {
       nickname:state.nickname,
       phone: state.phone,
       dongDto: {dong: state.address, dongcode: 2617010400}
+      
     };
 
-    axios.put("/user-service",
+    
+    axios.put("/user-service/users",
     {
-      data
+      dongcode: 1111010100,
+      id: 1,
+      nickname: "test_nickname",
+      phone: "010-1111-1111",
+      userId: "aaaaa"
     },
     {
       headers: {
@@ -68,11 +74,12 @@ export default function ProfileEditModal() {
         // Accept: "*/*",
       }
     }).then((res)=> {
-      console.log(data)
+      console.log("put요청 성공", res);
+      // console.log(data)
       dispatch(actionCreators.setUser(data));
       console.log(user)
     }).catch((err)=> {
-      console.log(err)
+      console.log("put 요청 실패", err);
     })
   };
 
@@ -127,7 +134,7 @@ export default function ProfileEditModal() {
             /> */}
 
             
-            <Modal/>
+            {/* <Modal/> */}
 
             <p>전화번호</p>
             <TextField
