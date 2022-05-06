@@ -63,4 +63,11 @@ public class BoardServiceImpl implements BoardService {
 
         return boards;
     }
+
+    @Override
+    public Page<BoardResDTO> myBoardListCalling(Pageable pageable, Long userId) {
+        Page<BoardResDTO> boards = boardRepositoryImpl.findAllByDeletedIsFalseAndCommentNumberAndByUserId(pageable, userId);
+
+        return boards;
+    }
 }

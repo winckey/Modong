@@ -22,5 +22,6 @@ public interface BoardService {
 //  게시글 목록 불러오기
     Page<BoardResDTO> boardListCalling(Pageable pageable);
 
-
+//  내 게시글 목록 불러오기
+    Page<BoardResDTO> myBoardListCalling(Pageable pageable, Long userId);
 }
