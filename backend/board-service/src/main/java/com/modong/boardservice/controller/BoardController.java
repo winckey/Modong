@@ -82,4 +82,13 @@ public class BoardController {
         return new ResponseEntity<>(BoardResDetailDTO.of(userInfo,commentResDTO), HttpStatus.OK);
     }
 
+    //자신 글 조회
+    @GetMapping("/{userId}")
+    public ResponseEntity myBoardRead(@PageableDefault(page = 0, size = 10) Pageable pageable, @PathVariable("userId") Long userId) {
+
+        Page<CommentResDTO> commentResDTO = commentService.commentListCalling(userId, pageable);
+        UserResDTO userInfo = userClientService.getUser(userId);
+        return new ResponseEntity<>(BoardResDetailDTO.of(userInfo,commentResDTO), HttpStatus.OK);
+    }
+
 }
