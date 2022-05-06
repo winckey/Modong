@@ -16,7 +16,8 @@ import RootState from "./reducer/reducers.tsx"
 export interface chatListType {
     name: string,
     roomId: number,
-    type: string
+    type: string,
+    numberUser: number
 } 
 
 export default function Chat() {
@@ -24,7 +25,7 @@ export default function Chat() {
   const [ chatList, setChatList] = useState<chatListType[]>([]);
   const data = [];
   const userId = useSelector<number>((state:RootState) => {
-    return state.accounts.data.user.id
+    return state.accounts.data.user.userId
   })
   const openModal = () => {
     console.log('open`~~~')
@@ -47,7 +48,7 @@ export default function Chat() {
   const getChatList = () =>{
     axios.get(`/chat-service/chat/${userId}`)
       .then((response:AxiosResponse) => {
-        console.log(response.data, "채팅 데이터 가져오기");
+        console.log(response, "채팅 데이터 가져오기");
         setChatList(response.data)
       })
       .catch((error:AxiosError) => {
@@ -61,14 +62,14 @@ export default function Chat() {
   return (
     <div>
       <div className='chatOutLine'>
-          {data.map((d, index)=>(
-            <Link key={index} to='/chatdetail' className='chatCard'>
-              <div className='leftChattxt'>{d.chatName}</div>
+          {chatList.map((d, index)=>(
+            <Link key={index} to='/chatdetail' className='chatCard' state={{hi: "hello"}}>
+              <div className='leftChattxt'>방이름: {d.name}//방번호:{d.roomId}</div>
                 <FontAwesomeIcon  className='rightChatExitIcon' icon={faRightToBracket}/>
-                <button onClick={openModal}>ddd</button>
-                {d.category == 1 && <FontAwesomeIcon className='leftChatDisplayIcon' icon={faBowlFood}/>}
-                {d.category == 2 && <FontAwesomeIcon className='leftChatDisplayIcon' icon={faTruck}/>}
-              <div className='rightChattxt'>참여인원 : {d.memberCount}명</div>
+                <button onClick={openModal}>나가랏</button>
+                {d.type === "공구" && <FontAwesomeIcon className='leftChatDisplayIcon' icon={faBowlFood}/>}
+                {d.type === "배달" && <FontAwesomeIcon className='leftChatDisplayIcon' icon={faTruck}/>}
+              <div className='rightChattxt'>참여인원 : {d.numberUser}명</div>
             </Link>
           ))}
       </div>
