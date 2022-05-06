@@ -44,6 +44,24 @@ spring:
             preLogger: true
             postLogger: true
       routes:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: *
+            allow-credentials: true   #추가
+            allowedHeaders:
+              - x-requested-with
+              - authorization
+              - content-type
+              - credential
+              - X-AUTH-TOKEN
+              - X-CSRF-TOKEN
+            allowedMethods:
+              - POST
+              - GET
+              - PUT
+              - OPTIONS
+              - DELETE
 
 
 
@@ -117,7 +135,33 @@ spring:
 #            - AuthorizationHeaderFilter
             #post는 인증없이되어야하지만 다른경우 인증요구
 
+        # [chat] swagger
+        - id: chat-service
+          uri: lb://CHAT-SERVICE
+          predicates:
+            - Path=/chat-service/v3/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/chat-service/(?<segment>.*), /$\{segment}
 
+        # [chat] REST API
+        - id: chat-service
+          uri: lb://CHAT-SERVICE
+          predicates:
+            - Path=/chat-service/chat/**
+            - Method=GET, POST, DELETE, PUT
+          filters:
+            - RemoveRequestHeader=Cookie
+
+        # [chat] STOMP
+        - id: chat-service
+          uri: lb://CHAT-SERVICE
+          predicates:
+            - Path=/chat-service/message/**
+            - Method=GET, POST, DELETE, PUT
+          filters:
+            - RemoveRequestHeader=Cookie
 
 management:
   endpoints:
