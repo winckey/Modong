@@ -38,8 +38,8 @@ function Delivery() {
     return (
         <div>
             <div className='deliveryinList'>
-                {deliveryList.map((data, index) =>(
-                    <div className='shadow' key={index}>
+                {deliveryList.map((data) =>(
+                    <div className='shadow' key={data.id}>
                         <div>{data.storeName}</div>
                         <div>{data.pickupLocation}</div>
                         <div>{reversedatetrans(data.closeTime)} 남았습니다.</div>
