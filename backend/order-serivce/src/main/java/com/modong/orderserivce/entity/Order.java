@@ -1,23 +1,32 @@
 package com.modong.orderserivce.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
-@Table(name = "dongcode")
+@Table(name = "orders")
+@Builder
+@AllArgsConstructor
 public class Order {
+
     @Id
-    private Long dongcode;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    private Long boardId;
 
-    private String city;
+    private Long userId;
+    @OneToMany(mappedBy = "orders", cascade = {CascadeType.PERSIST , CascadeType.REMOVE} )
+    @Builder.Default
+    private List<Item> itemList = new ArrayList<>();
 
-    private String gugun;
+    public Order() {
 
-    private String dong;
-
+    }
 }
