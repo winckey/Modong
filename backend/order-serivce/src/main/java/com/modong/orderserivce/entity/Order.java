@@ -1,5 +1,6 @@
 package com.modong.orderserivce.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -11,6 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 @Builder
+@AllArgsConstructor
 public class Order {
 
     @Id
@@ -21,6 +23,7 @@ public class Order {
 
     private Long userId;
     @OneToMany(mappedBy = "orders", cascade = {CascadeType.PERSIST , CascadeType.REMOVE} )
+    @Builder.Default
     private List<Item> itemList = new ArrayList<>();
 
     public Order() {

@@ -1,5 +1,6 @@
 package com.modong.orderserivce.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "options")
 @Builder
+@AllArgsConstructor
 public class Option {
 
     @Id
@@ -23,5 +25,10 @@ public class Option {
 
     public Option() {
 
+    }
+
+    public void changeItem(Item item) {
+
+        item.getOptionList().add(this);
     }
 }
