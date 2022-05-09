@@ -2,6 +2,9 @@ package com.modong.orderserivce.dto;
 
 import com.modong.orderserivce.entity.Item;
 import com.modong.orderserivce.entity.Order;
+import com.modong.orderserivce.entity.OrderType;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +17,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel
 public class ReqOrderDto {
 
     @Schema(example = "1")
@@ -23,6 +27,11 @@ public class ReqOrderDto {
     private Long userId;
 
 
+    @Schema(example = "ORDER_DELIVERY")
+    @ApiModelProperty
+    private OrderType orderType;
+
+
     private List<ItemDto> itemDtoList;
 
 
@@ -30,6 +39,7 @@ public class ReqOrderDto {
         ReqOrderDto orderDto = ReqOrderDto.builder()
                 .boardId(order.getBoardId())
                 .userId(order.getUserId())
+                .orderType(order.getOrderType())
 
                 .build();
         orderDto.setItemDtoList(ItemDto.of(order.getItemList()));
