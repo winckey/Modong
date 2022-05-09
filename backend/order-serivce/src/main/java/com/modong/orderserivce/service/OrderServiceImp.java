@@ -2,7 +2,7 @@ package com.modong.orderserivce.service;
 
 import com.modong.orderserivce.dto.ItemDto;
 import com.modong.orderserivce.dto.OptionDto;
-import com.modong.orderserivce.dto.ReqDeleteOrderDto;
+import com.modong.orderserivce.dto.ReqIdOrderDto;
 import com.modong.orderserivce.dto.ReqOrderDto;
 import com.modong.orderserivce.entity.Item;
 import com.modong.orderserivce.entity.Option;
@@ -10,7 +10,6 @@ import com.modong.orderserivce.entity.Order;
 import com.modong.orderserivce.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -54,7 +53,7 @@ public class OrderServiceImp implements OrderService{
     }
 
     @Override
-    public void deleteOrder(ReqDeleteOrderDto reqDeleteOrderDto) {
+    public void deleteOrder(ReqIdOrderDto reqDeleteOrderDto) {
 
         Order order = orderRepository.findById(reqDeleteOrderDto.getOrderId()).get();
         orderRepository.delete(order);// 여기 쿼리 4번나감 왜죠?
