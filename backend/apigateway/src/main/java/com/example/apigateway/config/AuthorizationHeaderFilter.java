@@ -27,8 +27,8 @@ import reactor.core.publisher.Mono;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-@Component
-@Slf4j
+//@Component
+//@Slf4j
 public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<AuthorizationHeaderFilter.Config> {
 
 

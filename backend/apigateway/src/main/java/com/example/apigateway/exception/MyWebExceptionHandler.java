@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
 
 import java.nio.charset.StandardCharsets;
 
-@Component
+//@Component
 public class MyWebExceptionHandler implements ErrorWebExceptionHandler {
     private String errorCodeMaker(ErrorCode errorCode) {
 
