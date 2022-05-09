@@ -18,8 +18,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Slf4j
 @Validated
@@ -32,6 +34,7 @@ public class UserController {
     private final Environment env;
     private final UserService userService;
     private final UserRepository userRepository;
+
 
     @Autowired
     private Greeting greeting;
@@ -118,4 +121,10 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(reponseLogin);
     }
 
+    @PostMapping("/images")
+    public String upload(@RequestParam("images") MultipartFile multipartFile) throws IOException {
+
+
+        return "test";
+    }
 }

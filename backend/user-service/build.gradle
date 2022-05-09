@@ -92,6 +92,17 @@ dependencies {
 
     //gson = json 파싱
     implementation 'com.google.code.gson:gson:2.8.6'
+
+    //S3
+    implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.3.1'
+
+    //
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3
+    implementation 'com.amazonaws:aws-java-sdk-s3:1.12.212'
+
+    // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+
 }
 
 dependencyManagement {
