@@ -148,7 +148,7 @@ spring:
         - id: crawling-service
           uri: lb://CRAWLING-SERVICE
           predicates:
-            - Path=/crawling-service/delivery/**
+            - Path=/crawling-service/**
             - Method=GET, POST, DELETE
           filters:
             - RemoveRequestHeader=Cookie
