@@ -77,6 +77,7 @@ spring:
             - RemoveRequestHeader=Cookie
 #            - AuthorizationHeaderFilter
 
+#         [board-swagger]
         - id: board-service
           uri: lb://BOARD-SERVICE
           predicates:
@@ -85,7 +86,7 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/board-service/(?<segment>.*), /$\{segment}
-
+        # [board]
         - id: board-service
           uri: lb://BOARD-SERVICE
           predicates:
@@ -144,6 +145,14 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
 
+
+        - id: crawling-service
+          uri: lb://CRAWLING-SERVICE
+          predicates:
+            - Path=/crawling-service/**
+            - Method=GET, POST, DELETE
+          filters:
+            - RemoveRequestHeader=Cookie
 
 
 management:
