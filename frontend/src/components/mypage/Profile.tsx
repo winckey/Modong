@@ -29,7 +29,7 @@ function Profile() {
             <div>
                 <img onClick={handleProfileImage} 
                 src={ require('../../assets/pingu.png') } alt="사진"/>
-                <button className="editButton" onClick={handleProfileImage}>+</button>
+                {/* <button className="editButton" onClick={handleProfileImage}>+</button> */}
             </div>
 
             <div>
