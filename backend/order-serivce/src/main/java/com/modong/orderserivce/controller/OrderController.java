@@ -1,5 +1,6 @@
 package com.modong.orderserivce.controller;
 
+import com.modong.orderserivce.dto.ReqDeleteOrderDto;
 import com.modong.orderserivce.dto.ReqOrderDto;
 import com.modong.orderserivce.service.OrderService;
 import io.swagger.annotations.Api;
@@ -9,10 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Validated
@@ -26,7 +24,7 @@ public class OrderController {
 
     @PostMapping("/")
     @Operation(summary = "주문 참가", description  = "주문 추가 ")
-    public ResponseEntity<ReqOrderDto> createUser(@RequestBody ReqOrderDto reqOrderDto) {
+    public ResponseEntity<ReqOrderDto> createOrder(@RequestBody ReqOrderDto reqOrderDto) {
 
         orderService.createOreder(reqOrderDto);
 
@@ -35,6 +33,15 @@ public class OrderController {
         return ResponseEntity.ok(reqOrderDto);
     }
 
+    @DeleteMapping("/")
+    @Operation(summary = "주문 참가", description  = "주문 추가 ")
+    public ResponseEntity<ReqDeleteOrderDto> deleteOrder(@RequestBody ReqDeleteOrderDto reqDeleteOrderDto) {
 
+        orderService.deleteOrder(reqDeleteOrderDto);
+
+
+
+        return ResponseEntity.ok(reqDeleteOrderDto);
+    }
 
 }
