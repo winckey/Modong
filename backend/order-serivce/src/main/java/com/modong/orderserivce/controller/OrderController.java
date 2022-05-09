@@ -12,6 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
+import java.util.List;
+
 @Slf4j
 @Validated
 @RestController
@@ -48,17 +51,15 @@ public class OrderController {
     }
 
 
-    @GetMapping("/user")
+    @GetMapping("/user/{userId}")
     @Operation(summary = "주문 조회 사용자", description  = "주문 사용자 단위 조회")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "reqIdOrderDto", value = "userId 만사용해서 요청", required = true)
-    })
-    public ResponseEntity<ReqIdOrderDto> getOrder(@RequestBody ReqIdOrderDto reqDeleteOrderDto) {
 
-        orderService.deleteOrder(reqDeleteOrderDto);
+    public ResponseEntity<List<ReqOrderDto>> getOrder(@NotNull @PathVariable Long userId) {
+
+        List<ReqOrderDto> reqOrderDtoList= orderService.getOrderByUserId(userId);
 
 
 
-        return ResponseEntity.ok(reqDeleteOrderDto);
+        return ResponseEntity.ok(reqOrderDtoList);
     }
 }
