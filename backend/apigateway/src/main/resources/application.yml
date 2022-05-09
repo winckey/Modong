@@ -75,7 +75,7 @@ spring:
             - Method= POST , DELETE , PUT
           filters:
             - RemoveRequestHeader=Cookie
-            - AuthorizationHeaderFilter
+#            - AuthorizationHeaderFilter
 
         - id: board-service
           uri: lb://BOARD-SERVICE
@@ -123,6 +123,19 @@ spring:
 
           filters:
             - RemoveRequestHeader=Cookie
+
+
+
+        # [order] REST API
+        - id: order-service
+          uri: lb://CHAT-SERVICE
+          predicates:
+            - Path=/order-service/**
+            - Method=GET, POST, DELETE, PUT
+          filters:
+            - RemoveRequestHeader=Cookie
+
+
 
 management:
   endpoints:
