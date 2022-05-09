@@ -30,6 +30,7 @@ public class OrderServiceImp implements OrderService{
         Order order = Order.builder()
                 .userId(reqOrderDto.getUserId())
                 .boardId(reqOrderDto.getBoardId())
+                .orderType(reqOrderDto.getOrderType())
                 .build();
 
         for (ItemDto itemDto : reqOrderDto.getItemDtoList())

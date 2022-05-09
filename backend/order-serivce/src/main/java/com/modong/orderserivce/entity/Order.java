@@ -22,6 +22,8 @@ public class Order {
 
     private Long boardId;
 
+    private OrderType orderType;
+
     private Long userId;
     @OneToMany(mappedBy = "orders", cascade = {CascadeType.PERSIST , CascadeType.REMOVE} )
     @Builder.Default

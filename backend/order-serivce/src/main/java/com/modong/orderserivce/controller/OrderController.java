@@ -40,7 +40,7 @@ public class OrderController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "reqIdOrderDto", value = "orderId 만사용해서 요청", required = true)
     })
-    @Operation(summary = "주문 조회 사용자", description  = "주문 단위 삭제")
+    @Operation(summary = "주문 삭제", description  = "주문 단위 삭제")
     public ResponseEntity<ReqIdOrderDto> deleteOrder(@RequestBody ReqIdOrderDto reqIdOrderDto) {
 
         orderService.deleteOrder(reqIdOrderDto);
