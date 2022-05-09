@@ -62,16 +62,14 @@ export default function ProfileEditModal() {
     axios.put("/user-service/users",
     {
       dongcode: 1111010100,
-      id: 1,
-      nickname: "test_nickname",
-      phone: "010-1111-1111",
-      userId: "aaaaa"
+      id: user.id,
+      nickname: state.nickname,
+      phone: state.phone,
+      userId: state.userId
     },
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        // "Content-type": "application/json",
-        // Accept: "*/*",
       }
     }).then((res)=> {
       console.log("put요청 성공", res);
@@ -121,20 +119,7 @@ export default function ProfileEditModal() {
             />
 
             <p>주소</p>
-            {/* <TextField
-                margin="dense"
-                // id="address"
-                name="address"
-                type="email"
-                fullWidth
-                variant="filled"
-                autoComplete="off"
-                value={state.address}
-                onChange={handleChangeState}
-            /> */}
-
-            
-            {/* <Modal/> */}
+            <Modal/>
 
             <p>전화번호</p>
             <TextField

@@ -23,32 +23,26 @@ export interface chatListType {
 export default function Chat() {
   const [ modalOpen, setModalOpen] = useState(false);
   const [ chatList, setChatList] = useState<chatListType[]>([]);
-  const data = [];
-  const userId = useSelector<number>((state:RootState) => {
+  const [ roomName, setRoomName] = useState<string>("기본");
+
+  const userId = useSelector<string>((state:RootState) => {
     return state.accounts.data.user.userId
   })
-  const openModal = () => {
-    console.log('open`~~~')
+
+  const openModal = (roomName) => {
+    setRoomName(roomName);
     setModalOpen(true);
-    console.log('얍')
   };
   const closeModal = () => {
-    console.log('close~')
     setModalOpen(false);
   };
-  const handleDelChatRoom =(roomid:number) =>{
-    axios.delete(`/chat-service/chat/${roomid}/${userId}`)
-      .then((response:AxiosResponse) => {
-        console.log(response.data, "채팅 나가기")
-      })
-      .catch((error:AxiosError) => {
-        console.log(error, "에러");
-      })
-  }
+
+
+
+  // 채팅 목록 가져오기
   const getChatList = () =>{
     axios.get(`/chat-service/chat/${userId}`)
       .then((response:AxiosResponse) => {
-        console.log(response, "채팅 데이터 가져오기");
         setChatList(response.data)
       })
       .catch((error:AxiosError) => {
@@ -62,11 +56,19 @@ export default function Chat() {
   return (
     <div>
       <div className='chatOutLine'>
-          {chatList.map((d, index)=>(
-            <Link key={index} to='/chatdetail' className='chatCard' state={{hi: "hello"}}>
-              <div className='leftChattxt'>방이름: {d.name}//방번호:{d.roomId}</div>
-                <FontAwesomeIcon  className='rightChatExitIcon' icon={faRightToBracket}/>
-                <button onClick={openModal}>나가랏</button>
+          {chatList.map((d, index)=>( 
+            <Link key={index} to='/chatdetail' className='chatCard' 
+            state={{roomId: d.roomId, name:d.name, type:d.type, numberUser: d.numberUser, userList: d.userList}}>
+              <div className='leftChattxt'>{d.name}_{d.roomId}번방</div>
+                <FontAwesomeIcon  className='rightChatExitIcon' icon={faRightToBracket} 
+                onClick={(event)=>{event.preventDefault(); openModal(d.name)}}/>
+
+                <>
+                  <Modal open={modalOpen}  close={closeModal} name={roomName} 
+                  roomId={d.roomId} userId={userId}>
+                  </Modal>
+                </>
+
                 {d.type === "공구" && <FontAwesomeIcon className='leftChatDisplayIcon' icon={faBowlFood}/>}
                 {d.type === "배달" && <FontAwesomeIcon className='leftChatDisplayIcon' icon={faTruck}/>}
               <div className='rightChattxt'>참여인원 : {d.numberUser}명</div>
@@ -74,10 +76,6 @@ export default function Chat() {
           ))}
       </div>
 
-      <div>
-        <Modal open={modalOpen}  close={closeModal} info={data}>
-        </Modal>
-      </div>
     
     </div>
   );
