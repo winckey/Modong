@@ -5,10 +5,9 @@ import { faCircleExclamation} from "@fortawesome/free-solid-svg-icons";
 import Modal from '../modal/_ApplyHistoryModal.tsx'
 
 
-export default function GroupBuyingDoneModal(props)  {
+export default function GroupBuyingDoneModal(props:any)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, info } = props;
-  const data =["dd"]
+  const { open, close, info, infoNum } = props;
   const onCloseModal = (e) => {
     if (e.target === e.currentTarget){
       close();
@@ -39,8 +38,8 @@ export default function GroupBuyingDoneModal(props)  {
 
               <div>
                   <button onClick={()=>{openModal();}}>신청 내역 확인</button>
-                  <p>내용</p>
-                  <p>{info}</p>
+                  <p>{info.productName}상품을</p>
+                  <p>{infoNum}개 신청했어요</p>
               </div>
 
           </div>
@@ -52,7 +51,7 @@ export default function GroupBuyingDoneModal(props)  {
         </div>
 
         <div>
-            <Modal open={modalOpen}  close={closeModal} info={data}>
+            <Modal open={modalOpen}  close={closeModal} info={info} infoNum={infoNum}>
             </Modal>
         </div>
 

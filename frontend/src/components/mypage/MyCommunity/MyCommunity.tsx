@@ -9,6 +9,9 @@ import actionCreators from '../../../actions/actionCreators.tsx';
 import RootState from "../../../reducer/reducers.tsx"
 import {datetrans} from '../../../actions/TimeLapse.tsx'
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
+
 export interface datatype  {
     id: number,
     description: string,
@@ -29,7 +32,16 @@ function MyCommunity() {
     const handleCommunityPropsData=(d:datatype)=>{
         dispatch(actionCreators.setCommunityPropsData(d));
     }
-
+    const handleDelCommunity = (myCommunityId:number) =>{
+        alert("삭제하시겠습니까?")
+        axios.delete(`/board-service/`,{data:{id:myCommunityId}})
+        .then((response:AxiosResponse) => {
+            console.log(response.data, "나의 게시판 나가기")
+        })
+        .catch((error:AxiosError) => {
+            console.log(error, "에러");
+        })
+    }
     const getMycommunityList=()=>{
         axios.get(`/board-service/${userId}`)
         .then((response:AxiosResponse) => {
@@ -52,6 +64,7 @@ function MyCommunity() {
                     <Link to="/communitydetail" onClick={()=>{handleCommunityPropsData(data)}}>
                         <div>상세보기</div>
                     </Link>
+                    <FontAwesomeIcon onClick={()=>{handleDelCommunity(data.id)}} className='rightExitIcon' icon={faRightToBracket}/>
                 </div>
             ))}
         </div>

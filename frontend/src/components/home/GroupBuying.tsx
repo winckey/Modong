@@ -7,16 +7,25 @@ import axios, {AxiosResponse, AxiosError} from "axios";
 
 import {reversedatetrans} from '../../actions/TimeLapse.tsx'
 
-const data = [{name:"오나라식탁", arrivepoint:"sk뷰 아파트 106동 1101호", lefttime:10}, {name:"오나라2식탁", arrivepoint:"sk뷰 아파트 106동 1102호", lefttime:20}]
+export interface modalpropstype  {
+    closeTime: Date,
+    id: number,
+    pickupLocation: string,
+    price: string,
+    productName: string,
+    url: string,
+}
 
 function GroupBuying() {
     const [ modalOpen, setModalOpen] = useState(false);
     const [ groupBuyingList, setGroupBuyingList ] = useState([]);
-    const openModal = () => {
+    const [ modalprops, setModalprops] = useState<modalpropstype>(); 
+    const openModal = (data:modalpropstype) => {
         setModalOpen(true);
+        setModalprops(data);
     };
     const closeModal = () => {
-    setModalOpen(false);
+        setModalOpen(false);
     };
     const handlegetList = () => {
         axios.get(`/board-service/group-purchase`)
@@ -39,13 +48,13 @@ function GroupBuying() {
                         <div>{data.productName}</div>
                         <div>{data.pickupLocation}</div>
                         <div>{reversedatetrans(data.closeTime)} 남았습니다.</div>
-                        <div onClick={()=>{openModal()}}>신청하기</div>
+                        <div onClick={()=>{openModal(data)}}>신청하기</div>
                     </div>
                 ))}
             </div>
 
             <div>
-                <Modal open={modalOpen}  close={closeModal}  info={data}>
+                <Modal open={modalOpen}  close={closeModal}  info={modalprops}>
                 </Modal>
             </div>
 
