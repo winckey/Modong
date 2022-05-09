@@ -21,8 +21,8 @@ public class ItemDto {
 
     private List<OptionDto> options;
 
-
-
+    @Schema(example = "1")
+    private int quantity;
 
 
 
@@ -35,6 +35,7 @@ public class ItemDto {
         for (Item item: itemList ){
             ItemDto itemDto = ItemDto.builder()
                     .itemContent(item.getItemContent())
+                    .quantity(item.getQuantity())
                     .build();
 
             itemDto.setOptions(OptionDto.of(item.getOptionList()));
