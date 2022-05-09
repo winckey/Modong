@@ -29,9 +29,9 @@ public class PurchaseController {
 
     //글 삭제
     @DeleteMapping
-    public ResponseEntity purchaseDelete(@RequestBody Long id) {
+    public ResponseEntity purchaseDelete(@RequestBody PurchaseReqDTO purchaseReqDTO) {
 
-        purchaseService.deletePurchase(id);
+        purchaseService.deletePurchase(purchaseReqDTO.getId());
 
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }

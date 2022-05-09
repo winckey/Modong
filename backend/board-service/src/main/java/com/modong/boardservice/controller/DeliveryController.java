@@ -28,9 +28,9 @@ public class DeliveryController {
 
     //글 삭제
     @DeleteMapping
-    public ResponseEntity deliveryDelete(@RequestBody Long id) {
+    public ResponseEntity deliveryDelete(@RequestBody DeliveryReqDTO deliveryReqDTO) {
 
-        deliveryService.deleteDelivery(id);
+        deliveryService.deleteDelivery(deliveryReqDTO.getId());
 
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }

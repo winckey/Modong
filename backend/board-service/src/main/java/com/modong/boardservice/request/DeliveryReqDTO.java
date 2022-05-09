@@ -10,7 +10,8 @@ import java.time.LocalDateTime;
 @Setter
 public class DeliveryReqDTO {
 
-
+    // 글 id
+    private Long id;
 
     // 글 작성자 id
     private Long userId;

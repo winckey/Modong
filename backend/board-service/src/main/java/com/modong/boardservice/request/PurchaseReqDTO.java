@@ -10,6 +10,9 @@ import java.time.LocalDateTime;
 @Setter
 public class PurchaseReqDTO {
 
+    // 글 id
+    private Long id;
+
     private String url;
 
     private String price;
