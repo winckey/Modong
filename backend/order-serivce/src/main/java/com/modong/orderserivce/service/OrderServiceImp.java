@@ -2,6 +2,7 @@ package com.modong.orderserivce.service;
 
 import com.modong.orderserivce.dto.ItemDto;
 import com.modong.orderserivce.dto.OptionDto;
+import com.modong.orderserivce.dto.ReqDeleteOrderDto;
 import com.modong.orderserivce.dto.ReqOrderDto;
 import com.modong.orderserivce.entity.Item;
 import com.modong.orderserivce.entity.Option;
@@ -50,5 +51,12 @@ public class OrderServiceImp implements OrderService{
 
         orderRepository.save(order);
 
+    }
+
+    @Override
+    public void deleteOrder(ReqDeleteOrderDto reqDeleteOrderDto) {
+
+        Order order = orderRepository.findById(reqDeleteOrderDto.getOrderId()).get();
+        orderRepository.delete(order);// 여기 쿼리 4번나감 왜죠?
     }
 }
