@@ -24,9 +24,16 @@
         animation: modal-show 0.3s;
         overflow: hidden;
 
+        .icon {
+          margin: 15%;
+          margin-bottom: 10%;
+        }
+        
         header {
-          font-size: 1.5rem;
+          font-size: 1.3rem;
           font-weight: bold;
+          flex-direction: column;
+          border: none;
         }
   
         main {

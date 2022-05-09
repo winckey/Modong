@@ -48,7 +48,6 @@ export default function Login(props) {
         }
       )
       .then((response) => {
-        // localStorage.setItem("user_email", data.get("email").toString());
         console.log(response, "Login Success");
         localStorage.setItem("jwt", response.data.token);
 
