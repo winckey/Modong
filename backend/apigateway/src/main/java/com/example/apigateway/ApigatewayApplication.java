@@ -35,6 +35,7 @@ public class ApigatewayApplication {
         return () -> discoveryClient.getServices()
                 .stream()
                 .filter(service -> !service.equals(gateway))
+                .filter(service -> !service.equals("crawling-service"))
                 .map(service -> {
                     var resource = new SwaggerResource();
                     resource.setName(service);
