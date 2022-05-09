@@ -13,4 +13,6 @@ public interface OrderService {
     void deleteOrder(ReqIdOrderDto reqDeleteOrderDto);
 
     List<ReqOrderDto> getOrderByUserId(Long userId);
+
+    List<ReqOrderDto> getOrderByBoardId(Long boadId);
 }

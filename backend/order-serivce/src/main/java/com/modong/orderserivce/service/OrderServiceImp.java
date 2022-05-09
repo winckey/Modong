@@ -78,4 +78,18 @@ public class OrderServiceImp implements OrderService{
 
         return reqOrderDtos;
     }
+
+    @Override
+    public List<ReqOrderDto> getOrderByBoardId(Long boadId) {
+        List<Order> orderList = orderRepository.findByBoardId(boadId);
+
+        List<ReqOrderDto> reqOrderDtos = new ArrayList<>();
+
+        for (Order order: orderList)
+        {
+            reqOrderDtos.add(ReqOrderDto.of(order));
+        }
+
+        return reqOrderDtos;
+    }
 }

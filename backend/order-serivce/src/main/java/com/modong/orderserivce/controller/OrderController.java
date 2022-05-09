@@ -54,7 +54,7 @@ public class OrderController {
     @GetMapping("/user/{userId}")
     @Operation(summary = "주문 조회 사용자", description  = "주문 사용자 단위 조회")
 
-    public ResponseEntity<List<ReqOrderDto>> getOrder(@NotNull @PathVariable Long userId) {
+    public ResponseEntity<List<ReqOrderDto>> getOrderByUser(@NotNull @PathVariable Long userId) {
 
         List<ReqOrderDto> reqOrderDtoList= orderService.getOrderByUserId(userId);
 
@@ -62,4 +62,18 @@ public class OrderController {
 
         return ResponseEntity.ok(reqOrderDtoList);
     }
+
+
+    @GetMapping("/board/{boardId}")
+    @Operation(summary = "주문 조회 글", description  = "주문 글 단위 조회")
+
+    public ResponseEntity<List<ReqOrderDto>> getOrderByBoard(@NotNull @PathVariable Long boardId) {
+
+        List<ReqOrderDto> reqOrderDtoList= orderService.getOrderByBoardId(boardId);
+
+
+
+        return ResponseEntity.ok(reqOrderDtoList);
+    }
+
 }
