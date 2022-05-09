@@ -135,6 +135,15 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
 
+        # [order] swagger
+        - id: order-service
+          uri: lb://CHAT-SERVICE
+          predicates:
+            - Path=/order-service/v3/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/chat-service/(?<segment>.*), /$\{segment}
 
 
 management:
