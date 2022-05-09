@@ -53,6 +53,9 @@ dependencies {
     //gson = json 파싱
     implementation 'com.google.code.gson:gson:2.8.6'
 
+    //modelmapper
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
+
 }
 
 dependencyManagement {

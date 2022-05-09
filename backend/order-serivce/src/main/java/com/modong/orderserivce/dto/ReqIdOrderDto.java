@@ -1,9 +1,11 @@
 package com.modong.orderserivce.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class ReqIdOrderDto {
 
     @Schema(example = "1" , description = "게시글 id 기준")

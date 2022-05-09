@@ -1,5 +1,6 @@
 package com.modong.orderserivce.entity;
 
+import com.modong.orderserivce.dto.ReqOrderDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,4 +30,6 @@ public class Order {
     public Order() {
 
     }
+
+
 }

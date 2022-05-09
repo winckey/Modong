@@ -9,7 +9,11 @@ import com.modong.orderserivce.entity.Option;
 import com.modong.orderserivce.entity.Order;
 import com.modong.orderserivce.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -57,5 +61,20 @@ public class OrderServiceImp implements OrderService{
 
         Order order = orderRepository.findById(reqDeleteOrderDto.getOrderId()).get();
         orderRepository.delete(order);// 여기 쿼리 4번나감 왜죠?
+    }
+
+    @Override
+    public List<ReqOrderDto> getOrderByUserId(Long userId) {
+
+        List<Order> orderList = orderRepository.findByUserId(userId);
+
+        List<ReqOrderDto> reqOrderDtos = new ArrayList<>();
+
+        for (Order order: orderList)
+        {
+            reqOrderDtos.add(ReqOrderDto.of(order));
+        }
+
+        return reqOrderDtos;
     }
 }

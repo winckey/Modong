@@ -1,5 +1,7 @@
 package com.modong.orderserivce.entity;
 
+import com.modong.orderserivce.dto.ItemDto;
+import com.modong.orderserivce.dto.ReqOrderDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,8 +37,12 @@ public class Item {
 
     }
 
+
     public void changeOrder(Order order) {
 
         order.getItemList().add(this);
     }
+
+
+
 }
