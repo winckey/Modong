@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,6 +16,8 @@ import '../style/_base.scss'
 const theme = createTheme();
 
 export default function SignUp(props) {
+
+  let navigate = useNavigate();
 
   //이메일 중복 확인
   const [isValid, setIsValid] = useState(false);
@@ -57,6 +59,7 @@ export default function SignUp(props) {
         .then((response) => {
           console.log(response)
           // window.location.href="http://k6e102.p.ssafy.io:8000/"
+          navigate("/");
         })
     } else {
       alert("틀렸슈")

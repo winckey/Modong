@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import "../../style/_groupBuyingWrite.scss"
 
@@ -13,8 +13,10 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import axios, {AxiosResponse, AxiosError } from 'axios';
 
 import RootState from "../../reducer/reducers.tsx"
-
+import actionCreators from "../../actions/actionCreators.tsx"
 function GroupBuyingWrite() {
+    let navigate = useNavigate();
+    const dispatch = useDispatch();
     const [productName, setProductName] =useState<string>("");
     const [productURL, setProductURL] =useState<string>("");
     const [productCost, setProductCost] =useState<string>("");
@@ -54,6 +56,8 @@ function GroupBuyingWrite() {
           )
           .then((response:AxiosResponse) => {
             console.log(response.data, "배달 생성");
+            dispatch(actionCreators.setFooterSelected(1));
+            navigate("/");
           })
           .catch((error:AxiosError) => {
             console.log(error);
@@ -100,7 +104,7 @@ function GroupBuyingWrite() {
                 />
             </LocalizationProvider>
             <a href="#" onClick={()=>{window.open(productURL||"https://www.naver.com/")}}> 이 주소가 맞나요?</a>
-            <Link className='button' onClick={handleSubmit} to="/">생성하기</Link>
+            <div className='button' onClick={handleSubmit}>생성하기</div>
         </div>
     );
 }

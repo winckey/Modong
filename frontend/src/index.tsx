@@ -16,8 +16,6 @@ import axios from 'axios';
 
 const {store, persistor} = configureStore();
 
-// axios.defaults.baseURL = "http://k6e102.p.ssafy.io:8000/";
-
 axios.defaults.withCredentials = false;
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";

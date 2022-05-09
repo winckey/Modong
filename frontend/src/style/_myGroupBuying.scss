@@ -9,6 +9,7 @@
         background-color: $gray1;
         margin-top: 16px;
         overflow: hidden;
+        position: relative;
         >div{
             text-overflow:ellipsis;
             overflow: hidden;

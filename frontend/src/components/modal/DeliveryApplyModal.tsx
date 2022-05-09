@@ -36,8 +36,9 @@ export default function DeliveryModal(props)  {
               <header>
                 배달 신청하기
               </header>
-
+            
               <main>
+                <div>대충 내용</div>
                 <button onClick={()=>{openModal();}} >신청하기</button>
               </main>
 

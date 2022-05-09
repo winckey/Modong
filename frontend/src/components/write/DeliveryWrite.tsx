@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import "../../style/_deliveryWrite.scss"
 
@@ -13,7 +13,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import axios, {AxiosResponse, AxiosError } from 'axios';
 
 import RootState from "../../reducer/reducers.tsx"
-
+import actionCreators from "../../actions/actionCreators.tsx"
 // export interface userType{
 //     age: number
 //     banned: boolean
@@ -28,6 +28,8 @@ import RootState from "../../reducer/reducers.tsx"
 // }
 
 function DeliveryWrite() {
+    let navigate = useNavigate();
+    const dispatch = useDispatch();
     const[ deliveryURL, setDeliveryURL ] = useState<string>("");
     const[ deliveryTitle, setDeliveryTitle ] = useState<string>("");
     const[ deliveryTime, setDeliveryTime ] = useState<Date>(new Date);
@@ -45,11 +47,6 @@ function DeliveryWrite() {
         setDeliveryTitle(e.target.value);
     }
     const handleSubmit=()=>{
-        // console.log({closeTime: deliveryTime,
-        //     pickupLocation: deliveryLoc,
-        //     storeName: deliveryTitle,
-        //     url: deliveryURL,
-        //     userId: userId})
         axios.post('/board-service/group-delivery',
             {
                 closeTime: deliveryTime,
@@ -67,6 +64,8 @@ function DeliveryWrite() {
           )
           .then((response:AxiosResponse) => {
             console.log(response.data, "배달 생성");
+            dispatch(actionCreators.setFooterSelected(1));
+            navigate("/");
           })
           .catch((error:AxiosError) => {
             console.log(error);
@@ -106,7 +105,7 @@ function DeliveryWrite() {
                 />
             </LocalizationProvider>
             <a href="#" onClick={()=>{window.open(deliveryURL||"https://www.yogiyo.co.kr/mobile/#/")}}> 이 주소가 맞나요?</a>
-            <Link to="/" className='button' onClick={()=>{handleSubmit()}}>생성하기</Link>
+            <div className='button' onClick={()=>{handleSubmit()}}>생성하기</div>
         </div>
     );
 }

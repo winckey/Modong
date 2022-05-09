@@ -10,6 +10,8 @@ import actionCreators from '../../../actions/actionCreators.tsx';
 import RootState from "../../../reducer/reducers.tsx"
 import {reversedatetrans} from '../../../actions/TimeLapse.tsx'
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 
 const data = [{name:"오나라식탁", arrivepoint:"sk뷰 아파트 106동 1101호", lefttime:10}, {name:"오나라식탁2", arrivepoint:"sk뷰 아파트 106동 1102호", lefttime:20}]
 
@@ -36,6 +38,16 @@ function MyDelivery() {
     const closeCloseModal = () => {
         setCloseModalOpen(false);
     }
+    const handleDelCommunity = (myCommunityId:number) =>{
+        alert("삭제하시겠습니까?")
+        axios.delete(`/board-service/group-delivery`,{data:{id:myCommunityId}})
+        .then((response:AxiosResponse) => {
+            console.log(response.data, "나의 배달 나가기")
+        })
+        .catch((error:AxiosError) => {
+            console.log(error, "에러");
+        })
+    }
 
     const getMyDeliveryList=()=>{
         axios.get(`/board-service/group-delivery/${userId}`)
@@ -61,6 +73,7 @@ function MyDelivery() {
                             <div onClick={()=>{openCloseModal()}}>마감하기</div>
                             <div onClick={()=>{openModal()}}>신청내역확인</div>
                         </div>
+                        <FontAwesomeIcon onClick={()=>{handleDelCommunity(mddata.id)}} className='rightExitIcon' icon={faRightToBracket}/>
                     </div>
                 ))}
             </div>
