@@ -153,6 +153,15 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
 
+          # [crawling] swagger
+        - id: crawling-service
+          uri: lb://CRAWLING-SERVICE
+          predicates:
+            - Path=/crawling-service/v3/**
+            - Method=GET, POST, DELETE
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/order-service/(?<segment>.*), /$\{segment}
 
 management:
   endpoints:
