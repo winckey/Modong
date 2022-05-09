@@ -28,9 +28,9 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Autowired
     UserClientService userClientService;
-
-    @Autowired
-    CrawlingClient crawlingClient;
+//
+//    @Autowired
+//    CrawlingClient crawlingClient;
 
     @Override
     public Delivery createDelivery(DeliveryReqDTO deliveryReqDTO) {
@@ -46,7 +46,7 @@ public class DeliveryServiceImpl implements DeliveryService {
                 .userId(deliveryReqDTO.getUserId())
                 .build();
 
-        crawlingClient.crawlingMenu(url);
+//        crawlingClient.crawlingMenu(url);
 
 
         return deliveryRepository.save(delivery);
