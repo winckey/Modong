@@ -19,7 +19,7 @@ app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 
 api = Api(app, version='1.0', title='Crawling API 문서', description='Swagger 문서', doc="/api-docs")
-api.add_namespace(Menu, '/crawling-service')
+api.add_namespace(Menu, '/crawling-service/delivery')
 
 
 if __name__ == "__main__":
