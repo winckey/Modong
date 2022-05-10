@@ -5,12 +5,13 @@ import py_eureka_client.eureka_client as eureka_client
 
 from controller import Menu
 
-rest_port = 8080
+rest_port = 5000
 
 # Eureka
 eureka_client.init(eureka_server="http://k6e102.p.ssafy.io:8761/eureka",
                    app_name="crawling-service",
-                   ha_strategy=eureka_client.HA_STRATEGY_RANDOM)
+                   instance_port=rest_port)
+                #    ha_strategy=eureka_client.HA_STRATEGY_RANDOM)
 
 
 # Flask
@@ -22,5 +23,8 @@ api.add_namespace(Menu, '/crawling-service')
 
 
 if __name__ == "__main__":
-    app.run()
-    # app.run(host='0.0.0.0', port=rest_port)
+    # app.run()
+    app.run(host='0.0.0.0', port=rest_port)
+
+
+
