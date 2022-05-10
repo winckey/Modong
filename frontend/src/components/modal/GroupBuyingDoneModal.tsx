@@ -32,19 +32,23 @@ export default function GroupBuyingDoneModal(props:any)  {
         <div style={{margin: "5%"}}>
 
           <div>
-              <div>
+              <div className="icon">
                 <FontAwesomeIcon  icon={faCircleExclamation} size="6x" color="#0064FF"/>
               </div>
 
-              <div>
-                  <button onClick={()=>{openModal();}}>신청 내역 확인</button>
+              <header>
                   <p>{info.productName}상품을</p>
                   <p>{infoNum}개 신청했어요</p>
-              </div>
+              </header>
 
+          
           </div>
 
           <main>
+            <div style={{cursor: "pointer"}}>
+              <div className="totalPrice" onClick={()=>{openModal();}}>신청 내역 확인</div>
+            </div>
+
             <button onClick={close} >확인</button>
           </main>
 

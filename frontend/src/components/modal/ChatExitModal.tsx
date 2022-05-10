@@ -24,7 +24,12 @@ export default function ChatExitModal(props)  {
   // 채팅방 나가기
   const handleDelChatRoom =() =>{
     close();
-    axios.delete(`/chat-service/chat/${roomId}/${userId}`)
+    axios.delete('/chat-service/chat', {
+      data: {
+        roomId: roomId,
+        userId: userId
+      }
+    },)
       .then((response:AxiosResponse) => {
         console.log(response.data, "채팅 나가기")
         window.location.reload();

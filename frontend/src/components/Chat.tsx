@@ -25,8 +25,8 @@ export default function Chat() {
   const [ chatList, setChatList] = useState<chatListType[]>([]);
   const [ roomName, setRoomName] = useState<string>("기본");
 
-  const userId = useSelector<string>((state:RootState) => {
-    return state.accounts.data.user.userId
+  const userId = useSelector<number>((state:RootState) => {
+    return state.accounts.data.user.id
   })
 
   const openModal = (roomName) => {
@@ -44,6 +44,7 @@ export default function Chat() {
     axios.get(`/chat-service/chat/${userId}`)
       .then((response:AxiosResponse) => {
         setChatList(response.data)
+        console.log("방 리스트", response.data)
       })
       .catch((error:AxiosError) => {
         console.log(error, "에러");
