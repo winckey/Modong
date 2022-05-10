@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<UserEntity,Long> {
 
-    Optional<List<UserEntity>> findByUserId(String userId);
+    Optional<List<UserEntity>> findByUserId(Long userId);
     Optional<List<UserEntity>> findByRoomId(Long roomId);
-    Optional<UserEntity> findByRoomIdAndUserId(Long roomId, String userId);
+    Optional<UserEntity> findByRoomIdAndUserId(Long roomId, Long userId);
 
 }
