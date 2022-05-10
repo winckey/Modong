@@ -17,6 +17,6 @@ public interface OrderService {
     List<ReqOrderDto> getOrderByUserId(Long userId , OrderType orderType);
 
 
-    List<ReqOrderDto> getOrderByBoardId(Long boadId);
+    List<ReqOrderDto> getOrderByBoardId(Long boadId , OrderType orderType);
 
 }

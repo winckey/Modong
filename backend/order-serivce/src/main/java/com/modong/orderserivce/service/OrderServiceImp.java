@@ -87,8 +87,8 @@ public class OrderServiceImp implements OrderService{
     }
 
     @Override
-    public List<ReqOrderDto> getOrderByBoardId(Long boadId) {
-        List<Order> orderList = orderRepository.findByBoardId(boadId);
+    public List<ReqOrderDto> getOrderByBoardId(Long boadId , OrderType orderType) {
+        List<Order> orderList = orderRepository.findByUserIdAndOrderType(boadId , orderType);
 
         List<ReqOrderDto> reqOrderDtos = new ArrayList<>();
 

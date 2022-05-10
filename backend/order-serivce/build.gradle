@@ -56,6 +56,9 @@ dependencies {
     //modelmapper
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
 
+    //feign
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
 }
 
 dependencyManagement {
