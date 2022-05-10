@@ -34,9 +34,10 @@ public class MessageServiceImpl implements MessageService {
         List<MessageDto> res = new ArrayList<>();
         for (MessageEntity entity:list) {
             MessageDto msg = mapper.map(entity, MessageDto.class);
+//            msg.setDate(entity.getDate());
             // ^^username조회->나중에 join해서 가져오는걸로 refactoring
             List<UserEntity> user = userRepository.findByUserId(entity.getUserId()).get();
-            msg.setUserName(user.get(0).getUserName());
+            if(!user.isEmpty()) msg.setUserName(user.get(0).getUserName());
             res.add(msg);
         }
 
@@ -51,7 +52,6 @@ public class MessageServiceImpl implements MessageService {
 
         try{
             MessageEntity entity = mapper.map(dto, MessageEntity.class);
-            entity.setDate(LocalDateTime.now());
             msgRepository.save(entity);
         }catch (Exception e){
             e.printStackTrace();
