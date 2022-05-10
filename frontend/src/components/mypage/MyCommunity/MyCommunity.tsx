@@ -12,15 +12,7 @@ import {datetrans} from '../../../actions/TimeLapse.tsx'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 
-export interface datatype  {
-    id: number,
-    description: string,
-    userId: number,
-    createdDate: Date,
-    modifiedDate: Date,
-    commentNumber: number
-  }
-
+import { communitytype } from "../../../actions/_interfaces.tsx"
 
 function MyCommunity() {
     const dispatch = useDispatch();
@@ -29,7 +21,7 @@ function MyCommunity() {
     })
     const[ myCommunityList, setMyCommunityList ] = useState([]);
 
-    const handleCommunityPropsData=(d:datatype)=>{
+    const handleCommunityPropsData=(d:communitytype)=>{
         dispatch(actionCreators.setCommunityPropsData(d));
     }
     const handleDelCommunity = (myCommunityId:number) =>{
@@ -57,7 +49,7 @@ function MyCommunity() {
     },[])
     return (
         <div className='myCommunity'>
-            {myCommunityList.map((data:datatype) =>(
+            {myCommunityList.map((data:communitytype) =>(
                 <div className='shadow' key={data.id}>
                     <div>{data.description}</div>
                     <div>{datetrans(data.createdDate)}</div>

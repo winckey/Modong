@@ -7,20 +7,13 @@ import axios, {AxiosResponse, AxiosError} from "axios";
 
 import {reversedatetrans} from '../../actions/TimeLapse.tsx'
 
-export interface modalpropstype  {
-    closeTime: Date,
-    id: number,
-    pickupLocation: string,
-    price: string,
-    productName: string,
-    url: string,
-}
+import { gropupbuyingmodalpropstype } from "../../actions/_interfaces.tsx"
 
 function GroupBuying() {
     const [ modalOpen, setModalOpen] = useState(false);
     const [ groupBuyingList, setGroupBuyingList ] = useState([]);
-    const [ modalprops, setModalprops] = useState<modalpropstype>(); 
-    const openModal = (data:modalpropstype) => {
+    const [ modalprops, setModalprops] = useState<gropupbuyingmodalpropstype>(); 
+    const openModal = (data:gropupbuyingmodalpropstype) => {
         setModalOpen(true);
         setModalprops(data);
     };

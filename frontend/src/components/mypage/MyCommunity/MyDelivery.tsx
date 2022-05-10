@@ -13,20 +13,21 @@ import {reversedatetrans} from '../../../actions/TimeLapse.tsx'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 
-const data = [{name:"오나라식탁", arrivepoint:"sk뷰 아파트 106동 1101호", lefttime:10}, {name:"오나라식탁2", arrivepoint:"sk뷰 아파트 106동 1102호", lefttime:20}]
-
+import { deliverytype } from "../../actions/_interfaces.tsx";
 
 function MyDelivery() {
     const dispatch = useDispatch();
     const userId = useSelector((state:RootState) =>{
         return state.accounts.data.user.id
     })
-    const [ myDeliveryList, setMyDeliveryList ] = useState([]);
+    const [ myDeliveryList, setMyDeliveryList ] = useState<deliverytype[]>([]);
     const [ modalOpen, setModalOpen] = React.useState(false);
     const [ closeModalOpen, setCloseModalOpen] = React.useState(false);
+    const [ modalPropsData, setModalPropsData] = React.useState<deliverytype>(null);
 
-    const openModal = () => {
+    const openModal = (data:deliverytype) => {
         setModalOpen(true);
+        setModalPropsData(data);
     };
     const closeModal = () => {
         setModalOpen(false);
@@ -71,7 +72,7 @@ function MyDelivery() {
                         <div>{reversedatetrans(mddata.closeTime)}남았습니다.</div>
                         <div>
                             <div onClick={()=>{openCloseModal()}}>마감하기</div>
-                            <div onClick={()=>{openModal()}}>신청내역확인</div>
+                            <div onClick={()=>{openModal(mddata)}}>신청내역확인</div>
                         </div>
                         <FontAwesomeIcon onClick={()=>{handleDelCommunity(mddata.id)}} className='rightExitIcon' icon={faRightToBracket}/>
                     </div>
@@ -79,12 +80,12 @@ function MyDelivery() {
             </div>
 
             <div>
-                <CloseModal open={closeModalOpen}  close={closeCloseModal} info={data}>
+                <CloseModal open={closeModalOpen}  close={closeCloseModal} info={modalPropsData}>
                 </CloseModal>
             </div>
 
             <div>
-                <RequestedModal open={modalOpen}  close={closeModal} info={data}>
+                <RequestedModal open={modalOpen}  close={closeModal} info={modalPropsData}>
                 </RequestedModal>
             </div>
 

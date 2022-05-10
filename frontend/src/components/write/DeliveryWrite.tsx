@@ -14,18 +14,6 @@ import axios, {AxiosResponse, AxiosError } from 'axios';
 
 import RootState from "../../reducer/reducers.tsx"
 import actionCreators from "../../actions/actionCreators.tsx"
-// export interface userType{
-//     age: number
-//     banned: boolean
-//     date_create: string
-//     deleted: boolean
-//     dongDto: any
-//     id: number
-//     image: any
-//     nickname: string
-//     phone: string
-//     userId: string
-// }
 
 function DeliveryWrite() {
     let navigate = useNavigate();

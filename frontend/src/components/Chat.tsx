@@ -13,12 +13,7 @@ import actionCreators from './actions/actionCreators.tsx';
 import {datetrans} from '../actions/TimeLapse.tsx'
 import RootState from "./reducer/reducers.tsx"
 
-export interface chatListType {
-    name: string,
-    roomId: number,
-    type: string,
-    numberUser: number
-} 
+import { chatListType } from "../actions/_interfaces.tsx"
 
 export default function Chat() {
   const [ modalOpen, setModalOpen] = useState(false);
