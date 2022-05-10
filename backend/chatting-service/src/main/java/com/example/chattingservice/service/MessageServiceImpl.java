@@ -9,6 +9,7 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class MessageServiceImpl implements MessageService {
 
         try{
             MessageEntity entity = mapper.map(dto, MessageEntity.class);
+            entity.setDate(LocalDateTime.now());
             msgRepository.save(entity);
         }catch (Exception e){
             e.printStackTrace();
