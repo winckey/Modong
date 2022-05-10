@@ -6,6 +6,6 @@ import lombok.Data;
 public class MessageReq {
 // ^^제약조건
     private String roomId;
-    private String userId;
+    private Long userId;
     private String message;
 }

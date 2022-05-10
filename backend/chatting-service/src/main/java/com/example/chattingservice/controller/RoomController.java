@@ -54,7 +54,7 @@ public class RoomController {
     @GetMapping("/{userId}")
     @Operation(summary = "채팅방 목록", description  = "userId로 채팅방 채팅 내역 조회")
     @ResponseBody
-    public ResponseEntity<List<RoomRes>> room(@PathVariable("userId") String userId) {
+    public ResponseEntity<List<RoomRes>> room(@PathVariable("userId") Long userId) {
         List<RoomRes> res = new ArrayList<RoomRes>();
 
         // 매퍼생성

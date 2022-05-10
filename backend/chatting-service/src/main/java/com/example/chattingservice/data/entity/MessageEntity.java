@@ -16,7 +16,7 @@ public class MessageEntity {
     // 채팅방 이름
 //    @Column(nullable = false, unique = false, length = 50) ^^
     private Long roomId; // 방번호
-    private String userId; // 메시지 보낸사람
+    private Long userId; // 메시지 보낸사람
     private String message; // 메시지
 
 
