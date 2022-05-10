@@ -1,11 +1,7 @@
 package com.example.chattingservice.data.entity;
 
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Builder
 @Getter
