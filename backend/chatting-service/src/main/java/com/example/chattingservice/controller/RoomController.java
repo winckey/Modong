@@ -96,7 +96,7 @@ public class RoomController {
 
 
     // 채팅방 나가기
-    @DeleteMapping("/{roomId}/{userId}")
+    @DeleteMapping
     @Operation(summary = "채팅 나가기", description  = "")
     public ResponseEntity exit(@RequestBody ExitRoomReq req) {
         // ^^ 디비 목록에서 제거해주자
@@ -109,7 +109,7 @@ public class RoomController {
     // 메세지 저장
     @PostMapping("/message")
     @Operation(summary = "메시지 저장", description  = "[프론트]")
-    public ResponseEntity exit(MessageReq req) {
+    public ResponseEntity exit(@RequestBody MessageReq req) {
         // 매퍼생성
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
