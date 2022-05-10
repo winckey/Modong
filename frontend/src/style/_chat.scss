@@ -1,10 +1,17 @@
 @import '_base';
 
+
+.outerBox{
+    position: relative;
+    height: 82vh;
+    overflow: auto;
+}
+
 .chatOutLine{
     @include flex-col;
     align-items: center;
-    overflow: auto;
-    height: 600px;
+    
+
     .chatCard{
         border-radius: 15px;
         background-color: $gray1;

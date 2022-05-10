@@ -133,52 +133,61 @@ function ChatDetail() {
     };
 
 
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    };
+
     return (
         <div className='chatDetailOutLine'>
-            {/* 이전 채팅 기록 */}
-            {historyMessages.map((d, index) =>(
-                <div className='chatDetailInnerCard' key={index}>
-                    { d.userId === userId ?
-                    <div className="myChat">
-                        <div className="myChatName">{d.userId}</div>
-                        <div>{d.message}</div>
-                        {/* <div>{d.date}분전</div> */}
+            <div className='chatInnerBox'>
+                {/* 이전 채팅 기록 */}
+                {historyMessages.map((d, index) =>(
+                    <div className='chatDetailInnerCard' key={index}>
+                        { d.userId === userId ?
+                        <div className="myChat">
+                            <div className="myChatName">{d.userId}</div>
+                            <div>{d.message}</div>
+                            {/* <div>{d.date}분전</div> */}
+                        </div>
+                        :
+                        <div className="otherChat">
+                            <div className="otherChatName">{d.userId}</div>
+                            <div>{d.message}</div>
+                            {/* <div>{d.date}분전</div> */}
+                        </div>
+                        }
                     </div>
-                    :
-                    <div className="otherChat">
-                        <div className="otherChatName">{d.userId}</div>
-                        <div>{d.message}</div>
-                        {/* <div>{d.date}분전</div> */}
-                    </div>
-                    }
-                </div>
-            ))}
-            
+                ))}
+                
 
 
-            {/* 실시간 채팅 */}
-            {contents.map((d, index) =>(
-                <div className='chatDetailInnerCard' key={index}>
-                    { d.userId === userId ?
-                    <div className="myChat">
-                        <div className="myChatName">{d.userId}</div>
-                        <div>{d.message}</div>
-                        <div>{d.date}분전</div>
+                {/* 실시간 채팅 */}
+                {contents.map((d, index) =>(
+                    <div className='chatDetailInnerCard' key={index}>
+                        { d.userId === userId ?
+                        <div className="myChat">
+                            <div className="myChatName">{d.userId}</div>
+                            <div>{d.message}</div>
+                            <div>{d.date}분전</div>
+                        </div>
+                        :
+                        <div className="otherChat">
+                            <div className="otherChatName">{d.userId}</div>
+                            <div>{d.message}</div>
+                            <div>{d.date}분전</div>
+                        </div>
+                        }
                     </div>
-                    :
-                    <div className="otherChat">
-                        <div className="otherChatName">{d.userId}</div>
-                        <div>{d.message}</div>
-                        <div>{d.date}분전</div>
-                    </div>
-                    }
-                </div>
-            ))}
+                ))}
+            </div>
 
 
             
             <div className='chatinput'>
-                <input onChange={handleChattxt} value={chattxt||""} type="text"></input>
+                <input onChange={handleChattxt} value={chattxt||""} 
+                type="text" onKeyPress={handleKeyPress}></input>
                 <div onClick={sendMessage}><FontAwesomeIcon icon={faPen}/></div>
             </div>
         </div>
