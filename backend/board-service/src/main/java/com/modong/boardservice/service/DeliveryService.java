@@ -20,4 +20,5 @@ public interface DeliveryService {
 
     Page<DeliveryResDTO> myDeliveryListCalling(Pageable pageable, Long userId);
 
+    DeliveryResDTO getDeliveryOne(Long id);
 }

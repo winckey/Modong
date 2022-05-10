@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "crawling-service", url = "http://k6e102.p.ssafy.io:8000/crawling-service")
+import java.util.Map;
+
+@FeignClient(name = "crawling-service", url = "http://k6e102.p.ssafy.io:8000/crawling-service/")
 public interface CrawlingClient {
 
     @PostMapping
-    void crawlingMenu(@RequestBody String boardId);
+    void crawlingMenu(@RequestBody Map<String,Integer> url);
 
     @GetMapping(("/{boardId}"))
     Object getMenu(@PathVariable String boardId);

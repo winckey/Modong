@@ -15,7 +15,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service("deliveryService")
 public class DeliveryServiceImpl implements DeliveryService {
@@ -28,16 +30,20 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Autowired
     UserClientService userClientService;
-//
-//    @Autowired
-//    CrawlingClient crawlingClient;
+
+    @Autowired
+    CrawlingClient crawlingClient;
 
     @Override
     public Delivery createDelivery(DeliveryReqDTO deliveryReqDTO) {
 
         String[] urlList = deliveryReqDTO.getUrl().split("/");
 
+        Map<String,Integer> map = new HashMap<>();
         String url = urlList[urlList.length-1];
+
+        map.put("board_id", Integer.valueOf(url));
+
         Delivery delivery = Delivery.builder()
                 .url(url)
                 .storeName(deliveryReqDTO.getStoreName())
@@ -46,7 +52,7 @@ public class DeliveryServiceImpl implements DeliveryService {
                 .userId(deliveryReqDTO.getUserId())
                 .build();
 
-//        crawlingClient.crawlingMenu(url);
+        crawlingClient.crawlingMenu(map);
 
 
         return deliveryRepository.save(delivery);
@@ -107,5 +113,19 @@ public class DeliveryServiceImpl implements DeliveryService {
         }
 
         return new PageImpl<>(deliveryResDTOS, pageable, deliveries.getTotalElements());
+    }
+
+    @Override
+    public DeliveryResDTO getDeliveryOne(Long id) {
+
+        Delivery delivery = deliveryRepository.getById(id);;
+        DeliveryResDTO deliveryResDTO = DeliveryResDTO.builder()
+                .id(delivery.getId())
+                .url(delivery.getUrl())
+                .closeTime(delivery.getCloseTime())
+                .pickupLocation(delivery.getPickupLocation())
+                .storeName(delivery.getStoreName())
+                .build();
+        return deliveryResDTO;
     }
 }

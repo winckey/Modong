@@ -1,6 +1,9 @@
 package com.modong.boardservice.controller;
 
+import com.modong.boardservice.db.entity.Delivery;
+import com.modong.boardservice.db.entity.Purchase;
 import com.modong.boardservice.request.PurchaseReqDTO;
+import com.modong.boardservice.response.PurchaseResDTO;
 import com.modong.boardservice.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -49,5 +52,13 @@ public class PurchaseController {
 
 
         return new ResponseEntity<>(purchaseService.myPurchaseListCalling(pageable, userId), HttpStatus.OK);
+    }
+
+    // 게시글 한개씩 보기
+    @GetMapping("/read/{id}")
+    public ResponseEntity purchaseRead(@PathVariable("id") Long id) {
+
+        PurchaseResDTO purchaseResDTO = purchaseService.getPurchaseOne(id);
+        return new ResponseEntity<>(purchaseResDTO, HttpStatus.OK);
     }
 }

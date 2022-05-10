@@ -13,4 +13,6 @@ public interface PurchaseService {
     Page<PurchaseResDTO> purchaseListCalling(Pageable pageable);
 
     Page<PurchaseResDTO> myPurchaseListCalling(Pageable pageable, Long userId);
+
+    PurchaseResDTO getPurchaseOne(Long id);
 }

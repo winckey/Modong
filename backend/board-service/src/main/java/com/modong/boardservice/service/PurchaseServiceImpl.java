@@ -103,4 +103,19 @@ public class PurchaseServiceImpl implements PurchaseService{
 
         return new PageImpl<>(purchaseList, pageable, purchases.getTotalElements());
     }
+
+    @Override
+    public PurchaseResDTO getPurchaseOne(Long id) {
+        Purchase purchase =  purchaseRepository.getById(id);
+        PurchaseResDTO purchaseResDTO = PurchaseResDTO.builder()
+                .id(purchase.getId())
+                .url(purchase.getUrl())
+                .productName(purchase.getProductName())
+                .price(purchase.getPrice())
+                .pickupLocation(purchase.getPickupLocation())
+                .closeTime(purchase.getCloseTime())
+                .build();
+
+        return purchaseResDTO;
+    }
 }

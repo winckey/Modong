@@ -1,6 +1,9 @@
 package com.modong.boardservice.controller;
 
+import com.modong.boardservice.db.entity.Delivery;
 import com.modong.boardservice.request.DeliveryReqDTO;
+import com.modong.boardservice.response.BoardResDTO;
+import com.modong.boardservice.response.DeliveryResDTO;
 import com.modong.boardservice.service.DeliveryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -50,4 +53,11 @@ public class DeliveryController {
         return new ResponseEntity<>(deliveryService.myDeliveryListCalling(pageable, userId), HttpStatus.OK);
     }
 
+    // 게시글 한개씩 보기
+    @GetMapping("/read/{id}")
+    public ResponseEntity deliveryRead(@PathVariable("id") Long id) {
+
+        DeliveryResDTO deliveryResDTO = deliveryService.getDeliveryOne(id);
+        return new ResponseEntity<>(deliveryResDTO, HttpStatus.OK);
+    }
 }
