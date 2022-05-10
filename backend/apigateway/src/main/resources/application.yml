@@ -161,7 +161,7 @@ spring:
             - Method=GET, POST, DELETE
           filters:
             - RemoveRequestHeader=Cookie
-            - RewritePath=/order-service/(?<segment>.*), /$\{segment}
+            - RewritePath=/crawling-service/(?<segment>.*), /$\{segment}
 
 management:
   endpoints:
