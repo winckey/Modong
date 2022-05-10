@@ -13,16 +13,16 @@
 
     section {
       @include absolute-loc($bottom:0);
-        bottom: 0;
-        width: 100%;
-        height: 75%;
-        max-width: 450px;
-        border-top-left-radius: 30px;
-        border-top-right-radius: 30px;
-        background-color: #fff;
-        /* 팝업이 열릴때 스르륵 열리는 효과 */
-        animation: modal-show 0.3s;
-        overflow: hidden;
+      bottom: 0;
+      width: 100%;
+      height: 75%;
+      max-width: 450px;
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+      background-color: #fff;
+      /* 팝업이 열릴때 스르륵 열리는 효과 */
+      animation: modal-show 0.3s;
+      overflow: hidden;
 
         .icon {
           margin: 15%;
@@ -82,12 +82,44 @@
             }
   
           }
-  
-  
+
+        }
+        .GroupBuyingReq{
+          @include flex-col;
+          align-items: center;
+          >div:nth-child(n+2){
+            @include flex-row;
+            justify-content: space-between;
+            width: 80%;
+            margin-bottom: 15px;
+          }
+          >div:nth-child(1){
+            @include flex-col;
+            align-items: center;
+            overflow: auto;
+            height: 150px;
+            border-bottom: 1px black solid;
+            width: 100%;
+            margin-bottom: 15px;
+            >div{
+              @include flex-row;
+              justify-content: space-between;
+              width: 80%;
+              margin-bottom: 15px;
+            }
+          }
+          >div:nth-child(3){
+            height: 140px;
+            overflow: auto;
+          }
+          .productcount{
+            align-self: flex-start;
+          }
+        }
     }
   
     
-  }
+  
    
   .modal.openModal {
     display: flex;

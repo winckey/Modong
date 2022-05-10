@@ -2,13 +2,9 @@ import React from 'react';
 import '../../style/modal/_Modal.scss'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleExclamation} from "@fortawesome/free-solid-svg-icons";
-import axios from 'axios';
+import axios, { AxiosResponse, AxiosError } from 'axios';
 
-export interface chatListType {
-  name: string,
-  roomId: number,
-} 
-
+import { chatListType } from "../../actions/_interfaces.tsx"
 
 export default function ChatExitModal(props)  {
 
