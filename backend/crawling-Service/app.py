@@ -10,7 +10,6 @@ rest_port = 8080
 # Eureka
 eureka_client.init(eureka_server="http://k6e102.p.ssafy.io:8761/eureka",
                    app_name="crawling-service",
-                   instance_host='k6e102.p.ssafy.io',
                    instance_port=rest_port)
 
 
