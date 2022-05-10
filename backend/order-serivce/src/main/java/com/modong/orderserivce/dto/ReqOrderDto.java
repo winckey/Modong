@@ -31,6 +31,7 @@ public class ReqOrderDto {
     @ApiModelProperty
     private OrderType orderType;
 
+    private BoardDto boardDto;
 
     private List<ItemDto> itemDtoList;
 
