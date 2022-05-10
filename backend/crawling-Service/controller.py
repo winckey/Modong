@@ -21,6 +21,7 @@ menu_fields = Menu.model('Menu', {  # Model 객체 생성
     'board_id': fields.Integer(description='가게 고유번호')
 })
 
+
 @Menu.route('')
 class Crawling(Resource):
     # 크롤링한 데이터 삭제
@@ -41,7 +42,6 @@ class Crawling(Resource):
         rd.set(board_id, menus)
 
         return menus.decode('utf-8')
-
 
 
 @Menu.route('/<int:board_id>')
