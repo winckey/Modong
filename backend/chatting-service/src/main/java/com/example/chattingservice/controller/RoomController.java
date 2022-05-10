@@ -4,6 +4,7 @@ import com.example.chattingservice.data.dto.MessageDto;
 import com.example.chattingservice.data.dto.RoomDto;
 import com.example.chattingservice.data.dto.UserDto;
 import com.example.chattingservice.data.request.CreateRoomReq;
+import com.example.chattingservice.data.request.ExitRoomReq;
 import com.example.chattingservice.data.request.MessageReq;
 import com.example.chattingservice.data.response.CreateRoomRes;
 import com.example.chattingservice.data.response.RoomRes;
@@ -97,9 +98,9 @@ public class RoomController {
     // 채팅방 나가기
     @DeleteMapping("/{roomId}/{userId}")
     @Operation(summary = "채팅 나가기", description  = "")
-    public ResponseEntity exit(@PathVariable("roomId") Long roomId, @PathVariable("userId") String userId) {
+    public ResponseEntity exit(@RequestBody ExitRoomReq req) {
         // ^^ 디비 목록에서 제거해주자
-        if(roomService.exitChatRoom(roomId, userId))
+        if(roomService.exitChatRoom(req.getRoomId(), req.getUserId()))
             return new ResponseEntity(HttpStatus.OK);
         else
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
