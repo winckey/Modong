@@ -96,7 +96,7 @@ public class RoomController {
 
 
     // 채팅방 나가기
-    @DeleteMapping("/{roomId}/{userId}")
+    @DeleteMapping
     @Operation(summary = "채팅 나가기", description  = "")
     public ResponseEntity exit(@RequestBody ExitRoomReq req) {
         // ^^ 디비 목록에서 제거해주자
