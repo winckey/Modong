@@ -1,5 +1,6 @@
 package com.modong.orderserivce.entity;
 
+import com.modong.orderserivce.dto.BoardDto;
 import com.modong.orderserivce.dto.ReqOrderDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +25,8 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     private OrderType orderType;
+
+
 
     private Long userId;
     @OneToMany(mappedBy = "orders", cascade = {CascadeType.PERSIST , CascadeType.REMOVE} )
