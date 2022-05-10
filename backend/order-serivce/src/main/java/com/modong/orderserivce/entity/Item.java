@@ -30,6 +30,8 @@ public class Item {
 
     private int quantity;
 
+    private int price;
+
     private String itemContent;
 
 

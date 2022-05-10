@@ -39,6 +39,7 @@ public class OrderServiceImp implements OrderService {
                     .itemContent(itemDto.getItemContent())
                     .orders(order)
                     .quantity(itemDto.getQuantity())
+                    .price(itemDto.getPrice())
                     .build();
 
 

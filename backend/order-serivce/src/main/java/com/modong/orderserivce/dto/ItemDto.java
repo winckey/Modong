@@ -24,7 +24,8 @@ public class ItemDto {
     @Schema(example = "1")
     private int quantity;
 
-
+    @Schema(example = "10000")
+    private int price;
 
 
 
@@ -36,6 +37,7 @@ public class ItemDto {
             ItemDto itemDto = ItemDto.builder()
                     .itemContent(item.getItemContent())
                     .quantity(item.getQuantity())
+                    .price(item.getPrice())
                     .build();
 
             itemDto.setOptions(OptionDto.of(item.getOptionList()));
