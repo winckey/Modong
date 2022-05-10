@@ -54,7 +54,7 @@ export default function Chat() {
   },[])
 
   return (
-    <div>
+    <div className='outerBox'>
       <div className='chatOutLine'>
           {chatList.map((d, index)=>( 
             <Link key={index} to='/chatdetail' className='chatCard' 

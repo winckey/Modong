@@ -33,15 +33,15 @@ export default function _DoneModal(props)  {
         <div style={{margin: "5%"}}>
 
           <div>
-              <div>
+              <div className="icon">
                 <FontAwesomeIcon  icon={faCircleExclamation} size="6x" color="#0064FF"/>
               </div>
 
-              <div>
+              <header>
                   <button onClick={()=>{openModal();}}>신청 내역 확인</button>
                   <p>내용</p>
                   <p>{info}</p>
-              </div>
+              </header>
 
           </div>
 

@@ -25,14 +25,14 @@ export default function CloseModal(props)  {
         <div style={{margin: "5%"}}>
 
           <div>
-              <div>
+              <div className='icon'>
                 <FontAwesomeIcon  icon={faCircleExclamation} size="6x" color="#0064FF"/>
               </div>
 
-              <div>
-                  <p>내용</p>
-                  {/* <p>{info}</p> */}
-              </div>
+              <header>
+                  <div>~~을</div>
+                  <div>나갈래? 마감할래?</div>
+              </header>
 
           </div>
 
