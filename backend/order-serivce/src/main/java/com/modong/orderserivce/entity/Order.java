@@ -22,6 +22,7 @@ public class Order {
 
     private Long boardId;
 
+    @Enumerated(EnumType.STRING)
     private OrderType orderType;
 
     private Long userId;

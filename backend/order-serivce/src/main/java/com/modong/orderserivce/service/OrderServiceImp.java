@@ -7,6 +7,7 @@ import com.modong.orderserivce.dto.ReqOrderDto;
 import com.modong.orderserivce.entity.Item;
 import com.modong.orderserivce.entity.Option;
 import com.modong.orderserivce.entity.Order;
+import com.modong.orderserivce.entity.OrderType;
 import com.modong.orderserivce.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.jaxb.SpringDataJaxb;
@@ -66,9 +67,14 @@ public class OrderServiceImp implements OrderService{
     }
 
     @Override
-    public List<ReqOrderDto> getOrderByUserId(Long userId) {
+    public List<ReqOrderDto> getOrderByUserId(Long userId , OrderType orderType) {
 
-        List<Order> orderList = orderRepository.findByUserId(userId);
+        List<Order> orderList = null;
+
+        if(orderType.equals(OrderType.ORDER_ALL))
+            orderList = orderRepository.findByUserId(userId);
+        else
+            orderList = orderRepository.findByUserIdAndOrderType(userId , orderType);
 
         List<ReqOrderDto> reqOrderDtos = new ArrayList<>();
 

@@ -2,6 +2,7 @@ package com.modong.orderserivce.controller;
 
 import com.modong.orderserivce.dto.ReqIdOrderDto;
 import com.modong.orderserivce.dto.ReqOrderDto;
+import com.modong.orderserivce.entity.OrderType;
 import com.modong.orderserivce.service.OrderService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -51,12 +52,12 @@ public class OrderController {
     }
 
 
-    @GetMapping("/user/{userId}")
-    @Operation(summary = "주문 조회 사용자", description  = "주문 사용자 단위 조회")
+    @GetMapping("/user/{userId}/{orderType}")
+    @Operation(summary = "주문 조회 사용자", description  = "주문 사용자 단위 조회 // 모두조회  ORDER_ALL,  타입별 조회는 다른 값")
 
-    public ResponseEntity<List<ReqOrderDto>> getOrder(@NotNull @PathVariable Long userId) {
+    public ResponseEntity<List<ReqOrderDto>> getOrder(@NotNull @PathVariable Long userId ,@PathVariable OrderType orderType) {
 
-        List<ReqOrderDto> reqOrderDtoList= orderService.getOrderByUserId(userId);
+        List<ReqOrderDto> reqOrderDtoList= orderService.getOrderByUserId(userId , orderType);
 
 
 
