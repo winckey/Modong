@@ -18,17 +18,37 @@ export default function _ApplyHistoryModal(props)  {
     {open ? (
       <section>
 
-        <div style={{margin: "5%"}}>
+        <div style={{margin: "10%"}}>
 
-          <header>
-            {info.Price*infoNum}
-          </header>
+          <div className="title">
+            {info.price*infoNum}원
+          </div>
 
           <main>
-            <div>{info.productName}</div>
-            <div>{info.Price}</div>
-            <div>{infoNum}</div>
-            <div>유저 정보</div>
+
+            <div className="historyBox">
+              <div>
+                <p>물품</p>
+                <p>{info.productName}</p>
+              </div>
+              <div>
+                <p>가격</p>
+                <p>{info.price}원</p>
+              </div>
+              <div>
+                <p>수량</p>
+                <p>{infoNum}개</p>
+              </div>
+              <hr/>
+              <div>
+                <p>판매자</p>
+                <div style={{display:"flex", justifyContent:"center"}}>
+                  {/* <img src={ require('../../assets/pingu.png') } alt="사진"/> */}
+                  <p>우히히히</p>
+                </div>
+              </div>
+            </div>
+
             <button onClick={close} >확인</button>
           </main>
 

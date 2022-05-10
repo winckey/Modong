@@ -3,6 +3,8 @@ import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
 
+import {reversedatetrans} from '../../actions/TimeLapse.tsx'
+import {datetrans} from '../../actions/TimeLapse.tsx'
 
 import "../../style/_chatdetail.scss"
 import actionCreators from './actions/actionCreators.tsx';
@@ -19,7 +21,8 @@ import { useLocation } from 'react-router-dom'
 
 
 interface dataProps{
-        userId:string;
+        userId:number;
+        userName:string;
         message:string;
         date:number;
 };
@@ -46,9 +49,14 @@ function ChatDetail() {
     const [ historyMessages, setHistoryMessages] = useState<dataProps[]>([]);
 
 
-    const userId = useSelector<string>((state:RootState) => {
+    const userId = useSelector<number>((state:RootState) => {
+        return state.accounts.data.user.id
+    })
+
+
+    const userName = useSelector<number>((state:RootState) => {
         return state.accounts.data.user.userId
-      })
+    })
 
 
     const [state, setState] = useState({
@@ -72,7 +80,6 @@ function ChatDetail() {
     useEffect(()=>{
         console.log("구독 시작 전!")
         stomp.connect({}, ()=> {
-            console.log("돼라 쫌");
             stomp.subscribe(`/sub/chatting/room/${state.roomId}`, (data)=>{
                 console.log("구독 가넝")
                 const newMessage: dataProps = JSON.parse(data.body);
@@ -101,6 +108,7 @@ function ChatDetail() {
         axios.get(`chat-service/chat/message/${state.roomId}`)
         .then((res)=>{
             setHistoryMessages(res.data);
+            console.log("history", res.data);
         })
         .catch((err)=>{
             console.log("getHistory에러", err);
@@ -147,15 +155,15 @@ function ChatDetail() {
                     <div className='chatDetailInnerCard' key={index}>
                         { d.userId === userId ?
                         <div className="myChat">
-                            <div className="myChatName">{d.userId}</div>
+                            <div className="myChatName">{userName}</div>
                             <div>{d.message}</div>
-                            {/* <div>{d.date}분전</div> */}
+                            <div>{reversedatetrans(d.date[6])}</div>
                         </div>
                         :
                         <div className="otherChat">
-                            <div className="otherChatName">{d.userId}</div>
+                            <div className="otherChatName">{d.userName}</div>
                             <div>{d.message}</div>
-                            {/* <div>{d.date}분전</div> */}
+                            <div>{d.date}분전</div>
                         </div>
                         }
                     </div>
@@ -168,13 +176,13 @@ function ChatDetail() {
                     <div className='chatDetailInnerCard' key={index}>
                         { d.userId === userId ?
                         <div className="myChat">
-                            <div className="myChatName">{d.userId}</div>
+                            <div className="myChatName">{userName}</div>
                             <div>{d.message}</div>
                             <div>{d.date}분전</div>
                         </div>
                         :
                         <div className="otherChat">
-                            <div className="otherChatName">{d.userId}</div>
+                            <div className="otherChatName">{d.userName}</div>
                             <div>{d.message}</div>
                             <div>{d.date}분전</div>
                         </div>

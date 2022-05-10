@@ -31,6 +31,13 @@
     box-shadow: 1px 1px 3px 1px #dadce0;
 }
 
+@mixin grayRound{
+    background-color: $gray3;
+    color: $gray0;
+    border-radius: 20px;
+    display: flex;
+}
+
 @mixin button {
     width: 90%;
     height: 9%;
@@ -40,6 +47,7 @@
     background-color: $blue3;
     border: none;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 
@@ -49,8 +57,10 @@
     border-radius: "10px";
 }
 
+$gray0:#4c4a4a;
 $gray1:#F5F5F5;
 $gray2:#C4C4C4;
+$gray3:#ebe8e8;
 $blue1:#2F88FF;
 $blue2:#0064FF;
 $blue3:#0064FF;
