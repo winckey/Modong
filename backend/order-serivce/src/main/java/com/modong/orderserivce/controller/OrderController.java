@@ -54,8 +54,7 @@ public class OrderController {
 
     @GetMapping("/user/{userId}/{orderType}")
     @Operation(summary = "주문 조회 사용자", description  = "주문 사용자 단위 조회 // 모두조회  ORDER_ALL,  타입별 조회는 다른 값")
-
-    public ResponseEntity<List<ReqOrderDto>> getOrder(@NotNull @PathVariable Long userId ,@PathVariable OrderType orderType) {
+    public ResponseEntity<List<ReqOrderDto>> getOrderByUser(@NotNull @PathVariable Long userId ,@PathVariable OrderType orderType) {
 
         List<ReqOrderDto> reqOrderDtoList= orderService.getOrderByUserId(userId , orderType);
 
@@ -63,4 +62,18 @@ public class OrderController {
 
         return ResponseEntity.ok(reqOrderDtoList);
     }
+
+
+    @GetMapping("/board/{boardId}")
+    @Operation(summary = "주문 조회 글", description  = "주문 글 단위 조회")
+
+    public ResponseEntity<List<ReqOrderDto>> getOrderByBoard(@NotNull @PathVariable Long boardId) {
+
+        List<ReqOrderDto> reqOrderDtoList= orderService.getOrderByBoardId(boardId);
+
+
+
+        return ResponseEntity.ok(reqOrderDtoList);
+    }
+
 }
