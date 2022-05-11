@@ -68,4 +68,8 @@ public class UserEntity {
     public void changeDong(Dongcode dongcode) {
         this.dongcode = dongcode;
     }
+
+    public void changeImage(String url) {
+        this.image = url;
+    }
 }

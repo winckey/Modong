@@ -87,3 +87,6 @@ cloud.aws.stack.auto: false
 # file upload max size (파일 업로드 크기 설정)
 spring.servlet.multipart.max-file-size: 20MB
 spring.servlet.multipart.max-request-size: 20MB
+
+# AWS S3 Bucket URL
+cloud.aws.s3.bucket.url: https://s3.ap-northeast-2.amazonaws.com/modong-bucket

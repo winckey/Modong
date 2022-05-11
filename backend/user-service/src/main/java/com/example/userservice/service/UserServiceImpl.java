@@ -23,7 +23,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -41,7 +43,7 @@ public class UserServiceImpl implements UserService {
     private final RefreshTokenRedisRepository refreshTokenRedisRepository;
     private final JwtTokenUtil jwtTokenUtil;
     private final Environment env;
-
+    private final S3FileUploadService s3FileUploadService;
 
     @Override
     public UserDto createUser(ReqUserRegister reqUserRegister) {
@@ -160,5 +162,26 @@ public class UserServiceImpl implements UserService {
 
     private boolean lessThanReissueExpirationTimesLeft(String refreshToken) {
         return jwtTokenUtil.getRemainMilliSeconds(refreshToken) < Long.parseLong(env.getProperty("token.re_expiration_time"));
+    }
+
+
+    public UserDto profileSave(MultipartFile multipartFile, Long userId) {
+
+
+        UserEntity userEntity = userRepository.findById(userId)
+                .orElseThrow(()-> new UsernameNotFoundException("해당유저id 가 올바르지 않습니다."));
+        try {
+            String url = s3FileUploadService.upload(multipartFile);
+            userEntity.changeImage(url);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        userRepository.save(userEntity);
+
+        UserDto userDto = getModelMapper().map(userEntity, UserDto.class);
+        userDto.setDongDto(userEntity.getDongcode());
+
+        return userDto;
     }
 }

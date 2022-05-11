@@ -104,6 +104,17 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userDto);
     }
 
+    @PutMapping("/users/image")
+    @Operation(summary = "이미지 수정", description  = "유저id로 정보 수정")
+    public ResponseEntity<UserDto> saveProfile( @RequestPart(value = "image", required = false) final MultipartFile multipartFile , Long userId) {
+
+        UserDto userDto = userService.profileSave( multipartFile , userId);
+
+
+        return ResponseEntity.status(HttpStatus.OK).body(userDto);
+    }
+
+
     @DeleteMapping("/users")
     @Operation(summary = "유저 임시 탈퇴", description  = "유저 임시 탈퇴")
     public ResponseEntity deleteUser(@Valid @RequestBody Long id) {
@@ -121,10 +132,4 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(reponseLogin);
     }
 
-    @PostMapping("/images")
-    public String upload(@RequestParam("images") MultipartFile multipartFile) throws IOException {
-
-
-        return "test";
-    }
 }
