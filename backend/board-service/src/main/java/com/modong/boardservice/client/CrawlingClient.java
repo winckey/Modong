@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Map;
 
-@FeignClient(name = "crawling-service", url = "http://k6e102.p.ssafy.io:8000/crawling-service/")
+@FeignClient(name = "crawling-service", url = "http://k6e102.p.ssafy.io:8000/crawling-service")
 public interface CrawlingClient {
 
     @PostMapping
