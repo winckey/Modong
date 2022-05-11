@@ -39,10 +39,10 @@ public class DeliveryServiceImpl implements DeliveryService {
 
         String[] urlList = deliveryReqDTO.getUrl().split("/");
 
-        Map<String,Integer> map = new HashMap<>();
+        Map<String,String> map = new HashMap<>();
         String url = urlList[urlList.length-1];
 
-        map.put("board_id", Integer.valueOf(url));
+        map.put("board_id", url);
 
         Delivery delivery = Delivery.builder()
                 .url(url)

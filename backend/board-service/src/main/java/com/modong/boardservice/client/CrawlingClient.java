@@ -14,7 +14,7 @@ import java.util.Map;
 public interface CrawlingClient {
 
     @PostMapping
-    void crawlingMenu(@RequestBody Map<String,Integer> url);
+    void crawlingMenu(@RequestBody Map<String,String> url);
 
     @GetMapping(("/{boardId}"))
     Object getMenu(@PathVariable String boardId);
