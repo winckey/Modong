@@ -18,8 +18,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Slf4j
 @Validated
@@ -32,6 +34,7 @@ public class UserController {
     private final Environment env;
     private final UserService userService;
     private final UserRepository userRepository;
+
 
     @Autowired
     private Greeting greeting;
@@ -100,6 +103,17 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.OK).body(userDto);
     }
+
+    @PutMapping("/users/image")
+    @Operation(summary = "이미지 수정", description  = "유저id로 정보 수정")
+    public ResponseEntity<UserDto> saveProfile( @RequestPart(value = "image", required = false) final MultipartFile multipartFile , Long userId) {
+
+        UserDto userDto = userService.profileSave( multipartFile , userId);
+
+
+        return ResponseEntity.status(HttpStatus.OK).body(userDto);
+    }
+
 
     @DeleteMapping("/users")
     @Operation(summary = "유저 임시 탈퇴", description  = "유저 임시 탈퇴")

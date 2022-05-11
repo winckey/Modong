@@ -7,6 +7,7 @@ import com.example.userservice.vo.ReponseLogin;
 import com.example.userservice.vo.ReqUserModify;
 import com.example.userservice.vo.ReqUserRegister;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.multipart.MultipartFile;
 
 
 public interface UserService extends UserDetailsService {
@@ -27,4 +28,6 @@ public interface UserService extends UserDetailsService {
     UserDto modifyUser(Long userId , ReqUserModify reqUserModify);
 
     void deleteUser(Long id);
+
+    UserDto profileSave(MultipartFile multipartFile, Long userId);
 }
