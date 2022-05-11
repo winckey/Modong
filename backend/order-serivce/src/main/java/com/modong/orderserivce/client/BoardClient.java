@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "user-service", url = "http://k6e102.p.ssafy.io:8000/board-service")
+@FeignClient(name = "board-service", url = "http://k6e102.p.ssafy.io:8000/board-service")
 public interface BoardClient {
 
     @GetMapping(value = "/group-delivery/read/{boardId}")

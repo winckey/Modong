@@ -1,6 +1,7 @@
 package com.modong.orderserivce.service;
 
 import com.modong.orderserivce.client.BoardClient;
+import com.modong.orderserivce.client.UserClient;
 import com.modong.orderserivce.dto.*;
 import com.modong.orderserivce.entity.Item;
 import com.modong.orderserivce.entity.Option;
@@ -8,6 +9,7 @@ import com.modong.orderserivce.entity.Order;
 import com.modong.orderserivce.entity.OrderType;
 import com.modong.orderserivce.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Service;
@@ -22,7 +24,7 @@ public class OrderServiceImp implements OrderService {
 
     private final OrderRepository orderRepository;
     private final BoardClient boardClient;
-
+    private final UserClient userClient;
 
     @Override
     public void createOreder(ReqOrderDto reqOrderDto) {
@@ -82,10 +84,13 @@ public class OrderServiceImp implements OrderService {
 //            ReqOrderDto reqOrderDto = ReqOrderDto.of(order);
 //            reqOrderDto.setBoardDto(getBoard(orderType , order.getBoardId())); // boarddto가 null임
 //            reqOrderDtos.add(reqOrderDto);
-            BoardDto boardDto =  getBoard(order.getOrderType() , order.getBoardId());
+            BoardDto boardDto = getBoard(order.getOrderType(), order.getBoardId());
+            UserDto userDto =getUser(order.getUserId());
+
 
             ReqOrderDto reqOrderDto = ReqOrderDto.of(order);
             reqOrderDto.setBoardDto(boardDto);
+            reqOrderDto.setUserDto(userDto);
             reqOrderDtos.add(reqOrderDto);
         }
 
@@ -94,7 +99,7 @@ public class OrderServiceImp implements OrderService {
 
     private BoardDto getBoard(OrderType orderType, Long boardId) {
 
-        switch(orderType) {
+        switch (orderType) {
             case ORDER_DELIVERY:
                 return boardClient.getDelivery(boardId);
             case ORDER_GROUP:
@@ -106,6 +111,13 @@ public class OrderServiceImp implements OrderService {
 
     }
 
+    private UserDto getUser(Long userId) {
+
+        return userClient.getDelivery(userId);
+
+
+    }
+
     @Override
     public List<ReqOrderDto> getOrderByBoardId(Long boadId, OrderType orderType) {
         List<Order> orderList = orderRepository.findByBoardIdAndOrderType(boadId, orderType);
@@ -113,7 +125,10 @@ public class OrderServiceImp implements OrderService {
         List<ReqOrderDto> reqOrderDtos = new ArrayList<>();
 
         for (Order order : orderList) {
-            reqOrderDtos.add(ReqOrderDto.of(order));
+            ReqOrderDto reqOrderDto = ReqOrderDto.of(order);
+            reqOrderDto.setUserDto(getUser(order.getUserId()));
+            reqOrderDtos.add(reqOrderDto);
+
         }
 
         return reqOrderDtos;
