@@ -30,7 +30,7 @@ public class ReqOrderDto {
     @Schema(example = "ORDER_DELIVERY")
     @ApiModelProperty
     private OrderType orderType;
-    
+
     @Schema(hidden = true)
     private BoardDto boardDto;
 

@@ -15,6 +15,11 @@ public class BoardDto {
 
     private String price;
 
+
+    private String productName;
+
+    private String storeName;
+
     private String pickupLocation;
 
     private LocalDateTime closeTime;
