@@ -4,6 +4,8 @@ COPY . .
 RUN npm install
 RUN npm run build
 
+ENV TZ Asia/Seoul
+
 FROM nginx:stable-alpine as production-stage
 # 로컬의 conf파일을 도커로 복사
 COPY  ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
