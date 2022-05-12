@@ -168,6 +168,10 @@ public class UserServiceImpl implements UserService {
     public UserDto profileSave(MultipartFile multipartFile, Long userId) {
 
 
+        System.out.println(multipartFile);
+        System.out.println(userId);
+
+
         UserEntity userEntity = userRepository.findById(userId)
                 .orElseThrow(()-> new UsernameNotFoundException("해당유저id 가 올바르지 않습니다."));
         try {
