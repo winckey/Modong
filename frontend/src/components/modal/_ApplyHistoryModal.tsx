@@ -3,7 +3,7 @@ import '../../style/modal/_Modal.scss'
 
 export default function _ApplyHistoryModal(props)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, info, infoNum } = props;
+  const { open, close, info, infoNum, wideClose } = props;
 
   const onCloseModal = (e) => {
     if (e.target === e.currentTarget){
@@ -44,12 +44,12 @@ export default function _ApplyHistoryModal(props)  {
                 <p>판매자</p>
                 <div style={{display:"flex", justifyContent:"center"}}>
                   {/* <img src={ require('../../assets/pingu.png') } alt="사진"/> */}
-                  <p>우히히히</p>
+                  <p>{info.userInfo.userId}</p>
                 </div>
               </div>
             </div>
 
-            <button onClick={close} >확인</button>
+            <button onClick={()=>{close(); wideClose(false);}} >확인</button>
           </main>
 
         </div>

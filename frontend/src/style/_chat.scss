@@ -13,15 +13,8 @@
     
 
     .chatCard{
-        border-radius: 15px;
-        background-color: $gray1;
-        width: 90%;
-        height: 150px;
-        margin: 10px;
-        position: relative;
-        @include noneA;
-        overflow: hidden;
-        @include shadow;
+        @include card;
+       
         .leftChattxt{
             font-size: 22px;
             @include absolute-loc($top:10px, $left:20px);

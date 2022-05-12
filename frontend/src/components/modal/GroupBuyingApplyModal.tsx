@@ -10,18 +10,23 @@ import TextField from '@mui/material/TextField';
 
 
 
+
+
 export default function GroupBuyingApplyModal(props:any)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, info } = props;
+  const { open, close, info, wideClose } = props;
   const [productNum, setProductNum] = useState<number>();
   const userId = useSelector<number>((state:RootState) => {
     return state.accounts.data.user.id
   })
+
+
   const onCloseModal = (e) => {
     if (e.target === e.currentTarget){
       close();
     }
   }
+
   const handleChangeProductNum=(e)=>{
     setProductNum(e.target.value);
     console.log("묯개", productNum);
@@ -35,14 +40,13 @@ export default function GroupBuyingApplyModal(props:any)  {
     if (productNum){
       // setModalOpen(true);
 
-
       axios.post("/order-service/",{
           boardId: info.id,
           itemDtoList: [
             {
               itemContent: info.productName,
               options:[],
-              quantity: 1
+              quantity: productNum
             }
           ],
           orderType: "ORDER_GROUP",
@@ -55,24 +59,19 @@ export default function GroupBuyingApplyModal(props:any)  {
             },
         })
         .then((response:AxiosResponse) => {
-          console.log(response.data, "모달 오픈")
+          console.log(response.data, "모달 오픈해랏!")
           setModalOpen(true);
         })
         .catch((error:AxiosError) => {
-          console.log(error, "에러");
+          console.log(error, "공구 신청 에러~~");
         })
 
     }
 
-
-
-
-
   };
 
-
   const closeModal = () => {
-  setModalOpen(false);
+    setModalOpen(false);
   };
 
   return (
@@ -111,7 +110,7 @@ export default function GroupBuyingApplyModal(props:any)  {
         </div>
 
         <div>
-            <Modal open={modalOpen}  close={closeModal} info={info} infoNum={productNum}>
+            <Modal open={modalOpen}  close={closeModal} info={info} infoNum={productNum} wideClose={wideClose}>
             </Modal>
         </div>
 

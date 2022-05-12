@@ -26,6 +26,7 @@ function MyGroupBuying() {
     const [ modalPropsData, setModalPropsData] = React.useState<groupbuyingtype>(null);
 
     const openModal = (data:groupbuyingtype) => {
+        console.log("공구 정보!", data);
         setModalOpen(true);
         setModalPropsData(data);
     };
@@ -33,7 +34,9 @@ function MyGroupBuying() {
         setModalOpen(false);
     };
 
-    const openCloseModal = () => {
+    const openCloseModal = (data:groupbuyingtype) => {
+        setModalPropsData(data);
+        console.log("공구 정보", data);
         setCloseModalOpen(true);
     }
     const closeCloseModal = () => {
@@ -63,6 +66,11 @@ function MyGroupBuying() {
         handlegetMyList();
     },[])
 
+
+    const handleFinish = () => {
+
+    };
+
     return (
         <div>
             <div className='myGroupBuyingInList'>
@@ -71,7 +79,7 @@ function MyGroupBuying() {
                         <div>{mgdata.productName}</div>
                         <div>{reversedatetrans(mgdata.closeTime)}남았습니다.</div>
                         <div>
-                            <div onClick={()=>{openCloseModal()}}>마감하기</div>
+                            <div onClick={()=>{openCloseModal(mgdata)}}>마감하기</div>
                             <div onClick={()=>{openModal(mgdata)}}>신청내역확인</div>
                         </div>
                         <FontAwesomeIcon onClick={()=>{handleDelCommunity(mgdata.id)}} className='rightExitIcon' icon={faRightToBracket}/>
@@ -79,7 +87,7 @@ function MyGroupBuying() {
                 ))}
             </div>
             <div>
-                <CloseModal open={closeModalOpen}  close={closeCloseModal} info={modalPropsData}>
+                <CloseModal open={closeModalOpen}  close={closeCloseModal} info={modalPropsData} finish={handleFinish}>
                 </CloseModal>
             </div>
 
