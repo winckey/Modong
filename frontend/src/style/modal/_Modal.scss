@@ -118,7 +118,19 @@
         }
     }
   
-    
+  .menuList{
+    height: 300px;
+    overflow: auto;
+    text-align: start;
+    >div{
+      margin-bottom: 7px;
+    }
+  }
+  .totalmenus{
+    height: 100px;
+    overflow: auto;
+    text-align: start;
+  } 
   
    
   .modal.openModal {

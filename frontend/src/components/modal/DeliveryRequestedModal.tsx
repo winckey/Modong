@@ -46,7 +46,7 @@ export default function DeliveryRequestedModal(props)  {
             {deliveryList.map((data, index) => (
             <div>
               <div>{data.itemDtoList.itemContent}</div>
-              {/* <div>{parseInt(info.price)*data.itemDtoList.quantity}</div> */}
+              <div>10000</div>
             </div>
             ))}
             <div>주문 해야할 메뉴</div>

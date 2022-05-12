@@ -46,6 +46,7 @@ export default function GroupBuyingApplyModal(props:any)  {
             {
               itemContent: info.productName,
               options:[],
+              price:productNum*info.price,
               quantity: productNum
             }
           ],

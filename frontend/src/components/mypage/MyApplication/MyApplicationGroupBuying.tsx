@@ -1,45 +1,68 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import "../../../style/_myApplicationDelivery.scss"
-import Modal from '../../modal/_ApplyHistoryModal.tsx';
+import Modal from '../../modal/_ApplyHistoryModal1.tsx';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile } from "@fortawesome/free-solid-svg-icons";
 
+import axios, {AxiosResponse, AxiosError} from "axios";
 
-const data = [{title:"갓김치12", arrive:"우리집1222222222222222222222222222222222"}, {title:"갓김치22", arrive:"우리집23333333333333333333333333333333"}, {title:"갓김치32", arrive:"우리집 이층 삼층 사층 오층 1"}]
+import { useSelector, useDispatch } from 'react-redux';
+import actionCreators from '../../../actions/actionCreators.tsx';
+import RootState from "../../../reducer/reducers.tsx"
 
 function MyApplicationGroupBuying() {
-
+    const [ myApplicationGroupBuyingData, setMyApplicationGroupBuyingData ] = useState([]);
+    const [ propsModalData, setPropsModalData] = useState(null);
+    const userId = useSelector((state:RootState) =>{
+        return state.accounts.data.user.id
+    })
+    const getapplicationdata = () =>{
+        console.log(1111111111, userId)
+        axios.get(`/order-service/user/${userId}/ORDER_GROUP`)
+        .then((response:AxiosResponse) => {
+        console.log(response.data, "공구 데이터 가져오기");
+        setMyApplicationGroupBuyingData(response.data)
+        })
+        .catch((error:AxiosError) => {
+        console.log(error, "에러");
+        })
+    }
+    useEffect(()=>{
+        getapplicationdata()
+    },[])
     const [ modalOpen, setModalOpen] = React.useState(false);
-    const openModal = () => {
+    const openModal = (d:any) => {
         setModalOpen(true);
+        setPropsModalData(d)
     };
     const closeModal = () => {
+        setPropsModalData(null);
         setModalOpen(false);
     };
 
     return (
         <div>
             <div>
-                {data.map((d, index)=>(
-                    <div className='madeliverycard'>
+                {myApplicationGroupBuyingData.map((data, index)=>(
+                    <div key={index} className='madeliverycard'>
                         <div>
-                            <div>{d.title}</div>
-                            <div onClick={openModal}>
+                            <div>{data.boardDto.productName}</div>
+                            <div onClick={()=>{openModal(data)}}>
                                 <FontAwesomeIcon icon={faFile} /> 내역보기
                             </div>
                         </div>
                         <div>
                             <div>수령지</div>
-                            <div>{d.arrive}</div>
+                            <div>{data.boardDto.pickupLocation}</div>
                         </div>
                     </div>
                 ))}
             </div>
 
             <div>
-                <Modal open={modalOpen}  close={closeModal} info={data}>
+                <Modal open={modalOpen}  close={closeModal} info={propsModalData}>
                 </Modal>
             </div>
             
