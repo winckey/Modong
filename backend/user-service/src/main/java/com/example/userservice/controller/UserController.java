@@ -106,14 +106,9 @@ public class UserController {
 
     @PutMapping("/users/image")
     @Operation(summary = "이미지 수정", description  = "유저id로 정보 수정")
-    public ResponseEntity<UserDto> saveProfile( @RequestBody ResUserImage resUserImage) {
+    public ResponseEntity<UserDto> saveProfile( @RequestPart(value = "image", required = false) final MultipartFile multipartFile , Long userId) {
 
-
-
-
-
-
-        UserDto userDto = userService.profileSave( resUserImage.getMultipartFile() , resUserImage.getUserId());
+        UserDto userDto = userService.profileSave( multipartFile , userId);
 
 
         return ResponseEntity.status(HttpStatus.OK).body(userDto);
