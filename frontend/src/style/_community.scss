@@ -5,15 +5,15 @@
 }
 .communityOutLine{
     overflow: auto;
-    height: 650px;
-    padding-bottom: 150px;
+    @include flex-col;
+    align-items: center;
+
     .communityCard{
         @include flex-col;
         @include noneA;
-        background-color: $gray1;
-        margin-top: 5px;
-        padding: 5px;
-        margin-bottom: 7px;
+        @include card;
+        height: 165px;
+ 
         >div{
             padding: 10px 20px 10px 20px;
             width: 100%;
@@ -21,7 +21,7 @@
         }
         >div:first-child{
             font-size: 24px;
-            min-height: 100px;
+            min-height: 75px;
         }
         >div:nth-child(2){
             text-align: end;

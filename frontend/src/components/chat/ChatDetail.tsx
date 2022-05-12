@@ -45,7 +45,7 @@ function ChatDetail() {
 
 
     // 대화 기록 담은 배열
-    const [contents, setContents] = useState<dataProps[]>([{userId:"멍멍d이", message:"내용1", date:10}]);
+    const [contents, setContents] = useState<dataProps[]>([]);
     const [ historyMessages, setHistoryMessages] = useState<dataProps[]>([]);
 
 
@@ -133,7 +133,7 @@ function ChatDetail() {
                 },
             }).then((res)=>{
                 console.log("send message", res);
-                const newMessage: dataProps = {message: chattxt, roomId: state.roomId , userId: userId};
+                const newMessage: dataProps = {message: chattxt, roomId: state.roomId , userId: userId, userName: userName, date: new Date()};
                 stomp.send("/pub/chat/chatting",{},
                 JSON.stringify(newMessage));
                 setChattxt(null);
@@ -155,15 +155,15 @@ function ChatDetail() {
                     <div className='chatDetailInnerCard' key={index}>
                         { d.userId === userId ?
                         <div className="myChat">
-                            <div className="myChatName">{userName}</div>
+                            <div className="myChatName">{d.userName}</div>
                             <div>{d.message}</div>
-                            <div>{reversedatetrans(d.date[6])}</div>
+                            <div>{datetrans(d.date)}</div>
                         </div>
                         :
                         <div className="otherChat">
                             <div className="otherChatName">{d.userName}</div>
                             <div>{d.message}</div>
-                            <div>{d.date}분전</div>
+                            <div>{datetrans(d.date)}</div>
                         </div>
                         }
                     </div>
@@ -176,15 +176,15 @@ function ChatDetail() {
                     <div className='chatDetailInnerCard' key={index}>
                         { d.userId === userId ?
                         <div className="myChat">
-                            <div className="myChatName">{userName}</div>
+                            <div className="myChatName">{d.userName}</div>
                             <div>{d.message}</div>
-                            <div>{d.date}분전</div>
+                            <div>{reversedatetrans(d.date)}</div>
                         </div>
                         :
                         <div className="otherChat">
                             <div className="otherChatName">{d.userName}</div>
                             <div>{d.message}</div>
-                            <div>{d.date}분전</div>
+                            <div>{reversedatetrans(d.date)}</div>
                         </div>
                         }
                     </div>

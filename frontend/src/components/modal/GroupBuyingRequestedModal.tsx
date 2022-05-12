@@ -7,34 +7,39 @@ export default function GroupBuyingRequestedModal(props)  {
   const { open, close, info } = props;
   const [groupApplicationList, setGroupApplicationList] = useState([]);
   const [productTotalNum, setProductTotalNum] = useState(0);
+
   useEffect(()=>{
     if (info != null){
       getGroupApplicationList();
     }
-  }, [info])
+  }, [info]);
+
   const sumTotalNum=(data:any)=>{
     let total = 0;
     data.map((d:any)=>(
-      total+=d.itemDtoList.quantity
+      total+=d.itemDtoList[0].quantity
     ))
     setProductTotalNum(total)
-  }
+    console.log(productTotalNum);
+  };
+
   const getGroupApplicationList =()=>{
      axios.get(`/order-service/board/${info.id}/ORDER_GROUP`)
      .then((response:AxiosResponse) => {
-      console.log(response.data, "from 전체 신청 조회");
+      console.log("배달 정보!",response.data);
       setGroupApplicationList(response.data);
       sumTotalNum(response.data);
       })
       .catch((error:AxiosError) => {
         console.log(error, "에러");
       })
-  }
+  };
+
   const onCloseModal = (e) => {
     if (e.target === e.currentTarget){
       close();
     }
-  }
+  };
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
@@ -53,8 +58,8 @@ export default function GroupBuyingRequestedModal(props)  {
             <div>
               {groupApplicationList.map((data, index) => (
               <div key={data.id}>
-                <div>11</div>
-                <div>{parseInt(info.price)*data.itemDtoList.quantity}</div>
+                <div>{data.userDto.nickname}</div>
+                <div>{info.price}원 x {data.itemDtoList[0].quantity}개</div>
               </div>
               ))}
             </div>
@@ -65,7 +70,7 @@ export default function GroupBuyingRequestedModal(props)  {
             </div>
             <div>
               <div>받아야 할 금액</div>
-              <div>{productTotalNum*parseInt(info.price)}</div>
+              <div>{productTotalNum*info.price}원</div>
             </div>
 
             <button onClick={close} >확인</button>

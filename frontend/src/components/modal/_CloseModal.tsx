@@ -6,7 +6,7 @@ import { faCircleExclamation} from "@fortawesome/free-solid-svg-icons";
 
 export default function CloseModal(props)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, info } = props;
+  const { open, close, info, finish } = props;
  
   const onCloseModal = (e) => {
     if (e.target === e.currentTarget){
@@ -30,14 +30,14 @@ export default function CloseModal(props)  {
               </div>
 
               <header>
-                  <div>~~을</div>
-                  <div>나갈래? 마감할래?</div>
+                  <div>{info.productName ? info.productName: info.storeName} 접수를</div>
+                  <div>마감하시겠어요?</div>
               </header>
 
           </div>
 
           <main>
-            <button onClick={close} >확인</button>
+            <button onClick={()=>{finish(); close();}} >확인</button>
           </main>
 
         </div>

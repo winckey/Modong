@@ -88,7 +88,6 @@ function CommunityDetail() {
             <div className='userdiv'>
                 <div><img src={ require('../../assets/dd.png') } alt="사진"/></div>
                 <div>
-                    
                     <div>{usernick}</div>
                     <div>{userLoc}</div>
                 </div>

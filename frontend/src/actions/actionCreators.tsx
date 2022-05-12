@@ -14,6 +14,9 @@ const SET_CITY = "setCity"
 const SET_DONG = "setDong"
 const SET_DONGCODE = "setDongCode"
 
+
+const SET_GROUPBUYINGMODAL = "setGroupBuyingModal"
+
 // action method
 const setIsLogin = (isLogin:number) => {
     return {
@@ -88,7 +91,14 @@ const setDongCode = (dongCode: number) => {
 }
 
 
+// modal
 
+const setGroupBuyingModal = (groupBuyingModal: boolean) => {
+    return {
+        type: SET_GROUPBUYINGMODAL,
+        groupBuyingModal: groupBuyingModal
+    }
+}
 
 export const actionCreators = {
     setIsLogin,
@@ -100,7 +110,8 @@ export const actionCreators = {
     setSigu,
     setCity,
     setDong,
-    setDongCode
+    setDongCode,
+    setGroupBuyingModal
 }
 
 // 중요! 하나로 묶어서 보내기. (default)

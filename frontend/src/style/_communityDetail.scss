@@ -2,13 +2,13 @@
 
 .communityDetailOutLine{
     background-color: $gray1;
-    min-height: 82vh;
+    height: 82vh;
     overflow: auto;
-    height: 600px;
+    
     .userdiv{
         display: flex;
         padding: 15px;
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid $gray0;
         >div:nth-child(1){
             overflow: hidden;
             height: 50px;
@@ -42,7 +42,7 @@
         margin-top: 5px;
         padding: 5px;
         margin-bottom: 7px;
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid $gray0;
         >div{
             padding: 10px 20px 10px 20px;
             box-sizing: border-box;
@@ -64,7 +64,8 @@
     }
     .userdiv2{
         display: flex;
-        padding: 15px;
+        margin: 1%;
+        padding: 4%;
         justify-content: flex-start;
         position: relative;
         >div:nth-child(1){
@@ -109,7 +110,7 @@
             font-size: 18px;
             border: none;
             padding: 10px;
-            width: 330px;
+            width: 80%;
             margin-right: 10px;
             border-radius: 15px;
             @include shadow;
@@ -120,8 +121,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 50px;
-            width:50px;
+            width:11%;
             color: $blue1;
             background-color: $mint1;
         }

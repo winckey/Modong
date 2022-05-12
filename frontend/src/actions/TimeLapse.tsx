@@ -23,7 +23,7 @@ export const datetrans =(time:string) =>{
 export const reversedatetrans =(time:string)=>{
     const milliSeconds = +new Date(time) - +new Date()
     const seconds = milliSeconds / 1000
-    if (seconds < 60) return `얼마 안 `
+    if (seconds < 60) return `방금 `
     const minutes = seconds / 60
     if (minutes < 60) return `${Math.floor(minutes)}분 `
     const hours = minutes / 60

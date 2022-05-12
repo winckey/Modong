@@ -7,13 +7,13 @@ import Modal from '../modal/_ApplyHistoryModal.tsx'
 
 export default function GroupBuyingDoneModal(props:any)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, info, infoNum } = props;
+  const { open, close, info, infoNum, wideClose } = props;
   const onCloseModal = (e) => {
     if (e.target === e.currentTarget){
       close();
     }
   }
-
+  
   const [ modalOpen, setModalOpen] = React.useState(false);
   const openModal = () => {
     setModalOpen(true);
@@ -49,13 +49,13 @@ export default function GroupBuyingDoneModal(props:any)  {
               <div className="totalPrice" onClick={()=>{openModal();}}>신청 내역 확인</div>
             </div>
 
-            <button onClick={close} >확인</button>
+            <button onClick={()=> {close(); wideClose(false);}} >확인</button>
           </main>
 
         </div>
 
         <div>
-            <Modal open={modalOpen}  close={closeModal} info={info} infoNum={infoNum}>
+            <Modal open={modalOpen}  close={closeModal} info={info} infoNum={infoNum} wideClose={wideClose}>
             </Modal>
         </div>
 

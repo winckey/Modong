@@ -28,6 +28,7 @@ function MyDelivery() {
     const openModal = (data:deliverytype) => {
         setModalOpen(true);
         setModalPropsData(data);
+        console.log(data);
     };
     const closeModal = () => {
         setModalOpen(false);
@@ -62,7 +63,11 @@ function MyDelivery() {
     }
     useEffect(()=>{
         getMyDeliveryList();
-    },[])
+    },[]);
+
+    const handleFinish = () => {
+
+    };
     return (
         <div>
             <div className='myGroupBuyingInList'>
@@ -80,7 +85,7 @@ function MyDelivery() {
             </div>
 
             <div>
-                <CloseModal open={closeModalOpen}  close={closeCloseModal} info={modalPropsData}>
+                <CloseModal open={closeModalOpen}  close={closeCloseModal} info={modalPropsData} finish={handleFinish}>
                 </CloseModal>
             </div>
 

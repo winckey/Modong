@@ -2,24 +2,38 @@ import React, {useState, useEffect} from 'react';
 
 import '../../style/_groupBuying.scss'
 import Modal from '../modal/GroupBuyingApplyModal.tsx'
-
+import { useSelector } from 'react-redux';
 import axios, {AxiosResponse, AxiosError} from "axios";
 
 import {reversedatetrans} from '../../actions/TimeLapse.tsx'
 
 import { gropupbuyingmodalpropstype } from "../../actions/_interfaces.tsx"
+// import Rootstate from "../../reducer/reducers.tsx"
+// import { useDispatch } from 'react-redux';
+// import actionCreators from "../../actions/actionCreators.tsx"
+
+
 
 function GroupBuying() {
+
     const [ modalOpen, setModalOpen] = useState(false);
     const [ groupBuyingList, setGroupBuyingList ] = useState([]);
     const [ modalprops, setModalprops] = useState<gropupbuyingmodalpropstype>(); 
+
+
     const openModal = (data:gropupbuyingmodalpropstype) => {
         setModalOpen(true);
         setModalprops(data);
+        console.log("판매자 정보 있니", data);
     };
+
+
     const closeModal = () => {
         setModalOpen(false);
     };
+
+
+
     const handlegetList = () => {
         axios.get(`/board-service/group-purchase`)
             .then((response:AxiosResponse) => {
@@ -47,7 +61,7 @@ function GroupBuying() {
             </div>
 
             <div>
-                <Modal open={modalOpen}  close={closeModal}  info={modalprops}>
+                <Modal open={modalOpen}  close={closeModal}  info={modalprops} wideClose={setModalOpen}>
                 </Modal>
             </div>
 
