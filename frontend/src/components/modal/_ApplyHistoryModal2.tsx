@@ -3,23 +3,22 @@ import '../../style/modal/_Modal.scss'
 
 export default function _ApplyHistoryModal(props)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, info } = props;
-  const [ totalsum, setTotalsum ] = useState<number>(0);
-  const [ totalcount, setTotalcount ] = useState<number>(0);
+  const { open, close, info, infoNum } = props;
+  const [ totalsum, setTotalsum ] = useState(0);
+  const [ totalcount, setTotalcount ] = useState(0);
   const onCloseModal = (e) => {
     if (e.target === e.currentTarget){
-      setTotalsum(0);
-      setTotalcount(0);
+      setTotalsum(0)
       close();
     }
   }
   const totalprice = () =>{
     info.itemDtoList.map((d)=>{
-      setTotalsum(totalsum+parseInt(d.price))
-      setTotalcount(totalcount+d.quantity)
+      setTotalsum(totalsum+d.price)
     })
   }
   useEffect(()=>{
+    console.log("2222222222222", info)
     if(info != null){
       totalprice();
     }
@@ -34,7 +33,7 @@ export default function _ApplyHistoryModal(props)  {
         <div style={{margin: "10%"}}>
 
           <div className="title">
-            {parseInt(info.boardDto.price)*totalcount}원
+            {totalsum}원
           </div>
 
           <main>
@@ -42,15 +41,15 @@ export default function _ApplyHistoryModal(props)  {
             <div className="historyBox">
               <div>
                 <p>물품</p>
-                <p>{info.boardDto.productName||""}</p>
+                <p>{info.itemDtoList[0].itemContent||""}</p>
               </div>
               <div>
                 <p>가격</p>
                 <p>{totalsum}원</p>
               </div>
               <div>
-                <p>갯수</p>
-                <p>{totalcount}개</p>
+                <p>인원</p>
+                <p>{info.itemDtoList.length}명</p>
               </div>
               <hr/>
               <div>
@@ -62,7 +61,7 @@ export default function _ApplyHistoryModal(props)  {
               </div>
             </div>
 
-            <button onClick={onCloseModal} >확인</button>
+            <button onClick={close} >확인</button>
           </main>
 
         </div>

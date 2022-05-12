@@ -34,7 +34,19 @@ export default function GroupBuyingApplyModal(props:any)  {
 
     if (productNum){
       // setModalOpen(true);
-
+      console.log({
+        boardId: info.id,
+        itemDtoList: [
+          {
+            itemContent: info.productName,
+            options:[],
+            price:productNum*info.price,
+            quantity: productNum
+          }
+        ],
+        orderType: "ORDER_GROUP",
+        userId: userId
+      })
 
       axios.post("/order-service/",{
           boardId: info.id,
@@ -42,7 +54,8 @@ export default function GroupBuyingApplyModal(props:any)  {
             {
               itemContent: info.productName,
               options:[],
-              quantity: 1
+              price:productNum*info.price,
+              quantity: productNum
             }
           ],
           orderType: "ORDER_GROUP",
