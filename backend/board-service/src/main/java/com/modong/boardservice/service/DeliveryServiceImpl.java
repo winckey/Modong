@@ -12,10 +12,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import springfox.documentation.spring.web.json.Json;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service("deliveryService")
 public class DeliveryServiceImpl implements DeliveryService {
@@ -37,7 +40,11 @@ public class DeliveryServiceImpl implements DeliveryService {
 
         String[] urlList = deliveryReqDTO.getUrl().split("/");
 
-        String url = urlList[urlList.length-1];
+        Map<String, String> map = new HashMap<>();
+        String url = urlList[urlList.length - 1];
+
+        map.put("board_id", url);
+
         Delivery delivery = Delivery.builder()
                 .url(url)
                 .storeName(deliveryReqDTO.getStoreName())
@@ -46,7 +53,7 @@ public class DeliveryServiceImpl implements DeliveryService {
                 .userId(deliveryReqDTO.getUserId())
                 .build();
 
-        crawlingClient.crawlingMenu(url);
+        crawlingClient.crawlingMenu(map);
 
 
         return deliveryRepository.save(delivery);
@@ -67,7 +74,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         Page<Delivery> deliveries = deliveryRepositoryImpl.findAllByTimeLimit(pageable);
 
         List<DeliveryResDTO> deliveryResDTOS = new ArrayList<>();
-        for (Delivery d :deliveries.getContent() ) {
+        for (Delivery d : deliveries.getContent()) {
             UserResDTO user = userClientService.getUser(d.getUserId());
             DeliveryResDTO dto = DeliveryResDTO.builder()
                     .id(d.getId())
@@ -92,7 +99,7 @@ public class DeliveryServiceImpl implements DeliveryService {
 
         List<DeliveryResDTO> deliveryResDTOS = new ArrayList<>();
 
-        for (Delivery d :deliveries.getContent() ) {
+        for (Delivery d : deliveries.getContent()) {
             DeliveryResDTO dto = DeliveryResDTO.builder()
                     .id(d.getId())
                     .closeTime(d.getCloseTime())
@@ -107,5 +114,21 @@ public class DeliveryServiceImpl implements DeliveryService {
         }
 
         return new PageImpl<>(deliveryResDTOS, pageable, deliveries.getTotalElements());
+    }
+
+    @Override
+    public DeliveryResDTO getDeliveryOne(Long id) {
+
+        Delivery delivery = deliveryRepository.getById(id);
+        Json menus = crawlingClient.getMenu(Long.valueOf(delivery.getUrl()));
+        DeliveryResDTO deliveryResDTO = DeliveryResDTO.builder()
+                .id(delivery.getId())
+                .url(delivery.getUrl())
+                .closeTime(delivery.getCloseTime())
+                .pickupLocation(delivery.getPickupLocation())
+                .storeName(delivery.getStoreName())
+                .menus(menus)
+                .build();
+        return deliveryResDTO;
     }
 }

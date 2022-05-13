@@ -3,6 +3,7 @@ package com.modong.boardservice.response;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import springfox.documentation.spring.web.json.Json;
 
 import java.time.LocalDateTime;
 
@@ -22,8 +23,9 @@ public class DeliveryResDTO {
     // 요기요 url 주소
     private String url;
 
+    private Json menus;
     //글 작성자 정보
-    UserResDTO userInfo;
+    private UserResDTO userInfo;
 
     
 }
