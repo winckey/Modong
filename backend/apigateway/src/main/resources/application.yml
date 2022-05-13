@@ -1,4 +1,3 @@
-
 server:
   port: 8080
 
@@ -22,42 +21,33 @@ spring:
       default-filters:
         - name: GlobalFilter
           args:
-            baseMessage: Spring Cloud Gateway Global Filter 
+            baseMessage: Spring Cloud Gateway Global Filter
             preLogger: true
             postLogger: true
       routes:
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
-            - Path=/user-service/login
-            - Method=POST
-          filters:
-            - RemoveRequestHeader=Cookie #헤더값 초기화
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
-
-        - id: user-service
-          uri: lb://USER-SERVICE
-          predicates:
-            - Path=/user-service/users
-            - Method=POST
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
-
-        - id: user-service
-          uri: lb://USER-SERVICE
-          predicates:
-            - Path=/user-service/actuator/**
-            - Method=GET,POST
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
-
-        - id: user-service
-          uri: lb://USER-SERVICE
-          predicates:
-            - Path=/user-service/health_check
+            - Path=/user-service/v3/**
             - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/login
+            - Method= POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/actuator/busrefresh
+            - Method= POST
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
@@ -66,14 +56,112 @@ spring:
           uri: lb://USER-SERVICE
           predicates:
             - Path=/user-service/**
+            - Method= GET
+          filters:
+            - RemoveRequestHeader=Cookie
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/register
+            - Method= POST
+          filters:
+            - RemoveRequestHeader=Cookie
+
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/**
+            - Method= POST , DELETE , PUT
+          filters:
+            - RemoveRequestHeader=Cookie
+#            - AuthorizationHeaderFilter
+
+#         [board-swagger]
+        - id: board-service
+          uri: lb://BOARD-SERVICE
+          predicates:
+            - Path=/board-service/v3/**
+            - Method=GET, POST, DELETE, PUT
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/board-service/(?<segment>.*), /$\{segment}
+        # [board]
+        - id: board-service
+          uri: lb://BOARD-SERVICE
+          predicates:
+            - Path=/board-service/**
+            - Method=GET, POST, DELETE, PUT
+          filters:
+            - RemoveRequestHeader=Cookie
+#            - AuthorizationHeaderFilter
+            #post는 인증없이되어야하지만 다른경우 인증요구
+
+        # [chat] swagger
+        - id: chat-service
+          uri: lb://CHAT-SERVICE
+          predicates:
+            - Path=/chat-service/v3/**
             - Method=GET
           filters:
             - RemoveRequestHeader=Cookie
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
-#            - AuthorizationHeaderFilter
-              #post는 인증없이되어야하지만 다른경우 인증요구
+            - RewritePath=/chat-service/(?<segment>.*), /$\{segment}
+
+        # [chat] REST API
+        - id: chat-service
+          uri: lb://CHAT-SERVICE
+          predicates:
+            - Path=/chat-service/chat/**
+            - Method=GET, POST, DELETE, PUT
+          filters:
+            - RemoveRequestHeader=Cookie
+
+        # [chat] STOMP
+        - id: chat-service
+          uri: lb://CHAT-SERVICE
+          predicates:
+            - Path=/ws-stomp/**
+
+          filters:
+            - RemoveRequestHeader=Cookie
 
 
+        # [order] swagger
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/order-service/v3/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/order-service/(?<segment>.*), /$\{segment}
+
+        # [order] REST API
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/order-service/**
+            - Method=GET, POST, DELETE, PUT
+          filters:
+            - RemoveRequestHeader=Cookie
+
+
+        - id: crawling-service
+          uri: lb://CRAWLING-SERVICE
+          predicates:
+            - Path=/crawling-service/**
+            - Method=GET, POST, DELETE
+          filters:
+            - RemoveRequestHeader=Cookie
+
+          # [crawling] swagger
+        - id: crawling-service
+          uri: lb://CRAWLING-SERVICE
+          predicates:
+            - Path=/crawling-service/v3/**
+            - Method=GET, POST, DELETE
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/crawling-service/(?<segment>.*), /$\{segment}
 
 management:
   endpoints:

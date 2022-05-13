@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.example'
-version = '0.0.1-SNAPSHOT'
+version = '1.0'
 sourceCompatibility = '11'
 
 configurations {
@@ -42,11 +42,21 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
 
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
+    implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+
 
     //Jwt 오류(io.jsonwebtoken.lang.UnknownClassException: Unable to load class named...
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
     implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+    
+    // prometheus 추가
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+
+
+    //gson = json 파싱
+    implementation 'com.google.code.gson:gson:2.8.6'
 }
 
 dependencyManagement {
