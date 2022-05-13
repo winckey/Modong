@@ -11,8 +11,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import actionCreators from '../../../actions/actionCreators.tsx';
 import RootState from "../../../reducer/reducers.tsx"
 
-const data = [{title:"갓김치1", arrive:"우리집1222222222222222222222222222222222"}, {title:"갓김치2", arrive:"우리집23333333333333333333333333333333"}, {title:"갓김치3", arrive:"우리집 이층 삼층 사층 오층 1"}]
-
 function MyApplicationDelivery() {
     const [ myApplicationDeliveryData, setMyApplicationDeliveryData ] = useState([]); 
     const [ modalOpen, setModalOpen] = React.useState(false);

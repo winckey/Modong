@@ -2,6 +2,7 @@ import axios ,{AxiosResponse, AxiosError} from 'axios';
 import React, {useEffect, useState} from 'react';
 import '../../style/modal/_Modal.scss'
 import Modal from '../modal/DeliveryDoneModal.tsx'
+import OptionModal from '../modal/DeliveryOptionModal.tsx'
 
 import { useSelector , useDispatch } from "react-redux";
 import RootState from "../reducer/reducers.tsx"
@@ -12,18 +13,47 @@ export default function DeliveryModal(props)  {
   const userId = useSelector<number>((state:RootState) => {
     return state.accounts.data.user.id
   })
-  const [ crawlingData, setCrawlingData ] = useState({});
-  const [ menus, setMenus ] = useState<any[]>([]);
+  const [ totalCost, setTotalCost] = useState(0);
+  const [ orderItems, setOrderItems] = useState([]);
+  const addOrder=(options, count, price, menuname)=>{
+    setOrderItems(orderItems=>[...orderItems, {
+      itemContent: menuname,
+      options: options,
+      price: price,
+      quantity: count
+    }])
+    setTotalCost(totalCost+price)
+  }
+  const [ propsOptiondata, setPropsOptiondata ] = useState(null);
+  const handleOptionModalOpen =(menu:any)=>{
+    setPropsOptiondata(menu)
+    optionOpenModal();
+  }
+  const [ menusli, setMenusLi ] = useState({});
   const onCloseModal = (e) => {
     if (e.target === e.currentTarget){
       close();
+      setOrderItems([]);
+      setTotalCost(0);
     }
+  }
+  const transmenu = (menus:any)=>{
+    var menu = {}
+    menus.map((m:any)=>{
+      if(m.section != "top_items"){
+        if(menu[m.section]){
+          menu[m.section].push(m)
+        }else{
+          menu[m.section] = []
+        }
+      }
+    })
+    setMenusLi(menu)
   }
   const getCrawlingData =()=>{
     axios.get(`/board-service/group-delivery/read/${info.id}`)
       .then((response:AxiosResponse) => {
-        setCrawlingData(response.data)
-        setMenus(response.data.menus)
+        transmenu(response.data.menus)
         console.log("크롤링 리스트", response.data)
       })
       .catch((error:AxiosError) => {
@@ -32,32 +62,35 @@ export default function DeliveryModal(props)  {
   }
   // 신청 완료 모달 
   const [ modalOpen, setModalOpen] = useState(false);
+  const [ optionModalOpen, setOptionModalOpen] = useState(false);
   useEffect(()=>{
     if(info != null){
       getCrawlingData();
     }
   },[info])
   const openModal = () => {
-  setModalOpen(true);
+    setModalOpen(true);
   };
   const closeModal = () => {
-  setModalOpen(false);
+    setModalOpen(false);
+  };
+  const optionOpenModal = () => {
+    setOptionModalOpen(true);
+  };
+  const optionCloseModal = () => {
+    setOptionModalOpen(false);
+    setPropsOptiondata(null);
   };
   const handleSubmit=()=>{
+    console.log({
+      boardId: info.id,
+      itemDtoList: orderItems,
+      orderType: "ORDER_DELIVERY",
+      userId: userId
+    })
     axios.post("/order-service/",{
       boardId: info.id,
-      itemDtoList: [
-        {
-          itemContent: "짜장면",
-          options: [
-            {
-              optionContent: "곱빼기"
-            }
-          ],
-          price: 10000,
-          quantity: 1
-        }
-      ],
+      itemDtoList: orderItems,
       orderType: "ORDER_DELIVERY",
       userId: userId
     },
@@ -69,7 +102,9 @@ export default function DeliveryModal(props)  {
     })
     .then((response:AxiosResponse) => {
       console.log(response.data, "배달시키기");
-      
+      openModal();
+      setOrderItems([]);
+      setTotalCost(0);
     })
     .catch((error:AxiosError) => {
         console.log(error, "에러");
@@ -90,16 +125,31 @@ export default function DeliveryModal(props)  {
               </header>
             
               <main>
-              {menus.length > 0 &&
+              {Object.keys(menusli).length > 0 &&
+              
                 <div className='menuList'>
-                    {menus.map((li:any, index:number)=>(
+                  {Object.keys(menusli).map((key:any)=>(
+                    <div key={key}>
+                      <div className='menucategory'>{key}</div>
+                      {menusli[key].map((li:any, index:number)=>(
+                        <div onClick={()=>{handleOptionModalOpen(li)}} className='menume' key={index}>{li.name}</div>
+                      ))}
+                    </div>
+                  ))}
+                    {/* {menus.map((li:any, index:number)=>(
                       <div key={index}>{li.name}</div>
-                    ))}
+                    ))} */}
                 </div>
                 }
                 <div className='totalmenus'>
-                  
+                {orderItems.map((order, index)=>(
+                    <div>
+                      <div>{order.itemContent}</div>
+                      <div>{order.quantity}</div>
+                    </div>
+                  ))}
                 </div>
+                <div className='deliverycost'><span>총금액</span><span>{totalCost}원</span></div>
                 <button onClick={()=>{handleSubmit()}} >신청하기</button>
               </main>
 
@@ -108,6 +158,8 @@ export default function DeliveryModal(props)  {
             <div>
               <Modal open={modalOpen}  close={closeModal} info={1}>
               </Modal>
+              <OptionModal open={optionModalOpen}  close={optionCloseModal} info={propsOptiondata} addOrder={addOrder}>
+              </OptionModal>
             </div>
 
           </section>

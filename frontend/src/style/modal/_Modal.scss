@@ -119,19 +119,70 @@
     }
   
   .menuList{
-    height: 300px;
+    height: 280px;
     overflow: auto;
     text-align: start;
     >div{
-      margin-bottom: 7px;
+      .menucategory{
+        padding: 15px;
+        font-size: 20px;
+        border-bottom: 1px solid black;
+        border-top: 1px solid black;
+      }
+      .menume{
+        background-color: $gray1;
+        border-bottom: 0.1px solid $gray2;
+        padding: 12px;
+        font-size: 17px;
+      }
     }
+  }
+  .optionList{
+    height: 400px;
+    overflow: auto;
+  }
+  .optioncate{
+    font-size: 20px;
+    padding: 10px;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+  }
+  .optiondetail{
+    font-size: 15px;
+    padding: 10px;
+    background-color: $gray1;
+    @include flex-row;
+    justify-content:space-between;
   }
   .totalmenus{
     height: 100px;
     overflow: auto;
     text-align: start;
+    font-size: 15px;
+    margin-top: 10px;
+    background-color: $gray1;
+    border-radius: 10px;
+    padding:5px;
+    >div{
+      @include flex-row;
+      justify-content:space-between;
+      padding:2px;
+      margin-right: 7px;
+    }
   } 
-  
+  .deliverycost{
+    margin-top: 5px;
+    background-color: $gray1;
+    border-radius: 20px;
+    font-size: 16px;
+    padding:5px;
+    padding-right: 25px;
+    padding-left: 25px;
+    color: $gray2;
+    @include flex-row;
+    justify-content: space-between;
+    text-align: end;
+  }
    
   .modal.openModal {
     display: flex;
