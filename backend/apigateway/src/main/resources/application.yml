@@ -27,7 +27,8 @@ spring:
             postLogger: true
       routes:
         - id: user-service
-          uri: lb://USER-SERVICE
+          # uri: lb://USER-SERVICE
+          uri: http://k6e1022.p.ssafy.io:8881/
           predicates:
             - Path=/user-service/v3/**
             - Method=GET
