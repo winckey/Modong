@@ -2,12 +2,12 @@ import React from 'react';
 import '../../style/modal/_Modal.scss'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleExclamation} from "@fortawesome/free-solid-svg-icons";
-import Modal from '../modal/_ApplyHistoryModal.tsx'
+import Modal from '../modal/DeliveryHistoryModal.tsx'
 
 
 export default function DeliveryDoneModal(props)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, info } = props;
+  const { open, close, info, wideClose } = props;
   const data =["dd"]
   const onCloseModal = (e) => {
     if (e.target === e.currentTarget){
@@ -33,26 +33,28 @@ export default function DeliveryDoneModal(props)  {
         <div style={{margin: "5%"}}>
 
           <div>
-              <div>
+              <div className="icon">
                 <FontAwesomeIcon  icon={faCircleExclamation} size="6x" color="#0064FF"/>
               </div>
 
-              <div>
-                  <button onClick={()=>{openModal();}}>신청 내역 확인</button>
-                  <p>배달 신청 완료해썽</p>
-                  <p>{info}</p>
-              </div>
+              <header>
+                  <p>배달 신청을 완료했어요</p>
+              </header>
 
           </div>
 
           <main>
-            <button onClick={close} >확인</button>
+            <div style={{cursor: "pointer"}}>
+              <div className="totalPrice" onClick={()=>{openModal();}}>신청 내역 확인</div>
+            </div>
+
+            <button onClick={()=> {close(); wideClose(false);}} >확인</button>
           </main>
 
         </div>
 
         <div>
-            <Modal open={modalOpen}  close={closeModal} info={data}>
+            <Modal open={modalOpen}  close={closeModal} info={data} wideClose={wideClose}>
             </Modal>
         </div>
 

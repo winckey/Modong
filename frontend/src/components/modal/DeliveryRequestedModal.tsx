@@ -13,9 +13,9 @@ export default function DeliveryRequestedModal(props)  {
   }, [info])
 
   const getDeliveryList =()=>{
-    axios.get(`/order-service/board/${info.id}/Delivery_GROUP`)
+    axios.get(`/order-service/board/${info.id}/ORDER_GROUP`)
     .then((response:AxiosResponse) => {
-     console.log(response.data, "from 전체 신청 조회");
+     console.log(response.data, "from 배달 전체 신청 조회");
      setDeliveryList(response.data);
      })
      .catch((error:AxiosError) => {

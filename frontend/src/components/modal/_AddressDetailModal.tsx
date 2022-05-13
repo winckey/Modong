@@ -34,8 +34,13 @@ export default function _AddressDetailModal(props)  {
 
     if (mode === 0) {
       dispatch(actionCreators.setSigu(e.target.innerText));
+      dispatch(actionCreators.setCity("구/군 선택하기"));
+      dispatch(actionCreators.setDong("동/읍/면 선택하기"));
+
     } else if (mode === 1) {
       dispatch(actionCreators.setCity(e.target.innerText));
+      dispatch(actionCreators.setDong("동/읍/면 선택하기"));
+
     } else {
       dispatch(actionCreators.setDong(e.target.innerText));
 
