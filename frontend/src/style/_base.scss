@@ -1,0 +1,76 @@
+@mixin flex-col{
+    display: flex;
+    flex-direction: column;
+}
+@mixin flex-row{
+    display: flex;
+}
+@mixin noneA {
+    text-decoration: none;
+    color: black;
+}
+@mixin noneA-w {
+    text-decoration: none;
+    color: white;
+}
+@mixin absolute-loc($top:auto, $right:auto, $bottom:auto, $left:auto) {
+    position: absolute;
+    top:$top;
+    right:$right;
+    bottom:$bottom;
+    left:$left;
+}
+@mixin fixed-loc($top:auto, $right:auto, $bottom:auto, $left:auto) {
+    position: fixed;
+    top:$top;
+    right:$right;
+    bottom:$bottom;
+    left:$left;
+}
+@mixin shadow{
+    box-shadow: 1px 1px 3px 1px #dadce0;
+}
+
+@mixin grayRound{
+    background-color: $gray3;
+    color: $gray0;
+    border-radius: 20px;
+    display: flex;
+}
+
+@mixin button {
+    width: 90%;
+    height: 9%;
+    font-size: 1.2rem;
+    text-align: center;
+    color: white;
+    background-color: $blue3;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
+@mixin card{
+    border-radius: 15px;
+    background-color: $gray1;
+    width: 90%;
+    height: 150px;
+    margin: 10px;
+    position: relative;
+    @include noneA;
+    overflow: hidden;
+    @include shadow;
+
+}
+
+
+
+$gray0:#4c4a4a;
+$gray1:#F5F5F5;
+$gray2:#C4C4C4;
+$gray3:#ebe8e8;
+$blue1:#2F88FF;
+$blue2:#0064FF;
+$blue3:#0064FF;
+$mint1:#9AD4E4;

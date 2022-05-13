@@ -1,0 +1,15 @@
+@import '_base';
+
+.dvoutLine {
+    @include flex-col;
+    align-items: center;
+    // height: 50vh;
+
+    .button{
+        @include button;
+        @include absolute-loc($bottom:13%);
+        width: 77%;
+        height: 3%;
+        padding: 15px;
+    }
+}
