@@ -1,0 +1,37 @@
+@import '_base';
+
+.alarmOutLine{
+    @include absolute-loc($top:75px, $left:10%);
+    width: 80%;
+    height: 600px;
+    z-index: 12;
+    background-color: white;
+    >div{
+        margin : 10px;
+        @include flex-col;
+        overflow: auto;
+        height: 530px;
+        >div{
+            display: flex;
+            border-radius: 8px;
+            margin: 8px 12px 8px 12px;
+            padding: 20px;
+            background-color: $gray1;
+            justify-content: space-between;
+            @include shadow;
+        }
+    }
+    >p{
+        @include absolute-loc($right:20px);
+        text-align: end;
+        font-size: 14px;
+    }
+}
+.closeboard{
+    @include fixed-loc($top:-25px, $left:-25px);
+    z-index: 11;
+    opacity: 0.3;
+    width: 600px;
+    height: 1000px;
+    background-color: black;
+}
