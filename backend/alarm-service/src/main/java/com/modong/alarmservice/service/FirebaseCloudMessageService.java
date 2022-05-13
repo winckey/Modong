@@ -73,7 +73,7 @@ public class FirebaseCloudMessageService {
 
     public String makeCustomToken(Long userId) throws FirebaseAuthException {
 
-        String uid = UUID.randomUUID().toString().replaceAll("-", "");
+        String uid = String.valueOf(userId);
         Map<String, Object> additionalClaims = new HashMap<String, Object>();
         additionalClaims.put("premiumAccount", true);
 
