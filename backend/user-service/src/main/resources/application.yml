@@ -1,0 +1,92 @@
+server:
+  port: 11332
+#  port: ${random.int(50000,50001)}
+#  address: 61.253.156.192
+
+
+
+spring:
+  application:
+    name: user-service
+  redis:
+    host: k6e102.p.ssafy.io
+    port: 6379
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+
+  datasource:
+    url: jdbc:mysql://k6e102.p.ssafy.io:3306/modong?serverTimezone=UTC&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      username: root
+      password: plainYorgurt%
+    # url: jdbc:mysql://localhost:3306/msa_db?serverTimezone=UTC&characterEncoding=UTF-8
+    # driver-class-name: com.mysql.cj.jdbc.Driver
+    # hikari:
+    #   username: root
+    #   password: admin
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+        default_batch_fetch_size: 100
+    database: mysql
+
+  devtools:
+    livereload:
+      enabled: true
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  #    prefer-ip-address: true
+  #    ip-address: ${server.address}
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+
+greeting:
+  message: Welcome to the Simple E-commerce.
+
+logging:
+  level:
+    com.example.userservice.client: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, busrefresh, info, metrics, prometheus
+
+#token:
+#  expiration_time: 86400000
+#  secret: usertoken123123123asdasdasdasdasdfasdf123123123jsdlfkjasdlfkjasdlfkasjdlfkjasldkfasdgsdfgdfgqweqweqweqweqwe
+#    final private String accessKey = "AKIA3IY7CXD5GXD4R2V5";
+#    final private String secretKey = "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";
+#    private Regions clientRegion = Regions.AP_NORTHEAST_2;
+#    private String bucket = "modong-bucket";
+    
+    # AWS Account Credentials (AWS 접근 키)
+cloud.aws.credentials.accessKey: AKIA3IY7CXD5GXD4R2V5
+cloud.aws.credentials.secretKey: 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
+
+# AWS S3 bucket Info (S3 버킷정보)
+cloud.aws.s3.bucket: modong-bucket
+cloud.aws.region.static: ap-northeast-2
+cloud.aws.stack.auto: false
+
+# file upload max size (파일 업로드 크기 설정)
+spring.servlet.multipart.max-file-size: 20MB
+spring.servlet.multipart.max-request-size: 20MB
+
+# AWS S3 Bucket URL
+cloud.aws.s3.bucket.url: https://s3.ap-northeast-2.amazonaws.com/modong-bucket
