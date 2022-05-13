@@ -8,7 +8,7 @@ import RootState from "../reducer/reducers.tsx"
 let txt = "";
 export default function DeliveryModal(props)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, info } = props;
+  const { open, close, info, wideClose } = props;
   const userId = useSelector<number>((state:RootState) => {
     return state.accounts.data.user.id
   })
@@ -37,13 +37,14 @@ export default function DeliveryModal(props)  {
       getCrawlingData();
     }
   },[info])
-  const openModal = () => {
-  setModalOpen(true);
-  };
+ 
+
   const closeModal = () => {
   setModalOpen(false);
   };
-  const handleSubmit=()=>{
+
+  const openModal=()=>{
+    setModalOpen(true);
     axios.post("/order-service/",{
       boardId: info.id,
       itemDtoList: [
@@ -100,13 +101,13 @@ export default function DeliveryModal(props)  {
                 <div className='totalmenus'>
                   
                 </div>
-                <button onClick={()=>{handleSubmit()}} >신청하기</button>
+                <button onClick={()=>{openModal()}} >신청하기</button>
               </main>
 
             </div>
 
             <div>
-              <Modal open={modalOpen}  close={closeModal} info={1}>
+              <Modal open={modalOpen}  close={closeModal} info={1} wideClose={wideClose}>
               </Modal>
             </div>
 

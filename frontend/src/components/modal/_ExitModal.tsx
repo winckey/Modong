@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleExclamation} from "@fortawesome/free-solid-svg-icons";
 
 
-export default function CloseModal(props)  {
+export default function ExitModal(props)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, info, finish} = props;
  
@@ -32,13 +32,13 @@ export default function CloseModal(props)  {
               <header>
 
                   <div>{info.productName ? info.productName: info.storeName} 접수를</div>
-                  <div>마감하시겠어요?</div>
+                  <div>종료하시겠어요????????????Exit!</div>
               </header>
 
           </div>
 
           <main>
-            <button onClick={()=>{finish(info); close();}} >확인</button>
+            <button onClick={()=>{finish(info.id); close();}} >확인</button>
           </main>
 
         </div>

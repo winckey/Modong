@@ -1,8 +1,7 @@
 @import '_base';
 
-*{
-    box-sizing: border-box;
-}
+
+
 .communityOutLine{
     overflow: auto;
     @include flex-col;
@@ -12,31 +11,36 @@
         @include flex-col;
         @include noneA;
         @include card;
-        height: 165px;
- 
-        >div{
-            padding: 10px 20px 10px 20px;
-            width: 100%;
-            text-align: start;
-        }
-        >div:first-child{
-            font-size: 24px;
-            min-height: 75px;
-        }
-        >div:nth-child(2){
-            text-align: end;
-            padding-bottom: 0;
-        }
-        >div:nth-child(3){
-            padding-top: 0;
-            color:$gray2;
-        }
-        >div:nth-child(4){
-            border-top: 1px solid black;
-            >svg{
-                margin-right: 10px;
+        // height: 90%;
+
+        div{
+
+            // padding: 2%;
+
+            >div{
+                padding: 10px 20px 10px 20px;
+                width: 90%;
+                text-align: start;
+            }
+            >div:first-child{
+                font-size: 24px;
+                min-height: 20%;
+            }
+            >div:nth-child(2){
+                text-align: end;
+            }
+            >div:nth-child(3){
+                padding-top: 0;
+                color:$gray2;
+            }
+            >div:nth-child(4){
+                border-top: 1px solid black;
+                >svg{
+                    margin-right: 10px;
+                }
             }
         }
+ 
     }
 }
 .writemark{

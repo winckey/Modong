@@ -41,6 +41,10 @@ export default function AddressModal() {
     return state.address.data.dong
   });
 
+  // const user = useSelector((state:Rootstate)=> {
+  //   return state.accounts.data.user
+  // });
+
 
   useEffect(()=>{
     getCity();
