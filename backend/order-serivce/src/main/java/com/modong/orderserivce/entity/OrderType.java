@@ -12,6 +12,9 @@ public enum OrderType {
     ORDER_DELIVERY,
 
     @ApiModelProperty(value = "공구")
-    ORDER_GROUP
+    ORDER_GROUP,
 
+
+    @ApiModelProperty(value = "모두")
+    ORDER_ALL
 }

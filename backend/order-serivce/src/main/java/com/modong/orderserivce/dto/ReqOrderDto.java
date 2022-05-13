@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.catalina.User;
 
 import java.util.List;
 
@@ -31,6 +32,11 @@ public class ReqOrderDto {
     @ApiModelProperty
     private OrderType orderType;
 
+    @Schema(hidden = true)
+    private BoardDto boardDto;
+
+    @Schema(hidden = true)
+    private UserDto userDto;
 
     private List<ItemDto> itemDtoList;
 

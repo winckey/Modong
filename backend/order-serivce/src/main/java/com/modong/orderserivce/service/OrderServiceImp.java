@@ -1,14 +1,16 @@
 package com.modong.orderserivce.service;
 
-import com.modong.orderserivce.dto.ItemDto;
-import com.modong.orderserivce.dto.OptionDto;
-import com.modong.orderserivce.dto.ReqIdOrderDto;
-import com.modong.orderserivce.dto.ReqOrderDto;
+import com.modong.orderserivce.client.BoardClient;
+import com.modong.orderserivce.client.UserClient;
+import com.modong.orderserivce.dto.*;
 import com.modong.orderserivce.entity.Item;
 import com.modong.orderserivce.entity.Option;
 import com.modong.orderserivce.entity.Order;
+import com.modong.orderserivce.entity.OrderType;
 import com.modong.orderserivce.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Service;
 
@@ -17,14 +19,15 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class OrderServiceImp implements OrderService{
+public class OrderServiceImp implements OrderService {
 
 
     private final OrderRepository orderRepository;
+    private final BoardClient boardClient;
+    private final UserClient userClient;
 
     @Override
     public void createOreder(ReqOrderDto reqOrderDto) {
-
 
 
         Order order = Order.builder()
@@ -33,15 +36,16 @@ public class OrderServiceImp implements OrderService{
                 .orderType(reqOrderDto.getOrderType())
                 .build();
 
-        for (ItemDto itemDto : reqOrderDto.getItemDtoList())
-        {
-            Item item =Item.builder()
+        for (ItemDto itemDto : reqOrderDto.getItemDtoList()) {
+            Item item = Item.builder()
                     .itemContent(itemDto.getItemContent())
                     .orders(order)
+                    .quantity(itemDto.getQuantity())
+                    .price(itemDto.getPrice())
                     .build();
 
 
-            for (OptionDto optionDto : itemDto.getOptions()){
+            for (OptionDto optionDto : itemDto.getOptions()) {
                 Option option = Option.builder()
                         .optionContent(optionDto.getOptionContent())
                         .item(item)
@@ -65,31 +69,70 @@ public class OrderServiceImp implements OrderService{
     }
 
     @Override
-    public List<ReqOrderDto> getOrderByUserId(Long userId) {
+    public List<ReqOrderDto> getOrderByUserId(Long userId, OrderType orderType) {
 
-        List<Order> orderList = orderRepository.findByUserId(userId);
+        List<Order> orderList = null;
+
+        if (orderType.equals(OrderType.ORDER_ALL))
+            orderList = orderRepository.findByUserId(userId);
+        else
+            orderList = orderRepository.findByUserIdAndOrderType(userId, orderType);
 
         List<ReqOrderDto> reqOrderDtos = new ArrayList<>();
 
-        for (Order order: orderList)
-        {
-            reqOrderDtos.add(ReqOrderDto.of(order));
+        for (Order order : orderList) {
+//            ReqOrderDto reqOrderDto = ReqOrderDto.of(order);
+//            reqOrderDto.setBoardDto(getBoard(orderType , order.getBoardId())); // boarddto가 null임
+//            reqOrderDtos.add(reqOrderDto);
+            BoardDto boardDto = getBoard(order.getOrderType(), order.getBoardId());
+            UserDto userDto =getUser(order.getUserId());
+
+
+            ReqOrderDto reqOrderDto = ReqOrderDto.of(order);
+            reqOrderDto.setBoardDto(boardDto);
+            reqOrderDto.setUserDto(userDto);
+            reqOrderDtos.add(reqOrderDto);
         }
 
         return reqOrderDtos;
+    }
+
+    private BoardDto getBoard(OrderType orderType, Long boardId) {
+
+        switch (orderType) {
+            case ORDER_DELIVERY:
+                return boardClient.getDelivery(boardId);
+            case ORDER_GROUP:
+                return boardClient.getPurchase(boardId);
+            default:
+                return null;
+        }
+
+
+    }
+
+    private UserDto getUser(Long userId) {
+
+        return userClient.getDelivery(userId);
+
+
     }
 
     @Override
-    public List<ReqOrderDto> getOrderByBoardId(Long boadId) {
-        List<Order> orderList = orderRepository.findByBoardId(boadId);
+    public List<ReqOrderDto> getOrderByBoardId(Long boadId, OrderType orderType) {
+        List<Order> orderList = orderRepository.findByBoardIdAndOrderType(boadId, orderType);
 
         List<ReqOrderDto> reqOrderDtos = new ArrayList<>();
 
-        for (Order order: orderList)
-        {
-            reqOrderDtos.add(ReqOrderDto.of(order));
+        for (Order order : orderList) {
+            ReqOrderDto reqOrderDto = ReqOrderDto.of(order);
+            reqOrderDto.setUserDto(getUser(order.getUserId()));
+            reqOrderDtos.add(reqOrderDto);
+
         }
 
         return reqOrderDtos;
     }
+
+
 }

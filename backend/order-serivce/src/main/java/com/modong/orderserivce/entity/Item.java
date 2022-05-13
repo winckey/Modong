@@ -28,7 +28,9 @@ public class Item {
     @Builder.Default
     private List<Option> optionList = new ArrayList<>();
 
+    private int quantity;
 
+    private int price;
 
     private String itemContent;
 
