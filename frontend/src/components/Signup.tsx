@@ -96,7 +96,7 @@ export default function SignUp(props) {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: "6%" }}>
             <Grid container spacing={3}>
-              <Grid item xs={8}>
+              <Grid item xs={12}>
                   <TextField
                     required
                     fullWidth
@@ -108,9 +108,9 @@ export default function SignUp(props) {
                     autoFocus
                   />
               </Grid>
-              <Grid item xs={4}>
+              {/* <Grid item xs={4}>
                 <Button style={{backgroundColor:"#0064FF" }} variant="contained" size="small" onClick={emailCheck}>중복확인</Button>
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <TextField
                   required
@@ -184,7 +184,7 @@ export default function SignUp(props) {
               가입하기
             </Button>
             <div style={{textAlign:'center'}}>
-              <Link to="/">이미 계정이 있나요?  로그인</Link>
+              <Link to="/" style={{color: "black", textDecoration:"none", cursor:"pointer"}}>이미 계정이 있나요?  로그인</Link>
             </div>
           </Box>
         </Box>

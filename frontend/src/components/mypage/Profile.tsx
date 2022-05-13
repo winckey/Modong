@@ -19,65 +19,39 @@ function Profile() {
     const [profileImage, setProfileImage] = useState<string>("");
     const fileInput = useRef(null);
 
+    
 
-    // redux에 사용자 이미지 정보 업뎃
-    const userInfo = {
-        ...user,
-        image: profileImage
-    };
-
-
-    const handleChangeProfileImage = (e) => {
-        // console.log(e.target.value, "사진 경로!!");
-        setProfileImage(URL.createObjectURL(e.target.files[0]));
-        console.log(URL.createObjectURL(e.target.files[0]), "링크로?");
-        console.log(profileImage, "profileImage");
+    // 프로필 이미지 수정
+    const handleProfileImage = (e) => {
+        // console.log(e.target.files[0].size);
+        const image = new FormData();
+        image.append('image', e.target.files[0]);
+        // console.log("image는 몬가요", image);
 
         axios.put("/user-service/users/image",
         {
             userId: user.id,
-            image: profileImage
+            image: image
         },
         {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-                'Content-Type': 'multipart/form-data'
+                // 'Content-Type': 'multipart/form-data'
             }
-        }).then((res)=>{
+        }
+        ).then((res)=>{
             console.log(res.data);
-            dispatch(actionCreators.setUser(userInfo));
+            // const userInfo = {
+            //     ...user,
+            //     image: res.data.image
+            // };
+            // dispatch(actionCreators.setUser(userInfo));
         }).catch((err)=>{
-            console.log(profileImage);
-            console.log("이미지 업로드 실패", err.data);
+            console.log("이미지 업로드 실패", err);
         })
 
 
-
-    }
-
-    // 프로필 이미지 수정
-    // const handleProfileImage = () => {
-    //     // const image = new FormData();
-    //     // image.append('img', profileImage)
-    //     axios.put("/user-service/users/image",
-    //     {
-    //         userId: user.id,
-    //         image: profileImage
-    //     },
-    //     {
-    //         headers: {
-    //             Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-    //             'Content-Type': 'multipart/form-data'
-    //         }
-    //     }).then((res)=>{
-    //         console.log(res.data);
-    //         dispatch(actionCreators.setUser(userInfo));
-    //     }).catch((err)=>{
-    //         console.log("이미지 업로드 실패", err.data);
-    //     })
-
-
-    // };
+    };
 
     return (
         <div className="profile">
@@ -86,14 +60,15 @@ function Profile() {
             
             <div>
                 
-                <img onClick={()=>{fileInput.current.click()}} 
+                {/* <img onClick={()=>{fileInput.current.click()}} 
+                src={ user.image ? user.image:require('../../assets/pingu.png') } alt="프로필"/> */}
+
+                <img
                 src={ user.image ? user.image:require('../../assets/pingu.png') } alt="프로필"/>
 
-                {/* <img onClick={()=>{fileInput.current.click()}} 
-                src={ profileImage} alt="프로필"/> */}
 
-                <input type='file' style={{display:'none'}} accept='image/jpg,impge/png,image/jpeg'
-                 name='profile_img' ref={fileInput} onChange={handleChangeProfileImage}></input>
+                <input type='file' accept='image/*'
+                 name='file' ref={fileInput} onChange={handleProfileImage}></input>
 
                 {/* <button className="editButton" onClick={handleProfileImage}>+</button> */}
             </div>

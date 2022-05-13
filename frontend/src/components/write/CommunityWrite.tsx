@@ -44,7 +44,7 @@ function CommunityWrite() {
     return (
         <div className='ccoutLine'>
             <textarea onChange={handleContentsChange} value={contents||""}/>
-            <div onClick={()=>{handlecreatecommunity()}} className='button'>생성하기</div>
+            <div onClick={()=>{handlecreatecommunity()}} className='create'>생성하기</div>
         </div>
     );
 }

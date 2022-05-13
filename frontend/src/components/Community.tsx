@@ -40,10 +40,12 @@ function Community() {
     <div className='communityOutLine'>
       {boardData.map((d:communitytype, index:number)=>(
         <Link to='/communitydetail' onClick={()=>{handleCommunityPropsData(d)}} key={index} className='communityCard'>
-          <div>{d.description}</div>
-          <div>{datetrans(d.createdDate.toString())}</div>
-          <div></div>
-          <div><FontAwesomeIcon icon={faComments}/>댓글 {d.commentNumber}</div>
+          <div>
+            <div>{d.description}</div>
+            <div>{datetrans(d.createdDate.toString())}</div>
+            <div></div>
+            <div><FontAwesomeIcon icon={faComments}/>댓글 {d.commentNumber}</div>
+          </div>
         </Link>
       ))}
         <Link to="/write" className="writemark"><FontAwesomeIcon icon={faPen}/></Link>

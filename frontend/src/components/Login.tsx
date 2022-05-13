@@ -27,7 +27,7 @@ export default function Login(props) {
   }
 
   const userInfo = useSelector((state:Rootstate)=> {
-    return state.accounts.data
+    return state.accounts.data.user
   });
 
   const handleSubmit = (event) => {
@@ -118,7 +118,7 @@ export default function Login(props) {
             >
               로그인
             </Button>
-            <Link to="/signup">계정이 필요한가요? 가입하기</Link>
+            <Link to="/signup" style={{color: "black", textDecoration:"none", cursor:"pointer"}}>계정이 필요한가요? 가입하기</Link>
           </Box>
         </Box>
       </Container>

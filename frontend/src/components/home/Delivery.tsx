@@ -51,7 +51,7 @@ function Delivery() {
             </div>
 
             <div>
-                <Modal open={modalOpen}  close={closeModal}  info={modalPropsData}>
+                <Modal open={modalOpen}  close={closeModal}  info={modalPropsData} wideClose={setModalOpen}>
                 </Modal>
             </div>
 
