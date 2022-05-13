@@ -3,13 +3,12 @@
 .gboutLine {
     @include flex-col;
     align-items: center;
-}
-.button{
-    @include absolute-loc($bottom:86px);
-    border-radius: 15px;
-    @include noneA-w;
-    width: 80%;
-    margin-top: 10px;
-    padding: 20px;
-    background-color: $blue2;
+
+    .button{
+        @include button;
+        @include absolute-loc($bottom:13%);
+        width: 77%;
+        height: 3%;
+        padding: 15px;
+    }
 }

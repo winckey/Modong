@@ -3,6 +3,8 @@ import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
 
+import {reversedatetrans} from '../../actions/TimeLapse.tsx'
+import {datetrans} from '../../actions/TimeLapse.tsx'
 
 import "../../style/_chatdetail.scss"
 import actionCreators from './actions/actionCreators.tsx';
@@ -17,22 +19,23 @@ import { createRoutesFromChildren } from 'react-router-dom';
 import { useLocation } from 'react-router-dom'
 
 
-const data = [{userid:"멍멍이", contents:"내용1", sentTime:10}, {userid:"야옹이", contents:"내용2", sentedTime:20}, {userid:"꽉꽉이", contents:"내용3", sentedTime:30}]
 
-// interface dataProps{
-//     userid:string;
-//     contents:string;
-//     sentTime:number;
-// }
-
-
-
+interface dataProps{
+        userId:number;
+        userName:string;
+        message:string;
+        date:number;
+};
+    
+    
+    
 function ChatDetail() {
 
+    
     //props로 받은 data
     const location = useLocation();
-    const { hi } = location.state;
-    // console.log("props 넘어오니", hi);
+    const { roomId, name, type, numberUser, userList } = location.state;
+    // console.log("props 넘어오니", roomId, name, type, numberUser, userList);
     
     // 채팅 input 상자
     const [chattxt, setChattxt] = useState<string>("");
@@ -40,16 +43,25 @@ function ChatDetail() {
         setChattxt(e.target.value);
     }
 
-    const userId = useSelector<number>((state:RootState) => {
-        return state.accounts.data.user.userId
-      })
 
-    
+    // 대화 기록 담은 배열
+    const [contents, setContents] = useState<dataProps[]>([]);
+    const [ historyMessages, setHistoryMessages] = useState<dataProps[]>([]);
+
+
+    const userId = useSelector<number>((state:RootState) => {
+        return state.accounts.data.user.id
+    })
+
+
+    const userName = useSelector<number>((state:RootState) => {
+        return state.accounts.data.user.userId
+    })
+
+
     const [state, setState] = useState({
         loading: false,
-        messages: [],
-        historyMessages: [],
-        roomId: 7,
+        roomId: roomId,
         height: null,
         chatDiv: null,
         page: 0,
@@ -62,28 +74,41 @@ function ChatDetail() {
     // websocket 연결
     const socketJs = new SockJS("http://k6e102.p.ssafy.io:8000/ws-stomp");
     const stomp = Stomp.over(socketJs);
-    // console.log("stomp 연결했쥐렁")
+    // stomp.debug = () => {};
     
+    // stomp 연결, 구독해서 정보 주고 받음
     useEffect(()=>{
         console.log("구독 시작 전!")
-        getHistory();
         stomp.connect({}, ()=> {
-            stomp.subscribe(`/sub/chat/room/${state.roomId}`, (chat)=>{
-                const content = JSON.parse(chat.body);
-                setState({...state, messages:content});
-                console.log("연결완료", state.messages)
+            stomp.subscribe(`/sub/chatting/room/${state.roomId}`, (data)=>{
+                console.log("구독 가넝")
+                const newMessage: dataProps = JSON.parse(data.body);
+                addMessage(newMessage);
             })
         });
-    }, [chattxt]);
+    }, []);
+
+
+    useEffect(()=>{
+        getHistory();     
+    },[]);
+
+
+    const addMessage = (message) => {
+        setContents(prev=>[...prev,message]);
+        console.log("contents", contents);
+    };  
 
 
 
     // 채팅 기록 불러오기
     const getHistory = () => {
 
+        console.log("채팅 기록 불러왕");
         axios.get(`chat-service/chat/message/${state.roomId}`)
         .then((res)=>{
-            console.log("채팅 기록", res.data);
+            setHistoryMessages(res.data);
+            console.log("history", res.data);
         })
         .catch((err)=>{
             console.log("getHistory에러", err);
@@ -94,52 +119,83 @@ function ChatDetail() {
     
 
 
-
     const sendMessage = () => {
-        if (chattxt) {
+        axios.post("chat-service/chat/message",
+            {
+                message: chattxt,
+                roomId: state.roomId,
+                userId: userId
+            },
+            {
+                headers: {
+                    "Content-type": "application/json",
+                    Accept: "*/*",
+                },
+            }).then((res)=>{
+                console.log("send message", res);
+                const newMessage: dataProps = {message: chattxt, roomId: state.roomId , userId: userId, userName: userName, date: new Date()};
+                stomp.send("/pub/chat/chatting",{},
+                JSON.stringify(newMessage));
+                setChattxt(null);
+            })
+    };
 
 
-            // axios.post("chat-service/chat/message",
-            // {
-            //     message: chattxt,
-            //     roomId: state.roomId,
-            //     userId: userId
-            // },
-            // {
-            //     headers: {
-            //         "Content-type": "application/json",
-            //         Accept: "*/*",
-            //     },
-            // })
-
-            stomp.send("pub/chat/message",{},
-            JSON.stringify({'message': chattxt, 'roomId': state.roomId , 'userId': userId}));
-            setChattxt(null);
-
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            sendMessage();
         }
     };
 
     return (
         <div className='chatDetailOutLine'>
-            {data.map((d, index) =>(
-                <div className='chatDetailInnerCard' key={index}>
-                    { d.userid === userId ?
-                    <div className="myChat">
-                        <div className="myChatName">{d.userid}</div>
-                        <div>{d.contents}</div>
-                        <div>{d.sentedTime}분전</div>
+            <div className='chatInnerBox'>
+                {/* 이전 채팅 기록 */}
+                {historyMessages.map((d, index) =>(
+                    <div className='chatDetailInnerCard' key={index}>
+                        { d.userId === userId ?
+                        <div className="myChat">
+                            <div className="myChatName">{d.userName}</div>
+                            <div>{d.message}</div>
+                            <div>{datetrans(d.date)}</div>
+                        </div>
+                        :
+                        <div className="otherChat">
+                            <div className="otherChatName">{d.userName}</div>
+                            <div>{d.message}</div>
+                            <div>{datetrans(d.date)}</div>
+                        </div>
+                        }
                     </div>
-                    :
-                    <div className="otherChat">
-                        <div className="otherChatName">{d.userid}</div>
-                        <div>{d.contents}</div>
-                        <div>{d.sentedTime}분전</div>
+                ))}
+                
+
+
+                {/* 실시간 채팅 */}
+                {contents.map((d, index) =>(
+                    <div className='chatDetailInnerCard' key={index}>
+                        { d.userId === userId ?
+                        <div className="myChat">
+                            <div className="myChatName">{d.userName}</div>
+                            <div>{d.message}</div>
+                            <div>{reversedatetrans(d.date)}</div>
+                        </div>
+                        :
+                        <div className="otherChat">
+                            <div className="otherChatName">{d.userName}</div>
+                            <div>{d.message}</div>
+                            <div>{reversedatetrans(d.date)}</div>
+                        </div>
+                        }
                     </div>
-                    }
-                </div>
-            ))}
+                ))}
+            </div>
+
+
+            
             <div className='chatinput'>
-                <input onChange={handleChattxt} value={chattxt} type="text"></input>
+                <input onChange={handleChattxt} value={chattxt||""} 
+                type="text" onKeyPress={handleKeyPress}></input>
                 <div onClick={sendMessage}><FontAwesomeIcon icon={faPen}/></div>
             </div>
         </div>

@@ -14,21 +14,14 @@ import {datetrans} from '../actions/TimeLapse.tsx'
 
 import axios, {AxiosResponse, AxiosError} from "axios";
 
-export interface datatype  {
-  id: number,
-  description: string,
-  userId: number,
-  createdDate: Date,
-  modifiedDate: Date,
-  commentNumber: number
-}
+import { communitytype } from "../actions/_interfaces.tsx"
 
 function Community() {
   const dispatch = useDispatch();
-  const handleCommunityPropsData=(d:datatype)=>{
+  const handleCommunityPropsData=(d:communitytype)=>{
     dispatch(actionCreators.setCommunityPropsData(d));
   }
-  const [boardData, setBoardData]=useState<datatype[]>([]);
+  const [boardData, setBoardData]=useState<communitytype[]>([]);
 
   const handlegetList = (pageNum:number) => {
     axios.get(`/board-service?pageNumber=${pageNum}&pageSize=10`)
@@ -45,12 +38,14 @@ function Community() {
   },[]);
   return (
     <div className='communityOutLine'>
-      {boardData.map((d:datatype, index:number)=>(
+      {boardData.map((d:communitytype, index:number)=>(
         <Link to='/communitydetail' onClick={()=>{handleCommunityPropsData(d)}} key={index} className='communityCard'>
-          <div>{d.description}</div>
-          <div>{datetrans(d.createdDate.toString())}</div>
-          <div></div>
-          <div><FontAwesomeIcon icon={faComments}/>댓글 {d.commentNumber}</div>
+          <div>
+            <div>{d.description}</div>
+            <div>{datetrans(d.createdDate.toString())}</div>
+            <div></div>
+            <div><FontAwesomeIcon icon={faComments}/>댓글 {d.commentNumber}</div>
+          </div>
         </Link>
       ))}
         <Link to="/write" className="writemark"><FontAwesomeIcon icon={faPen}/></Link>

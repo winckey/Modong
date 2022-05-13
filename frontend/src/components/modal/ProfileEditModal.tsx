@@ -21,6 +21,7 @@ export default function ProfileEditModal() {
   const handleClose = () => {
     setOpen(false);
   };
+  
 
   const dispatch = useDispatch();
   const user = useSelector((state:Rootstate) => {
@@ -28,12 +29,19 @@ export default function ProfileEditModal() {
   });
 
 
+  const dongSelected = useSelector((state:Rootstate)=> {
+    return state.address.data.dong
+  });
+
+  const dongCodeSelected = useSelector((state:Rootstate)=> {
+    return state.address.data.dongCode
+  });
+
 
   const [state, setState] = useState({
     nickname: user.nickname,
     userId: user.userId,
     phone: user.phone,
-    address: user.dongDto.dong
   });
 
 
@@ -54,28 +62,25 @@ export default function ProfileEditModal() {
       userId: state.userId,
       nickname:state.nickname,
       phone: state.phone,
-      dongDto: {dong: state.address, dongcode: 2617010400}
+      dongDto: {dong: dongSelected, dongcode: dongCodeSelected}
       
     };
 
     
     axios.put("/user-service/users",
     {
-      dongcode: 1111010100,
-      id: 1,
-      nickname: "test_nickname",
-      phone: "010-1111-1111",
-      userId: "aaaaa"
+      dongcode: dongCodeSelected,
+      id: user.id,
+      nickname: state.nickname,
+      phone: state.phone,
+      userId: state.userId
     },
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        // "Content-type": "application/json",
-        // Accept: "*/*",
       }
     }).then((res)=> {
       console.log("put요청 성공", res);
-      // console.log(data)
       dispatch(actionCreators.setUser(data));
       console.log(user)
     }).catch((err)=> {
@@ -121,20 +126,7 @@ export default function ProfileEditModal() {
             />
 
             <p>주소</p>
-            {/* <TextField
-                margin="dense"
-                // id="address"
-                name="address"
-                type="email"
-                fullWidth
-                variant="filled"
-                autoComplete="off"
-                value={state.address}
-                onChange={handleChangeState}
-            /> */}
-
-            
-            {/* <Modal/> */}
+            <Modal/>
 
             <p>전화번호</p>
             <TextField

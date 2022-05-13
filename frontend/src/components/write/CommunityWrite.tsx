@@ -1,14 +1,16 @@
 import  React,{ useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "../../style/_communityWrite.scss"
 
 import axios, {AxiosResponse, AxiosError} from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import RootState from "../reducer/reducers.tsx"
-
+import actionCreators from "../../actions/actionCreators.tsx"
 
 
 function CommunityWrite() {
+    let navigate = useNavigate();
+    const dispatch = useDispatch();
     const [contents, setContnets] = useState<string>("");
     const handleContentsChange =(e:React.ChangeEvent<HTMLTextAreaElement>) =>{
         setContnets(e.target.value);
@@ -32,6 +34,8 @@ function CommunityWrite() {
           )
           .then((response:AxiosResponse) => {
             console.log(response.data, "게시판 생성");
+            dispatch(actionCreators.setFooterSelected(2));
+            navigate("/community");
           })
           .catch((error:AxiosError) => {
             console.log(error);
@@ -40,7 +44,7 @@ function CommunityWrite() {
     return (
         <div className='ccoutLine'>
             <textarea onChange={handleContentsChange} value={contents||""}/>
-            <Link to="/community" onClick={()=>{handlecreatecommunity()}} className='button'>생성하기</Link>
+            <div onClick={()=>{handlecreatecommunity()}} className='create'>생성하기</div>
         </div>
     );
 }

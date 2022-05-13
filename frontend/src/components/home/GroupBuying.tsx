@@ -2,22 +2,38 @@ import React, {useState, useEffect} from 'react';
 
 import '../../style/_groupBuying.scss'
 import Modal from '../modal/GroupBuyingApplyModal.tsx'
-
+import { useSelector } from 'react-redux';
 import axios, {AxiosResponse, AxiosError} from "axios";
 
 import {reversedatetrans} from '../../actions/TimeLapse.tsx'
 
-const data = [{name:"오나라식탁", arrivepoint:"sk뷰 아파트 106동 1101호", lefttime:10}, {name:"오나라2식탁", arrivepoint:"sk뷰 아파트 106동 1102호", lefttime:20}]
+import { gropupbuyingmodalpropstype } from "../../actions/_interfaces.tsx"
+// import Rootstate from "../../reducer/reducers.tsx"
+// import { useDispatch } from 'react-redux';
+// import actionCreators from "../../actions/actionCreators.tsx"
+
+
 
 function GroupBuying() {
+
     const [ modalOpen, setModalOpen] = useState(false);
     const [ groupBuyingList, setGroupBuyingList ] = useState([]);
-    const openModal = () => {
+    const [ modalprops, setModalprops] = useState<gropupbuyingmodalpropstype>(); 
+
+
+    const openModal = (data:gropupbuyingmodalpropstype) => {
         setModalOpen(true);
+        setModalprops(data);
+        console.log("판매자 정보 있니", data);
     };
+
+
     const closeModal = () => {
-    setModalOpen(false);
+        setModalOpen(false);
     };
+
+
+
     const handlegetList = () => {
         axios.get(`/board-service/group-purchase`)
             .then((response:AxiosResponse) => {
@@ -39,13 +55,13 @@ function GroupBuying() {
                         <div>{data.productName}</div>
                         <div>{data.pickupLocation}</div>
                         <div>{reversedatetrans(data.closeTime)} 남았습니다.</div>
-                        <div onClick={()=>{openModal()}}>신청하기</div>
+                        <div onClick={()=>{openModal(data)}}>신청하기</div>
                     </div>
                 ))}
             </div>
 
             <div>
-                <Modal open={modalOpen}  close={closeModal}  info={data}>
+                <Modal open={modalOpen}  close={closeModal}  info={modalprops} wideClose={setModalOpen}>
                 </Modal>
             </div>
 

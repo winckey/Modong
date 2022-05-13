@@ -12,32 +12,13 @@ import "../../style/_communityDetail.scss"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faComments } from "@fortawesome/free-solid-svg-icons";
 
-export interface userType{
-    age: number
-    banned: boolean
-    date_create: string
-    deleted: boolean
-    dongDto: any
-    id: number
-    image: any
-    nickname: string
-    phone: string
-    userId: string
-}
-
-export interface replyData{
-    boardId: number
-    deleted: boolean
-    description: string
-    id: number
-    user: userType
-} 
+import { commentsDataType } from "../../actions/_interfaces.tsx"
 
 function CommunityDetail() {
     const communityPropsData = useSelector((state:RootState) => {
         return state.propsData.data.communityPropsData
       }) 
-    const [replyDatas, setReplyDatas] = useState<replyData[]>([]);
+    const [replyDatas, setReplyDatas] = useState<commentsDataType[]>([]);
     const [replytxt, setReplytxt] = useState<string>("");
     const [usernick, setUserNick] = useState<string>("");
     const [userLoc, setUserLoc] = useState<string>("");
@@ -107,7 +88,6 @@ function CommunityDetail() {
             <div className='userdiv'>
                 <div><img src={ require('../../assets/dd.png') } alt="사진"/></div>
                 <div>
-                    
                     <div>{usernick}</div>
                     <div>{userLoc}</div>
                 </div>

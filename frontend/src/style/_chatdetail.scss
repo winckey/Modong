@@ -6,10 +6,16 @@
     position: relative;
     height: 82vh;
     overflow: auto;
+
+    .chatInnerBox {
+        height: 73vh;
+        overflow: scroll;
+    }
 }
+
 .chatDetailInnerCard{
     @include flex-col;
-    padding: 10px;
+    padding: 1% 4% 1% 4%;
     >div{
         @include flex-col;
         >div:nth-child(3){
@@ -45,24 +51,24 @@
     }
 }
 .chatinput{
-    display: flex;
-    justify-content: center;
-    background-color: $gray1;
-    @include absolute-loc($bottom:0);
-    width: 100%;
-    padding-bottom: 5px;
-    margin-top: 15px;
-    margin-bottom: 10px;
+    display: block;
     >input{
+        position: fixed;
+        bottom: 11%;
+        left: 2%;
         font-size: 18px;
         border: none;
         padding: 10px;
-        width: 330px;
+        margin: 2%;
+        width: 78%;
         margin-right: 10px;
         border-radius: 15px;
         @include shadow;
     }
     >div{
+        position: fixed;
+        bottom: 11%;
+        right: 2%;
         font-size: 28px;
         border-radius: 50px;
         display: flex;
