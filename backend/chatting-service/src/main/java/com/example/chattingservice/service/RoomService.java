@@ -10,6 +10,6 @@ public interface RoomService {
     Long createChatRoom(String roomName, String type);
     boolean addRoomMember(Long roomId, List<UserDto> userList);
     List<UserDto> getRoomMember(Long roomId);
-    List<RoomDto> findAllRoom(String userId);
-    boolean exitChatRoom(Long roomId, String userId);
+    List<RoomDto> findAllRoom(Long userId);
+    boolean exitChatRoom(Long roomId, Long userId);
 }

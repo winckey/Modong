@@ -4,6 +4,7 @@ import com.example.chattingservice.data.dto.MessageDto;
 import com.example.chattingservice.data.dto.RoomDto;
 import com.example.chattingservice.data.dto.UserDto;
 import com.example.chattingservice.data.request.CreateRoomReq;
+import com.example.chattingservice.data.request.ExitRoomReq;
 import com.example.chattingservice.data.request.MessageReq;
 import com.example.chattingservice.data.response.CreateRoomRes;
 import com.example.chattingservice.data.response.RoomRes;
@@ -54,7 +55,7 @@ public class RoomController {
     @GetMapping("/{userId}")
     @Operation(summary = "채팅방 목록", description  = "userId로 채팅방 채팅 내역 조회")
     @ResponseBody
-    public ResponseEntity<List<RoomRes>> room(@PathVariable("userId") String userId) {
+    public ResponseEntity<List<RoomRes>> room(@PathVariable("userId") Long userId) {
         List<RoomRes> res = new ArrayList<RoomRes>();
 
         // 매퍼생성
@@ -95,11 +96,11 @@ public class RoomController {
 
 
     // 채팅방 나가기
-    @DeleteMapping("/{roomId}/{userId}")
+    @DeleteMapping
     @Operation(summary = "채팅 나가기", description  = "")
-    public ResponseEntity exit(@PathVariable("roomId") Long roomId, @PathVariable("userId") String userId) {
+    public ResponseEntity exit(@RequestBody ExitRoomReq req) {
         // ^^ 디비 목록에서 제거해주자
-        if(roomService.exitChatRoom(roomId, userId))
+        if(roomService.exitChatRoom(req.getRoomId(), req.getUserId()))
             return new ResponseEntity(HttpStatus.OK);
         else
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -108,7 +109,7 @@ public class RoomController {
     // 메세지 저장
     @PostMapping("/message")
     @Operation(summary = "메시지 저장", description  = "[프론트]")
-    public ResponseEntity exit(MessageReq req) {
+    public ResponseEntity exit(@RequestBody MessageReq req) {
         // 매퍼생성
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);

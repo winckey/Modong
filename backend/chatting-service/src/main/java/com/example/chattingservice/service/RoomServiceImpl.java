@@ -89,7 +89,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<RoomDto> findAllRoom(String userId) {
+    public List<RoomDto> findAllRoom(Long userId) {
         // 매퍼생성
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -112,7 +112,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public boolean exitChatRoom(Long roomId, String userId) {
+    public boolean exitChatRoom(Long roomId, Long userId) {
         try {
             UserEntity entity = userRepository.findByRoomIdAndUserId(roomId, userId).get();
             userRepository.delete(entity);
