@@ -26,6 +26,9 @@ ext {
 }
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.firebase:firebase-simple-login:1.4.2'
+    implementation 'com.javaquery:httpclient:1.0.0'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
@@ -33,10 +36,13 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     // 유레카
-    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+//    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
     //firebase
-    implementation 'com.google.firebase:firebase-admin:6.8.1'
+    implementation 'com.google.firebase:firebase-admin:8.1.0'
+
+    //okhttp
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
 
 
 }
