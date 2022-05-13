@@ -18,7 +18,7 @@ public class KafkaConsumerConfig {
     @Bean
     public ConsumerFactory<String, String> consumerFactory() { // 토픽에 접속하기위한 factory
         Map<String, Object> properties = new HashMap<>();//
-        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");// 카푸카 서버 주소
+        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "172.18.0.101:9092");// 카푸카 서버 주소
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, "consumerGroupId");// 토픽  id
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);// json 형태로 원상 태로만들기위한 방식지정
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);// json 형태로 원상 태로만들기위한 방식지정
