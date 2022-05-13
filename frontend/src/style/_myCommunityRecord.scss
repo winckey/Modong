@@ -1,0 +1,49 @@
+@import '_base';
+
+.mycommunityOutLine{
+    margin:12px;
+    height: 600px;
+    .applicationNav{
+        background-color: $blue2;
+        border-radius: 20px;
+        margin-top: 12px;
+        margin-bottom: 10px;
+        display: flex;
+        padding: 7px;
+        z-index: 1;
+        position: relative;
+        align-items: center;
+        justify-content: space-around;
+        >div{
+            width: 33%;
+            z-index: 10;
+        }
+        .communitySelected{
+            @include absolute-loc($left:1.2%);
+            height: 24px;
+            z-index: 5;
+            border-radius: 20px;
+            background-color: aliceblue;
+            transition: left 0.3s;
+        }
+        .deliverySelected{
+            @include absolute-loc($left:33.5%);
+            height: 24px;
+            z-index: 5;
+            border-radius: 20px;
+            background-color: aliceblue;
+            transition: left 0.3s;
+        }
+        .groupBuyingSelected{
+            @include absolute-loc($left:65.6%);
+            height: 24px;
+            z-index: 5;
+            border-radius: 20px;
+            background-color: aliceblue;
+            transition: left 0.3s;
+        }
+    }
+    >div:nth-child(2){
+        overflow: auto;
+    }
+}
