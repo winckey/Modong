@@ -1,0 +1,13 @@
+springdoc:
+  swagger-ui:
+    path: modong.html
+  version: v1
+  paths-to-match:
+    - /user/**
+    - /**
+
+token:
+  expiration_time: 86400123
+  re_expiration_time: 8640000001
+  secret: usertoken123123123asdfasdfasdfasdfasdfhhghdfghdfghdfghdfghdfghdfghdfghdfghdfghdfghdfghdfghdfghdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdffghdfghdfghdfghdfghdfghdfghdfghdfghdfghdfghdfghdfghdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf
+
