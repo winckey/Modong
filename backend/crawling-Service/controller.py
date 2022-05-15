@@ -10,7 +10,7 @@ import yogiyo
 rest_port = 8080
 
 # redis
-rd = redis.StrictRedis(host='k6e102.p.ssafy.io', port=6379, db=0)
+rd = redis.StrictRedis(host='k6e1021.p.ssafy.io', port=6379, db=0)
 
 Menu = Namespace(
     name="Menus",
