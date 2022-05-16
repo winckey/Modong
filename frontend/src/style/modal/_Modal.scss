@@ -190,8 +190,35 @@
     /* 팝업이 열릴때 스르륵 열리는 효과 */
     animation: modal-bg-show 0.3s;
   }
-  
-  
+  .h1size{
+    font-size: 25px;
+    margin-top: 15px;
+  }
+  .flex-r{
+    @include flex-row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .flex-r-p{
+    @include flex-row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 5px;
+  }
+  .bottomline{
+    border-bottom: 1px solid black;
+  }
+  .sizing{
+    height: 150px;
+    overflow: hidden;
+  }
+  .leftstart{
+    text-align:left;
+    padding-top:10px;
+    padding-bottom:15px;
+    padding-left: 10px;
+    background-color: $gray1;
+  }
   @keyframes modal-show {
     from {
       opacity: 0;

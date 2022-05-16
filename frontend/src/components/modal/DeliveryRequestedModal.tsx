@@ -6,6 +6,9 @@ export default function DeliveryRequestedModal(props)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, info } = props;
   const [deliveryList, setDeliveryList] = useState([]);
+  const [ userList, setUserList] = useState({});
+  const [ menuList, setMenuList ] = useState({});
+  const [ totalcost, setTotalcost] = useState(0);
   useEffect(()=>{
     if (info != null){
       getDeliveryList();
@@ -13,7 +16,7 @@ export default function DeliveryRequestedModal(props)  {
   }, [info])
 
   const getDeliveryList =()=>{
-    axios.get(`/order-service/board/${info.id}/ORDER_GROUP`)
+    axios.get(`/order-service/board/${info.id}/ORDER_DELIVERY`)
     .then((response:AxiosResponse) => {
      console.log(response.data, "from 배달 전체 신청 조회");
      setDeliveryList(response.data);
@@ -22,7 +25,39 @@ export default function DeliveryRequestedModal(props)  {
        console.log(error, "에러");
      })
  }
-
+useEffect(()=>{
+  var totalcos = 0
+  if(deliveryList.length>0){
+    var userLi = {};
+    var menuLi = {};
+    deliveryList.map((delivery)=>{
+      var menucost = 0;
+      var menucount = 0;
+      delivery.itemDtoList.map((menu) =>{
+        menucost += menu.price*menu.quantity
+        menucount += menu.quantity
+        var itemnametxt = menu.itemContent
+        menu.options.map((option)=>{
+          itemnametxt += "+"+option.optionContent
+        })
+        if (menuLi[itemnametxt]){
+          menuLi[itemnametxt] += menucount
+        }else{
+          menuLi[itemnametxt] = menucount
+        }
+      })
+      totalcos += menucost
+      if (userLi[delivery.userDto.nickname]){
+        userLi[delivery.userDto.nickname] += menucost
+      }else{
+        userLi[delivery.userDto.nickname] = menucost
+      }
+    })
+    setUserList(userLi);
+    setMenuList(menuLi);
+    setTotalcost(totalcos);
+  }
+}, [deliveryList])
   const onCloseModal = (e) => {
     if (e.target === e.currentTarget){
       close();
@@ -43,20 +78,26 @@ export default function DeliveryRequestedModal(props)  {
           </header>
 
           <main>
-            {deliveryList.map((data, index) => (
-            <div>
-              <div>{data.itemDtoList.itemContent}</div>
-              <div>10000</div>
+            <div className='sizing bottomline'>
+              {Object.keys(userList).map((key)=>(
+              <div className='flex-r' key={key}>
+                <div>{key}</div>
+                <div>{userList[key]}원</div>
+              </div>
+              ))}
             </div>
-            ))}
-            <div>주문 해야할 메뉴</div>
-            {/* <div>
-              <div>{info.productName}</div>
-              <div>{productTotalNum}개</div>
-            </div> */}
-            <div>
+            <div className='leftstart'>주문 해야할 메뉴</div>
+            <div className='sizing'>
+              {Object.keys(menuList).map((key)=>(
+                <div className='flex-r' key={key}>
+                  <div>{key}</div>
+                  <div>{menuList[key]}개</div>
+                </div>
+              ))}
+            </div>
+            <div className='flex-r'>
               <div>받아야 할 금액</div>
-              {/* <div>{productTotalNum*parseInt(info.price)}</div> */}
+              <div>{totalcost}원</div>
             </div>
             <button onClick={close} >확인</button>
           </main>

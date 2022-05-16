@@ -46,7 +46,7 @@ function MyDelivery() {
     }
 
 
-    const openExitModal = (data:groupbuyingtype) => {
+    const openExitModal = (data:deliverytype) => {
         setModalPropsData(data);
         console.log("공구 정보", data);
         setExitModalOpen(true);

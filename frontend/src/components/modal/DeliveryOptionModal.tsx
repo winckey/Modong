@@ -52,7 +52,7 @@ export default function DeliveryDoneModal(props)  {
     {open ? (
       <section>
         {info != null &&
-        <div>
+        <div className='h1size'>
           {info.name}
         </div>
         }
@@ -80,7 +80,7 @@ export default function DeliveryDoneModal(props)  {
               ))}
             </div>
             }
-            <div><label>갯수</label><input type="number" value={count} onChange={handleCountChange}/></div>
+            <div className='flex-r-p'><label>갯수</label><input type="number" value={count} onChange={handleCountChange}/></div>
             <button onClick={addmenu} >신청하기</button>
           </main>
 

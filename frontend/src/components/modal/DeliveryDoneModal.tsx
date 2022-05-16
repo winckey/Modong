@@ -7,11 +7,12 @@ import Modal from '../modal/DeliveryHistoryModal.tsx'
 
 export default function DeliveryDoneModal(props)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, info, wideClose } = props;
+  const { open, close, totalCost, orderItems, wideClose } = props;
   const data =["dd"]
   const onCloseModal = (e) => {
     if (e.target === e.currentTarget){
       close();
+      wideClose(false)
     }
   }
 
@@ -54,7 +55,7 @@ export default function DeliveryDoneModal(props)  {
         </div>
 
         <div>
-            <Modal open={modalOpen}  close={closeModal} info={data} wideClose={wideClose}>
+            <Modal open={modalOpen}  close={closeModal} totalCost={totalCost} orderItems={orderItems} wideClose={wideClose}>
             </Modal>
         </div>
 

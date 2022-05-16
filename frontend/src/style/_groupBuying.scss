@@ -3,6 +3,8 @@
 .groupbuyinginList{
     overflow: auto;
     height: 600px;
+    box-sizing: border-box;
+    padding-bottom: 200px;
     >div{
         border-radius: 20px;
         @include flex-col;

@@ -3,7 +3,7 @@ import '../../style/modal/_Modal.scss'
 
 export default function DeliveryHistoryModal(props)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, info, wideClose } = props;
+  const { open, close, totalCost, orderItems, wideClose } = props;
 
   const onCloseModal = (e) => {
     if (e.target === e.currentTarget){
@@ -21,24 +21,24 @@ export default function DeliveryHistoryModal(props)  {
         <div style={{margin: "10%"}}>
 
           <div className="title">
-            {/* {info.price*infoNum}원 */}
+          {totalCost}원
           </div>
 
           <main>
 
             <div className="historyBox">
               <div>
-                <p>물품</p>
-                {/* <p>{info.productName}</p> */}
+                {/* <p>물품</p>
+                <p>{orderItems[0].itemContent}외{orderItems.length-1}</p> */}
               </div>
               <div>
                 <p>가격</p>
-                {/* <p>{info.price}원</p> */}
+                <p>{totalCost}원</p>
               </div>
-              {/* <div>
+              <div>
                 <p>수량</p>
-                <p>{infoNum}개</p>
-              </div> */}
+                <p>{orderItems.length}개</p>
+              </div>
               <hr/>
               <div>
                 <p>판매자</p>

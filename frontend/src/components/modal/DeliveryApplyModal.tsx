@@ -83,6 +83,7 @@ export default function DeliveryModal(props)  {
 
   const openModal=()=>{
     setModalOpen(true);
+    console.log(orderItems)
     axios.post("/order-service/",{
       boardId: info.id,
       itemDtoList: orderItems,
@@ -96,10 +97,7 @@ export default function DeliveryModal(props)  {
         },
     })
     .then((response:AxiosResponse) => {
-      console.log(response.data, "배달시키기");
-      openModal();
-      setOrderItems([]);
-      setTotalCost(0);
+      console.log(response.data, "Rmx")
     })
     .catch((error:AxiosError) => {
         console.log(error, "에러");
@@ -151,7 +149,7 @@ export default function DeliveryModal(props)  {
             </div>
 
             <div>
-              <Modal open={modalOpen}  close={closeModal} info={1} wideClose={wideClose}>
+              <Modal open={modalOpen}  close={closeModal} totalCost={totalCost} orderItems={orderItems} wideClose={wideClose}>
               </Modal>
               <OptionModal open={optionModalOpen}  close={optionCloseModal} info={propsOptiondata} addOrder={addOrder}>
               </OptionModal>
