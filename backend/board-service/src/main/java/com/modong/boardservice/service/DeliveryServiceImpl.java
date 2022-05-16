@@ -4,6 +4,7 @@ import com.modong.boardservice.client.CrawlingClient;
 import com.modong.boardservice.db.entity.Delivery;
 import com.modong.boardservice.db.repository.DeliveryRepository;
 import com.modong.boardservice.db.repository.DeliveryRepositoryImpl;
+import com.modong.boardservice.messagequeue.KafkaProducer;
 import com.modong.boardservice.request.DeliveryReqDTO;
 import com.modong.boardservice.response.DeliveryResDTO;
 import com.modong.boardservice.response.UserResDTO;
@@ -35,6 +36,9 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Autowired
     CrawlingClient crawlingClient;
 
+    @Autowired
+    KafkaProducer kafkaProducer;
+
     @Override
     public Delivery createDelivery(DeliveryReqDTO deliveryReqDTO) {
 
@@ -65,7 +69,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         Delivery delivery = deliveryRepository.getById(id);
 
         delivery.setCloseTime(LocalDateTime.now());
-
+        kafkaProducer.send("order-topci" , delivery.getId() ,"ORDER_DELIVERY" , delivery.getStoreName());
         return deliveryRepository.save(delivery);
     }
 

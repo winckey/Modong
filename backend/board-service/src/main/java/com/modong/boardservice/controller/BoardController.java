@@ -2,6 +2,7 @@ package com.modong.boardservice.controller;
 
 
 import com.modong.boardservice.db.entity.Comment;
+import com.modong.boardservice.messagequeue.KafkaProducer;
 import com.modong.boardservice.request.BoardReqDTO;
 import com.modong.boardservice.response.BoardResDTO;
 import com.modong.boardservice.response.BoardResDetailDTO;
@@ -36,6 +37,8 @@ public class BoardController {
     @Autowired
     UserClientService userClientService;
 
+    @Autowired
+    KafkaProducer kafkaProducer;
     //글 등록
     @PostMapping
     public ResponseEntity boardCreate(@RequestBody BoardReqDTO boardReqDTO) {
@@ -88,5 +91,9 @@ public class BoardController {
 
         return new ResponseEntity<>(boardService.myBoardListCalling(pageable,userId), HttpStatus.OK);
     }
+    @GetMapping("/kafka")
+    public void kafka() {
 
+        kafkaProducer.send("order-topic" , 1L ,"ORDER_DELIVERY" , "test-delivery");
+    }
 }
