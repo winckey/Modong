@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 
 @RequestMapping("/board-service/group-delivery")
 @RestController
@@ -22,8 +24,9 @@ public class DeliveryController {
     //글 등록
     @PostMapping
     public ResponseEntity deliveryCreate(@RequestBody DeliveryReqDTO deliveryReqDTO) {
-
-
+        // 시간 보정
+        LocalDateTime realTime = deliveryReqDTO.getCloseTime().plusHours(9);
+        deliveryReqDTO.setCloseTime(realTime);
         deliveryService.createDelivery(deliveryReqDTO);
 
         return new ResponseEntity<>("Success", HttpStatus.OK);
