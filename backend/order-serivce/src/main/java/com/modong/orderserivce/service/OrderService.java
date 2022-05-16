@@ -19,4 +19,5 @@ public interface OrderService {
 
     List<ReqOrderDto> getOrderByBoardId(Long boadId , OrderType orderType);
 
+    List<ReqOrderDto> deleteOrderByBoardId(Long boadId, OrderType orderType);
 }

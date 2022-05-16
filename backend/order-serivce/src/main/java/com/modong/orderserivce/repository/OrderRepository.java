@@ -23,4 +23,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findByBoardId(Long boadId);
 
     List<Order> findByBoardIdAndOrderType(Long boadId, OrderType orderType);
+
+    void deleteByBoardId(Long boardId);
 }

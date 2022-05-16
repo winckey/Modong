@@ -1,8 +1,11 @@
 package com.modong.orderserivce.controller;
 
+import com.modong.orderserivce.dto.ChatDto;
 import com.modong.orderserivce.dto.ReqIdOrderDto;
 import com.modong.orderserivce.dto.ReqOrderDto;
+import com.modong.orderserivce.dto.UserDto;
 import com.modong.orderserivce.entity.OrderType;
+import com.modong.orderserivce.messagequeue.KafkaProducer;
 import com.modong.orderserivce.service.OrderService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -14,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -24,7 +28,7 @@ import java.util.List;
 public class OrderController {
 
     private final OrderService orderService;
-
+    private final KafkaProducer kafkaProducer;
 
     @PostMapping("/")
     @Operation(summary = "주문 참가", description  = "주문 추가 ")
@@ -76,4 +80,26 @@ public class OrderController {
         return ResponseEntity.ok(reqOrderDtoList);
     }
 
+
+    @GetMapping("/test")
+    @Operation(summary = "주문 조회 글", description  = "주문 글 단위 조회")
+
+    public void test() {
+
+        ChatDto chatDto = new ChatDto();
+        chatDto.setRoomName("공구");
+        chatDto.setRoomType("공구");
+        List<UserDto> userDto = new ArrayList<>();
+        for (int i=0 ; i<5 ; i++)
+        {
+            userDto.add(new UserDto((long)i,"test" , "test"+i));
+        }
+        chatDto.setUserList(userDto);
+
+
+        kafkaProducer.send("chat-topic", chatDto);
+
+
+        return ;
+    }
 }
