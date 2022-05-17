@@ -73,4 +73,9 @@ public class KafkaConsumer {// 실제 토픽을 사용하는 컨슈머
 //        roomService.addRoomMember(roomId, req.getUserList());
 //        res = new CreateRoomRes(roomId);
     }
+
+    @KafkaListener(topics = "testTopic")// 어떤 토픽을 들을꺼냐
+    public void updateQty2(String kafkaMessage) {
+        log.info("Kafka Message: ->" + kafkaMessage);
+    }
 }
