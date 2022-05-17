@@ -46,7 +46,7 @@ function MyApplicationGroupBuying() {
 
     return (
         <div>
-            <div>
+            <div className='outBox'>
                 {myApplicationGroupBuyingData.map((data:groupBuyingRecordDataType, index:number)=>(
                     <div key={index} className='madeliverycard'>
                         <div>

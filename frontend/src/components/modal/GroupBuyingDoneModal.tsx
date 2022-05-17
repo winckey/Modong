@@ -55,7 +55,7 @@ export default function GroupBuyingDoneModal(props:any)  {
         </div>
 
         <div>
-            <Modal open={modalOpen}  close={closeModal} info={info} infoNum={infoNum} wideClose={wideClose}>
+            <Modal open={modalOpen}  close={closeModal} info={info} infoNum={infoNum} wideClose={wideClose} doneClose={close}>
             </Modal>
         </div>
 

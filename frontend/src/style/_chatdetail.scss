@@ -10,73 +10,80 @@
     .chatInnerBox {
         height: 73vh;
         overflow: scroll;
-    }
-}
 
-.chatDetailInnerCard{
-    @include flex-col;
-    padding: 1% 4% 1% 4%;
-    >div{
-        @include flex-col;
-        >div:nth-child(3){
-            align-self: flex-end;
-        }
-        >div:nth-child(2){
-            min-width: 200px;
-            padding: 8px;
+        .chatDetailInnerCard{
+            @include flex-col;
+            padding: 1% 4% 1% 4%;
+            >div{
+                @include flex-col;
+                >div:nth-child(3){
+                    align-self: flex-end;
+                }
+                >div:nth-child(2){
+                    min-width: 200px;
+                    padding: 8px;
+                    border-radius: 15px;
+                    margin: 5px;
+                    @include shadow;
+                }
+            }
+            .myChat{
+                align-self: flex-end;
+                div:first-child{
+                    text-align: end;
+                }
+                div:nth-child(2){
+                    background-color: white;
+                    text-align: end;
+                }
+            }
+            .otherChat{
+                align-self: flex-start;
+                div:first-child{
+                    text-align: start;
+                }
+                div:nth-child(2){
+                    background-color: $mint1;
+                    text-align: start;
+                }
+            }
+        };
+    };
+
+    .chatinput{
+        display: block;
+        >input{
+            position: fixed;
+            bottom: 11%;
+            left: 1%;
+            font-size: 18px;
+            border: none;
+            padding: 10px;
+            margin: 2%;
+            width: 74%;
+            margin-right: 10px;
             border-radius: 15px;
-            margin: 5px;
             @include shadow;
         }
-    }
-    .myChat{
-        align-self: flex-end;
-        div:first-child{
-            text-align: end;
-        }
-        div:nth-child(2){
-            background-color: white;
-            text-align: end;
-        }
-    }
-    .otherChat{
-        align-self: flex-start;
-        div:first-child{
-            text-align: start;
-        }
-        div:nth-child(2){
+        >div{
+            position: fixed;
+            bottom: 11%;
+            right: 2%;
+            font-size: 28px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50px;
+            width:50px;
+            color: $blue1;
             background-color: $mint1;
-            text-align: start;
         }
-    }
+    };
+};
+
+.chatInnerBox::-webkit-scrollbar {
+    display: none; 
 }
-.chatinput{
-    display: block;
-    >input{
-        position: fixed;
-        bottom: 11%;
-        left: 2%;
-        font-size: 18px;
-        border: none;
-        padding: 10px;
-        margin: 2%;
-        width: 78%;
-        margin-right: 10px;
-        border-radius: 15px;
-        @include shadow;
-    }
-    >div{
-        position: fixed;
-        bottom: 11%;
-        right: 2%;
-        font-size: 28px;
-        border-radius: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 50px;
-        width:50px;
-        color: $blue1;
-        background-color: $mint1;
-    }
-}
+
+

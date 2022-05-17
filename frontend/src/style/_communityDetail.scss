@@ -8,7 +8,8 @@
     .userdiv{
         display: flex;
         padding: 15px;
-        border-bottom: 1px solid $gray0;
+        // border-bottom: 1px solid $gray0;
+
         >div:nth-child(1){
             overflow: hidden;
             height: 50px;
@@ -29,7 +30,7 @@
                 text-align: start;
             }
             >div:nth-child(1){
-                font-size: 22px;
+                font-size: 18px;
             }
             >div:nth-child(2){
                 font-size: 16px;
@@ -39,10 +40,11 @@
     .contentsdiv{
         @include flex-col;
         @include noneA;
-        margin-top: 5px;
+        margin: 10px;
         padding: 5px;
         margin-bottom: 7px;
-        border-bottom: 1px solid $gray0;
+        border: 1px solid $gray0;
+        @include shadow;
         >div{
             padding: 10px 20px 10px 20px;
             box-sizing: border-box;
@@ -63,9 +65,10 @@
         }
     }
     .userdiv2{
+        font-size: 13px;
         display: flex;
-        margin: 1%;
-        padding: 4%;
+        margin: 2% 3%;
+        padding: 2%;
         justify-content: flex-start;
         position: relative;
         >div:nth-child(1){
@@ -81,17 +84,18 @@
             }
         }
         >div:nth-child(2){
+            
             @include flex-col;
             margin-left: 15px;
             >div{
                 text-align: start;
             }
             >div:nth-child(1){
-                font-size: 16px;
+                font-size: 15px;
             }
             >div:nth-child(2){
                 margin: 3px;
-                font-size: 22px;
+                font-size: 17px;
             }
         }
         >div:nth-child(3){
@@ -104,26 +108,33 @@
         background-color: $gray1;
         width: 100%;
         z-index: 10;
-        margin-top: 15px;
+        margin-top: 20px;
         padding-bottom: 5px;
         >input{
             font-size: 18px;
             border: none;
             padding: 10px;
-            width: 80%;
+            width: 75%;
+            margin: 5px;
             margin-right: 10px;
             border-radius: 15px;
             @include shadow;
         }
         >div{
-            font-size: 28px;
+            font-size: 25px;
             border-radius: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
-            width:11%;
+            width:10%;
             color: $blue1;
             background-color: $mint1;
+            margin: 3px;
+            @include shadow;
         }
     }
+}
+
+.communityDetailOutLine::-webkit-scrollbar {
+    display: none; 
 }

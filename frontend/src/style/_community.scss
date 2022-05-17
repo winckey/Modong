@@ -4,18 +4,16 @@
 
 .communityOutLine{
     overflow: auto;
-    @include flex-col;
-    align-items: center;
+    height: 82vh;
+    position: relative;
 
     .communityCard{
         @include flex-col;
-        @include noneA;
         @include card;
-        // height: 90%;
+        margin: 20px auto;
+ 
 
         div{
-
-            // padding: 2%;
 
             >div{
                 padding: 10px 20px 10px 20px;
@@ -58,4 +56,8 @@
     bottom: 110px;
     z-index:10;
     color: $blue1;
+}
+
+.communityOutLine::-webkit-scrollbar {
+    display: none; 
 }

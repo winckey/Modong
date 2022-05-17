@@ -3,7 +3,7 @@ import '../../style/modal/_Modal.scss'
 
 export default function DeliveryHistoryModal(props)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, totalCost, orderItems, wideClose } = props;
+  const { open, close, totalCost, orderItems, wideClose, doneClose } = props;
 
   const onCloseModal = (e) => {
     if (e.target === e.currentTarget){
@@ -51,7 +51,7 @@ export default function DeliveryHistoryModal(props)  {
               </div>
             </div>
 
-            <button onClick={()=>{close(); wideClose(false);}} >확인</button>
+            <button onClick={()=>{close(); wideClose(false); doneClose(false);}} >확인</button>
           </main>
 
         </div>

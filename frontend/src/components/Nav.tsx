@@ -50,8 +50,8 @@ function Nav() {
           <div>
             <FontAwesomeIcon onClick={()=>{handlealarmOpen()}} icon={faBell}/>
             {alarmOpen && <Alarm closealarm={handlealarmOpen}/>}
-            <div>
-              <img src={ require('../assets/dd.png') } alt="사진"/>
+            <div style={{cursor: "pointer"}}>
+              <Link to="/profile"><div><img src={ require('../assets/dd.png') } alt="사진"/></div></Link>
             </div>
           </div>
         </header>

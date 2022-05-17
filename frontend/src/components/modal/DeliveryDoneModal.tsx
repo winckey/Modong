@@ -55,7 +55,7 @@ export default function DeliveryDoneModal(props)  {
         </div>
 
         <div>
-            <Modal open={modalOpen}  close={closeModal} totalCost={totalCost} orderItems={orderItems} wideClose={wideClose}>
+            <Modal open={modalOpen}  close={closeModal} totalCost={totalCost} orderItems={orderItems} wideClose={wideClose} doneClose={close}>
             </Modal>
         </div>
 

@@ -60,15 +60,11 @@ function Profile() {
             
             <div>
                 
-                {/* <img onClick={()=>{fileInput.current.click()}} 
-                src={ user.image ? user.image:require('../../assets/pingu.png') } alt="프로필"/> */}
-
-                <img
+                <img onClick={()=>{fileInput.current.click()}} 
                 src={ user.image ? user.image:require('../../assets/pingu.png') } alt="프로필"/>
 
-
-                <input type='file' accept='image/*'
-                 name='file' ref={fileInput} onChange={handleProfileImage}></input>
+                {/* <input type='file' accept='image/*'
+                 name='file' ref={fileInput} onChange={handleProfileImage}></input> */}
 
                 {/* <button className="editButton" onClick={handleProfileImage}>+</button> */}
             </div>

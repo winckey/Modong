@@ -2,15 +2,17 @@
 
 .groupbuyinginList{
     overflow: auto;
-    height: 600px;
+    height: 82vh;
     box-sizing: border-box;
-    padding-bottom: 200px;
+    padding-bottom: 100px;
     >div{
-        border-radius: 20px;
+        border-radius: 15px;
         @include flex-col;
         background-color: $gray1;
         margin-top: 16px;
         overflow: hidden;
+        height: 150px;
+
         >div{
             text-overflow:ellipsis;
             overflow: hidden;
@@ -47,4 +49,8 @@
 }
 .shadow{
     @include shadow;
+}
+
+.groupbuyinginList::-webkit-scrollbar {
+    display: none; 
 }
