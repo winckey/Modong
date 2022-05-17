@@ -39,9 +39,9 @@ export interface userType{
     banned: boolean
     date_create: string
     deleted: boolean
-    dongDto: any
+    dongDto: dongDtotype
     id: number
-    image: dongDtotype
+    image: any
     nickname: string
     phone: string
     userId: string
@@ -77,4 +77,67 @@ export interface communityDataType  {
     modifiedDate: Date,
     commentNumber: number
 };
-  
+export interface menuDataType{
+    description: string,
+    name: string,
+    one_dish: boolean,
+    price: string,
+    section: string,
+    soldout: boolean,
+    subchoices: optionDataType[]
+};
+export interface optionDataType{
+    is_available_quantity: boolean,
+    mandatory: boolean,
+    multiple: boolean,
+    name: string,
+    subchoices: subOptionDataType[]
+};
+export interface subOptionDataType{
+    name: string,
+    price: string,
+    soldout: boolean
+}
+export interface subOptionApartDataType{
+    optionContent: string
+}
+export interface orderDataType{
+    itemContent: string,
+    options: subOptionApartDataType[],
+    price: number,
+    quantity: number
+}
+export interface deliveryRequestedDataType{
+    boardId: number,
+    itemDtoList: ordermenuDataType[],
+    orderType: string,
+    userId: number
+};
+export interface ordermenuDataType{
+    itemContent: string,
+    options: subOptionApartDataType[],
+    price: number,
+    quantity: number
+};
+export interface groupBuyingRecordDataType{
+    boardDto: mixedRecordDataType,
+    boardId: number,
+    itemDtoList: ordermenuDataType[],
+    orderType: string,
+    userDto: littleUserType,
+    userId: number
+}
+export interface littleUserType{
+    id: number,
+    image: any, 
+    nickname: string
+}
+export interface mixedRecordDataType{
+    boardId: number,
+    closeTime: Date,
+    pickupLocation: string,
+    price: string,
+    productName: string,
+    storeName: string,
+    url: string
+}

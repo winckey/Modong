@@ -15,7 +15,7 @@ export default function _DoneModal(props)  {
     }
   }
 
-  const [ modalOpen, setModalOpen] = React.useState(false);
+  const [ modalOpen, setModalOpen] = React.useState<boolean>(false);
   const openModal = () => {
     setModalOpen(true);
   };

@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import '../../style/modal/_Modal.scss';
 import axios,{AxiosResponse, AxiosError} from 'axios';
 
-export default function DeliveryRequestedModal(props)  {
+import { groupBuyingRecordDataType, subOptionApartDataType, littleUserType, ordermenuDataType } from "../actions/_interfaces.tsx";
+
+export default function DeliveryRequestedModal(props:any)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, info } = props;
-  const [deliveryList, setDeliveryList] = useState([]);
+  const [deliveryList, setDeliveryList] = useState<groupBuyingRecordDataType[]>([]);
   const [ userList, setUserList] = useState({});
   const [ menuList, setMenuList ] = useState({});
-  const [ totalcost, setTotalcost] = useState(0);
+  const [ totalcost, setTotalcost] = useState<number>(0);
   useEffect(()=>{
     if (info != null){
       getDeliveryList();
@@ -30,14 +32,14 @@ useEffect(()=>{
   if(deliveryList.length>0){
     var userLi = {};
     var menuLi = {};
-    deliveryList.map((delivery)=>{
+    deliveryList.map((delivery:groupBuyingRecordDataType)=>{
       var menucost = 0;
       var menucount = 0;
-      delivery.itemDtoList.map((menu) =>{
+      delivery.itemDtoList.map((menu:ordermenuDataType) =>{
         menucost += menu.price*menu.quantity
         menucount += menu.quantity
         var itemnametxt = menu.itemContent
-        menu.options.map((option)=>{
+        menu.options.map((option:subOptionApartDataType)=>{
           itemnametxt += "+"+option.optionContent
         })
         if (menuLi[itemnametxt]){

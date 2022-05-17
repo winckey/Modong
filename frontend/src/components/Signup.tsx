@@ -20,7 +20,7 @@ export default function SignUp(props) {
   let navigate = useNavigate();
 
   //이메일 중복 확인
-  const [isValid, setIsValid] = useState(false);
+  const [isValid, setIsValid] = useState<boolean>(false);
 
   const emailCheck = () => {
     console.log('emailCheck')

@@ -2,11 +2,13 @@ import axios,{AxiosResponse, AxiosError} from 'axios';
 import React, { useEffect, useState } from 'react';
 import '../../style/modal/_Modal.scss'
 
-export default function GroupBuyingRequestedModal(props)  {
+import {groupBuyingRecordDataType} from "../../actions/_interfaces.tsx"
+
+export default function GroupBuyingRequestedModal(props:any)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, info } = props;
-  const [groupApplicationList, setGroupApplicationList] = useState([]);
-  const [productTotalNum, setProductTotalNum] = useState(0);
+  const [groupApplicationList, setGroupApplicationList] = useState<groupBuyingRecordDataType[]>([]);
+  const [productTotalNum, setProductTotalNum] = useState<number>(0);
 
   useEffect(()=>{
     if (info != null){
@@ -14,9 +16,9 @@ export default function GroupBuyingRequestedModal(props)  {
     }
   }, [info]);
 
-  const sumTotalNum=(data:any)=>{
+  const sumTotalNum=(data:groupBuyingRecordDataType[])=>{
     let total = 0;
-    data.map((d:any)=>(
+    data.map((d:groupBuyingRecordDataType)=>(
       total+=d.itemDtoList[0].quantity
     ))
     setProductTotalNum(total)
@@ -56,7 +58,7 @@ export default function GroupBuyingRequestedModal(props)  {
 
           <main className='GroupBuyingReq'>
             <div>
-              {groupApplicationList.map((data, index) => (
+              {groupApplicationList.map((data:groupBuyingRecordDataType, index:number) => (
               <div key={data.id}>
                 <div>{data.userDto.nickname}</div>
                 <div>{info.price}원 x {data.itemDtoList[0].quantity}개</div>

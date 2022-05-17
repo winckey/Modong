@@ -11,10 +11,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import actionCreators from '../../../actions/actionCreators.tsx';
 import RootState from "../../../reducer/reducers.tsx"
 
+import { groupBuyingRecordDataType } from "../../../actions/_interfaces"
+
 function MyApplicationDelivery() {
-    const [ myApplicationDeliveryData, setMyApplicationDeliveryData ] = useState([]); 
-    const [ modalOpen, setModalOpen] = React.useState(false);
-    const [ propsModalData, setPropsModalData] = useState(null);
+    const [ myApplicationDeliveryData, setMyApplicationDeliveryData ] = useState<groupBuyingRecordDataType[]>([]); 
+    const [ modalOpen, setModalOpen] = React.useState<boolean>(false);
+    const [ propsModalData, setPropsModalData] = useState<groupBuyingRecordDataType>(null);
     const userId = useSelector((state:RootState) =>{
         return state.accounts.data.user.id
     })
@@ -31,7 +33,7 @@ function MyApplicationDelivery() {
     useEffect(()=>{
         getapplicationdata()
     },[])
-    const openModal = (d:any) => {
+    const openModal = (d:groupBuyingRecordDataType) => {
         setModalOpen(true);
         setPropsModalData(d);
     };
@@ -43,8 +45,8 @@ function MyApplicationDelivery() {
     return (
         <div>
             <div>
-                {myApplicationDeliveryData.map((d)=>(
-                    <div className='madeliverycard'>
+                {myApplicationDeliveryData.map((d:groupBuyingRecordDataType, index:number)=>(
+                    <div className='madeliverycard' key={index}>
                         <div>
                             <div>{d.boardDto.storeName}</div>
                             <div onClick={()=>{openModal(d)}}>

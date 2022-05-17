@@ -16,7 +16,7 @@ import RootState from "./reducer/reducers.tsx"
 import { chatListType } from "../actions/_interfaces.tsx"
 
 export default function Chat() {
-  const [ modalOpen, setModalOpen] = useState(false);
+  const [ modalOpen, setModalOpen] = useState<boolean>(false);
   const [ chatList, setChatList] = useState<chatListType[]>([]);
   const [ roomName, setRoomName] = useState<string>("기본");
 

@@ -4,8 +4,8 @@ import '../../style/modal/_Modal.scss'
 export default function _ApplyHistoryModal(props)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, info, infoNum } = props;
-  const [ totalsum, setTotalsum ] = useState(0);
-  const [ totalcount, setTotalcount ] = useState(0);
+  const [ totalsum, setTotalsum ] = useState<number>(0);
+  const [ totalcount, setTotalcount ] = useState<number>(0);
   const onCloseModal = (e) => {
     if (e.target === e.currentTarget){
       setTotalsum(0)

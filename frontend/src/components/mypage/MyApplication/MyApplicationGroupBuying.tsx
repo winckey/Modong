@@ -12,9 +12,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import actionCreators from '../../../actions/actionCreators.tsx';
 import RootState from "../../../reducer/reducers.tsx"
 
+import {groupBuyingRecordDataType} from "../../../actions/_interfaces.tsx"
+
 function MyApplicationGroupBuying() {
-    const [ myApplicationGroupBuyingData, setMyApplicationGroupBuyingData ] = useState([]);
-    const [ propsModalData, setPropsModalData] = useState(null);
+    const [ myApplicationGroupBuyingData, setMyApplicationGroupBuyingData ] = useState<groupBuyingRecordDataType[]>([]);
+    const [ propsModalData, setPropsModalData] = useState<groupBuyingRecordDataType>(null);
     const userId = useSelector((state:RootState) =>{
         return state.accounts.data.user.id
     })
@@ -33,7 +35,7 @@ function MyApplicationGroupBuying() {
         getapplicationdata()
     },[])
     const [ modalOpen, setModalOpen] = React.useState(false);
-    const openModal = (d:any) => {
+    const openModal = (d:groupBuyingRecordDataType) => {
         setModalOpen(true);
         setPropsModalData(d)
     };
@@ -45,7 +47,7 @@ function MyApplicationGroupBuying() {
     return (
         <div>
             <div>
-                {myApplicationGroupBuyingData.map((data, index)=>(
+                {myApplicationGroupBuyingData.map((data:groupBuyingRecordDataType, index:number)=>(
                     <div key={index} className='madeliverycard'>
                         <div>
                             <div>{data.boardDto.productName}</div>

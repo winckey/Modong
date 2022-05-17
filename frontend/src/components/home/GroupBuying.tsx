@@ -16,8 +16,8 @@ import { gropupbuyingmodalpropstype } from "../../actions/_interfaces.tsx"
 
 function GroupBuying() {
 
-    const [ modalOpen, setModalOpen] = useState(false);
-    const [ groupBuyingList, setGroupBuyingList ] = useState([]);
+    const [ modalOpen, setModalOpen] = useState<boolean>(false);
+    const [ groupBuyingList, setGroupBuyingList ] = useState<gropupbuyingmodalpropstype[]>([]);
     const [ modalprops, setModalprops] = useState<gropupbuyingmodalpropstype>(); 
 
 

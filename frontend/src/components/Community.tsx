@@ -38,8 +38,8 @@ function Community() {
   },[]);
   return (
     <div className='communityOutLine'>
-      {boardData.map((d:communitytype, index:number)=>(
-        <Link to='/communitydetail' onClick={()=>{handleCommunityPropsData(d)}} key={index} className='communityCard'>
+      {boardData.map((d:communitytype)=>(
+        <Link to='/communitydetail' onClick={()=>{handleCommunityPropsData(d)}} key={d.id} className='communityCard'>
           <div>
             <div>{d.description}</div>
             <div>{datetrans(d.createdDate.toString())}</div>

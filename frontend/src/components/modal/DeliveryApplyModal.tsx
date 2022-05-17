@@ -6,16 +6,18 @@ import OptionModal from '../modal/DeliveryOptionModal.tsx'
 
 import { useSelector , useDispatch } from "react-redux";
 import RootState from "../reducer/reducers.tsx"
-let txt = "";
-export default function DeliveryModal(props)  {
+
+import {menuDataType, subOptionApartDataType, orderDataType} from "../../actions/_interfaces.tsx"
+
+export default function DeliveryModal(props:any)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, info, wideClose } = props;
   const userId = useSelector<number>((state:RootState) => {
     return state.accounts.data.user.id
   })
-  const [ totalCost, setTotalCost] = useState(0);
-  const [ orderItems, setOrderItems] = useState([]);
-  const addOrder=(options, count, price, menuname)=>{
+  const [ totalCost, setTotalCost] = useState<number>(0);
+  const [ orderItems, setOrderItems] = useState<orderDataType[]>([]);
+  const addOrder=(options:subOptionApartDataType[], count:number, price:number, menuname:string)=>{
     setOrderItems(orderItems=>[...orderItems, {
       itemContent: menuname,
       options: options,
@@ -24,12 +26,12 @@ export default function DeliveryModal(props)  {
     }])
     setTotalCost(totalCost+price)
   }
-  const [ propsOptiondata, setPropsOptiondata ] = useState(null);
-  const handleOptionModalOpen =(menu:any)=>{
+  const [ propsOptiondata, setPropsOptiondata ] = useState<menuDataType>(null);
+  const handleOptionModalOpen =(menu:menuDataType)=>{
     setPropsOptiondata(menu)
     optionOpenModal();
   }
-  const [ menusli, setMenusLi ] = useState({});
+  const [ menusli, setMenusLi ] = useState<menuDataType>({});
   const onCloseModal = (e) => {
     if (e.target === e.currentTarget){
       close();
@@ -37,9 +39,9 @@ export default function DeliveryModal(props)  {
       setTotalCost(0);
     }
   }
-  const transmenu = (menus:any)=>{
+  const transmenu = (menus:menuDataType[])=>{
     var menu = {}
-    menus.map((m:any)=>{
+    menus.map((m:menuDataType)=>{
       if(m.section != "top_items"){
         if(menu[m.section]){
           menu[m.section].push(m)
@@ -61,8 +63,8 @@ export default function DeliveryModal(props)  {
       })
   }
   // 신청 완료 모달 
-  const [ modalOpen, setModalOpen] = useState(false);
-  const [ optionModalOpen, setOptionModalOpen] = useState(false);
+  const [ modalOpen, setModalOpen] = useState<boolean>(false);
+  const [ optionModalOpen, setOptionModalOpen] = useState<boolean>(false);
   useEffect(()=>{
     if(info != null){
       getCrawlingData();
@@ -121,7 +123,7 @@ export default function DeliveryModal(props)  {
               {Object.keys(menusli).length > 0 &&
               
                 <div className='menuList'>
-                  {Object.keys(menusli).map((key:any)=>(
+                  {Object.keys(menusli).map((key:string)=>(
                     <div key={key}>
                       <div className='menucategory'>{key}</div>
                       {menusli[key].map((li:any, index:number)=>(
@@ -129,14 +131,11 @@ export default function DeliveryModal(props)  {
                       ))}
                     </div>
                   ))}
-                    {/* {menus.map((li:any, index:number)=>(
-                      <div key={index}>{li.name}</div>
-                    ))} */}
                 </div>
                 }
                 <div className='totalmenus'>
                 {orderItems.map((order, index)=>(
-                    <div>
+                    <div key={index}>
                       <div>{order.itemContent}</div>
                       <div>{order.quantity}</div>
                     </div>

@@ -7,14 +7,13 @@ import axios, {AxiosResponse, AxiosError} from "axios";
 
 import {reversedatetrans} from '../../actions/TimeLapse.tsx'
 
-const data = [{name:"오나라식탁", arrivepoint:"sk뷰 아파트 106동 1101호", lefttime:10}, {name:"오나라2식탁", arrivepoint:"sk뷰 아파트 106동 1102호", lefttime:20}]
-const addressList = ['서울특별시', '부산광역시', '대구광역시','인천광역시','광주광역시','대전광역시']
+import { deliverytype } from '../../actions/_interfaces.tsx'
 
 function Delivery() {
-    const [ modalPropsData, setModalPropsData ] = useState(null);
-    const [ modalOpen, setModalOpen] = useState(false);
-    const [ deliveryList, setDeliveryList ] = useState([]);
-    const openModal = (d:any) => {
+    const [ modalPropsData, setModalPropsData ] = useState<deliverytype>(null);
+    const [ modalOpen, setModalOpen] = useState<boolean>(false);
+    const [ deliveryList, setDeliveryList ] = useState<deliverytype[]>([]);
+    const openModal = (d:deliverytype) => {
         setModalPropsData(d)
         setModalOpen(true);
       };
@@ -39,7 +38,7 @@ function Delivery() {
     return (
         <div>
             <div className='deliveryinList'>
-                {deliveryList.map((data) =>(
+                {deliveryList.map((data:deliverytype) =>(
                     <div className='shadow' key={data.id}>
                         <div>{data.storeName}</div>
                         <div>{data.pickupLocation}</div>
