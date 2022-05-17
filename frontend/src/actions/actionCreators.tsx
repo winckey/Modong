@@ -7,6 +7,7 @@ const SET_COMMUNITYPROPSDATA = "setCommunityPropsData"
 const SET_USER = "setUser"
 const SET_TOKEN = "setToken"
 const SET_REFRESHTOKEN = "setRefreshToken"
+const SET_FCMTOKEN ="setFcmToken"
 
 
 const SET_SIGU = "setSigu"
@@ -15,7 +16,6 @@ const SET_DONG = "setDong"
 const SET_DONGCODE = "setDongCode"
 
 
-const SET_GROUPBUYINGMODAL = "setGroupBuyingModal"
 
 // action method
 const setIsLogin = (isLogin:number) => {
@@ -61,6 +61,13 @@ const setRefreshToken = (refreshToken: string) => {
     }
 }
 
+const setFcmToken = (fcmToken: string) => {
+    return {
+        type: SET_FCMTOKEN,
+        fcmToken: fcmToken
+    }
+}
+
 //address
 const setSigu = (sigu: string) => {
     return {
@@ -91,14 +98,8 @@ const setDongCode = (dongCode: number) => {
 }
 
 
-// modal
 
-const setGroupBuyingModal = (groupBuyingModal: boolean) => {
-    return {
-        type: SET_GROUPBUYINGMODAL,
-        groupBuyingModal: groupBuyingModal
-    }
-}
+
 
 export const actionCreators = {
     setIsLogin,
@@ -107,11 +108,11 @@ export const actionCreators = {
     setUser,
     setToken,
     setRefreshToken,
+    setFcmToken,
     setSigu,
     setCity,
     setDong,
     setDongCode,
-    setGroupBuyingModal
 }
 
 // 중요! 하나로 묶어서 보내기. (default)

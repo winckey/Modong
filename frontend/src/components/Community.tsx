@@ -24,7 +24,7 @@ function Community() {
   const [boardData, setBoardData]=useState<communitytype[]>([]);
 
   const handlegetList = (pageNum:number) => {
-    axios.get(`/board-service?pageNumber=${pageNum}&pageSize=10`)
+    axios.get(`/board-service?pageNumber=${pageNum}&size=10`)
       .then((response:AxiosResponse) => {
         console.log(response.data, "from login");
         setBoardData(response.data.content)

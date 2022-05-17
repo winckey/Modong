@@ -3,7 +3,6 @@ import ischeck from "./ischeck.tsx";
 import propsData from "./propsData.tsx";
 import accounts from "./accounts.tsx"
 import address from "./address.tsx";
-import modal from "./modal.tsx";
 
 
 import { persistReducer } from "redux-persist";
@@ -30,7 +29,6 @@ export const rootReducer = combineReducers({
     propsData:propsData,
     accounts: accounts,
     address: address,
-    modal: modal
   });
   
 export type RootState = ReturnType<typeof rootReducer>
