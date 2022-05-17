@@ -4,6 +4,10 @@ services:
     image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
+    networks:
+      my-network:
+        ipv4_address: 172.18.0.100 # 도커 네트워크에서 안쓰고 있는 주소
+
   kafka:
     image: wurstmeister/kafka:latest
     ports:
@@ -20,3 +24,10 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      my-network:
+        ipv4_address: 172.18.0.101 # 도커 네트워크에서 안쓰고 있는 주소
+
+networks:
+  my-network:
+    name: modong-net # 주소 허용 대역 172.18.0.1 ~
