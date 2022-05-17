@@ -2,7 +2,8 @@ const accounts = (state = {
     data: {
         user: {},
         token: null,
-        refreshToken: null
+        refreshToken: null,
+        fcmToken: null
     }
 }, action:any) => {
     switch(action.type) {
@@ -32,6 +33,15 @@ const accounts = (state = {
                 data: {
                     ...state.data,
                     refreshToken: action.refreshToken
+                }
+            }
+
+        case "setFcmToken":
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    fcmToken: action.fcmToken
                 }
             }
         

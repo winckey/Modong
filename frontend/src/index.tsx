@@ -14,11 +14,28 @@ import { createStore } from "redux";
 
 import axios from 'axios';
 
+
+
+import { initializeApp } from "firebase/app";
+
+
 const {store, persistor} = configureStore();
 
 axios.defaults.withCredentials = false;
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+
+
+
+const config = {
+  apiKey: "AIzaSyBbWoqgMFm_g2anVBCpF34nvPeJCFeQyio",
+  authDomain: "titanium-scope-324708.firebaseapp.com",
+  projectId: "titanium-scope-324708",
+  storageBucket: "titanium-scope-324708.appspot.com",
+  messagingSenderId: "756560195251",
+  appId: "1:756560195251:web:028459f1a747a7f839cac6"
+};
+initializeApp(config);
 
 
 const rootNode = document.getElementById('root')
