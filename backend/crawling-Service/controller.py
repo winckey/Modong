@@ -3,7 +3,7 @@ import json
 from flask import request
 from flask_restx import Api, Resource, reqparse, Namespace, fields
 
-import redis
+import redis, datetime
 
 import yogiyo
 
@@ -39,7 +39,7 @@ class Crawling(Resource):
         menus = json.dumps(server.menu_information(board_id), ensure_ascii=False).encode('utf-8')
 
         # Redis 저장 - 키값(board_id)
-        rd.set(board_id, menus)
+        rd.set(board_id, menus, datetime.timedelta(seconds=5))
 
         return menus.decode('utf-8')
 
