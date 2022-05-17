@@ -44,7 +44,7 @@ function MyApplicationDelivery() {
 
     return (
         <div>
-            <div>
+            <div className='outBox'>
                 {myApplicationDeliveryData.map((d:groupBuyingRecordDataType, index:number)=>(
                     <div className='madeliverycard' key={index}>
                         <div>

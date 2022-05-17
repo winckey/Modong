@@ -5,34 +5,40 @@
     position: relative;
     height: 82vh;
     overflow: auto;
-}
 
-.chatOutLine{
-    @include flex-col;
-    align-items: center;
+    .chatOutLine{
+        @include flex-col;
+        align-items: center;
+        
     
+        .chatCard{
+            @include card;
+           
+            .leftChattxt{
+                font-size: 22px;
+                @include absolute-loc($top:10px, $left:20px);
+            }
+            .rightChattxt{
+                font-size: 16px;
+                @include absolute-loc($right:20px, $bottom:10px);
+            }
+            .rightChatExitIcon{
+                font-size: 24px;
+                @include absolute-loc($top:14px, $right:14px);
+            }
+            .leftChatDisplayIcon{
+                font-size: 90px;
+                left:-20px;
+                bottom:-14px;
+                @include absolute-loc($bottom:-14px, $left:-20px);
+                color:$mint1;
+            }
+        }
+    };
 
-    .chatCard{
-        @include card;
-       
-        .leftChattxt{
-            font-size: 22px;
-            @include absolute-loc($top:10px, $left:20px);
-        }
-        .rightChattxt{
-            font-size: 16px;
-            @include absolute-loc($right:20px, $bottom:10px);
-        }
-        .rightChatExitIcon{
-            font-size: 24px;
-            @include absolute-loc($top:14px, $right:14px);
-        }
-        .leftChatDisplayIcon{
-            font-size: 90px;
-            left:-20px;
-            bottom:-14px;
-            @include absolute-loc($bottom:-14px, $left:-20px);
-            color:$mint1;
-        }
-    }
+};
+
+
+.outerBox::-webkit-scrollbar {
+    display: none; 
 }

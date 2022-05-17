@@ -2,19 +2,22 @@
 
 .deliveryinList{
     overflow: auto;
-    height: 600px;
+    height: 82vh;
     box-sizing: border-box;
-    padding-bottom: 200px;
+    padding-bottom: 100px;
+    
     >div{
-        border-radius: 20px;
+        border-radius: 15px;
         @include flex-col;
         background-color: $gray1;
         margin-top: 16px;
         overflow: hidden;
+        height: 150px;
+
         >div{
             text-overflow:ellipsis;
             overflow: hidden;
-            margin: 10px 15px 10px 15px;
+            margin: 5px 15px 5px 15px;
             white-space:nowrap;
             max-width: 50%;
         }
@@ -46,4 +49,9 @@
 }
 .shadow{
     @include shadow;
+}
+
+
+.deliveryinList::-webkit-scrollbar {
+    display: none; 
 }

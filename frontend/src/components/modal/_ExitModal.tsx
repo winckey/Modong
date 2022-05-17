@@ -32,7 +32,7 @@ export default function ExitModal(props:any)  {
               <header>
 
                   <div>{info.productName ? info.productName: info.storeName} 접수를</div>
-                  <div>종료하시겠어요????????????Exit!</div>
+                  <div>삭제하겠어요?</div>
               </header>
 
           </div>

@@ -66,6 +66,7 @@ function CommunityDetail() {
             .then((response:AxiosResponse) => {
                 console.log(response.data, "글쓰기");
                 handleUpdatedata();
+                setReplytxt("");
             })
             .catch((error:AxiosError) => {
                 console.log(error, "에러");
@@ -88,6 +89,13 @@ function CommunityDetail() {
     useEffect(()=>{
         handleUpdatedata();
     }, [])
+
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            handleReplySubmit();
+        }
+    };
+
     return (
         <div className='communityDetailOutLine'>
             <div className='userdiv'>
@@ -103,7 +111,8 @@ function CommunityDetail() {
                 {/* <div>{communityPropsData.commutag.join(", ")}</div> */}
             </div>
             <div className='replywrite'>
-                <input onChange={handleReplytxt} value={replytxt} placeholder="댓글을 입력해주세요" type="text"/>
+                <input onChange={handleReplytxt} value={replytxt} onKeyPress={handleKeyPress} 
+                placeholder="댓글을 입력해주세요" type="text"/>
                 <div onClick={handleReplySubmit}><FontAwesomeIcon icon={faPen}/></div>
             </div>
             {replyDatas.map((reData)=>(
