@@ -37,7 +37,7 @@ export default function GroupBuyingRequestedModal(props:any)  {
       })
   };
 
-  const onCloseModal = (e) => {
+  const onCloseModal = (e:any) => {
     if (e.target === e.currentTarget){
       close();
     }

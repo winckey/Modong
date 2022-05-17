@@ -11,15 +11,15 @@ export default function DeliveryDoneModal(props:any)  {
   const [ totalCost, setTotalCost] = useState<number>(0);
   const [ count, setCount] = useState<number>(0);
   const { open, close, info, addOrder } = props;
-  const onCloseModal = (e) => {
+  const onCloseModal = (e:any) => {
     if (e.target === e.currentTarget){
       close();
     }
   }
-  const handleCountChange=(e)=>{
+  const handleCountChange=(e:any)=>{
     setCount(e.target.value)
   }
-  const addmenu = (e) => {
+  const addmenu = (e:any) => {
     if (e.target === e.currentTarget){
       if (info != null){
         info.subchoices.map((d:menuDataType)=>{

@@ -4,11 +4,11 @@ import { useDispatch } from 'react-redux';
 import actionCreators from '../../actions/actionCreators.tsx';
 
 
-export default function _AddressDetailModal(props)  {
+export default function _AddressDetailModal(props:any)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, header, sigu, city, dong, mode } = props;
 
-  const [nowList, setNowList] = useState([]);
+  const [nowList, setNowList] = useState<any>([]);
   const dispatch = useDispatch();
 
   useEffect(()=>{
@@ -23,14 +23,14 @@ export default function _AddressDetailModal(props)  {
 
 
 
-  const onCloseModal = (e) => {
+  const onCloseModal = (e:React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget){
       close();
     }
   }
 
 
-  const selectRegion = (e) => {
+  const selectRegion = (e:any) => {
 
     if (mode === 0) {
       dispatch(actionCreators.setSigu(e.target.innerText));

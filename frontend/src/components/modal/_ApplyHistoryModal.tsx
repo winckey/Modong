@@ -1,11 +1,11 @@
 import React from 'react';
 import '../../style/modal/_Modal.scss'
 
-export default function _ApplyHistoryModal(props)  {
+export default function _ApplyHistoryModal(props:any)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, info, infoNum, wideClose, doneClose } = props;
 
-  const onCloseModal = (e) => {
+  const onCloseModal = (e:any) => {
     if (e.target === e.currentTarget){
       close();
     }

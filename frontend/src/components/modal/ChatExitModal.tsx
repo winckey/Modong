@@ -6,12 +6,12 @@ import axios, { AxiosResponse, AxiosError } from 'axios';
 
 import { chatListType } from "../../actions/_interfaces.tsx"
 
-export default function ChatExitModal(props)  {
+export default function ChatExitModal(props:any)  {
 
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, name, roomId, userId } = props;
 
-  const onCloseModal = (e) => {
+  const onCloseModal = (e:any) => {
     if (e.target === e.currentTarget){
       close();
     }
@@ -57,7 +57,7 @@ export default function ChatExitModal(props)  {
           </div>
 
           <main>
-            <button onClick={(event)=>{event.preventDefault(); handleDelChatRoom();}} >확인</button>
+            <button onClick={(e:any)=>{e.preventDefault(); handleDelChatRoom();}} >확인</button>
           </main>
 
         </div>

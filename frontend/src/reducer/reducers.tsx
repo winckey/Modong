@@ -14,11 +14,11 @@ import { PersistGate } from "redux-persist/integration/react";
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore } from "redux"; 
 
-
 const persistConfig = {
   key: "root",
   // localStorage에 저장합니다.
   storage,
+  blacklist: ["address"]
   // auth, board, studio 3개의 reducer 중에 auth reducer만 localstorage에 저장합니다.
   // blacklist -> 그것만 제외합니다
   // whitelist:["ischeck"]

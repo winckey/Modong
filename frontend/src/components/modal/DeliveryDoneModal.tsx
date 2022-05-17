@@ -5,11 +5,11 @@ import { faCircleExclamation} from "@fortawesome/free-solid-svg-icons";
 import Modal from '../modal/DeliveryHistoryModal.tsx'
 
 
-export default function DeliveryDoneModal(props)  {
+export default function DeliveryDoneModal(props:any)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, totalCost, orderItems, wideClose } = props;
   const data =["dd"]
-  const onCloseModal = (e) => {
+  const onCloseModal = (e:any) => {
     if (e.target === e.currentTarget){
       close();
       wideClose(false)

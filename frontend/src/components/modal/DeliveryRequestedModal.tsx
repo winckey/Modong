@@ -8,8 +8,8 @@ export default function DeliveryRequestedModal(props:any)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, info } = props;
   const [deliveryList, setDeliveryList] = useState<groupBuyingRecordDataType[]>([]);
-  const [ userList, setUserList] = useState({});
-  const [ menuList, setMenuList ] = useState({});
+  const [ userList, setUserList] = useState<any>({});
+  const [ menuList, setMenuList ] = useState<any>({});
   const [ totalcost, setTotalcost] = useState<number>(0);
   useEffect(()=>{
     if (info != null){
@@ -60,7 +60,7 @@ useEffect(()=>{
     setTotalcost(totalcos);
   }
 }, [deliveryList])
-  const onCloseModal = (e) => {
+  const onCloseModal = (e:any) => {
     if (e.target === e.currentTarget){
       close();
     }

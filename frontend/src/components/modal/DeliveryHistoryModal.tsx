@@ -1,11 +1,11 @@
 import React from 'react';
 import '../../style/modal/_Modal.scss'
 
-export default function DeliveryHistoryModal(props)  {
+export default function DeliveryHistoryModal(props:any)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, totalCost, orderItems, wideClose, doneClose } = props;
 
-  const onCloseModal = (e) => {
+  const onCloseModal = (e:any) => {
     if (e.target === e.currentTarget){
       close();
     }

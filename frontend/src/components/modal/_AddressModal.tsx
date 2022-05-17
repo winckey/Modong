@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import '../../style/_base.scss'
 
+import Rootstate from '../../reducer/reducers.tsx'
 
 export default function AddressModal() {
   const [open, setOpen] = React.useState<boolean>(false);

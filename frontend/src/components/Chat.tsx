@@ -57,7 +57,7 @@ export default function Chat() {
             state={{roomId: d.roomId, name:d.name, type:d.type, numberUser: d.numberUser, userList: d.userList}}>
               <div className='leftChattxt'>{d.name}_{d.roomId}번방</div>
                 <FontAwesomeIcon  className='rightChatExitIcon' icon={faRightToBracket} 
-                onClick={(event)=>{event.preventDefault(); openModal(d.name)}}/>
+                onClick={(e:any)=>{e.preventDefault(); openModal(d.name)}}/>
 
                 <>
                   <Modal open={modalOpen}  close={closeModal} name={roomName} 

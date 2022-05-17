@@ -14,7 +14,7 @@ import Modal from './_AddressModal.tsx'
 
 export default function ProfileEditModal() {
   //모달 열고, 닫기
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState<boolean>(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -38,24 +38,30 @@ export default function ProfileEditModal() {
   });
 
 
-  const [state, setState] = useState({
+  const [state, setState] = useState<any>({
     nickname: user.nickname,
     userId: user.userId,
     phone: user.phone,
   });
 
 
-  const handleChangeState = (e) => {
+  const handleChangeState = (e:any) => {
     setState({
       ...state,
       [e.target.name]: e.target.value
     })
   }
-
-
+  const isPhonenum=(phonenum:string)=>{
+    var regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+    if (phonenum.match(regPhone) != null){
+      return false;
+    }else{
+      return true;
+    }
+  }
 
   // 프로필 수정 
-  const handleProfileEdit = (event) => {
+  const handleProfileEdit = (e:any) => {
     handleClose();
     const data = {
       ...user,
@@ -66,26 +72,32 @@ export default function ProfileEditModal() {
       
     };
 
-    
-    axios.put("/user-service/users",
-    {
-      dongcode: dongCodeSelected,
-      id: user.id,
-      nickname: state.nickname,
-      phone: state.phone,
-      userId: state.userId
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      }
-    }).then((res)=> {
-      console.log("put요청 성공", res);
-      dispatch(actionCreators.setUser(data));
-      console.log(user)
-    }).catch((err)=> {
-      console.log("put 요청 실패", err);
-    })
+    if(state.nickname === ""){
+      alert("이름을 입력해주세요");
+    }else if(isPhonenum(isPhonenum.toString())){
+      alert("전화 번호를 확인해주세요");
+    }else{
+      axios.put("/user-service/users",
+      {
+        dongcode: dongCodeSelected,
+        id: user.id,
+        nickname: state.nickname,
+        phone: state.phone,
+        userId: state.userId
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        }
+      }).then((res)=> {
+        console.log("put요청 성공", res);
+        dispatch(actionCreators.setUser(data));
+        console.log(user)
+      }).catch((err)=> {
+        alert("오류입니다 관리자와 이야기 해주세요")
+        console.log("put 요청 실패", err);
+      })
+    }
   };
 
   return (
