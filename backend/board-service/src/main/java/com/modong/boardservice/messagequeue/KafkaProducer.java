@@ -39,6 +39,16 @@ public class KafkaProducer {
         log.info("Kafka Producer sent data from the Order microservice: " + boardId.toString());
     }
 
+    public void send(String topic) {
+        //topic 보낼곳
+        //orderDto 내용
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonInString = "test";
+
+
+        kafkaTemplate.send(topic,jsonInString);
+        log.info("Kafka Producer sent data from the Order microservice: " + jsonInString);
+    }
     @Getter
     @Setter
     class Delete {
