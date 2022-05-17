@@ -22,8 +22,8 @@ function MyDelivery() {
         return state.accounts.data.user
     })
     const [ myDeliveryList, setMyDeliveryList ] = useState<deliverytype[]>([]);
-    const [ modalOpen, setModalOpen] = React.useState(false);
-    const [ closeModalOpen, setCloseModalOpen] = React.useState(false);
+    const [ modalOpen, setModalOpen] = React.useState<boolean>(false);
+    const [ closeModalOpen, setCloseModalOpen] = React.useState<boolean>(false);
     const [ exitModalOpen, setExitModalOpen] = React.useState<boolean>(false);
     const [ modalPropsData, setModalPropsData] = React.useState<deliverytype>(null);
 

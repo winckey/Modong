@@ -32,7 +32,7 @@ export default function DeliveryModal(props:any)  {
     optionOpenModal();
   }
   const [ menusli, setMenusLi ] = useState<menuDataType>({});
-  const onCloseModal = (e) => {
+  const onCloseModal = (e:any) => {
     if (e.target === e.currentTarget){
       close();
       setOrderItems([]);
@@ -84,26 +84,30 @@ export default function DeliveryModal(props:any)  {
   };
 
   const openModal=()=>{
-    setModalOpen(true);
-    console.log(orderItems)
-    axios.post("/order-service/",{
-      boardId: info.id,
-      itemDtoList: orderItems,
-      orderType: "ORDER_DELIVERY",
-      userId: userId
-    },
-    {
-        headers: {
-            "Content-type": "application/json",
-            Accept: "*/*",
-        },
-    })
-    .then((response:AxiosResponse) => {
-      console.log(response.data, "Rmx")
-    })
-    .catch((error:AxiosError) => {
-        console.log(error, "에러");
-    })
+    if(orderItems.length === 0){
+      alert("메뉴를 선택해주세요");
+    }else{
+      axios.post("/order-service/",{
+        boardId: info.id,
+        itemDtoList: orderItems,
+        orderType: "ORDER_DELIVERY",
+        userId: userId
+      },
+      {
+          headers: {
+              "Content-type": "application/json",
+              Accept: "*/*",
+          },
+      })
+      .then((response:AxiosResponse) => {
+        setModalOpen(true);
+        console.log(response.data, "Rmx")
+      })
+      .catch((error:AxiosError) => {
+          console.log(error, "에러");
+          alert("오류입니다 관리자와 이야기해주세요")
+      })
+    }
   }
 
   return (

@@ -59,7 +59,7 @@ function ChatDetail() {
     })
 
 
-    const [state, setState] = useState({
+    const [state, setState] = useState<any>({
         loading: false,
         roomId: roomId,
         height: null,
@@ -120,29 +120,36 @@ function ChatDetail() {
 
 
     const sendMessage = () => {
-        axios.post("chat-service/chat/message",
-            {
-                message: chattxt,
-                roomId: state.roomId,
-                userId: userId
-            },
-            {
-                headers: {
-                    "Content-type": "application/json",
-                    Accept: "*/*",
+        if (chattxt === ""){
+            alert("메시지를 입력하세요")
+        }else{
+            axios.post("chat-service/chat/message",
+                {
+                    message: chattxt,
+                    roomId: state.roomId,
+                    userId: userId
                 },
-            }).then((res)=>{
-                console.log("send message", res);
-                const newMessage: dataProps = {message: chattxt, roomId: state.roomId , userId: userId, userName: userName, date: new Date()};
-                stomp.send("/pub/chat/chatting",{},
-                JSON.stringify(newMessage));
-                setChattxt(null);
-            })
+                {
+                    headers: {
+                        "Content-type": "application/json",
+                        Accept: "*/*",
+                    },
+                }).then((res)=>{
+                    console.log("send message", res);
+                    const newMessage: dataProps = {message: chattxt, roomId: state.roomId , userId: userId, userName: userName, date: new Date()};
+                    stomp.send("/pub/chat/chatting",{},
+                    JSON.stringify(newMessage));
+                    setChattxt("");
+                })
+                .catch((error)=>{
+                    alert("오류입니다 관리자에게 문의 해주세요")
+                })
+            }
     };
 
 
-    const handleKeyPress = (event) => {
-        if (event.key === 'Enter') {
+    const handleKeyPress = (e:any) => {
+        if (e.key === 'Enter') {
             sendMessage();
         }
     };

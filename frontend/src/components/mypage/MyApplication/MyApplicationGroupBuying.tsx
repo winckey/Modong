@@ -34,7 +34,7 @@ function MyApplicationGroupBuying() {
     useEffect(()=>{
         getapplicationdata()
     },[])
-    const [ modalOpen, setModalOpen] = React.useState(false);
+    const [ modalOpen, setModalOpen] = React.useState<boolean>(false);
     const openModal = (d:groupBuyingRecordDataType) => {
         setModalOpen(true);
         setPropsModalData(d)

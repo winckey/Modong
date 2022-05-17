@@ -15,32 +15,32 @@ import TextField from '@mui/material/TextField';
 export default function GroupBuyingApplyModal(props:any)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, info, wideClose } = props;
-  const [productNum, setProductNum] = useState<number>();
+  const [productNum, setProductNum] = useState<number>(0);
   const userId = useSelector<number>((state:RootState) => {
     return state.accounts.data.user.id
   })
 
 
-  const onCloseModal = (e) => {
+  const onCloseModal = (e:any) => {
     if (e.target === e.currentTarget){
       close();
     }
   }
 
-  const handleChangeProductNum=(e)=>{
+  const handleChangeProductNum=(e:any)=>{
     setProductNum(e.target.value);
     console.log("묯개", productNum);
     console.log(info);
   }
   // 신청 완료 모달 
-  const [ modalOpen, setModalOpen] = useState(false);
+  const [ modalOpen, setModalOpen] = useState<boolean>(false);
 
   const openModal = () => {
-
     if (productNum){
-      // setModalOpen(true);
-
-      axios.post("/order-service/",{
+      if(productNum === 0){
+        alert("갯수를 확인해주세요!")
+      }else{
+        axios.post("/order-service/",{
           boardId: info.id,
           itemDtoList: [
             {
@@ -64,9 +64,10 @@ export default function GroupBuyingApplyModal(props:any)  {
           setModalOpen(true);
         })
         .catch((error:AxiosError) => {
+          alert("오류입니다 관리자와 이야기 해주세요")
           console.log(error, "공구 신청 에러~~");
         })
-
+      }
     }
 
   };

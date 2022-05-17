@@ -48,25 +48,30 @@ function CommunityDetail() {
         })
     }
     const handleReplySubmit=()=>{
-        axios.post(`/board-service/comment`, {
-            boardId: communityPropsData.id,
-            description: replytxt,
-            id: 0,
-            userId: userId
-        },
-        {
-            headers: {
-                "Content-type": "application/json",
-                Accept: "*/*",
+        if (replytxt === ""){
+            alert("메시지를 입력해주세요!")
+        }else{
+            axios.post(`/board-service/comment`, {
+                boardId: communityPropsData.id,
+                description: replytxt,
+                id: 0,
+                userId: userId
             },
-        })
-        .then((response:AxiosResponse) => {
-            console.log(response.data, "글쓰기");
-            handleUpdatedata();
-        })
-        .catch((error:AxiosError) => {
-            console.log(error, "에러");
-        })
+            {
+                headers: {
+                    "Content-type": "application/json",
+                    Accept: "*/*",
+                },
+            })
+            .then((response:AxiosResponse) => {
+                console.log(response.data, "글쓰기");
+                handleUpdatedata();
+            })
+            .catch((error:AxiosError) => {
+                console.log(error, "에러");
+                alert("에러입니다 관리자와 이야기 해주세요")
+            })
+        }
     }
     const handleUpdatedata=()=>{
         axios.get(`/board-service/${communityPropsData.id}/${communityPropsData.userId}`)

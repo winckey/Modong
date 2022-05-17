@@ -19,7 +19,7 @@ function MyCommunity() {
     const userId = useSelector((state:RootState) =>{
         return state.accounts.data.user.id
     })
-    const[ myCommunityList, setMyCommunityList ] = useState([]);
+    const[ myCommunityList, setMyCommunityList ] = useState<communitytype[]>([]);
 
     const handleCommunityPropsData=(d:communitytype)=>{
         dispatch(actionCreators.setCommunityPropsData(d));

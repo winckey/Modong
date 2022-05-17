@@ -8,6 +8,7 @@ import "../style/_mypage.scss"
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
+import Rootstate from '../reducer/reducers.tsx'
 
 function Mypage() {
 

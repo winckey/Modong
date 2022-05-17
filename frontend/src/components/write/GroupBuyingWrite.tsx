@@ -14,6 +14,7 @@ import axios, {AxiosResponse, AxiosError } from 'axios';
 
 import RootState from "../../reducer/reducers.tsx"
 import actionCreators from "../../actions/actionCreators.tsx"
+
 function GroupBuyingWrite() {
     let navigate = useNavigate();
     const dispatch = useDispatch();
@@ -38,30 +39,43 @@ function GroupBuyingWrite() {
         return state.accounts.data.user.id
     })
     const handleSubmit=()=>{
-        axios.post('/board-service/group-purchase',
-            {
-                closeTime: GroupBuyingTime,
-                pickupLocation: productLoc,
-                price:productCost,
-                productName: productName,
-                url: productURL,
-                userId: userId
-            },
-            {
-                headers: {
-                    "Content-type": "application/json",
-                    Accept: "*/*",
+        if(GroupBuyingTime<=new Date()){
+            alert("마감시간을 다시 지정해주세요")
+        }else if(productLoc === ""){
+            alert("위치를 정확히 다시 입력해주세요")
+        }else if(productName === ""){
+            alert("물건 이름을 정확히 다시 입력해주세요")
+        }else if(productURL === ""){
+            alert("url을 정확히 다시 입력해주세요")
+        }else if(+productCost == NaN || productCost === ""){
+            alert("가격을 정확히 다시 입력해주세요")
+        }else{
+            axios.post('/board-service/group-purchase',
+                {
+                    closeTime: GroupBuyingTime,
+                    pickupLocation: productLoc,
+                    price:productCost,
+                    productName: productName,
+                    url: productURL,
+                    userId: userId
                 },
-            }
-          )
-          .then((response:AxiosResponse) => {
-            console.log(response.data, "배달 생성");
-            dispatch(actionCreators.setFooterSelected(1));
-            navigate("/");
-          })
-          .catch((error:AxiosError) => {
-            console.log(error);
-          })
+                {
+                    headers: {
+                        "Content-type": "application/json",
+                        Accept: "*/*",
+                    },
+                }
+            )
+            .then((response:AxiosResponse) => {
+                console.log(response.data, "배달 생성");
+                dispatch(actionCreators.setFooterSelected(1));
+                navigate("/");
+            })
+            .catch((error:AxiosError) => {
+                alert("오류입니다 관리자와 이야기 해주세요")
+                console.log(error);
+            })
+        }
     }
     return (
         <div className='gboutLine'>
@@ -95,7 +109,7 @@ function GroupBuyingWrite() {
             />
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
-                    renderInput={(props) => <TextField fullWidth {...props} />}
+                    renderInput={(props:any) => <TextField fullWidth {...props} />}
                     label="마감시간"
                     value={GroupBuyingTime}
                     onChange={(newValue) => {

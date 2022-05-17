@@ -11,12 +11,18 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from "axios";
 import Modal from './modal/_AddressModal.tsx'
 
+import { useDispatch } from 'react-redux';
+import actionCreators from '../actions/actionCreators.tsx';
+
 import { useSelector } from 'react-redux';
-import '../style/_base.scss'
+import '../style/_base.scss';
+
+import Rootstate from '../reducer/reducers.tsx'
+
 const theme = createTheme();
 
-export default function SignUp(props) {
-
+export default function SignUp(props:any) {
+  const dispatch = useDispatch();
   let navigate = useNavigate();
 
   //이메일 중복 확인
@@ -31,11 +37,34 @@ export default function SignUp(props) {
   const dongCodeSelected = useSelector((state:Rootstate)=> {
     return state.address.data.dongCode
   });
-
+  const isEmail =(email:string)=>{
+    var reg_email = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    if (email.match(reg_email) != null){
+      return false;
+    }else{
+      return true;
+    }
+  }
+  const isPasssword=(password:string)=>{
+    var regPass =  /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/;
+    if (password.match(regPass) != null){
+      return false;
+    }else{
+      return true;
+    }
+  }
+  const isPhonenum=(phonenum:string)=>{
+    var regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+    if (phonenum.match(regPhone) != null){
+      return false;
+    }else{
+      return true;
+    }
+  }
   // 가입하기 버튼
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const formdata = new FormData(event.currentTarget);
+  const handleSubmit = (e:any) => {
+    e.preventDefault();
+    const formdata = new FormData(e.currentTarget);
     const data = {
       userId:formdata.get("email"),
       userPw:formdata.get("password"),
@@ -43,11 +72,20 @@ export default function SignUp(props) {
       phone: formdata.get("phone"),
       // dongcode: "2617010400",
       dongcode: parseInt(dongCodeSelected)
-      
     }
-
-    if (formdata.get("password")===formdata.get("passwordConfirmation")){
-
+    if (isEmail(formdata.get("email").toString()) || formdata.get("email") === ""){
+      alert("이메일 형식이 다릅니다 다시 확인해주세요")
+    }else if(isPasssword(formdata.get("password").toString())){
+      alert("비밀번호를 입력해주세요 (8자에서 25자 이내 숫자+영문을 섞어주세요)")
+    }else if(formdata.get("password") !== formdata.get("passwordConfirmation")){
+      alert("비밀번호가 다릅니다 다시 확인해주세요")
+    }else if(formdata.get("Name") === ""){
+      alert("닉네임을 입력해 주세요")
+    }else if(isPhonenum(formdata.get("phone").toString())){
+      alert("전화번호를 확인해주세요")
+    }else if(dongCodeSelected == null){
+      alert("동 선택을 확인해주세요")
+    }else{
       console.log(data);
       axios
         .post("/user-service/register", data, {
@@ -57,17 +95,16 @@ export default function SignUp(props) {
           },
         })
         .then((response) => {
-          console.log(response)
-          // window.location.href="http://k6e102.p.ssafy.io:8000/"
+          console.log(response);
+          dispatch(actionCreators.setSigu(null));
+          dispatch(actionCreators.setCity(null));
+          dispatch(actionCreators.setDong(null));
           navigate("/");
         })
-    } else {
-      alert("틀렸슈")
-    }
-      // .catch((response) => {
-      //   console.log("Error!");
-      //   console.log(response);
-      // });
+        .catch((error)=>{
+          alert("오류입니다 관리자와 이야기 해주세요")
+        })
+      }
 
   };
 

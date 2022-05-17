@@ -19,27 +19,32 @@ function CommunityWrite() {
         return state.accounts.data.user.id
       })
     const handlecreatecommunity = () => {
-        axios.post('/board-service',
-            {
-                description: contents,
-                id:0,
-                userId: userId
-            },
-            {
-                headers: {
-                    "Content-type": "application/json",
-                    Accept: "*/*",
+        if(contents === ""){
+            alert("메시지를 입력해주세요")
+        }else{
+            axios.post('/board-service',
+                {
+                    description: contents,
+                    id:0,
+                    userId: userId
                 },
-            }
-          )
-          .then((response:AxiosResponse) => {
-            console.log(response.data, "게시판 생성");
-            dispatch(actionCreators.setFooterSelected(2));
-            navigate("/community");
-          })
-          .catch((error:AxiosError) => {
-            console.log(error);
-          })
+                {
+                    headers: {
+                        "Content-type": "application/json",
+                        Accept: "*/*",
+                    },
+                }
+            )
+            .then((response:AxiosResponse) => {
+                console.log(response.data, "게시판 생성");
+                dispatch(actionCreators.setFooterSelected(2));
+                navigate("/community");
+            })
+            .catch((error:AxiosError) => {
+                alert("오류입니다 관리자와 이야기해주세요")
+                console.log(error);
+            })
+        }
       };
     return (
         <div className='ccoutLine'>

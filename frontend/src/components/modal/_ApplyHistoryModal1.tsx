@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import '../../style/modal/_Modal.scss'
 
-export default function _ApplyHistoryModal(props)  {
+export default function _ApplyHistoryModal(props:any)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, info } = props;
   const [ totalsum, setTotalsum ] = useState<number>(0);
   const [ totalcount, setTotalcount ] = useState<number>(0);
-  const onCloseModal = (e) => {
+  const onCloseModal = (e:any) => {
     if (e.target === e.currentTarget){
       setTotalsum(0);
       setTotalcount(0);

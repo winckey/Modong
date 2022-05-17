@@ -22,7 +22,7 @@ function Profile() {
     
 
     // 프로필 이미지 수정
-    const handleProfileImage = (e) => {
+    const handleProfileImage = (e:any) => {
         // console.log(e.target.files[0].size);
         const image = new FormData();
         image.append('image', e.target.files[0]);
@@ -47,6 +47,7 @@ function Profile() {
             // };
             // dispatch(actionCreators.setUser(userInfo));
         }).catch((err)=>{
+            alert("오류입니다 관리자와 이야기 해주세요")
             console.log("이미지 업로드 실패", err);
         })
 
