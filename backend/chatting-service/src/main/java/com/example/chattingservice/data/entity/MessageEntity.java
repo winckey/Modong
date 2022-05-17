@@ -22,7 +22,6 @@ public class MessageEntity extends AuditEntity{
     @Column(nullable = false, unique = false)
     private Long userId; // 메시지 보낸사람
 
-    @Lob
     @Column(nullable = false, unique = false)
     private String message; // 메시지
 
