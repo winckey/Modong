@@ -11,7 +11,6 @@ public class RoomDto {
 
     public static RoomDto create(String name, String type) {
         RoomDto roomDto = new RoomDto();
-        roomDto.roomId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;  // 랜덤값
         roomDto.name = name;
         roomDto.type = type;
         return roomDto;
