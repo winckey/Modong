@@ -33,6 +33,7 @@ public class RoomServiceImpl implements RoomService {
 
         // entity화-저장
         RoomEntity entity = mapper.map(dto, RoomEntity.class);
+        entity.setId(dto.getRoomId());
         try{
             roomRepository.save(entity);
         }catch(Exception e){
