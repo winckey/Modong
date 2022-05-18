@@ -2,7 +2,6 @@ package com.modong.boardservice.db.repository;
 
 
 import com.modong.boardservice.db.entity.Purchase;
-import com.modong.boardservice.db.entity.Purchase;
 import com.modong.boardservice.db.entity.QPurchase;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +21,10 @@ public class PurchaseRepositoryImpl {
 
     QPurchase qPurchase = QPurchase.purchase.purchase;
 
-    public Page<Purchase> findAllByTimeLimit(Pageable pageable){
+    public Page<Purchase> findAllByTimeLimit(Pageable pageable, Long dongCode){
 
 
-        List<Purchase> purchases = jpaQueryFactory.selectFrom(qPurchase).where(qPurchase.closeTime.gt(LocalDateTime.now()))
+        List<Purchase> purchases = jpaQueryFactory.selectFrom(qPurchase).where(qPurchase.closeTime.gt(LocalDateTime.now()).and(qPurchase.dongCode.eq(dongCode)))
                 .limit(pageable.getPageSize())
                 .offset(pageable.getOffset())
                 .fetch();

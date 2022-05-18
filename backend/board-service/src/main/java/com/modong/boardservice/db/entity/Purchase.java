@@ -34,4 +34,7 @@ public class Purchase{
 
     @Column(nullable = false)
     private Long userId;
+
+    @Column(nullable = false)
+    private Long dongCode;
 }

@@ -31,6 +31,8 @@ public class PurchaseServiceImpl implements PurchaseService{
 
     @Override
     public void createPurchase(PurchaseReqDTO purchaseReqDTO) {
+        Long dongCode = Long.valueOf(userClientService.getUser(purchaseReqDTO.getUserId()).getDongDto().get("dongcode"));
+
         Purchase purchase = Purchase.builder()
                 .closeTime(purchaseReqDTO.getCloseTime())
                 .price(purchaseReqDTO.getPrice())
@@ -38,6 +40,7 @@ public class PurchaseServiceImpl implements PurchaseService{
                 .pickupLocation(purchaseReqDTO.getPickupLocation())
                 .url(purchaseReqDTO.getUrl())
                 .userId(purchaseReqDTO.getUserId())
+                .dongCode(dongCode)
                 .build();
 
         purchaseRepository.save(purchase);
@@ -55,8 +58,8 @@ public class PurchaseServiceImpl implements PurchaseService{
 
 
     @Override
-    public Page<PurchaseResDTO> purchaseListCalling(Pageable pageable) {
-        Page<Purchase> purchases = purchaseRepositoryImpl.findAllByTimeLimit(pageable);
+    public Page<PurchaseResDTO> purchaseListCalling(Pageable pageable, Long dongCode) {
+        Page<Purchase> purchases = purchaseRepositoryImpl.findAllByTimeLimit(pageable,dongCode);
 
         List<PurchaseResDTO> purchaseList = new ArrayList<>();
 

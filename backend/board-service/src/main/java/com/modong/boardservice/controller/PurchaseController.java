@@ -40,11 +40,11 @@ public class PurchaseController {
     }
 
     //목록 조회(Pagination, 10개)
-    @GetMapping
-    public ResponseEntity purchaseList(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+    @GetMapping("/list/{dongCode}")
+    public ResponseEntity purchaseList(@PageableDefault(page = 0, size = 10) Pageable pageable, @PathVariable Long dongCode) {
 
 
-        return new ResponseEntity<>(purchaseService.purchaseListCalling(pageable), HttpStatus.OK);
+        return new ResponseEntity<>(purchaseService.purchaseListCalling(pageable, dongCode), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}")

@@ -35,5 +35,7 @@ public class Delivery {
     @Column(nullable = false)
     private Long userId;
 
+    @Column(nullable = false)
+    private Long dongCode;
 
 }

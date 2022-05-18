@@ -66,11 +66,11 @@ public class BoardController {
     }
 
     //목록 조회(Pagination, 10개)
-    @GetMapping
-    public ResponseEntity boardList(@PageableDefault(page = 0, size = 2) Pageable pageable) {
+    @GetMapping("/list/{dongCode}")
+    public ResponseEntity boardList(@PageableDefault(page = 0, size = 10) Pageable pageable, @PathVariable Long dongCode) {
 
 
-        return new ResponseEntity<>(boardService.boardListCalling(pageable), HttpStatus.OK);
+        return new ResponseEntity<>(boardService.boardListCalling(pageable, dongCode), HttpStatus.OK);
     }
 
     //상세 조회

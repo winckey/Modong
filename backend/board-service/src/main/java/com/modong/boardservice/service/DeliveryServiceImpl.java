@@ -44,6 +44,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         String url = urlList[urlList.length - 1];
 
         map.put("board_id", url);
+        Long dongCode = Long.valueOf(userClientService.getUser(deliveryReqDTO.getUserId()).getDongDto().get("dongcode"));
 
         Delivery delivery = Delivery.builder()
                 .url(url)
@@ -51,6 +52,7 @@ public class DeliveryServiceImpl implements DeliveryService {
                 .pickupLocation(deliveryReqDTO.getPickupLocation())
                 .closeTime(deliveryReqDTO.getCloseTime())
                 .userId(deliveryReqDTO.getUserId())
+                .dongCode(dongCode)
                 .build();
 
         crawlingClient.crawlingMenu(map);
@@ -70,8 +72,8 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Override
-    public Page<DeliveryResDTO> deliveryListCalling(Pageable pageable) {
-        Page<Delivery> deliveries = deliveryRepositoryImpl.findAllByTimeLimit(pageable);
+    public Page<DeliveryResDTO> deliveryListCalling(Pageable pageable, Long dongCode) {
+        Page<Delivery> deliveries = deliveryRepositoryImpl.findAllByTimeLimit(pageable, dongCode);
 
         List<DeliveryResDTO> deliveryResDTOS = new ArrayList<>();
         for (Delivery d : deliveries.getContent()) {
