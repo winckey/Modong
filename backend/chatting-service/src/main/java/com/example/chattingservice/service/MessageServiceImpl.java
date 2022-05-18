@@ -40,6 +40,9 @@ public class MessageServiceImpl implements MessageService {
             msg.setUserId(entity.getUser().getUserId());
             msg.setUserName(entity.getUser().getUserName());
 
+            System.out.println("==============================================================");
+            System.out.println(msg.getDate().toString());
+
             res.add(msg);
         }
 
@@ -60,7 +63,9 @@ public class MessageServiceImpl implements MessageService {
 
             MessageEntity entity = mapper.map(dto, MessageEntity.class);
             entity.setUser(user);
-            entity.setRoom(room);
+            System.out.println(user.getRoom().toString());
+
+//            entity.setRoom(room);
             msgRepository.save(entity);
         }catch (Exception e){
             e.printStackTrace();
