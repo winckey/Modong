@@ -1,11 +1,13 @@
 package com.example.chattingservice.service;
 
 import com.example.chattingservice.data.entity.MessageEntity;
+import com.example.chattingservice.data.entity.RoomEntity;
 import com.example.chattingservice.data.entity.UserEntity;
 import com.example.chattingservice.repository.MessageRepository;
 import com.example.chattingservice.data.dto.MessageDto;
 import com.example.chattingservice.data.dto.RoomDto;
 import com.example.chattingservice.repository.UserRepository;
+import org.apache.catalina.User;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +53,14 @@ public class MessageServiceImpl implements MessageService {
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         try{
+            // user조회
+            UserEntity user = userRepository.findByRoomIdAndUserId(dto.getRoomId(), dto.getUserId()).get();
+            // room조회
+            RoomEntity room = user.getRoom();
+
             MessageEntity entity = mapper.map(dto, MessageEntity.class);
+            entity.setUser(user);
+            entity.setRoom(room);
             msgRepository.save(entity);
         }catch (Exception e){
             e.printStackTrace();
