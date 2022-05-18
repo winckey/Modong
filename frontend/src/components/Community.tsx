@@ -4,7 +4,7 @@ import "../style/_community.scss"
 
 import { useDispatch } from "react-redux";
 import actionCreators from '../actions/actionCreators.tsx';
-import useTimeLapse from '../actions/useTimeLapse';
+
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faComments } from "@fortawesome/free-solid-svg-icons";

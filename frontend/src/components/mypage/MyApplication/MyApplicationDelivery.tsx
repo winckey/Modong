@@ -21,6 +21,7 @@ function MyApplicationDelivery() {
         return state.accounts.data.user.id
     })
     const getapplicationdata = () =>{
+        console.log(`/order-service/user/${userId}/ORDER_DELIVERY`);
         axios.get(`/order-service/user/${userId}/ORDER_DELIVERY`)
         .then((response:AxiosResponse) => {
         console.log(response, "채팅 데이터 가져오기");

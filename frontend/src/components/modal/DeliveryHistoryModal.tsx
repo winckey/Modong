@@ -21,16 +21,15 @@ export default function DeliveryHistoryModal(props:any)  {
         <div style={{margin: "10%"}}>
 
           <div className="title">
-          {totalCost}원
+                {orderItems.length>0 &&
+                  <p>{orderItems[0].itemContent} 외 {orderItems.length-1}개</p>
+                }
           </div>
 
           <main>
 
             <div className="historyBox">
-              <div>
-                {/* <p>물품</p>
-                <p>{orderItems[0].itemContent}외{orderItems.length-1}</p> */}
-              </div>
+              
               <div>
                 <p>가격</p>
                 <p>{totalCost}원</p>

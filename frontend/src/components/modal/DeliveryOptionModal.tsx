@@ -1,8 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import '../../style/modal/_Modal.scss'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleExclamation} from "@fortawesome/free-solid-svg-icons";
-import Modal from '../modal/_ApplyHistoryModal.tsx'
 
 import {subOptionApartDataType, menuDataType, optionDataType, subOptionDataType} from '../../actions/_interfaces.tsx'
 export default function DeliveryDoneModal(props:any)  {
@@ -23,17 +20,18 @@ export default function DeliveryDoneModal(props:any)  {
     if (e.target === e.currentTarget){
       if(count > 0){
         if (info != null){
+          var totalSum = totalCost;
           info.subchoices.map((d:menuDataType)=>{
             document.getElementsByName(d.name).forEach((node:any)=>{
               if (node.checked) {
-                setTotalCost(totalCost+parseInt(d.subchoices[node.value].price));
+                totalSum+=parseInt(d.subchoices[node.value].price);
                 selectOptionList.push({ optionContent: d.subchoices[node.value].name });
               }
             })
           })
         }
         close();
-        addOrder(selectOptionList, count, totalCost*count, info.name);
+        addOrder(selectOptionList, count, totalSum*count, info.name);
         setSelectOptionList([]);
         setTotalCost(0);
         setCount(0);
@@ -73,11 +71,11 @@ export default function DeliveryDoneModal(props:any)  {
                     <div key={index}>
                       {cate.multiple ? (
                         <div className='optiondetail'>
-                          <label>{option.name}</label><input type="checkbox" name={cate.name} value={idx}/>
+                          <label>{option.name}(+{option.price})</label><input type="checkbox" name={cate.name} value={idx}/>
                         </div>
                       ):(
                         <div className='optiondetail'>
-                          <label>{option.name}</label><input type="radio" name={cate.name} value={idx}/>
+                          <label>{option.name}(+{option.price})</label><input type="radio" name={cate.name} value={idx}/>
                         </div>
                       )}
                     </div>

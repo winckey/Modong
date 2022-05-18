@@ -50,7 +50,13 @@
     cursor: pointer;
 }
 
-
+@mixin textoverflow{
+    padding:0 5px;
+    overflow:hidden;
+    text-align: start;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
 @mixin card{
     border-radius: 15px;
     background-color: $gray1;

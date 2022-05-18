@@ -9,7 +9,6 @@
     .madeliverycard{
         @include card;
         @include flex-col;
-        padding: 10px;
         // align-items: flex-end;
 
         >div{
@@ -21,30 +20,29 @@
             @include flex-row;
             width: 95%;
             >div:nth-child(1){
+                width: 65%;
+                margin: 5px;
                 font-size: 22px;
+                @include textoverflow;
             }
         }
         >div:nth-child(2){
             width: 100%;
             >div{
-                margin: 3px;
+                margin: 5px;
+                margin-left: 15px;
+                text-align: start;
+
             }
             >div:nth-child(2){
-                max-width: 100%;
-                text-align: start;
-                word-break:break-all;
+                max-width: 90%;
+                @include textoverflow;
                 // @include absolute-loc($bottom:0, $left:0);
             }
             // justify-content: space-between;
             @include flex-col;
         }
-        // >div:nth-child(3){
-        //     margin: 0;
-        //     height: 10px;
-        //     @include absolute-loc($bottom:0, $left:0);
-        //     width: 500px;
-        //     background-color: $blue2;
-        // }
+        
     }
 };
 

@@ -25,11 +25,13 @@
             align-self: flex-start;
             font-size: 20px;
             min-height: 50px;
+            @include textoverflow;
         }
         >div:nth-child(2){
             align-self: flex-end;
             word-break: break-all;
             margin: 2px 15px 2px 15px;
+            @include textoverflow;
         }
         >div:nth-child(3){
             align-self: flex-end;

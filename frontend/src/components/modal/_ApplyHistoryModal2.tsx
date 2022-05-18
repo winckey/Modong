@@ -34,27 +34,23 @@ export default function _ApplyHistoryModal(props:any)  {
         <div style={{margin: "10%"}}>
 
           <div className="title">
-            {totalsum}원
+          {info.itemDtoList[0].itemContent||""} 외 {info.itemDtoList.length-1}개
           </div>
 
           <main>
 
             <div className="historyBox">
               <div>
-                <p>물품</p>
-                <p>{info.itemDtoList[0].itemContent||""}</p>
-              </div>
-              <div>
                 <p>가격</p>
                 <p>{totalsum}원</p>
               </div>
               <div>
-                <p>인원</p>
-                <p>{info.itemDtoList.length}명</p>
+                <p>수량</p>
+                <p>{info.itemDtoList.length}개</p>
               </div>
               <hr/>
               <div>
-                <p>판매자</p>
+                <p>신청자</p>
                 <div style={{display:"flex", justifyContent:"center"}}>
                   {/* <img src={ require('../../assets/pingu.png') } alt="사진"/> */}
                   <p>{info.userDto.nickname}</p>

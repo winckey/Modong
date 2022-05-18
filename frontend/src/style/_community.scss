@@ -11,10 +11,7 @@
         @include flex-col;
         @include card;
         margin: 20px auto;
- 
-
         div{
-
             >div{
                 padding: 10px 20px 10px 20px;
                 width: 90%;
@@ -22,6 +19,8 @@
             }
             >div:first-child{
                 font-size: 24px;
+                @include textoverflow;
+                padding: 10px 20px 10px 20px;
                 min-height: 20%;
             }
             >div:nth-child(2){

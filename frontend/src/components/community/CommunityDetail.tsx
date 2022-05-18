@@ -119,7 +119,7 @@ function CommunityDetail() {
             <div className='userdiv2' key={reData.id}>
                 <div><img src={ require('../../assets/dd.png') } alt="사진"/></div>
                 <div>
-                    <div>{reData.user.userId||""}</div>
+                    <div>{reData.user.nickname||""}</div>
                     <div>{reData.description||""}</div>
                 </div>
                 {reData.user.id == userId &&

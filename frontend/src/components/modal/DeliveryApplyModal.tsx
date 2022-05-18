@@ -101,7 +101,7 @@ export default function DeliveryModal(props:any)  {
       })
       .then((response:AxiosResponse) => {
         setModalOpen(true);
-        setOrderItems([]);
+        
         console.log(response.data, "Rmx")
       })
       .catch((error:AxiosError) => {
@@ -132,7 +132,7 @@ export default function DeliveryModal(props:any)  {
                     <div key={key}>
                       <div className='menucategory'>{key}</div>
                       {menusli[key].map((li:any, index:number)=>(
-                        <div onClick={()=>{handleOptionModalOpen(li)}} className='menume' key={index}>{li.name}</div>
+                        <div onClick={()=>{handleOptionModalOpen(li)}} className='menume' key={index}>{li.name}(+{li.price})</div>
                       ))}
                     </div>
                   ))}
@@ -141,7 +141,7 @@ export default function DeliveryModal(props:any)  {
                 <div className='totalmenus'>
                 {orderItems.map((order, index)=>(
                     <div key={index}>
-                      <div>{order.itemContent}</div>
+                      <div>{order.itemContent}(+{order.price}원)</div>
                       <div>{order.quantity}</div>
                     </div>
                   ))}

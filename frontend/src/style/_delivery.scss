@@ -23,12 +23,14 @@
         }
         >div:nth-child(1){
             align-self: flex-start;
-            font-size: 20px;
+            font-size: 22px;
             min-height: 50px;
+            @include textoverflow;
         }
         >div:nth-child(2){
             align-self: flex-end;
             word-break: break-all;
+            @include textoverflow;
             margin: 2px 15px 2px 15px;
         }
         >div:nth-child(3){
