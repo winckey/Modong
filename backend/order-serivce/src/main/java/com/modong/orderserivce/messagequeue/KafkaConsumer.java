@@ -4,6 +4,7 @@ package com.modong.orderserivce.messagequeue;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.modong.orderserivce.client.UserClient;
 import com.modong.orderserivce.dto.ChatDto;
 import com.modong.orderserivce.dto.ReqOrderDto;
 import com.modong.orderserivce.dto.UserDto;
@@ -32,6 +33,7 @@ public class KafkaConsumer {// 실제 토픽을 사용하는 컨슈머
 
     private final OrderService orderService;
     private final KafkaProducer kafkaProducer;
+    private final UserClient userClient;
 
     @KafkaListener(topics = "order-topic")// 어떤 토픽을 들을꺼냐
     public void updateQty(String kafkaMessage) {
@@ -47,12 +49,16 @@ public class KafkaConsumer {// 실제 토픽을 사용하는 컨슈머
 
         OrderType orderType = OrderType.valueOf((String) map.get("orderType"));
         Long boardId = Long.parseLong(String.valueOf(map.get("id")));
+        Long userId = Long.parseLong(String.valueOf(map.get("userId")));
+        UserDto userTemp = userClient.getDelivery(userId);
+
 
         List<ReqOrderDto> reqOrderDtoList= orderService.deleteOrderByBoardId(boardId , orderType);
         ChatDto chatDto = new ChatDto();
         chatDto.setRoomName((String) map.get("name"));
         chatDto.setRoomType((String) map.get("orderType"));
         List<UserDto> userDto = new ArrayList<>();
+        userDto.add(new UserDto(userTemp.getId() , userTemp.getImage() , userTemp.getNickname()));
         for (int i=0 ; i<reqOrderDtoList.size() ; i++)
         {
             userDto.add(new UserDto(reqOrderDtoList.get(i).getUserDto().getId(),reqOrderDtoList.get(i).getUserDto().getImage() , reqOrderDtoList.get(i).getUserDto().getNickname()));

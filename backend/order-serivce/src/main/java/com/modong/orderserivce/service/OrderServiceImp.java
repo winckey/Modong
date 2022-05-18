@@ -94,7 +94,7 @@ public class OrderServiceImp implements OrderService {
         return reqOrderDtos;
     }
 
-    private BoardDto getBoard(OrderType orderType, Long boardId) {
+    public BoardDto getBoard(OrderType orderType, Long boardId) {
 
         switch (orderType) {
             case ORDER_DELIVERY:
