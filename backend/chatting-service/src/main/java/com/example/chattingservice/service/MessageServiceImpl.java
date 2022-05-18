@@ -63,9 +63,7 @@ public class MessageServiceImpl implements MessageService {
 
             MessageEntity entity = mapper.map(dto, MessageEntity.class);
             entity.setUser(user);
-            System.out.println(user.getRoom().toString());
-
-//            entity.setRoom(room);
+            entity.setRoom(room);
             msgRepository.save(entity);
         }catch (Exception e){
             e.printStackTrace();
