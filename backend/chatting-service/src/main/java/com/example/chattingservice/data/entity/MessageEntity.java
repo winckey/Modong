@@ -15,10 +15,15 @@ public class MessageEntity extends AuditEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    // 채팅방 이름
-//    @Column(nullable = false, unique = false, length = 50) ^^
-    private Long roomId; // 방번호
-    private Long userId; // 메시지 보낸사람
+
+    @Column(nullable = false, unique = false)
     private String message; // 메시지
 
+    @ManyToOne
+    @JoinColumn(name = "roomId")
+    private RoomEntity room;
+
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private UserEntity user;
 }

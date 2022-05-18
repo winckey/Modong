@@ -12,8 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -31,13 +30,14 @@ public class MessageServiceImpl implements MessageService {
 
         // 조회
         List<MessageEntity> list =  msgRepository.findByRoomId(roomId).get();
+
         List<MessageDto> res = new ArrayList<>();
         for (MessageEntity entity:list) {
             MessageDto msg = mapper.map(entity, MessageDto.class);
-//            msg.setDate(entity.getDate());
-            // ^^username조회->나중에 join해서 가져오는걸로 refactoring
-            List<UserEntity> user = userRepository.findByUserId(entity.getUserId()).get();
-            if(!user.isEmpty()) msg.setUserName(user.get(0).getUserName());
+            msg.setRoomId(entity.getRoom().getId());
+            msg.setUserId(entity.getUser().getUserId());
+            msg.setUserName(entity.getUser().getUserName());
+
             res.add(msg);
         }
 
