@@ -52,7 +52,7 @@ public class PurchaseServiceImpl implements PurchaseService{
 
         purchase.setCloseTime(LocalDateTime.now());
 
-        kafkaProducer.send("order-topic" , purchase.getId() ,"ORDER_GROUP" , purchase.getProductName());
+        kafkaProducer.send("order-topic" , purchase.getId() ,"ORDER_GROUP" , purchase.getProductName() , Long.toString(purchase.getUserId()));
         purchaseRepository.save(purchase);
     }
 

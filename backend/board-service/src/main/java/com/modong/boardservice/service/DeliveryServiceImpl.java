@@ -69,7 +69,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         Delivery delivery = deliveryRepository.getById(id);
 
         delivery.setCloseTime(LocalDateTime.now());
-        kafkaProducer.send("order-topic" , delivery.getId() ,"ORDER_DELIVERY" , delivery.getStoreName());
+        kafkaProducer.send("order-topic" , delivery.getId() ,"ORDER_DELIVERY" , delivery.getStoreName() , Long.toString(delivery.getUserId()));
 
         return deliveryRepository.save(delivery);
     }

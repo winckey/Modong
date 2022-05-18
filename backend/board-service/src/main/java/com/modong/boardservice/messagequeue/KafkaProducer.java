@@ -20,7 +20,7 @@ public class KafkaProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void send(String topic, Long boardId , String orderType , String name) {
+    public void send(String topic, Long boardId , String orderType , String name , String userId) {
         //topic 보낼곳
         //orderDto 내용
         ObjectMapper mapper = new ObjectMapper();
@@ -29,6 +29,7 @@ public class KafkaProducer {
             Delete delete  = new Delete();
             delete.setId(boardId);
             delete.setOrderType(orderType);
+            delete.setUserId(userId);
             delete.setName(name);
             jsonInString = mapper.writeValueAsString(delete);
         } catch(JsonProcessingException ex) {
@@ -58,5 +59,7 @@ public class KafkaProducer {
         private String orderType;
 
         private  String name;
+
+        private String userId;
     }
 }

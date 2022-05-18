@@ -94,7 +94,7 @@ public class BoardController {
     @GetMapping("/kafka")
     public void kafka() {
 
-        kafkaProducer.send("order-topic" , 1L ,"ORDER_DELIVERY" , "test-delivery");
+        kafkaProducer.send("order-topic" , 1L ,"ORDER_DELIVERY" , "test-delivery" , String.valueOf(1));
     }
     @GetMapping("/kafka2")
     public void kafka2() {
