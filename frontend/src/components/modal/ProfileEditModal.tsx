@@ -62,7 +62,6 @@ export default function ProfileEditModal() {
 
   // 프로필 수정 
   const handleProfileEdit = (e:any) => {
-    handleClose();
     const data = {
       ...user,
       userId: state.userId,
@@ -74,7 +73,8 @@ export default function ProfileEditModal() {
 
     if(state.nickname === ""){
       alert("이름을 입력해주세요");
-    }else if(isPhonenum(isPhonenum.toString())){
+    }else if(isPhonenum(state.phone.toString())){
+      console.log(isPhonenum("01045344464"))
       alert("전화 번호를 확인해주세요");
     }else{
       axios.put("/user-service/users",
@@ -93,6 +93,10 @@ export default function ProfileEditModal() {
         console.log("put요청 성공", res);
         dispatch(actionCreators.setUser(data));
         console.log(user)
+        handleClose();
+        dispatch(actionCreators.setSigu(null));
+        dispatch(actionCreators.setCity(null));
+        dispatch(actionCreators.setDong(null));
       }).catch((err)=> {
         alert("오류입니다 관리자와 이야기 해주세요")
         console.log("put 요청 실패", err);
@@ -123,23 +127,8 @@ export default function ProfileEditModal() {
                 value={state.nickname}
                 onChange={handleChangeState}
             />
-
-            <p>이메일 주소</p>
-            <TextField
-                margin="dense"
-                // id="email"
-                name="userId"
-                type="email"
-                fullWidth
-                variant="filled"
-                autoComplete="off"
-                value={state.userId}
-                onChange={handleChangeState}
-            />
-
             <p>주소</p>
             <Modal/>
-
             <p>전화번호</p>
             <TextField
                 margin="dense"

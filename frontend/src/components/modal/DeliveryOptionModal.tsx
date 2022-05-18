@@ -21,19 +21,25 @@ export default function DeliveryDoneModal(props:any)  {
   }
   const addmenu = (e:any) => {
     if (e.target === e.currentTarget){
-      if (info != null){
-        info.subchoices.map((d:menuDataType)=>{
-          document.getElementsByName(d.name).forEach((node:any)=>{
-            if (node.checked) {
-              setTotalCost(totalCost+parseInt(d.subchoices[node.value].price));
-              selectOptionList.push({ optionContent: d.subchoices[node.value].name });
-            }
+      if(count > 0){
+        if (info != null){
+          info.subchoices.map((d:menuDataType)=>{
+            document.getElementsByName(d.name).forEach((node:any)=>{
+              if (node.checked) {
+                setTotalCost(totalCost+parseInt(d.subchoices[node.value].price));
+                selectOptionList.push({ optionContent: d.subchoices[node.value].name });
+              }
+            })
           })
-        })
+        }
+        close();
+        addOrder(selectOptionList, count, totalCost*count, info.name);
+        setSelectOptionList([]);
+        setTotalCost(0);
+        setCount(0);
+      }else{
+        alert("갯수를 확인해 주세요");
       }
-      
-      close();
-      addOrder(selectOptionList, count, totalCost*count, info.name);
     }
   }
   useEffect(()=>{

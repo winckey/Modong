@@ -7,6 +7,7 @@ import { useSelector , useDispatch } from "react-redux";
 import actionCreators from '../../actions/actionCreators.tsx';
 import RootState from "../../reducer/reducers.tsx"
 import TextField from '@mui/material/TextField';
+import { type } from 'os';
 
 
 
@@ -37,7 +38,8 @@ export default function GroupBuyingApplyModal(props:any)  {
 
   const openModal = () => {
     if (productNum){
-      if(productNum === 0){
+      console.log(productNum, typeof(productNum))
+      if(parseInt(productNum.toString()) <= 0 || Number.isNaN(Number(productNum))){
         alert("갯수를 확인해주세요!")
       }else{
         axios.post("/order-service/",{

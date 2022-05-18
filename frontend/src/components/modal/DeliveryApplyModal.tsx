@@ -101,6 +101,7 @@ export default function DeliveryModal(props:any)  {
       })
       .then((response:AxiosResponse) => {
         setModalOpen(true);
+        setOrderItems([]);
         console.log(response.data, "Rmx")
       })
       .catch((error:AxiosError) => {
@@ -152,7 +153,7 @@ export default function DeliveryModal(props:any)  {
             </div>
 
             <div>
-              <Modal open={modalOpen}  close={closeModal} totalCost={totalCost} orderItems={orderItems} wideClose={wideClose}>
+              <Modal open={modalOpen}  close={closeModal} userinfo={info.userInfo} totalCost={totalCost} orderItems={orderItems} wideClose={wideClose}>
               </Modal>
               <OptionModal open={optionModalOpen}  close={optionCloseModal} info={propsOptiondata} addOrder={addOrder}>
               </OptionModal>

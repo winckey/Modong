@@ -39,16 +39,16 @@ function GroupBuyingWrite() {
         return state.accounts.data.user.id
     })
     const handleSubmit=()=>{
-        if(GroupBuyingTime<=new Date()){
-            alert("마감시간을 다시 지정해주세요")
-        }else if(productLoc === ""){
-            alert("위치를 정확히 다시 입력해주세요")
-        }else if(productName === ""){
+        if(productName === ""){
             alert("물건 이름을 정확히 다시 입력해주세요")
         }else if(productURL === ""){
             alert("url을 정확히 다시 입력해주세요")
-        }else if(+productCost == NaN || productCost === ""){
+        }else if(Number.isNaN(Number(productCost)) || productCost === ""){
             alert("가격을 정확히 다시 입력해주세요")
+        }else if(productLoc === ""){
+            alert("위치를 정확히 다시 입력해주세요")
+        }else if(GroupBuyingTime<=new Date()){
+            alert("마감시간을 다시 지정해주세요")
         }else{
             axios.post('/board-service/group-purchase',
                 {
@@ -82,16 +82,16 @@ function GroupBuyingWrite() {
             <TextField fullWidth
             margin="normal"
             id="outlined-name"
-            value={productURL||""}
-            label="URL주소"
-            onChange={handleURLchange}
+            value={productName||""}
+            label="물품명"
+            onChange={handleNamechange}
             />
             <TextField fullWidth
             margin="normal"
             id="outlined-name"
-            value={productName||""}
-            label="물품명"
-            onChange={handleNamechange}
+            value={productURL||""}
+            label="URL주소"
+            onChange={handleURLchange}
             />
             <TextField fullWidth
             margin="normal"

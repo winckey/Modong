@@ -80,10 +80,6 @@ function Profile() {
                     <p>{user.userId}</p>
                 </div>
                 <div>
-                    <p>주소</p>
-                    <p>{dong}</p>
-                </div>
-                <div>
                     <p>전화번호</p>
                     <p>{user.phone}</p>
                 </div>

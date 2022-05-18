@@ -3,8 +3,8 @@ import '../../style/modal/_Modal.scss'
 
 export default function DeliveryHistoryModal(props:any)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, totalCost, orderItems, wideClose, doneClose } = props;
-
+  const { open, close, userinfo, totalCost, orderItems, wideClose, doneClose } = props;
+  console.log(userinfo, "1111")
   const onCloseModal = (e:any) => {
     if (e.target === e.currentTarget){
       close();
@@ -44,8 +44,9 @@ export default function DeliveryHistoryModal(props:any)  {
                 <p>판매자</p>
 
                 <div style={{display:"flex", justifyContent:"center"}}>
-                  {/* <img src={ require('../../assets/pingu.png') } alt="사진"/> */}
-                  {/* <p>{info.userInfo.userId}</p> */}
+                  {!!userinfo &&
+                  <p>{userinfo.nickname||""}</p>
+                  }
                 </div>
 
               </div>

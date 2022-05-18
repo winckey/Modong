@@ -35,15 +35,15 @@ function DeliveryWrite() {
         setDeliveryTitle(e.target.value);
     }
     const handleSubmit=()=>{
-        if(deliveryTime<=new Date()){
-            alert("마감시간을 다시 지정해주세요")
-        }else if(deliveryLoc === ""){
-            alert("위치를 정확히 다시 입력해주세요")
-        }else if(deliveryTitle === ""){
+        if(deliveryTitle === ""){
             alert("가게 이름을 정확히 다시 입력해주세요")
         }else if(deliveryURL.substring(0, 25) !== "https://www.yogiyo.co.kr/"){
             alert("요기요에서 url을 가져와 정확히 다시 입력해주세요")
-        }else{
+        }else if(deliveryLoc === ""){
+            alert("위치를 정확히 다시 입력해주세요")
+        }else if(deliveryTime<=new Date()){
+            alert("마감시간을 다시 지정해주세요")
+        }else {
             axios.post('/board-service/group-delivery',
                 {
                     closeTime: deliveryTime,

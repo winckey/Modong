@@ -44,7 +44,7 @@ export default function _ApplyHistoryModal(props:any)  {
                 <p>판매자</p>
                 <div style={{display:"flex", justifyContent:"center"}}>
                   {/* <img src={ require('../../assets/pingu.png') } alt="사진"/> */}
-                  <p>{info.userInfo.userId}</p>
+                  <p>{info.userInfo.nickname}</p>
                 </div>
               </div>
             </div>

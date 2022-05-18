@@ -2,11 +2,10 @@
 
 
 
-.outLine{
-    overflow: auto;
+.homeoutLine{
     height: 82vh;
     position: relative;
-
+    margin: 15px;
     .homeNav{
         background-color: $blue2;
         border-radius: 20px;
@@ -49,11 +48,12 @@
         background-color: $mint1;
         border-radius: 200px;
         margin:auto;
-        font-size: 45px;
+        font-size: 35px;
         right:30px;
         bottom: 110px;
         z-index:10;
         color: $blue1;
+        @include shadow;
     }
 
 };

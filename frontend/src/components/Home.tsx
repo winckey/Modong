@@ -18,7 +18,7 @@ function Home() {
   }
   return (
     <>
-      <div className='outLine'>
+      <div className='homeoutLine'>
         <div className='homeNav'>
           <div onClick={() =>{categoryChange(1)}}>배달</div>
           <div onClick={() =>{categoryChange(2)}}>공구</div>
