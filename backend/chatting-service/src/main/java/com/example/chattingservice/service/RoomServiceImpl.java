@@ -55,6 +55,8 @@ public class RoomServiceImpl implements RoomService {
             for (UserDto user:userList) {
                 RoomUserDto dto = new RoomUserDto(roomId, user);
                 UserEntity entity = mapper.map(dto, UserEntity.class);
+                RoomEntity room = roomRepository.findById(roomId).get();
+                entity.setRoom(room);
                 userRepository.save(entity);
             }
         }catch (Exception e){
