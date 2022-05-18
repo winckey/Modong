@@ -68,7 +68,7 @@ export default function DeliveryDoneModal(props:any)  {
                 <div key={index}>
                   <div className='optioncate'>{cate.name}</div>
                   {cate.subchoices.map((option:subOptionDataType, idx:number)=>(
-                    <div key={index}>
+                    <div key={idx}>
                       {cate.multiple ? (
                         <div className='optiondetail'>
                           <label>{option.name}(+{option.price})</label><input type="checkbox" name={cate.name} value={idx}/>
