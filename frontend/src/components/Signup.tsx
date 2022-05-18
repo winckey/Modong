@@ -25,15 +25,6 @@ export default function SignUp(props:any) {
   const dispatch = useDispatch();
   let navigate = useNavigate();
 
-  //이메일 중복 확인
-  const [isValid, setIsValid] = useState<boolean>(false);
-
-  const emailCheck = () => {
-    console.log('emailCheck')
-  };
-
-
-
   const dongCodeSelected = useSelector((state:Rootstate)=> {
     return state.address.data.dongCode
   });
@@ -145,9 +136,6 @@ export default function SignUp(props:any) {
                     autoFocus
                   />
               </Grid>
-              {/* <Grid item xs={4}>
-                <Button style={{backgroundColor:"#0064FF" }} variant="contained" size="small" onClick={emailCheck}>중복확인</Button>
-              </Grid> */}
               <Grid item xs={12}>
                 <TextField
                   required
@@ -199,7 +187,6 @@ export default function SignUp(props:any) {
                   variant="standard"
                 />
               </Grid>
-
               <Grid item xs={3} 
                 style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
                   주소
@@ -207,7 +194,6 @@ export default function SignUp(props:any) {
               <Grid item xs={9}>
                 <Modal name="address"/>
               </Grid>
-              
             </Grid>
             <Button
               className='muiButton'

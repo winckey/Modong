@@ -7,15 +7,12 @@ import { getMessaging, onMessage } from 'firebase/messaging'
 
 const data =[{ contents:"제목1"}, { contents:"제목2"}, { contents:"제목3"},{ contents:"제목1"}, { contents:"제목2"}, { contents:"제목3"},{ contents:"제목1"}, { contents:"제목2"}, { contents:"제목3"},{ contents:"제목1"}, { contents:"제목2"}, { contents:"제목3"}]
 function Alarm(props:any) {
-
-
   useEffect(()=>{
     const messaging = getMessaging();
     onMessage(messaging, (payload)=>{
       console.log("fb에서 메시지 받은거", payload.notification);
     })
   });
-
 
   return (
     <>

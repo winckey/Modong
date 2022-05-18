@@ -13,19 +13,14 @@ export default function _ApplyHistoryModal(props:any)  {
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
-
     <div className={open ? 'openModal modal' : 'modal'} onClick={onCloseModal}>
     {open ? (
       <section>
-
         <div style={{margin: "10%"}}>
-
           <div className="title">
             {info.price*infoNum}원
           </div>
-
           <main>
-
             <div className="historyBox">
               <div>
                 <p>물품</p>
@@ -48,12 +43,9 @@ export default function _ApplyHistoryModal(props:any)  {
                 </div>
               </div>
             </div>
-
             <button onClick={()=>{close(); wideClose(false); doneClose(false);}} >확인</button>
           </main>
-
         </div>
-
       </section>
     ) : null}
     </div>

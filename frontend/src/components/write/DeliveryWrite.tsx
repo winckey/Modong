@@ -18,10 +18,12 @@ import actionCreators from "../../actions/actionCreators.tsx"
 function DeliveryWrite() {
     let navigate = useNavigate();
     const dispatch = useDispatch();
+    
     const[ deliveryURL, setDeliveryURL ] = useState<string>("");
     const[ deliveryTitle, setDeliveryTitle ] = useState<string>("");
     const[ deliveryTime, setDeliveryTime ] = useState<Date>(new Date);
     const[ deliveryLoc, setDeliveryLoc ] = useState<string>("");
+
     const userId = useSelector((state:RootState) => {
         return state.accounts.data.user.id
     })

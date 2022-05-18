@@ -15,8 +15,6 @@ const SET_CITY = "setCity"
 const SET_DONG = "setDong"
 const SET_DONGCODE = "setDongCode"
 
-
-
 // action method
 const setIsLogin = (isLogin:number) => {
     return {
@@ -37,7 +35,6 @@ const setCommunityPropsData = (communityPropsData:number) => {
         communityPropsData : communityPropsData,
     }
 };
-
 
 // accounts
 const setUser = (user:Object) => {
@@ -96,10 +93,6 @@ const setDongCode = (dongCode: number) => {
         dongCode: dongCode
     }
 }
-
-
-
-
 
 export const actionCreators = {
     setIsLogin,

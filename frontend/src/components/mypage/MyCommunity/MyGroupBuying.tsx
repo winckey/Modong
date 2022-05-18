@@ -5,8 +5,7 @@ import CloseModal from '../../modal/_CloseModal.tsx'
 import ExitModal from '../../modal/_ExitModal.tsx'
 
 import axios, {AxiosResponse, AxiosError} from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
-import actionCreators from '../../../actions/actionCreators.tsx';
+import { useSelector } from 'react-redux';
 
 import RootState from "../../../reducer/reducers.tsx"
 import {reversedatetrans} from '../../../actions/_TimeLapse.tsx'
@@ -17,7 +16,6 @@ import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { groupbuyingtype } from "../../actions/_interfaces.tsx";
 
 function MyGroupBuying() {
-    const dispatch = useDispatch();
     const user = useSelector((state:RootState) =>{
         return state.accounts.data.user
     })
@@ -54,7 +52,6 @@ function MyGroupBuying() {
         setExitModalOpen(false);
     }
 
-
     const handleDelCommunity = (myCommunityId:number) =>{
         axios.delete(`/board-service/group-purchase`,{data:{id:myCommunityId}})
         .then((response:AxiosResponse) => {
@@ -62,9 +59,9 @@ function MyGroupBuying() {
         })
         .catch((error:AxiosError) => {
             console.log(error, "에러");
+            alert("오류입니다 관리자와 이야기 해주세요!")
         })
     }
-
 
     const handlegetMyList = () => {
         axios.get(`/board-service/group-purchase/${user.id}`)
@@ -76,12 +73,13 @@ function MyGroupBuying() {
             console.log(error, "에러");
             })
     };
+
     useEffect(()=>{
         handlegetMyList();
     },[])
 
 
-    const handleFinish = (data) => {
+    const handleFinish = (data:any) => {
         console.log(data, "Data")
         const deldata = {
             data: {
@@ -99,14 +97,14 @@ function MyGroupBuying() {
             console.log("마감성공",res);
         }).catch((err)=>{
             console.log("마감실패",err);
+            alert("오류입니다 관리자와 이야기 해주세요!")
         })
-
     };
 
     return (
         <div>
             <div className='myGroupBuyingInList'>
-                {myGroupBuyingList.map((mgdata) =>(
+                {myGroupBuyingList.map((mgdata:groupbuyingtype) =>(
                     <div className='shadow' key={mgdata.id}>
                         <div>{mgdata.productName}</div>
                         {reversedatetrans(mgdata.closeTime)==="종료되었습니다." ?(
@@ -128,7 +126,6 @@ function MyGroupBuying() {
                     </div>
                 ))}
             </div>
-
             <div>
                 <CloseModal open={closeModalOpen}  close={closeCloseModal} info={modalPropsData} finish={handleFinish}>
                 </CloseModal>
@@ -141,7 +138,6 @@ function MyGroupBuying() {
                 <ExitModal open={exitModalOpen}  close={closeExitModal} info={modalPropsData} finish={handleDelCommunity}>
                 </ExitModal>
             </div>
-
         </div>
     );
 }

@@ -9,6 +9,7 @@ function MyApplication() {
     const ChangeMAcategory = (catenum:number) =>{
         setMAcategory(catenum)
     }
+    
     return (
         <div className='applicationOutLine'>
             <div className='applicationNav'>

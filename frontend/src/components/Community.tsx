@@ -33,9 +33,11 @@ function Community() {
         console.log(error, "에러");
       })
   };
+  
   useEffect(()=>{
     handlegetList(1)
   },[]);
+
   return (
     <div className='communityOutLine'>
       {boardData.map((d:communitytype)=>(

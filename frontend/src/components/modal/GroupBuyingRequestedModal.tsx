@@ -34,6 +34,7 @@ export default function GroupBuyingRequestedModal(props:any)  {
       })
       .catch((error:AxiosError) => {
         console.log(error, "에러");
+        alert("오류 입니다 관리자와 이야기해주세요!")
       })
   };
 
@@ -45,17 +46,13 @@ export default function GroupBuyingRequestedModal(props:any)  {
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
-
     <div className={open ? 'openModal modal' : 'modal'} onClick={onCloseModal}>
     {open ? (
       <section>
-
         <div style={{margin: "5%"}}>
-
           <header>
             {info.productName}
           </header>
-
           <main className='GroupBuyingReq'>
             <div>
               {groupApplicationList.map((data:groupBuyingRecordDataType, index:number) => (
@@ -74,15 +71,11 @@ export default function GroupBuyingRequestedModal(props:any)  {
               <div>받아야 할 금액</div>
               <div>{productTotalNum*info.price}원</div>
             </div>
-
             <button onClick={close} >확인</button>
           </main>
-
         </div>
-
       </section>
     ) : null}
     </div>
   );
-
 }

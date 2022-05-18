@@ -8,14 +8,17 @@ export default function DeliveryDoneModal(props:any)  {
   const [ totalCost, setTotalCost] = useState<number>(0);
   const [ count, setCount] = useState<number>(0);
   const { open, close, info, addOrder } = props;
+
   const onCloseModal = (e:any) => {
     if (e.target === e.currentTarget){
       close();
     }
   }
+
   const handleCountChange=(e:any)=>{
     setCount(e.target.value)
   }
+
   const addmenu = (e:any) => {
     if (e.target === e.currentTarget){
       if(count > 0){
@@ -87,12 +90,9 @@ export default function DeliveryDoneModal(props:any)  {
             <div className='flex-r-p'><label>갯수</label><input type="number" value={count} onChange={handleCountChange}/></div>
             <button onClick={addmenu} >신청하기</button>
           </main>
-
         </div>
-
       </section>
     ) : null}
     </div>
   );
-
 }

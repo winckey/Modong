@@ -2,23 +2,18 @@ import React, { useEffect, useState } from 'react';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
-
-import {reversedatetrans} from '../../actions/_TimeLapse.tsx'
 import {datetrans} from '../../actions/_TimeLapse.tsx'
 
 import "../../style/_chatdetail.scss"
-import actionCreators from './actions/actionCreators.tsx';
 import { useSelector } from "react-redux";
 import RootState from "../../reducer/reducers.tsx"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse, AxiosError } from 'axios';
 import { createRoutesFromChildren } from 'react-router-dom';
 
 // 링크 props 받기
 import { useLocation } from 'react-router-dom'
-
-
 
 interface dataProps{
         userId:number;
@@ -27,15 +22,10 @@ interface dataProps{
         date:number;
 };
     
-    
-    
 function ChatDetail() {
-
-    
     //props로 받은 data
     const location = useLocation();
     const { roomId, name, type, numberUser, userList } = location.state;
-    // console.log("props 넘어오니", roomId, name, type, numberUser, userList);
     
     // 채팅 input 상자
     const [chattxt, setChattxt] = useState<string>("");
@@ -74,7 +64,6 @@ function ChatDetail() {
     // websocket 연결
     const socketJs = new SockJS("http://k6e102.p.ssafy.io:8000/ws-stomp");
     const stomp = Stomp.over(socketJs);
-    // stomp.debug = () => {};
     
     // stomp 연결, 구독해서 정보 주고 받음
     useEffect(()=>{
@@ -94,7 +83,7 @@ function ChatDetail() {
     },[]);
 
 
-    const addMessage = (message) => {
+    const addMessage = (message:any) => {
         setContents(prev=>[...prev,message]);
         console.log("contents", contents);
     };  
@@ -106,12 +95,13 @@ function ChatDetail() {
 
         console.log("채팅 기록 불러왕");
         axios.get(`chat-service/chat/message/${state.roomId}`)
-        .then((res)=>{
+        .then((res:AxiosResponse)=>{
             setHistoryMessages(res.data);
             console.log("history111111111111", res.data);
         })
-        .catch((err)=>{
+        .catch((err:AxiosError)=>{
             console.log("getHistory에러", err);
+            alert("오류입니다 관리자와 이야기 해주세요!")
         })
 
 
@@ -134,14 +124,14 @@ function ChatDetail() {
                         "Content-type": "application/json",
                         Accept: "*/*",
                     },
-                }).then((res)=>{
+                }).then((res:AxiosResponse)=>{
                     console.log("send message", res);
                     const newMessage: dataProps = {message: chattxt, roomId: state.roomId , userId: userId, userName: userName, date: new Date()};
                     stomp.send("/pub/chat/chatting",{},
                     JSON.stringify(newMessage));
                     setChattxt("");
                 })
-                .catch((error)=>{
+                .catch((error:AxiosError)=>{
                     alert("오류입니다 관리자에게 문의 해주세요")
                 })
             }

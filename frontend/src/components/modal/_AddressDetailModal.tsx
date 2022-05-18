@@ -3,7 +3,6 @@ import '../../style/modal/_miniModal.scss'
 import { useDispatch } from 'react-redux';
 import actionCreators from '../../actions/actionCreators.tsx';
 
-
 export default function _AddressDetailModal(props:any)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, header, sigu, city, dong, mode } = props;
@@ -21,17 +20,13 @@ export default function _AddressDetailModal(props:any)  {
     }
   }, [props]);
 
-
-
   const onCloseModal = (e:React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget){
       close();
     }
   }
 
-
   const selectRegion = (e:any) => {
-
     if (mode === 0) {
       dispatch(actionCreators.setSigu(e.target.innerText));
       dispatch(actionCreators.setCity("구/군 선택하기"));
@@ -44,7 +39,7 @@ export default function _AddressDetailModal(props:any)  {
     } else {
       dispatch(actionCreators.setDong(e.target.innerText));
 
-      nowList.map((it) => it.city === e.target.innerText ? 
+      nowList.map((it:any) => it.city === e.target.innerText ? 
       dispatch(actionCreators.setDongCode(it.dongcode)) : {});
     };
     close();
@@ -58,7 +53,7 @@ export default function _AddressDetailModal(props:any)  {
           <header>
             {header}
           </header>
-          <main>{nowList.map((region, index) => 
+          <main>{nowList.map((region:any, index:number) => 
           (<div style={{cursor: "pointer", margin: 5}} 
           onClick={selectRegion} key={index}>
             {mode===0 ? region:region.city} </div>))}</main>

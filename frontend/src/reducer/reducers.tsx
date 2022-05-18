@@ -9,9 +9,6 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 import { persistStore } from "redux-persist";
-import { PersistGate } from "redux-persist/integration/react";
-
-import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore } from "redux"; 
 
 const persistConfig = {

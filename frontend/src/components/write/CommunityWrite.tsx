@@ -1,12 +1,11 @@
 import  React,{ useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import "../../style/_communityWrite.scss"
 
 import axios, {AxiosResponse, AxiosError} from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import RootState from "../reducer/reducers.tsx"
 import actionCreators from "../../actions/actionCreators.tsx"
-
 
 function CommunityWrite() {
     let navigate = useNavigate();

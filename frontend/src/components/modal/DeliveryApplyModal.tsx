@@ -4,7 +4,7 @@ import '../../style/modal/_Modal.scss'
 import Modal from '../modal/DeliveryDoneModal.tsx'
 import OptionModal from '../modal/DeliveryOptionModal.tsx'
 
-import { useSelector , useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import RootState from "../reducer/reducers.tsx"
 
 import {menuDataType, subOptionApartDataType, orderDataType} from "../../actions/_interfaces.tsx"
@@ -17,6 +17,7 @@ export default function DeliveryModal(props:any)  {
   })
   const [ totalCost, setTotalCost] = useState<number>(0);
   const [ orderItems, setOrderItems] = useState<orderDataType[]>([]);
+
   const addOrder=(options:subOptionApartDataType[], count:number, price:number, menuname:string)=>{
     setOrderItems(orderItems=>[...orderItems, {
       itemContent: menuname,
@@ -26,11 +27,13 @@ export default function DeliveryModal(props:any)  {
     }])
     setTotalCost(totalCost+price)
   }
+
   const [ propsOptiondata, setPropsOptiondata ] = useState<menuDataType>(null);
   const handleOptionModalOpen =(menu:menuDataType)=>{
     setPropsOptiondata(menu)
     optionOpenModal();
   }
+
   const [ menusli, setMenusLi ] = useState<menuDataType>({});
   const onCloseModal = (e:any) => {
     if (e.target === e.currentTarget){
@@ -60,6 +63,7 @@ export default function DeliveryModal(props:any)  {
       })
       .catch((error:AxiosError) => {
         console.log(error, "에러");
+        alert("오류 입니다 관리자와 이야기해주세요!")
       })
   }
   // 신청 완료 모달 
@@ -101,7 +105,6 @@ export default function DeliveryModal(props:any)  {
       })
       .then((response:AxiosResponse) => {
         setModalOpen(true);
-        
         console.log(response.data, "Rmx")
       })
       .catch((error:AxiosError) => {
@@ -113,20 +116,15 @@ export default function DeliveryModal(props:any)  {
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
-
         <div className={open ? 'openModal modal' : 'modal'} onClick={onCloseModal}>
         {open ? (
           <section>
-
             <div style={{margin: "5%"}}>
-
               <header>
                 배달 신청하기
               </header>
-            
               <main>
               {Object.keys(menusli).length > 0 &&
-              
                 <div className='menuList'>
                   {Object.keys(menusli).map((key:string)=>(
                     <div key={key}>
@@ -149,19 +147,15 @@ export default function DeliveryModal(props:any)  {
                 <div className='deliverycost'><span>총금액</span><span>{totalCost}원</span></div>
                 <button onClick={()=>{openModal()}} >신청하기</button>
               </main>
-
             </div>
-
             <div>
               <Modal open={modalOpen}  close={closeModal} userinfo={info.userInfo} totalCost={totalCost} orderItems={orderItems} wideClose={wideClose}>
               </Modal>
               <OptionModal open={optionModalOpen}  close={optionCloseModal} info={propsOptiondata} addOrder={addOrder}>
               </OptionModal>
             </div>
-
           </section>
         ) : null}
         </div>
   );
-
 }

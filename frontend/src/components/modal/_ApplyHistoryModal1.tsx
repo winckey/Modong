@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../../style/modal/_Modal.scss';
 import {ordermenuDataType} from "../../actions/_interfaces.tsx";
+
 export default function _ApplyHistoryModal(props:any)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, info } = props;
@@ -30,15 +31,11 @@ export default function _ApplyHistoryModal(props:any)  {
     <div className={open ? 'openModal modal' : 'modal'} onClick={onCloseModal}>
     {open ? (
       <section>
-
         <div style={{margin: "10%"}}>
-
           <div className="title">
             {parseInt(info.boardDto.price)*totalcount}원
           </div>
-
           <main>
-
             <div className="historyBox">
               <div>
                 <p>물품</p>
@@ -61,12 +58,9 @@ export default function _ApplyHistoryModal(props:any)  {
                 </div>
               </div>
             </div>
-
             <button onClick={onCloseModal} >확인</button>
           </main>
-
         </div>
-
       </section>
     ) : null}
     </div>

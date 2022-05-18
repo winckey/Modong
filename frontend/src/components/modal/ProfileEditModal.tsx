@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -21,13 +21,11 @@ export default function ProfileEditModal() {
   const handleClose = () => {
     setOpen(false);
   };
-  
 
   const dispatch = useDispatch();
   const user = useSelector((state:Rootstate) => {
     return state.accounts.data.user
   });
-
 
   const dongSelected = useSelector((state:Rootstate)=> {
     return state.address.data.dong
@@ -37,13 +35,11 @@ export default function ProfileEditModal() {
     return state.address.data.dongCode
   });
 
-
   const [state, setState] = useState<any>({
     nickname: user.nickname,
     userId: user.userId,
     phone: user.phone,
   });
-
 
   const handleChangeState = (e:any) => {
     setState({
@@ -107,13 +103,11 @@ export default function ProfileEditModal() {
   return (
     <div>
       <Button onClick={handleClickOpen} style={{position:"absolute", right: "5%", color: "gray", cursor:"pointer"}}>수정</Button>
-      
       <Dialog 
       PaperProps={{ sx: { width: "100%", height: "88vh", 
       position: "fixed", bottom: 0, m: 0, 
       borderTopLeftRadius: 30, borderTopRightRadius: 30 } }}
        open={open} onClose={handleClose}  fullScreen>
-
         <DialogTitle style={{margin:"4%", textAlign:"center"}}><b>프로필 수정</b></DialogTitle>
         <DialogContent>
             <p>닉네임</p>
@@ -141,8 +135,6 @@ export default function ProfileEditModal() {
                 value={state.phone}
                 onChange={handleChangeState}
             />
-          
-         
         </DialogContent>
         <DialogActions>
           <Button
@@ -156,8 +148,6 @@ export default function ProfileEditModal() {
               확인
             </Button>
         </DialogActions>
-
-        
       </Dialog>
     </div>
   );

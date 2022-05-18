@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
-import { useSelector , useDispatch } from "react-redux";
-import actionCreators from '../actions/actionCreators.tsx';
+import { useSelector } from "react-redux";
 import {datetrans} from '../../actions/_TimeLapse.tsx'
-import RootState from "../reducer/reducers.tsx"
+import RootState from "../../reducer/reducers.tsx"
 
 import axios, {AxiosResponse, AxiosError} from "axios";
 
 import "../../style/_communityDetail.scss"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faComments } from "@fortawesome/free-solid-svg-icons";
+import { faComments } from "@fortawesome/free-solid-svg-icons";
 
 import { commentsDataType } from "../../actions/_interfaces.tsx"
 
@@ -44,6 +43,7 @@ function CommunityDetail() {
             handleUpdatedata();
         })
         .catch((error:AxiosError) => {
+            alert("오류입니다 관리자와 이야기 해주세요!")
             console.log(error, "에러");
         })
     }
@@ -84,13 +84,14 @@ function CommunityDetail() {
         })
         .catch((error:AxiosError) => {
             console.log(error, "에러");
+            alert("오류입니다 관리자와 이야기 해주세요!")
         })
     }
     useEffect(()=>{
         handleUpdatedata();
     }, [])
 
-    const handleKeyPress = (event) => {
+    const handleKeyPress = (event:any) => {
         if (event.key === 'Enter') {
             handleReplySubmit();
         }
@@ -108,7 +109,6 @@ function CommunityDetail() {
             <div className='contentsdiv'>
                 <div>{communityPropsData.description}</div>
                 <div>{datetrans(communityPropsData.createdDate.toString())}</div>
-                {/* <div>{communityPropsData.commutag.join(", ")}</div> */}
             </div>
             <div className='replywrite'>
                 <input onChange={handleReplytxt} value={replytxt} onKeyPress={handleKeyPress} 
@@ -122,7 +122,7 @@ function CommunityDetail() {
                     <div>{reData.user.nickname||""}</div>
                     <div>{reData.description||""}</div>
                 </div>
-                {reData.user.id == userId &&
+                {reData.user.id === userId &&
                     <div className='replyDelBtn' onClick={()=>{handleReplyDel(reData.id)}}>삭제하기</div>
                 }
             </div>

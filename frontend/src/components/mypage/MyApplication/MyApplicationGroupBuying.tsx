@@ -8,8 +8,7 @@ import { faFile } from "@fortawesome/free-solid-svg-icons";
 
 import axios, {AxiosResponse, AxiosError} from "axios";
 
-import { useSelector, useDispatch } from 'react-redux';
-import actionCreators from '../../../actions/actionCreators.tsx';
+import { useSelector } from 'react-redux';
 import RootState from "../../../reducer/reducers.tsx"
 
 import {groupBuyingRecordDataType} from "../../../actions/_interfaces.tsx"
@@ -20,6 +19,7 @@ function MyApplicationGroupBuying() {
     const userId = useSelector((state:RootState) =>{
         return state.accounts.data.user.id
     })
+
     const getapplicationdata = () =>{
         console.log(1111111111, userId)
         axios.get(`/order-service/user/${userId}/ORDER_GROUP`)
@@ -31,19 +31,21 @@ function MyApplicationGroupBuying() {
         console.log(error, "에러");
         })
     }
+    
     useEffect(()=>{
         getapplicationdata()
     },[])
+
     const [ modalOpen, setModalOpen] = React.useState<boolean>(false);
     const openModal = (d:groupBuyingRecordDataType) => {
         setModalOpen(true);
         setPropsModalData(d)
     };
+
     const closeModal = () => {
         setPropsModalData(null);
         setModalOpen(false);
     };
-
     return (
         <div>
             <div className='outBox'>
@@ -62,13 +64,10 @@ function MyApplicationGroupBuying() {
                     </div>
                 ))}
             </div>
-
             <div>
                 <Modal open={modalOpen}  close={closeModal} info={propsModalData}>
                 </Modal>
             </div>
-            
-
         </div>
     );
 }

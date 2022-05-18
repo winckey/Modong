@@ -15,6 +15,7 @@ function Write() {
   const handleWcategory =(e:any) =>{
     setWCategory(e.target.value);
   }
+  
   return (
     <div className='outLine'>
         <FormControl fullWidth>

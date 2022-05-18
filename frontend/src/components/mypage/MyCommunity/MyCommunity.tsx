@@ -19,19 +19,20 @@ function MyCommunity() {
     const userId = useSelector((state:RootState) =>{
         return state.accounts.data.user.id
     })
+
     const[ myCommunityList, setMyCommunityList ] = useState<communitytype[]>([]);
 
     const handleCommunityPropsData=(d:communitytype)=>{
         dispatch(actionCreators.setCommunityPropsData(d));
     }
     const handleDelCommunity = (myCommunityId:number) =>{
-        alert("삭제하시겠습니까?")
         axios.delete(`/board-service/`,{data:{id:myCommunityId}})
         .then((response:AxiosResponse) => {
             console.log(response.data, "나의 게시판 나가기")
         })
         .catch((error:AxiosError) => {
             console.log(error, "에러");
+            alert("오류 입니다 관리자와 이야기해주세요!")
         })
     }
     const getMycommunityList=()=>{
@@ -44,9 +45,11 @@ function MyCommunity() {
             console.log(error, "에러");
             })
     }
+    
     useEffect(()=>{
         getMycommunityList();
     },[])
+
     return (
         <div className='myCommunity'>
             {myCommunityList.map((data:communitytype) =>(

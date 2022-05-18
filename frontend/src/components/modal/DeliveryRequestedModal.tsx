@@ -11,6 +11,7 @@ export default function DeliveryRequestedModal(props:any)  {
   const [ userList, setUserList] = useState<any>({});
   const [ menuList, setMenuList ] = useState<any>({});
   const [ totalcost, setTotalcost] = useState<number>(0);
+
   useEffect(()=>{
     if (info != null){
       getDeliveryList();
@@ -25,6 +26,7 @@ export default function DeliveryRequestedModal(props:any)  {
      })
      .catch((error:AxiosError) => {
        console.log(error, "에러");
+       alert("오류 입니다 관리자와 이야기해주세요!")
      })
  }
 useEffect(()=>{
@@ -68,20 +70,16 @@ useEffect(()=>{
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
-
     <div className={open ? 'openModal modal' : 'modal'} onClick={onCloseModal}>
     {open ? (
       <section>
-
         <div style={{margin: "5%"}}>
-
           <header>
             {info.storeName}
           </header>
-
           <main>
             <div className='sizing bottomline'>
-              {Object.keys(userList).map((key)=>(
+              {Object.keys(userList).map((key:string)=>(
               <div className='flex-r' key={key}>
                 <div>{key}</div>
                 <div>{userList[key]}원</div>
@@ -90,7 +88,7 @@ useEffect(()=>{
             </div>
             <div className='leftstart'>주문 해야할 메뉴</div>
             <div className='sizing'>
-              {Object.keys(menuList).map((key)=>(
+              {Object.keys(menuList).map((key:string)=>(
                 <div className='flex-r' key={key}>
                   <div>{key}</div>
                   <div>{menuList[key]}개</div>
@@ -103,12 +101,9 @@ useEffect(()=>{
             </div>
             <button onClick={close} >확인</button>
           </main>
-
         </div>
-
       </section>
     ) : null}
     </div>
   );
-
 }

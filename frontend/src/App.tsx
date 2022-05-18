@@ -19,19 +19,12 @@ function App() {
     isLogin : state.accounts.data.token
   }))
 
-
-  useEffect(()=> {
-
-  }, [isLogin]);
-
-  
   useEffect(()=> {
     getFcmToken()
     .then((token:string)=>{
       dispatch(actionCreators.setFcmToken(token));
     })
   },[]);
-
 
   return (
     <BrowserRouter>

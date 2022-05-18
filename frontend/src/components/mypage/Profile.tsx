@@ -3,71 +3,53 @@ import '../../style/_profile.scss'
 import Modal from '../modal/ProfileEditModal.tsx'
 import { useSelector, useDispatch } from 'react-redux';
 import Rootstate from '../../reducer/reducers.tsx';
-import axios from 'axios';
-import actionCreators from '../../actions/actionCreators.tsx';
+// import axios from 'axios';
+// import actionCreators from '../../actions/actionCreators.tsx';
 
 function Profile() {
-
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const user = useSelector((state:Rootstate) => {
         return state.accounts.data.user
     });
-    const dong = useSelector((state:Rootstate) => {
-        return state.address.data.dong
-    });
+    // const dong = useSelector((state:Rootstate) => {
+    //     return state.address.data.dong
+    // });
 
-    const [profileImage, setProfileImage] = useState<string>("");
+    // const [profileImage, setProfileImage] = useState<string>("");
     const fileInput = useRef(null);
 
-    
-
     // 프로필 이미지 수정
-    const handleProfileImage = (e:any) => {
-        // console.log(e.target.files[0].size);
-        const image = new FormData();
-        image.append('image', e.target.files[0]);
-        // console.log("image는 몬가요", image);
+    // const handleProfileImage = (e:any) => {
+    //     // console.log(e.target.files[0].size);
+    //     const image = new FormData();
+    //     image.append('image', e.target.files[0]);
+    //     // console.log("image는 몬가요", image);
 
-        axios.put("/user-service/users/image",
-        {
-            userId: user.id,
-            image: image
-        },
-        {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-                // 'Content-Type': 'multipart/form-data'
-            }
-        }
-        ).then((res)=>{
-            console.log(res.data);
-            // const userInfo = {
-            //     ...user,
-            //     image: res.data.image
-            // };
-            // dispatch(actionCreators.setUser(userInfo));
-        }).catch((err)=>{
-            alert("오류입니다 관리자와 이야기 해주세요")
-            console.log("이미지 업로드 실패", err);
-        })
-
-
-    };
-
+    //     axios.put("/user-service/users/image",
+    //     {
+    //         userId: user.id,
+    //         image: image
+    //     },
+    //     {
+    //         headers: {
+    //             Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    //             // 'Content-Type': 'multipart/form-data'
+    //         }
+    //     }
+    //     ).then((res)=>{
+    //         console.log(res.data);
+            
+    //     }).catch((err)=>{
+    //         alert("오류입니다 관리자와 이야기 해주세요")
+    //         console.log("이미지 업로드 실패", err);
+    //     })
+    // };
     return (
         <div className="profile">
-
             <Modal/>
-            
             <div>
-                
                 <img onClick={()=>{fileInput.current.click()}} 
                 src={ user.image ? user.image:require('../../assets/pingu.png') } alt="프로필"/>
-
-                {/* <input type='file' accept='image/*'
-                 name='file' ref={fileInput} onChange={handleProfileImage}></input> */}
-
-                {/* <button className="editButton" onClick={handleProfileImage}>+</button> */}
             </div>
 
             <div>
@@ -84,7 +66,6 @@ function Profile() {
                     <p>{user.phone}</p>
                 </div>
             </div>
-
         </div>
     );
 }

@@ -61,7 +61,7 @@ export default function Login(props:any) {
           console.log("userInfo-loginpage", userInfo);
         })
         .catch((response) => {
-          alert("오류입니다 관리자와 이야기 해주세요")
+          alert("아이디 비번을 확인 해주세요")
           console.log(response, "Login Error");
         });
     }
@@ -83,7 +83,6 @@ export default function Login(props:any) {
           <div>
             <img style={{ width: "70%" }} src={ require('../assets/logo.png') } alt="사진"/>
           </div>
-
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
@@ -110,7 +109,6 @@ export default function Login(props:any) {
             <FormGroup>
               <FormControlLabel control={<Checkbox/>} label="로그인 상태 유지" />
             </FormGroup>
-            
             <Button
               style={{backgroundColor: "#0064FF", fontSize: "1.2rem", borderRadius: "10px"}}
               size="large"

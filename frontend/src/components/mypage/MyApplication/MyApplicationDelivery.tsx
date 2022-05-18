@@ -7,8 +7,7 @@ import { faFile } from "@fortawesome/free-solid-svg-icons";
 
 import axios, {AxiosResponse, AxiosError} from "axios";
 
-import { useSelector, useDispatch } from 'react-redux';
-import actionCreators from '../../../actions/actionCreators.tsx';
+import { useSelector } from 'react-redux';
 import RootState from "../../../reducer/reducers.tsx"
 
 import { groupBuyingRecordDataType } from "../../../actions/_interfaces"
@@ -20,6 +19,7 @@ function MyApplicationDelivery() {
     const userId = useSelector((state:RootState) =>{
         return state.accounts.data.user.id
     })
+
     const getapplicationdata = () =>{
         console.log(`/order-service/user/${userId}/ORDER_DELIVERY`);
         axios.get(`/order-service/user/${userId}/ORDER_DELIVERY`)
@@ -31,18 +31,20 @@ function MyApplicationDelivery() {
         console.log(error, "에러");
         })
     }
+
     useEffect(()=>{
         getapplicationdata()
     },[])
+
     const openModal = (d:groupBuyingRecordDataType) => {
         setModalOpen(true);
         setPropsModalData(d);
     };
+
     const closeModal = () => {
         setModalOpen(false);
         setPropsModalData(null);
     };
-
     return (
         <div>
             <div className='outBox'>
@@ -61,12 +63,10 @@ function MyApplicationDelivery() {
                     </div>
                 ))}            
             </div>
-            
             <div>
                 <Modal open={modalOpen}  close={closeModal} info={propsModalData}>
                 </Modal>
             </div>
-            
         </div>
     );
 }

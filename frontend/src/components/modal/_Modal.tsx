@@ -13,24 +13,18 @@ export default function Modal(props:any)  {
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
-
     <div className={open ? 'openModal modal' : 'modal'} onClick={onCloseModal}>
     {open ? (
       <section>
-
         <div style={{margin: "5%"}}>
-
           <header>
             기본 모달
           </header>
-
           <main>
-            {info.map((region, index) => (<div key={index}>{region}</div>))}
+            {info.map((region:any, index:number) => (<div key={index}>{region}</div>))}
             <button onClick={close} >확인</button>
           </main>
-
         </div>
-
       </section>
     ) : null}
     </div>

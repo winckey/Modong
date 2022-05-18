@@ -6,26 +6,17 @@ import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import configureStore  from "./reducer/reducers.tsx";
 
-import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
-
-import { composeWithDevTools } from 'redux-devtools-extension';
-import { createStore } from "redux";
 
 import axios from 'axios';
 
-
-
 import { initializeApp } from "firebase/app";
-
 
 const {store, persistor} = configureStore();
 
 axios.defaults.withCredentials = false;
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-
-
 
 const config = {
   apiKey: "AIzaSyBbWoqgMFm_g2anVBCpF34nvPeJCFeQyio",
@@ -37,7 +28,6 @@ const config = {
 };
 initializeApp(config);
 
-
 const rootNode = document.getElementById('root')
 ReactDOM.createRoot(rootNode).render(
   <React.StrictMode>
@@ -48,7 +38,6 @@ ReactDOM.createRoot(rootNode).render(
     </Provider>
   </React.StrictMode>,
 );
-
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
