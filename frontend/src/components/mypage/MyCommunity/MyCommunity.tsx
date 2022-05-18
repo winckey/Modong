@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import actionCreators from '../../../actions/actionCreators.tsx';
 
 import RootState from "../../../reducer/reducers.tsx"
-import {datetrans} from '../../../actions/TimeLapse.tsx'
+import { datetrans } from '../../../actions/_TimeLapse.tsx'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';

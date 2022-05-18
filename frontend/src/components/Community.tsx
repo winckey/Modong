@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faComments } from "@fortawesome/free-solid-svg-icons";
 
 
-import {datetrans} from '../actions/TimeLapse.tsx'
+import {datetrans} from '../actions/_TimeLapse.tsx'
 
 import axios, {AxiosResponse, AxiosError} from "axios";
 

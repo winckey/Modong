@@ -25,7 +25,7 @@
         >div:nth-child(2){
             align-self: flex-end;
         }
-        >div:nth-child(3){
+        .myGroupCardTwoBtn{
             display: flex;
             justify-content: space-around;
             align-self: center;
@@ -42,6 +42,18 @@
             >div:nth-child(1){
                 border-right: 1px solid white;
             }
+        }
+        .myGroupCardOneBtn{
+            display: flex;
+            justify-content: space-around;
+            align-self: center;
+            background-color: $blue2;
+            width: 100%;
+            color: white;
+            padding:8px;
+            border-radius: 0 0 15px 15px;
+            max-width: 100%;
+            margin: 2px 15px 0px 15px;
         }
     }
 }

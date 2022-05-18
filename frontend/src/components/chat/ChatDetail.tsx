@@ -3,15 +3,15 @@ import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
 
-import {reversedatetrans} from '../../actions/TimeLapse.tsx'
-import {datetrans} from '../../actions/TimeLapse.tsx'
+import {reversedatetrans} from '../../actions/_TimeLapse.tsx'
+import {datetrans} from '../../actions/_TimeLapse.tsx'
 
 import "../../style/_chatdetail.scss"
 import actionCreators from './actions/actionCreators.tsx';
 import { useSelector } from "react-redux";
 import RootState from "../../reducer/reducers.tsx"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { faComment } from "@fortawesome/free-solid-svg-icons";
 import axios, { AxiosResponse } from 'axios';
 import { createRoutesFromChildren } from 'react-router-dom';
 
@@ -108,7 +108,7 @@ function ChatDetail() {
         axios.get(`chat-service/chat/message/${state.roomId}`)
         .then((res)=>{
             setHistoryMessages(res.data);
-            console.log("history", res.data);
+            console.log("history111111111111", res.data);
         })
         .catch((err)=>{
             console.log("getHistory에러", err);
@@ -185,13 +185,13 @@ function ChatDetail() {
                         <div className="myChat">
                             <div className="myChatName">{d.userName}</div>
                             <div>{d.message}</div>
-                            <div>{reversedatetrans(d.date)}</div>
+                            <div>{datetrans(d.date)}</div>
                         </div>
                         :
                         <div className="otherChat">
                             <div className="otherChatName">{d.userName}</div>
                             <div>{d.message}</div>
-                            <div>{reversedatetrans(d.date)}</div>
+                            <div>{datetrans(d.date)}</div>
                         </div>
                         }
                     </div>
@@ -203,7 +203,7 @@ function ChatDetail() {
             <div className='chatinput'>
                 <input onChange={handleChattxt} value={chattxt||""} 
                 type="text" onKeyPress={handleKeyPress}></input>
-                <div onClick={sendMessage}><FontAwesomeIcon icon={faPen}/></div>
+                <div onClick={sendMessage}><FontAwesomeIcon icon={faComment}/></div>
             </div>
         </div>
     );

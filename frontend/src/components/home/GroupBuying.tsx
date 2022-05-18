@@ -5,7 +5,7 @@ import Modal from '../modal/GroupBuyingApplyModal.tsx'
 import { useSelector } from 'react-redux';
 import axios, {AxiosResponse, AxiosError} from "axios";
 
-import {reversedatetrans} from '../../actions/TimeLapse.tsx'
+import {reversedatetrans} from '../../actions/_TimeLapse.tsx'
 
 import { gropupbuyingmodalpropstype } from "../../actions/_interfaces.tsx"
 // import Rootstate from "../../reducer/reducers.tsx"

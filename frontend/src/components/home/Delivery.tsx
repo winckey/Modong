@@ -5,7 +5,7 @@ import Modal from '../modal/DeliveryApplyModal.tsx'
 
 import axios, {AxiosResponse, AxiosError} from "axios";
 
-import {reversedatetrans} from '../../actions/TimeLapse.tsx'
+import {reversedatetrans} from '../../actions/_TimeLapse.tsx'
 
 import { deliverytype } from '../../actions/_interfaces.tsx'
 

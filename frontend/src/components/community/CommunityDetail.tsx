@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { useSelector , useDispatch } from "react-redux";
 import actionCreators from '../actions/actionCreators.tsx';
-import {datetrans} from '../../actions/TimeLapse.tsx'
+import {datetrans} from '../../actions/_TimeLapse.tsx'
 import RootState from "../reducer/reducers.tsx"
 
 import axios, {AxiosResponse, AxiosError} from "axios";
@@ -113,7 +113,7 @@ function CommunityDetail() {
             <div className='replywrite'>
                 <input onChange={handleReplytxt} value={replytxt} onKeyPress={handleKeyPress} 
                 placeholder="댓글을 입력해주세요" type="text"/>
-                <div onClick={handleReplySubmit}><FontAwesomeIcon icon={faPen}/></div>
+                <div onClick={handleReplySubmit}><FontAwesomeIcon icon={faComments}/></div>
             </div>
             {replyDatas.map((reData)=>(
             <div className='userdiv2' key={reData.id}>

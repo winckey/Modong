@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import actionCreators from '../../../actions/actionCreators.tsx';
 
 import RootState from "../../../reducer/reducers.tsx"
-import {reversedatetrans} from '../../../actions/TimeLapse.tsx'
+import {reversedatetrans} from '../../../actions/_TimeLapse.tsx'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
@@ -109,11 +109,21 @@ function MyGroupBuying() {
                 {myGroupBuyingList.map((mgdata) =>(
                     <div className='shadow' key={mgdata.id}>
                         <div>{mgdata.productName}</div>
+                        {reversedatetrans(mgdata.closeTime)==="종료되었습니다." ?(
+                        <div>종료되었습니다.</div>
+                        ):(
                         <div>{reversedatetrans(mgdata.closeTime)}남았습니다.</div>
-                        <div>
-                            <div onClick={()=>{openCloseModal(mgdata)}}>마감하기</div>
+                        )}
+                        {reversedatetrans(mgdata.closeTime)==="종료되었습니다." ?(
+                        <div className='myGroupCardOneBtn'>
                             <div onClick={()=>{openModal(mgdata)}}>신청내역확인</div>
                         </div>
+                        ):(
+                        <div className='myGroupCardTwoBtn'>
+                            <div onClick={()=>{openCloseModal(mgdata)}}>마감하기</div>
+                            <div onClick={()=>{openModal(mgdata)}}>신청내역확인</div>
+                        </div> 
+                        )}
                         <FontAwesomeIcon onClick={()=>{openExitModal(mgdata)}} className='rightExitIcon' icon={faRightToBracket}/>
                     </div>
                 ))}

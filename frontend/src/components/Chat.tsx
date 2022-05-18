@@ -10,7 +10,7 @@ import axios, {AxiosResponse, AxiosError} from "axios";
 
 import { useSelector , useDispatch } from "react-redux";
 import actionCreators from './actions/actionCreators.tsx';
-import {datetrans} from '../actions/TimeLapse.tsx'
+import {datetrans} from '../actions/_TimeLapse.tsx'
 import RootState from "./reducer/reducers.tsx"
 
 import { chatListType } from "../actions/_interfaces.tsx"
@@ -65,8 +65,8 @@ export default function Chat() {
                   </Modal>
                 </>
 
-                {d.type === "공구" && <FontAwesomeIcon className='leftChatDisplayIcon' icon={faBowlFood}/>}
-                {d.type === "배달" && <FontAwesomeIcon className='leftChatDisplayIcon' icon={faTruck}/>}
+                {d.type === "ORDER_GROUP" && <FontAwesomeIcon className='leftChatDisplayIcon' icon={faBowlFood}/>}
+                {d.type === "ORDER_DELIVERY" && <FontAwesomeIcon className='leftChatDisplayIcon' icon={faTruck}/>}
               <div className='rightChattxt'>참여인원 : {d.numberUser}명</div>
             </Link>
           ))}
