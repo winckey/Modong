@@ -54,5 +54,14 @@ class Crawling(Resource):
 class Get(Resource):
     # 메뉴 크롤링 체크
     def get(self, board_id):
-        menus = rd.get(board_id)
-        return menus.decode('utf-8')
+        if rd.exists(board_id):
+            menus = rd.get(board_id)
+            return menus.decode('utf-8')
+        else : # 크롤링하지 않은 가게라면
+            server = yogiyo.UpdateMenu()
+            menus = json.dumps(server.menu_information(board_id), ensure_ascii=False).encode('utf-8')
+
+            # Redis 저장 - 키값(board_id)
+            rd.set(board_id, menus, datetime.timedelta(hours=18))
+
+            return menus.decode('utf-8')
