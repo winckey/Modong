@@ -3,6 +3,7 @@ package com.modong.boardservice.service;
 import com.modong.boardservice.db.entity.Purchase;
 import com.modong.boardservice.db.repository.PurchaseRepository;
 import com.modong.boardservice.db.repository.PurchaseRepositoryImpl;
+import com.modong.boardservice.messagequeue.KafkaProducer;
 import com.modong.boardservice.request.PurchaseReqDTO;
 import com.modong.boardservice.response.PurchaseResDTO;
 import com.modong.boardservice.response.UserResDTO;
@@ -28,6 +29,8 @@ public class PurchaseServiceImpl implements PurchaseService{
     @Autowired
     UserClientService userClientService;
 
+    @Autowired
+    KafkaProducer kafkaProducer;
 
     @Override
     public void createPurchase(PurchaseReqDTO purchaseReqDTO) {
@@ -52,7 +55,7 @@ public class PurchaseServiceImpl implements PurchaseService{
 
         purchase.setCloseTime(LocalDateTime.now());
 
-
+        kafkaProducer.send("order-topic" , purchase.getId() ,"ORDER_GROUP" , purchase.getProductName() , Long.toString(purchase.getUserId()));
         purchaseRepository.save(purchase);
     }
 
