@@ -98,11 +98,11 @@ public class RoomServiceImpl implements RoomService {
         try{
             // 유저가 참여중인 방 목록 가져옴
             List<UserEntity> list = userRepository.findByUserId(userId).get();
-
+// ^^의심
             for(UserEntity user:list){
-                RoomEntity entity = roomRepository.findById(user.getRoomId()).get();
-                RoomDto dto = mapper.map(entity, RoomDto.class);
-                dto.setRoomId(entity.getId());
+//                RoomEntity entity = roomRepository.findById(user.getRoom()).get();
+                RoomDto dto = mapper.map(user.getRoom() , RoomDto.class);
+                dto.setRoomId(user.getRoom().getId());
                 res.add(dto);
             }
         }catch (Exception e){

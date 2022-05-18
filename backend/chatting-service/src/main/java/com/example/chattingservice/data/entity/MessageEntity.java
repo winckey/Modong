@@ -17,12 +17,13 @@ public class MessageEntity extends AuditEntity{
     private Long id;
 
     @Column(nullable = false, unique = false)
-    private Long roomId; // 방번호
-
-    @Column(nullable = false, unique = false)
-    private Long userId; // 메시지 보낸사람
-
-    @Column(nullable = false, unique = false)
     private String message; // 메시지
 
+    @ManyToOne
+    @JoinColumn(name = "roomId")
+    private RoomEntity room;
+
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private UserEntity user;
 }

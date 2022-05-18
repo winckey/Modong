@@ -15,11 +15,12 @@ public class UserEntity {
     private Long id;
 
     @Column(nullable = false, unique = false)
-    private Long roomId;
-
-    @Column(nullable = false, unique = false)
     private Long userId;
 
     @Column(nullable = false, unique = false, length = 30)
     private String userName;
+
+    @ManyToOne
+    @JoinColumn(name = "roomId")
+    private RoomEntity room;
 }
