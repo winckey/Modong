@@ -1,7 +1,7 @@
 server:
-  port: 8080
+  port: 8882
 #  port: ${random.int(50000,50001)}
-#  address: 61.253.156.192
+  # address: localhost
 
 greeting:
   message: Welcome to the Simple E-commerce.
@@ -10,9 +10,6 @@ greeting:
 spring:
   application:
     name: chat-service
-#  redis:
-#    host: k6e102.p.ssafy.io
-#    port: 6379
 #  rabbitmq:
 #    host: 127.0.0.1
 #    port: 5672
@@ -20,11 +17,11 @@ spring:
 #    password: guest
 
   datasource:
-    url: jdbc:mysql://k6e102.p.ssafy.io:3308/modong?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://k6e1021.p.ssafy.io:3308/modong?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       username: root
-      password: podoYorgurt%
+      # password: 
   jpa:
     hibernate:
       ddl-auto: update
@@ -43,11 +40,11 @@ spring:
 eureka:
  instance:
    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
- #    prefer-ip-address: true
- #    ip-address: ${server.address}
+   prefer-ip-address: true
+   ip-address: ${server.address}
  client:
    service-url:
-     defaultZone: http://k6e102.p.ssafy.io:8761/eureka
+     defaultZone: http://k6e102.p.ssafy.io:8761/eureka/
    fetch-registry: true
    register-with-eureka: true
 
