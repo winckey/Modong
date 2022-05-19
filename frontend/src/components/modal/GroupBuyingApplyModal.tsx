@@ -84,11 +84,13 @@ export default function GroupBuyingApplyModal(props:any)  {
           </header>
           <main>
             <div className='buyQuestion'>
-              <div><b>{info.productName}</b> 상품을</div>
+              <div><b>{info.productName}</b></div>
+              <p>상품을</p>
               <p><b>{info.price}원</b>에 구매해볼까요?</p>
               <TextField id="standard-basic" placeholder="몇개나 살까요?" fullWidth 
               variant="standard" onChange={handleChangeProductNum} value={productNum||""} />
             </div>
+            <a href="#" onClick={()=>{window.open(info.url||"https://www.yogiyo.co.kr/mobile/#/")}}>상품을 확인해주세요</a>
             <div className='totalPrice'>
               <div>상품 금액</div>
               <div>{productNum ? info.price*productNum: info.price}원</div>
