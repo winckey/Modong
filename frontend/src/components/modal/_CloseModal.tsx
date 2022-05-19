@@ -25,7 +25,8 @@ export default function CloseModal(props:any)  {
                 <FontAwesomeIcon  icon={faCircleExclamation} size="6x" color="#0064FF"/>
               </div>
               <header>
-                <div>{info.productName ? info.productName: info.storeName} 접수를</div>
+                <div className='textover noneflex'>{info.productName ? info.productName: info.storeName}</div>
+                <div>접수를</div>
                 <div>마감하시겠어요?</div>
               </header>
           </div>

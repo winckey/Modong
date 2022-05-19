@@ -88,7 +88,12 @@ export default function DeliveryModal(props:any)  {
   };
 
   const openModal=()=>{
-    if(orderItems.length === 0){
+    if (new Date(info.closeTime) < new Date()){
+      alert("주문시간이 초과 하였습니다.")
+      close();
+      setOrderItems([]);
+      setTotalCost(0);
+    }else if(orderItems.length === 0){
       alert("메뉴를 선택해주세요");
     }else{
       axios.post("/order-service/",{

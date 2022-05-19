@@ -19,7 +19,7 @@ export default function DeliveryHistoryModal(props:any)  {
         <div style={{margin: "10%"}}>
           <div className="title">
             {orderItems.length>0 &&
-              <p>{orderItems[0].itemContent} 외 {orderItems.length-1}개</p>
+              <p className='textover'>{orderItems[0].itemContent}외 {orderItems.length-1}메뉴</p>
             }
           </div>
           <main>

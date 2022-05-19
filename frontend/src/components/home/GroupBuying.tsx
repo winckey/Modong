@@ -23,8 +23,12 @@ function GroupBuying() {
 
     const openModal = (data:gropupbuyingmodalpropstype) => {
         if(data.userInfo.id !== userId){
-            setModalOpen(true);
-            setModalprops(data);
+            if(new Date(data.closeTime) > new Date()){
+                setModalOpen(true);
+                setModalprops(data);
+            }else{
+                alert("주문 시간을 확인 해주세요");
+            }
         }else{
             alert("자신의 게시글에는 예약 할 수 없습니다.")
         }

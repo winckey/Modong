@@ -1,5 +1,12 @@
 @import '../_base';
-
+.textover{
+  @include textoverflow;
+  width: 80%;
+  text-align: center;
+}
+.noneflex{
+  display: block;
+}
 .modal {
     display: none;
     position: fixed;

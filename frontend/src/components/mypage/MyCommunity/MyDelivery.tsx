@@ -10,9 +10,6 @@ import { useSelector } from 'react-redux';
 import RootState from "../../../reducer/reducers.tsx"
 import {reversedatetrans} from '../../../actions/_TimeLapse.tsx'
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
-
 import { deliverytype } from "../../../actions/_interfaces.tsx";
 
 function MyDelivery() {
@@ -44,12 +41,6 @@ function MyDelivery() {
 
     const closeCloseModal = () => {
         setCloseModalOpen(false);
-    }
-
-    const openExitModal = (data:deliverytype) => {
-        setModalPropsData(data);
-        console.log("공구 정보", data);
-        setExitModalOpen(true);
     }
 
     const closeExitModal = () => {
@@ -114,17 +105,10 @@ function MyDelivery() {
                         ):(
                         <div>{reversedatetrans(mddata.closeTime)}남았습니다.</div>
                         )}
-                        {reversedatetrans(mddata.closeTime)==="종료되었습니다." ?(
-                        <div className='myGroupCardOneBtn'>
+                        <div className='myGroupCardTwoBtn'>
+                            {reversedatetrans(mddata.closeTime)==="종료되었습니다." ? (<div onClick={()=>{openCloseModal(mddata)}}>톡만들기</div>):(<div onClick={()=>{openCloseModal(mddata)}}>마감하기</div>)}
                             <div onClick={()=>{openModal(mddata)}}>신청내역확인</div>
                         </div>
-                        ):(
-                        <div className='myGroupCardTwoBtn'>
-                            <div onClick={()=>{openCloseModal(mddata)}}>마감하기</div>
-                            <div onClick={()=>{openModal(mddata)}}>신청내역확인</div>
-                        </div> 
-                        )}
-                        <FontAwesomeIcon onClick={()=>{openExitModal(mddata)}} className='rightExitIcon' icon={faRightToBracket}/>
                     </div>
                 ))}
             </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
-import {datetrans} from '../../actions/_TimeLapse.tsx'
+import {datetrans, datetransnine} from '../../actions/_TimeLapse.tsx'
 
 import "../../style/_chatdetail.scss"
 import { useSelector } from "react-redux";
@@ -175,13 +175,13 @@ function ChatDetail() {
                         <div className="myChat">
                             <div className="myChatName">{d.userName}</div>
                             <div>{d.message}</div>
-                            <div>{datetrans(d.date)}</div>
+                            <div>{datetransnine(d.date)}</div>
                         </div>
                         :
                         <div className="otherChat">
                             <div className="otherChatName">{d.userName}</div>
                             <div>{d.message}</div>
-                            <div>{datetrans(d.date)}</div>
+                            <div>{datetransnine(d.date)}</div>
                         </div>
                         }
                     </div>

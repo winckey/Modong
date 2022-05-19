@@ -33,7 +33,10 @@ export default function GroupBuyingApplyModal(props:any)  {
   const openModal = () => {
     if (productNum){
       console.log(productNum, typeof(productNum))
-      if(parseInt(productNum.toString()) <= 0 || Number.isNaN(Number(productNum))){
+      if (new Date(info.closeTime) < new Date()){
+        alert("주문시간이 초과 하였습니다.")
+        close();
+      }else if(parseInt(productNum.toString()) <= 0 || Number.isNaN(Number(productNum))){
         alert("갯수를 확인해주세요!")
       }else{
         axios.post("/order-service/",{

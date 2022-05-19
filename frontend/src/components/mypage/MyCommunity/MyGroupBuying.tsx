@@ -10,9 +10,6 @@ import { useSelector } from 'react-redux';
 import RootState from "../../../reducer/reducers.tsx"
 import {reversedatetrans} from '../../../actions/_TimeLapse.tsx'
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
-
 import { groupbuyingtype } from "../../actions/_interfaces.tsx";
 
 function MyGroupBuying() {
@@ -43,11 +40,6 @@ function MyGroupBuying() {
         setCloseModalOpen(false);
     }
 
-    const openExitModal = (data:groupbuyingtype) => {
-        setModalPropsData(data);
-        console.log("공구 정보", data);
-        setExitModalOpen(true);
-    }
     const closeExitModal = () => {
         setExitModalOpen(false);
     }
@@ -95,6 +87,7 @@ function MyGroupBuying() {
         axios.delete('/board-service/group-purchase',deldata
         ).then((res)=>{
             console.log("마감성공",res);
+            handlegetMyList();
         }).catch((err)=>{
             console.log("마감실패",err);
             alert("오류입니다 관리자와 이야기 해주세요!")
@@ -112,17 +105,14 @@ function MyGroupBuying() {
                         ):(
                         <div>{reversedatetrans(mgdata.closeTime)}남았습니다.</div>
                         )}
-                        {reversedatetrans(mgdata.closeTime)==="종료되었습니다." ?(
-                        <div className='myGroupCardOneBtn'>
-                            <div onClick={()=>{openModal(mgdata)}}>신청내역확인</div>
-                        </div>
-                        ):(
                         <div className='myGroupCardTwoBtn'>
+                            {reversedatetrans(mgdata.closeTime)==="종료되었습니다." ?(
+                            <div onClick={()=>{openCloseModal(mgdata)}}>톡만들기</div>
+                            ):(
                             <div onClick={()=>{openCloseModal(mgdata)}}>마감하기</div>
+                            )}
                             <div onClick={()=>{openModal(mgdata)}}>신청내역확인</div>
                         </div> 
-                        )}
-                        <FontAwesomeIcon onClick={()=>{openExitModal(mgdata)}} className='rightExitIcon' icon={faRightToBracket}/>
                     </div>
                 ))}
             </div>

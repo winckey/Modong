@@ -33,7 +33,8 @@ export default function GroupBuyingDoneModal(props:any)  {
               <FontAwesomeIcon  icon={faCircleExclamation} size="6x" color="#0064FF"/>
             </div>
             <header>
-              <p>{info.productName}상품을</p>
+              <p className='textover'>{info.productName}</p>
+              <p>상품을</p>
               <p>{infoNum}개 신청했어요</p>
             </header>
           </div>

@@ -21,8 +21,12 @@ function Delivery() {
     })
     const openModal = (d:deliverytype) => {
         if(d.userInfo.id !== userId){
-            setModalPropsData(d)
-            setModalOpen(true);
+            if(new Date(d.closeTime) > new Date()){
+                setModalPropsData(d)
+                setModalOpen(true);
+            }else{
+                alert("주문 시간을 초과했습니다.")
+            }
         }else{
             alert("자신의 게시글에는 예약 할 수 없습니다.")
         }

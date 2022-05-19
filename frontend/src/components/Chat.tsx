@@ -60,7 +60,7 @@ export default function Chat() {
                   roomId={d.roomId} userId={userId}>
                   </Modal>
                 </>
-                {d.type === "ORDER_GROUPW" && <FontAwesomeIcon className='leftChatDisplayIcon' icon={faBowlFood}/>}
+                {d.type === "ORDER_GROUP" && <FontAwesomeIcon className='leftChatDisplayIcon' icon={faBowlFood}/>}
                 {d.type === "ORDER_DELIVERY" && <FontAwesomeIcon className='leftChatDisplayIcon' icon={faTruck}/>}
               <div className='rightChattxt'>참여인원 : {d.numberUser}명</div>
             </Link>

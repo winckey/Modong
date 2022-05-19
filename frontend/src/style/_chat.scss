@@ -16,6 +16,8 @@
            
             .leftChattxt{
                 font-size: 22px;
+                width: 80%;
+                @include textoverflow;
                 @include absolute-loc($top:10px, $left:20px);
             }
             .rightChattxt{

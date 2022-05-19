@@ -24,7 +24,7 @@ export default function _ApplyHistoryModal(props:any)  {
             <div className="historyBox">
               <div>
                 <p>물품</p>
-                <p>{info.productName}</p>
+                <p className='textover'>{info.productName}</p>
               </div>
               <div>
                 <p>가격</p>

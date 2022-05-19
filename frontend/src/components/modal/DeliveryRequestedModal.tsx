@@ -75,7 +75,7 @@ useEffect(()=>{
       <section>
         <div style={{margin: "5%"}}>
           <header>
-            {info.storeName}
+            <p className='textover'>{info.storeName}</p>
           </header>
           <main>
             <div className='sizing bottomline'>
@@ -90,7 +90,7 @@ useEffect(()=>{
             <div className='sizing'>
               {Object.keys(menuList).map((key:string)=>(
                 <div className='flex-r' key={key}>
-                  <div>{key}</div>
+                  <div className='textover'>{key}</div>
                   <div>{menuList[key]}개</div>
                 </div>
               ))}

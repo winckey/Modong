@@ -51,7 +51,7 @@ export default function GroupBuyingRequestedModal(props:any)  {
       <section>
         <div style={{margin: "5%"}}>
           <header>
-            {info.productName}
+            <p className='textover'>{info.productName}</p>
           </header>
           <main className='GroupBuyingReq'>
             <div>
@@ -64,7 +64,7 @@ export default function GroupBuyingRequestedModal(props:any)  {
             </div>
             <div className='productcount'>수량</div>
             <div>
-              <div>{info.productName}</div>
+              <div className='textover'>{info.productName}</div>
               <div>{productTotalNum}개</div>
             </div>
             <div>
