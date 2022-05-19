@@ -61,7 +61,9 @@ public class PurchaseServiceImpl implements PurchaseService{
 
 
     @Override
-    public Page<PurchaseResDTO> purchaseListCalling(Pageable pageable, Long dongCode) {
+    public Page<PurchaseResDTO> purchaseListCalling(Pageable pageable, Long userId) {
+        Long dongCode = Long.valueOf(userClientService.getUser(userId).getDongDto().get("dongcode"));
+
         Page<Purchase> purchases = purchaseRepositoryImpl.findAllByTimeLimit(pageable,dongCode);
 
         List<PurchaseResDTO> purchaseList = new ArrayList<>();

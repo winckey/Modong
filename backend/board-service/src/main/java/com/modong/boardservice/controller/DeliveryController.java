@@ -42,11 +42,11 @@ public class DeliveryController {
     }
 
     //목록 조회(Pagination, 10개)
-    @GetMapping("/list/{dongCode}")
-    public ResponseEntity deliveryList(@PageableDefault(page = 0, size = 10) Pageable pageable, @PathVariable Long dongCode) {
+    @GetMapping("/list/{userId}")
+    public ResponseEntity deliveryList(@PageableDefault(page = 0, size = 10) Pageable pageable, @PathVariable Long userId) {
 
 
-        return new ResponseEntity<>(deliveryService.deliveryListCalling(pageable, dongCode), HttpStatus.OK);
+        return new ResponseEntity<>(deliveryService.deliveryListCalling(pageable, userId), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}")

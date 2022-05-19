@@ -61,7 +61,9 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Page<BoardResDTO> boardListCalling(Pageable pageable, Long dongCode) {
+    public Page<BoardResDTO> boardListCalling(Pageable pageable, Long userId) {
+        Long dongCode = Long.valueOf(userClientService.getUser(userId).getDongDto().get("dongcode"));
+
         Page<BoardResDTO> boards = boardRepositoryImpl.findAllByDeletedIsFalseAndCommentNumber(pageable,dongCode);
 
 

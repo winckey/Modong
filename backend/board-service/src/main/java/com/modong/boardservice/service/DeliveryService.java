@@ -15,7 +15,7 @@ public interface DeliveryService {
     Delivery deleteDelivery(Long id);
 
 //  게시글 목록 불러오기
-    Page<DeliveryResDTO> deliveryListCalling(Pageable pageable, Long dongCode);
+    Page<DeliveryResDTO> deliveryListCalling(Pageable pageable, Long userId);
 
 
     Page<DeliveryResDTO> myDeliveryListCalling(Pageable pageable, Long userId);

@@ -77,7 +77,9 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Override
-    public Page<DeliveryResDTO> deliveryListCalling(Pageable pageable, Long dongCode) {
+    public Page<DeliveryResDTO> deliveryListCalling(Pageable pageable, Long userId) {
+        Long dongCode = Long.valueOf(userClientService.getUser(userId).getDongDto().get("dongcode"));
+
         Page<Delivery> deliveries = deliveryRepositoryImpl.findAllByTimeLimit(pageable, dongCode);
 
         List<DeliveryResDTO> deliveryResDTOS = new ArrayList<>();
