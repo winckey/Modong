@@ -44,14 +44,6 @@ export default function _ApplyHistoryModal(props:any)  {
                 <p>수량</p>
                 <p>{info.itemDtoList.length}개</p>
               </div>
-              <hr/>
-              <div>
-                <p>신청자</p>
-                <div style={{display:"flex", justifyContent:"center"}}>
-                  {/* <img src={ require('../../assets/pingu.png') } alt="사진"/> */}
-                  <p>{info.userDto.nickname}</p>
-                </div>
-              </div>
             </div>
             <button onClick={close} >확인</button>
           </main>

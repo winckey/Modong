@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { getMessaging, onMessage } from 'firebase/messaging'
 
-const data =[{ contents:"제목1"}, { contents:"제목2"}, { contents:"제목3"},{ contents:"제목1"}, { contents:"제목2"}, { contents:"제목3"},{ contents:"제목1"}, { contents:"제목2"}, { contents:"제목3"},{ contents:"제목1"}, { contents:"제목2"}, { contents:"제목3"}]
+const data =[{ contents:"추후 개발 예정입니다."}]
 function Alarm(props:any) {
   useEffect(()=>{
     const messaging = getMessaging();

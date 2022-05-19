@@ -36,6 +36,9 @@ export default function DeliveryHistoryModal(props:any)  {
               <div>
                 <p>판매자</p>
                 <div style={{display:"flex", justifyContent:"center"}}>
+                  <div className='imgdivs'>
+                    <img src={ userinfo.image || require('../../assets/pingu.png') } alt="사진"/>
+                  </div>
                   {!!userinfo &&
                   <p>{userinfo.nickname||""}</p>
                   }

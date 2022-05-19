@@ -67,10 +67,19 @@
     @include noneA;
     overflow: hidden;
     @include shadow;
-
 }
-
-
+@mixin imgDiv($size:40px){
+    overflow: hidden;
+    height: $size;
+    width: $size;
+    border-radius: 20px;
+    position: relative;
+    >img{
+        @include absolute-loc($top:0, $left:0);
+        width:100%;
+        height: 100%;
+    }
+}
 
 $gray0:#4c4a4a;
 $gray1:#F5F5F5;

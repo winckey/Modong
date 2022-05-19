@@ -34,9 +34,13 @@ function MyDelivery() {
     };
 
     const openCloseModal = (data:deliverytype) => {
-        setCloseModalOpen(true);
-        setModalPropsData(data);
-        console.log(data);
+        if(data.chatOpen){
+            alert("이미 체팅 방이 존재합니다.")
+        }else{
+            setCloseModalOpen(true);
+            setModalPropsData(data);
+            console.log(data);
+        }
     }
 
     const closeCloseModal = () => {

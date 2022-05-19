@@ -37,9 +37,11 @@ export default function _ApplyHistoryModal(props:any)  {
               <hr/>
               <div>
                 <p>판매자</p>
-                <div style={{display:"flex", justifyContent:"center"}}>
-                  {/* <img src={ require('../../assets/pingu.png') } alt="사진"/> */}
+                <div className='outLineimgdiv'>
+                  <div className='imgdivs'>
+                    <img src={ info.userInfo.image || require('../../assets/pingu.png') } alt="사진"/>
                   <p>{info.userInfo.nickname}</p>
+                  </div>
                 </div>
               </div>
             </div>

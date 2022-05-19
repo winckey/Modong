@@ -56,8 +56,11 @@ export default function GroupBuyingRequestedModal(props:any)  {
           <main className='GroupBuyingReq'>
             <div>
               {groupApplicationList.map((data:groupBuyingRecordDataType, index:number) => (
-              <div key={data.id}>
-                <div>{data.userDto.nickname}</div>
+              <div className='flex-r' key={data.id}>
+                <div>
+                  <div className='imgdivs'><img src={ data.userDto.image|| require('../../assets/pingu.png')} alt="사진" /></div>
+                  {data.userDto.nickname}
+                </div>
                 <div>{info.price}원 x {data.itemDtoList[0].quantity}개</div>
               </div>
               ))}

@@ -49,14 +49,6 @@ export default function _ApplyHistoryModal(props:any)  {
                 <p>갯수</p>
                 <p>{totalcount}개</p>
               </div>
-              <hr/>
-              <div>
-                <p>판매자</p>
-                <div style={{display:"flex", justifyContent:"center"}}>
-                  {/* <img src={ require('../../assets/pingu.png') } alt="사진"/> */}
-                  <p>{info.userDto.nickname}</p>
-                </div>
-              </div>
             </div>
             <button onClick={onCloseModal} >확인</button>
           </main>

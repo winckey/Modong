@@ -11,7 +11,7 @@ export default function DeliveryRequestedModal(props:any)  {
   const [ userList, setUserList] = useState<any>({});
   const [ menuList, setMenuList ] = useState<any>({});
   const [ totalcost, setTotalcost] = useState<number>(0);
-
+  const [ userImgs, setUserImgs] = useState<any>({});
   useEffect(()=>{
     if (info != null){
       getDeliveryList();
@@ -34,6 +34,7 @@ useEffect(()=>{
   if(deliveryList.length>0){
     var userLi = {};
     var menuLi = {};
+    var userimg = {};
     deliveryList.map((delivery:groupBuyingRecordDataType)=>{
       var menucost = 0;
       var menucount = 0;
@@ -54,9 +55,11 @@ useEffect(()=>{
       if (userLi[delivery.userDto.nickname]){
         userLi[delivery.userDto.nickname] += menucost
       }else{
+        userimg[delivery.userDto.nickname] = delivery.userDto.image
         userLi[delivery.userDto.nickname] = menucost
       }
     })
+    setUserImgs(userimg);
     setUserList(userLi);
     setMenuList(menuLi);
     setTotalcost(totalcos);
@@ -81,7 +84,10 @@ useEffect(()=>{
             <div className='sizing bottomline'>
               {Object.keys(userList).map((key:string)=>(
               <div className='flex-r' key={key}>
-                <div>{key}</div>
+                <div>
+                <div className='imgdivs'><img src={ userImgs[key]|| require('../../assets/pingu.png')} alt="사진" /></div>
+                  {key}
+                </div>
                 <div>{userList[key]}원</div>
               </div>
               ))}

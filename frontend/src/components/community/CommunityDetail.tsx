@@ -20,6 +20,7 @@ function CommunityDetail() {
     const [replyDatas, setReplyDatas] = useState<commentsDataType[]>([]);
     const [replytxt, setReplytxt] = useState<string>("");
     const [usernick, setUserNick] = useState<string>("");
+    const [userimg, setUserImg] = useState<string>("");
     const [userLoc, setUserLoc] = useState<string>("");
     const handleReplytxt= (e:React.ChangeEvent<HTMLInputElement>)=>{
         setReplytxt(e.target.value);
@@ -79,6 +80,7 @@ function CommunityDetail() {
         .then((response:AxiosResponse) => {
             setReplyDatas(response.data.commentList.content);
             setUserNick(response.data.userInfo.nickname);
+            setUserImg(response.data.userInfo.image);
             setUserLoc(response.data.userInfo.dongDto.dong);
             console.log(response.data, "글가져오기");
         })
@@ -100,7 +102,7 @@ function CommunityDetail() {
     return (
         <div className='communityDetailOutLine'>
             <div className='userdiv'>
-                <div><img src={ require('../../assets/dd.png') } alt="사진"/></div>
+                <div className=''><img src={ userimg ||require('../../assets/pingu.png') } alt="사진"/></div>
                 <div>
                     <div>{usernick}</div>
                     <div>{userLoc}</div>
@@ -115,9 +117,9 @@ function CommunityDetail() {
                 placeholder="댓글을 입력해주세요" type="text"/>
                 <div onClick={handleReplySubmit}><FontAwesomeIcon icon={faComments}/></div>
             </div>
-            {replyDatas.map((reData)=>(
+            {replyDatas.map((reData:commentsDataType)=>(
             <div className='userdiv2' key={reData.id}>
-                <div><img src={ require('../../assets/dd.png') } alt="사진"/></div>
+                <div><img src={reData.user.image|| require('../../assets/pingu.png') } alt="사진"/></div>
                 <div>
                     <div>{reData.user.nickname||""}</div>
                     <div>{reData.description||""}</div>
