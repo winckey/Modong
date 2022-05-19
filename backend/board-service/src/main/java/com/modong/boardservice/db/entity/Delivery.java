@@ -1,6 +1,7 @@
 package com.modong.boardservice.db.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -37,5 +38,7 @@ public class Delivery {
 
     @Column(nullable = false)
     private Long dongCode;
+
+    private Boolean chatOpen;
 
 }

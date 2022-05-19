@@ -55,6 +55,7 @@ public class DeliveryServiceImpl implements DeliveryService {
                 .storeName(deliveryReqDTO.getStoreName())
                 .pickupLocation(deliveryReqDTO.getPickupLocation())
                 .closeTime(deliveryReqDTO.getCloseTime())
+                .chatOpen(false)
                 .userId(deliveryReqDTO.getUserId())
                 .dongCode(dongCode)
                 .build();
@@ -71,6 +72,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         Delivery delivery = deliveryRepository.getById(id);
 
         delivery.setCloseTime(LocalDateTime.now());
+        delivery.setChatOpen(true);
         kafkaProducer.send("order-topic" , delivery.getId() ,"ORDER_DELIVERY" , delivery.getStoreName() , Long.toString(delivery.getUserId()));
 
         return deliveryRepository.save(delivery);
@@ -114,6 +116,7 @@ public class DeliveryServiceImpl implements DeliveryService {
                     .closeTime(d.getCloseTime())
                     .pickupLocation(d.getPickupLocation())
                     .storeName(d.getStoreName())
+                    .chatOpen(d.getChatOpen())
                     .url(d.getUrl())
                     .userInfo(user)
                     .build();

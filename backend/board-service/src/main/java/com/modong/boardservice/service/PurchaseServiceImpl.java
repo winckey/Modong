@@ -39,6 +39,7 @@ public class PurchaseServiceImpl implements PurchaseService{
         Purchase purchase = Purchase.builder()
                 .closeTime(purchaseReqDTO.getCloseTime())
                 .price(purchaseReqDTO.getPrice())
+                .chatOpen(false)
                 .productName(purchaseReqDTO.getProductName())
                 .pickupLocation(purchaseReqDTO.getPickupLocation())
                 .url(purchaseReqDTO.getUrl())
@@ -54,7 +55,7 @@ public class PurchaseServiceImpl implements PurchaseService{
         Purchase purchase = purchaseRepository.getById(id);
 
         purchase.setCloseTime(LocalDateTime.now());
-
+        purchase.setChatOpen(true);
         kafkaProducer.send("order-topic" , purchase.getId() ,"ORDER_GROUP" , purchase.getProductName() , Long.toString(purchase.getUserId()));
         purchaseRepository.save(purchase);
     }
@@ -101,6 +102,7 @@ public class PurchaseServiceImpl implements PurchaseService{
                     .id(p.getId())
                     .pickupLocation(p.getPickupLocation())
                     .price(p.getPrice())
+                    .chatOpen(p.getChatOpen())
                     .productName(p.getProductName())
                     .url(p.getUrl())
                     .userInfo(user)

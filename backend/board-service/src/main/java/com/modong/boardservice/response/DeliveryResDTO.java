@@ -27,5 +27,5 @@ public class DeliveryResDTO {
     //글 작성자 정보
     private UserResDTO userInfo;
 
-    
+    private Boolean chatOpen;
 }
