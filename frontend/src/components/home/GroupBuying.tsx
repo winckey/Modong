@@ -38,7 +38,7 @@ function GroupBuying() {
 
 
     const handlegetList = () => {
-        axios.get(`/board-service/group-purchase`)
+        axios.get(`/board-service/group-purchase/list/${userId}`)
             .then((response:AxiosResponse) => {
                 console.log(response.data, "from 공구");
                 setGroupBuyingList(response.data.content)
