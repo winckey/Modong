@@ -5,6 +5,8 @@ import "../style/_community.scss"
 import { useDispatch } from "react-redux";
 import actionCreators from '../actions/actionCreators.tsx';
 
+import { useSelector } from 'react-redux';
+import RootState from "../reducer/reducers.tsx"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faComments } from "@fortawesome/free-solid-svg-icons";
@@ -22,9 +24,11 @@ function Community() {
     dispatch(actionCreators.setCommunityPropsData(d));
   }
   const [boardData, setBoardData]=useState<communitytype[]>([]);
-
+  const userId = useSelector<number>((state:RootState) => {
+    return state.accounts.data.user.id
+})
   const handlegetList = (pageNum:number) => {
-    axios.get(`/board-service?pageNumber=${pageNum}&size=10`)
+    axios.get(`/board-service/list/${userId}?pageNumber=${pageNum}&size=10`)
       .then((response:AxiosResponse) => {
         console.log(response.data, "from login");
         setBoardData(response.data.content)

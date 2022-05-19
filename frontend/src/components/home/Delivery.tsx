@@ -32,7 +32,7 @@ function Delivery() {
     };
 
     const handlegetList = () => {
-        axios.get(`/board-service/group-delivery`)
+        axios.get(`/board-service/group-delivery/list/${userId}`)
         .then((response:AxiosResponse) => {
         console.log(response.data, "from qoekf");
         setDeliveryList(response.data.content)
