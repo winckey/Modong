@@ -7,15 +7,13 @@ const SET_COMMUNITYPROPSDATA = "setCommunityPropsData"
 const SET_USER = "setUser"
 const SET_TOKEN = "setToken"
 const SET_REFRESHTOKEN = "setRefreshToken"
+const SET_FCMTOKEN ="setFcmToken"
 
 
 const SET_SIGU = "setSigu"
 const SET_CITY = "setCity"
 const SET_DONG = "setDong"
 const SET_DONGCODE = "setDongCode"
-
-
-const SET_GROUPBUYINGMODAL = "setGroupBuyingModal"
 
 // action method
 const setIsLogin = (isLogin:number) => {
@@ -38,7 +36,6 @@ const setCommunityPropsData = (communityPropsData:number) => {
     }
 };
 
-
 // accounts
 const setUser = (user:Object) => {
     return {
@@ -58,6 +55,13 @@ const setRefreshToken = (refreshToken: string) => {
     return {
         type: SET_REFRESHTOKEN,
         refreshToken: refreshToken
+    }
+}
+
+const setFcmToken = (fcmToken: string) => {
+    return {
+        type: SET_FCMTOKEN,
+        fcmToken: fcmToken
     }
 }
 
@@ -90,16 +94,6 @@ const setDongCode = (dongCode: number) => {
     }
 }
 
-
-// modal
-
-const setGroupBuyingModal = (groupBuyingModal: boolean) => {
-    return {
-        type: SET_GROUPBUYINGMODAL,
-        groupBuyingModal: groupBuyingModal
-    }
-}
-
 export const actionCreators = {
     setIsLogin,
     setFooterSelected,
@@ -107,11 +101,11 @@ export const actionCreators = {
     setUser,
     setToken,
     setRefreshToken,
+    setFcmToken,
     setSigu,
     setCity,
     setDong,
     setDongCode,
-    setGroupBuyingModal
 }
 
 // 중요! 하나로 묶어서 보내기. (default)

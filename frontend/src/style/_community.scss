@@ -4,19 +4,14 @@
 
 .communityOutLine{
     overflow: auto;
-    @include flex-col;
-    align-items: center;
+    height: 82vh;
+    position: relative;
 
     .communityCard{
         @include flex-col;
-        @include noneA;
         @include card;
-        // height: 90%;
-
+        margin: 20px auto;
         div{
-
-            // padding: 2%;
-
             >div{
                 padding: 10px 20px 10px 20px;
                 width: 90%;
@@ -24,6 +19,8 @@
             }
             >div:first-child{
                 font-size: 24px;
+                @include textoverflow;
+                padding: 10px 20px 10px 20px;
                 min-height: 20%;
             }
             >div:nth-child(2){
@@ -48,14 +45,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 90px;
-    height: 90px;
+    width: 70px;
+    height: 70px;
     background-color: $mint1;
     border-radius: 200px;
     margin:auto;
-    font-size: 45px;
+    font-size: 35px;
     right:30px;
     bottom: 110px;
     z-index:10;
     color: $blue1;
+    @include shadow;
+}
+
+.communityOutLine::-webkit-scrollbar {
+    display: none; 
 }

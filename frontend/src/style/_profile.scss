@@ -15,8 +15,8 @@
     img {
         margin: 5% 0;
         border-radius: 30%;
-        object-fit: cover;
-        width: 30%;
+        width: 120px;
+        height: 120px;
         cursor: pointer;
     }
 
@@ -31,4 +31,7 @@
     }
 
    
+}
+.dishidden{
+    display: none;
 }

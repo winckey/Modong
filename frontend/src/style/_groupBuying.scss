@@ -2,13 +2,17 @@
 
 .groupbuyinginList{
     overflow: auto;
-    height: 600px;
+    height: 82vh;
+    box-sizing: border-box;
+    padding-bottom: 100px;
     >div{
-        border-radius: 20px;
+        border-radius: 15px;
         @include flex-col;
         background-color: $gray1;
         margin-top: 16px;
         overflow: hidden;
+        height: 150px;
+
         >div{
             text-overflow:ellipsis;
             overflow: hidden;
@@ -21,11 +25,13 @@
             align-self: flex-start;
             font-size: 20px;
             min-height: 50px;
+            @include textoverflow;
         }
         >div:nth-child(2){
             align-self: flex-end;
             word-break: break-all;
             margin: 2px 15px 2px 15px;
+            @include textoverflow;
         }
         >div:nth-child(3){
             align-self: flex-end;
@@ -45,4 +51,8 @@
 }
 .shadow{
     @include shadow;
+}
+
+.groupbuyinginList::-webkit-scrollbar {
+    display: none; 
 }

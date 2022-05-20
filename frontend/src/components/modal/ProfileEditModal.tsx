@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -14,20 +14,18 @@ import Modal from './_AddressModal.tsx'
 
 export default function ProfileEditModal() {
   //모달 열고, 닫기
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState<boolean>(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
-  
 
   const dispatch = useDispatch();
   const user = useSelector((state:Rootstate) => {
     return state.accounts.data.user
   });
-
 
   const dongSelected = useSelector((state:Rootstate)=> {
     return state.address.data.dong
@@ -37,26 +35,29 @@ export default function ProfileEditModal() {
     return state.address.data.dongCode
   });
 
-
-  const [state, setState] = useState({
+  const [state, setState] = useState<any>({
     nickname: user.nickname,
     userId: user.userId,
     phone: user.phone,
   });
 
-
-  const handleChangeState = (e) => {
+  const handleChangeState = (e:any) => {
     setState({
       ...state,
       [e.target.name]: e.target.value
     })
   }
-
-
+  const isPhonenum=(phonenum:string)=>{
+    var regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+    if (phonenum.match(regPhone) != null){
+      return false;
+    }else{
+      return true;
+    }
+  }
 
   // 프로필 수정 
-  const handleProfileEdit = (event) => {
-    handleClose();
+  const handleProfileEdit = (e:any) => {
     const data = {
       ...user,
       userId: state.userId,
@@ -66,38 +67,43 @@ export default function ProfileEditModal() {
       
     };
 
-    
-    axios.put("/user-service/users",
-    {
-      dongcode: dongCodeSelected,
-      id: user.id,
-      nickname: state.nickname,
-      phone: state.phone,
-      userId: state.userId
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      }
-    }).then((res)=> {
-      console.log("put요청 성공", res);
-      dispatch(actionCreators.setUser(data));
-      console.log(user)
-    }).catch((err)=> {
-      console.log("put 요청 실패", err);
-    })
+    if(state.nickname === ""){
+      alert("이름을 입력해주세요");
+    }else if(isPhonenum(state.phone.toString())){
+      alert("전화 번호를 확인해주세요");
+    }else{
+      axios.put("/user-service/users",
+      {
+        dongcode: dongCodeSelected,
+        id: user.id,
+        nickname: state.nickname,
+        phone: state.phone,
+        userId: state.userId
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        }
+      }).then((res)=> {
+        dispatch(actionCreators.setUser(data));
+        handleClose();
+        dispatch(actionCreators.setSigu(null));
+        dispatch(actionCreators.setCity(null));
+        dispatch(actionCreators.setDong(null));
+      }).catch((err)=> {
+        alert("오류입니다 관리자와 이야기 해주세요")
+      })
+    }
   };
 
   return (
     <div>
       <Button onClick={handleClickOpen} style={{position:"absolute", right: "5%", color: "gray", cursor:"pointer"}}>수정</Button>
-      
       <Dialog 
       PaperProps={{ sx: { width: "100%", height: "88vh", 
       position: "fixed", bottom: 0, m: 0, 
       borderTopLeftRadius: 30, borderTopRightRadius: 30 } }}
        open={open} onClose={handleClose}  fullScreen>
-
         <DialogTitle style={{margin:"4%", textAlign:"center"}}><b>프로필 수정</b></DialogTitle>
         <DialogContent>
             <p>닉네임</p>
@@ -111,23 +117,8 @@ export default function ProfileEditModal() {
                 value={state.nickname}
                 onChange={handleChangeState}
             />
-
-            <p>이메일 주소</p>
-            <TextField
-                margin="dense"
-                // id="email"
-                name="userId"
-                type="email"
-                fullWidth
-                variant="filled"
-                autoComplete="off"
-                value={state.userId}
-                onChange={handleChangeState}
-            />
-
             <p>주소</p>
             <Modal/>
-
             <p>전화번호</p>
             <TextField
                 margin="dense"
@@ -140,8 +131,6 @@ export default function ProfileEditModal() {
                 value={state.phone}
                 onChange={handleChangeState}
             />
-          
-         
         </DialogContent>
         <DialogActions>
           <Button
@@ -155,8 +144,6 @@ export default function ProfileEditModal() {
               확인
             </Button>
         </DialogActions>
-
-        
       </Dialog>
     </div>
   );

@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import actionCreators from '../../../actions/actionCreators.tsx';
 
 import RootState from "../../../reducer/reducers.tsx"
-import {datetrans} from '../../../actions/TimeLapse.tsx'
+import { datetrans } from '../../../actions/_TimeLapse.tsx'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
@@ -19,34 +19,32 @@ function MyCommunity() {
     const userId = useSelector((state:RootState) =>{
         return state.accounts.data.user.id
     })
-    const[ myCommunityList, setMyCommunityList ] = useState([]);
+
+    const[ myCommunityList, setMyCommunityList ] = useState<communitytype[]>([]);
 
     const handleCommunityPropsData=(d:communitytype)=>{
         dispatch(actionCreators.setCommunityPropsData(d));
     }
     const handleDelCommunity = (myCommunityId:number) =>{
-        alert("삭제하시겠습니까?")
         axios.delete(`/board-service/`,{data:{id:myCommunityId}})
         .then((response:AxiosResponse) => {
-            console.log(response.data, "나의 게시판 나가기")
+            getMycommunityList();
         })
         .catch((error:AxiosError) => {
-            console.log(error, "에러");
+            alert("오류 입니다 관리자와 이야기해주세요!")
         })
     }
     const getMycommunityList=()=>{
         axios.get(`/board-service/${userId}`)
         .then((response:AxiosResponse) => {
-            console.log(response.data, "from qoekf");
             setMyCommunityList(response.data.content)
             })
-            .catch((error:AxiosError) => {
-            console.log(error, "에러");
-            })
     }
+    
     useEffect(()=>{
         getMycommunityList();
     },[])
+
     return (
         <div className='myCommunity'>
             {myCommunityList.map((data:communitytype) =>(

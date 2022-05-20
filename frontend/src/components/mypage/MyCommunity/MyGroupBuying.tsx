@@ -5,19 +5,14 @@ import CloseModal from '../../modal/_CloseModal.tsx'
 import ExitModal from '../../modal/_ExitModal.tsx'
 
 import axios, {AxiosResponse, AxiosError} from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
-import actionCreators from '../../../actions/actionCreators.tsx';
+import { useSelector } from 'react-redux';
 
 import RootState from "../../../reducer/reducers.tsx"
-import {reversedatetrans} from '../../../actions/TimeLapse.tsx'
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
+import {reversedatetrans} from '../../../actions/_TimeLapse.tsx'
 
 import { groupbuyingtype } from "../../actions/_interfaces.tsx";
 
 function MyGroupBuying() {
-    const dispatch = useDispatch();
     const user = useSelector((state:RootState) =>{
         return state.accounts.data.user
     })
@@ -28,7 +23,6 @@ function MyGroupBuying() {
     const [ modalPropsData, setModalPropsData] = React.useState<groupbuyingtype>(null);
 
     const openModal = (data:groupbuyingtype) => {
-        console.log("공구 정보!", data);
         setModalOpen(true);
         setModalPropsData(data);
     };
@@ -38,51 +32,39 @@ function MyGroupBuying() {
 
     const openCloseModal = (data:groupbuyingtype) => {
         setModalPropsData(data);
-        console.log("공구 정보", data);
         setCloseModalOpen(true);
     }
     const closeCloseModal = () => {
         setCloseModalOpen(false);
     }
 
-    const openExitModal = (data:groupbuyingtype) => {
-        setModalPropsData(data);
-        console.log("공구 정보", data);
-        setExitModalOpen(true);
-    }
     const closeExitModal = () => {
         setExitModalOpen(false);
     }
 
-
     const handleDelCommunity = (myCommunityId:number) =>{
         axios.delete(`/board-service/group-purchase`,{data:{id:myCommunityId}})
         .then((response:AxiosResponse) => {
-            console.log(response.data, "나의 공구 나가기")
+            handlegetMyList()
         })
         .catch((error:AxiosError) => {
-            console.log(error, "에러");
+            alert("오류입니다 관리자와 이야기 해주세요!")
         })
     }
-
 
     const handlegetMyList = () => {
         axios.get(`/board-service/group-purchase/${user.id}`)
             .then((response:AxiosResponse) => {
-            console.log(response.data, "from 공구");
             setMyGroupBuyingList(response.data.content)
             })
-            .catch((error:AxiosError) => {
-            console.log(error, "에러");
-            })
     };
+
     useEffect(()=>{
         handlegetMyList();
     },[])
 
 
-    const handleFinish = (data) => {
-        console.log(data, "Data")
+    const handleFinish = (data:any) => {
         const deldata = {
             data: {
                 closeTime: data.closeTime,
@@ -96,29 +78,34 @@ function MyGroupBuying() {
         }
         axios.delete('/board-service/group-purchase',deldata
         ).then((res)=>{
-            console.log("마감성공",res);
+            handlegetMyList();
         }).catch((err)=>{
-            console.log("마감실패",err);
+            alert("오류입니다 관리자와 이야기 해주세요!")
         })
-
     };
 
     return (
         <div>
             <div className='myGroupBuyingInList'>
-                {myGroupBuyingList.map((mgdata) =>(
+                {myGroupBuyingList.map((mgdata:groupbuyingtype) =>(
                     <div className='shadow' key={mgdata.id}>
                         <div>{mgdata.productName}</div>
+                        {reversedatetrans(mgdata.closeTime)==="종료되었습니다." ?(
+                        <div>종료되었습니다.</div>
+                        ):(
                         <div>{reversedatetrans(mgdata.closeTime)}남았습니다.</div>
-                        <div>
+                        )}
+                        <div className='myGroupCardTwoBtn'>
+                            {reversedatetrans(mgdata.closeTime)==="종료되었습니다." ?(
+                            <div onClick={()=>{openCloseModal(mgdata)}}>톡만들기</div>
+                            ):(
                             <div onClick={()=>{openCloseModal(mgdata)}}>마감하기</div>
+                            )}
                             <div onClick={()=>{openModal(mgdata)}}>신청내역확인</div>
-                        </div>
-                        <FontAwesomeIcon onClick={()=>{openExitModal(mgdata)}} className='rightExitIcon' icon={faRightToBracket}/>
+                        </div> 
                     </div>
                 ))}
             </div>
-
             <div>
                 <CloseModal open={closeModalOpen}  close={closeCloseModal} info={modalPropsData} finish={handleFinish}>
                 </CloseModal>
@@ -131,7 +118,6 @@ function MyGroupBuying() {
                 <ExitModal open={exitModalOpen}  close={closeExitModal} info={modalPropsData} finish={handleDelCommunity}>
                 </ExitModal>
             </div>
-
         </div>
     );
 }

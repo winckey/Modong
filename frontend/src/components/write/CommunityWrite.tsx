@@ -1,12 +1,11 @@
 import  React,{ useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import "../../style/_communityWrite.scss"
 
 import axios, {AxiosResponse, AxiosError} from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import RootState from "../reducer/reducers.tsx"
 import actionCreators from "../../actions/actionCreators.tsx"
-
 
 function CommunityWrite() {
     let navigate = useNavigate();
@@ -19,27 +18,30 @@ function CommunityWrite() {
         return state.accounts.data.user.id
       })
     const handlecreatecommunity = () => {
-        axios.post('/board-service',
-            {
-                description: contents,
-                id:0,
-                userId: userId
-            },
-            {
-                headers: {
-                    "Content-type": "application/json",
-                    Accept: "*/*",
+        if(contents === ""){
+            alert("메시지를 입력해주세요")
+        }else{
+            axios.post('/board-service',
+                {
+                    description: contents,
+                    id:0,
+                    userId: userId
                 },
-            }
-          )
-          .then((response:AxiosResponse) => {
-            console.log(response.data, "게시판 생성");
-            dispatch(actionCreators.setFooterSelected(2));
-            navigate("/community");
-          })
-          .catch((error:AxiosError) => {
-            console.log(error);
-          })
+                {
+                    headers: {
+                        "Content-type": "application/json",
+                        Accept: "*/*",
+                    },
+                }
+            )
+            .then((response:AxiosResponse) => {
+                dispatch(actionCreators.setFooterSelected(2));
+                navigate("/community");
+            })
+            .catch((error:AxiosError) => {
+                alert("오류입니다 관리자와 이야기해주세요")
+            })
+        }
       };
     return (
         <div className='ccoutLine'>

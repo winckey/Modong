@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import '../../style/modal/_Modal.scss'
+import '../../style/modal/_Modal.scss';
+import {ordermenuDataType} from "../../actions/_interfaces.tsx";
 
-export default function _ApplyHistoryModal(props)  {
+export default function _ApplyHistoryModal(props:any)  {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, info } = props;
   const [ totalsum, setTotalsum ] = useState<number>(0);
   const [ totalcount, setTotalcount ] = useState<number>(0);
-  const onCloseModal = (e) => {
+  const onCloseModal = (e:any) => {
     if (e.target === e.currentTarget){
       setTotalsum(0);
       setTotalcount(0);
@@ -14,7 +15,7 @@ export default function _ApplyHistoryModal(props)  {
     }
   }
   const totalprice = () =>{
-    info.itemDtoList.map((d)=>{
+    info.itemDtoList.map((d:ordermenuDataType)=>{
       setTotalsum(totalsum+parseInt(d.price))
       setTotalcount(totalcount+d.quantity)
     })
@@ -30,15 +31,11 @@ export default function _ApplyHistoryModal(props)  {
     <div className={open ? 'openModal modal' : 'modal'} onClick={onCloseModal}>
     {open ? (
       <section>
-
         <div style={{margin: "10%"}}>
-
           <div className="title">
             {parseInt(info.boardDto.price)*totalcount}원
           </div>
-
           <main>
-
             <div className="historyBox">
               <div>
                 <p>물품</p>
@@ -52,21 +49,10 @@ export default function _ApplyHistoryModal(props)  {
                 <p>갯수</p>
                 <p>{totalcount}개</p>
               </div>
-              <hr/>
-              <div>
-                <p>판매자</p>
-                <div style={{display:"flex", justifyContent:"center"}}>
-                  {/* <img src={ require('../../assets/pingu.png') } alt="사진"/> */}
-                  <p>{info.userDto.nickname}</p>
-                </div>
-              </div>
             </div>
-
             <button onClick={onCloseModal} >확인</button>
           </main>
-
         </div>
-
       </section>
     ) : null}
     </div>

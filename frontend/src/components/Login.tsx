@@ -18,7 +18,7 @@ import Checkbox from '@mui/material/Checkbox';
 
 const theme = createTheme();
 
-export default function Login(props) {
+export default function Login(props:any) {
 
   const dispatch = useDispatch();
 
@@ -26,41 +26,42 @@ export default function Login(props) {
       dispatch(actionCreators.setIsLogin(true));
   }
 
-  const userInfo = useSelector((state:Rootstate)=> {
+  const userInfo = useSelector((state:RootState)=> {
     return state.accounts.data.user
   });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    axios
-      .post(
-        "/user-service/login",
-        {
-          userId: data.get("email"),
-          userPw: data.get("password"),
-        },
-        {
-          headers: {
-            "Content-type": "application/json",
-            Accept: "*/*",
+  const handleSubmit = (e:any) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    if(data.get("email") === ""){
+      alert("아이디를 입력해주세요")
+    }else if(data.get("password") === ""){
+      alert("비밀번호를 입력해주세요")
+    }else{
+      axios
+        .post(
+          "/user-service/login",
+          {
+            userId: data.get("email"),
+            userPw: data.get("password"),
           },
-        }
-      )
-      .then((response) => {
-        console.log(response, "Login Success");
-        localStorage.setItem("jwt", response.data.token);
-
-        dispatch(actionCreators.setUser(response.data.user));
-        dispatch(actionCreators.setToken(response.data.token));
-        dispatch(actionCreators.setRefreshToken(response.data.RefeshToken));
-        console.log("userInfo-loginpage", userInfo);
-        
-
-      })
-      .catch((response) => {
-        console.log(response, "Login Error");
-      });
+          {
+            headers: {
+              "Content-type": "application/json",
+              Accept: "*/*",
+            },
+          }
+        )
+        .then((response) => {
+          localStorage.setItem("jwt", response.data.token);
+          dispatch(actionCreators.setUser(response.data.user));
+          dispatch(actionCreators.setToken(response.data.token));
+          dispatch(actionCreators.setRefreshToken(response.data.RefeshToken));
+        })
+        .catch((response) => {
+          alert("아이디 비번을 확인 해주세요")
+        });
+    }
   };
 
   return (
@@ -79,7 +80,6 @@ export default function Login(props) {
           <div>
             <img style={{ width: "70%" }} src={ require('../assets/logo.png') } alt="사진"/>
           </div>
-
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
@@ -103,10 +103,6 @@ export default function Login(props) {
               autoComplete="current-password"
               variant="standard"
             />
-            <FormGroup>
-              <FormControlLabel control={<Checkbox/>} label="로그인 상태 유지" />
-            </FormGroup>
-            
             <Button
               style={{backgroundColor: "#0064FF", fontSize: "1.2rem", borderRadius: "10px"}}
               size="large"

@@ -8,6 +8,7 @@ import "../../style/_myCommunityRecord.scss"
 function MyCommunityRecord() {
     const [MCcategory, setMCcategory] = useState<number>(1);
     const [categoryClassName, setcategoryClassName] = useState<string>("communitySelected");
+    
     const handlemodeChange=(catenum:number)=>{
         if (catenum === 1){
             handleClassNameChange("communitySelected");

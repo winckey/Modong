@@ -26,23 +26,23 @@ import { faBell, faHouse, faList, faComment, faUser } from "@fortawesome/free-so
 
 function Nav() {
   const dispatch = useDispatch();
-  const [dongName, setDongName] = useState<string>('구서동');
   const [alarmOpen, setAlarmOpen] = useState<boolean>(false);
-  const handleDongname = (name:string) => {
-    setDongName(name);
-  }
   const userData = useSelector((state:RootState) => {
     return state.accounts.data.user
   })
+
   const footerSelected = useSelector((state:RootState) => {
     return state.ischeck.data.footerSelected
   })
+
   const handlesetFooterSelected = (num:number) => {
     dispatch(actionCreators.setFooterSelected(num));
   }
+
   const handlealarmOpen = () => {
     setAlarmOpen(!alarmOpen);
   }
+  
   return (
     <div>
         <header>
@@ -50,8 +50,8 @@ function Nav() {
           <div>
             <FontAwesomeIcon onClick={()=>{handlealarmOpen()}} icon={faBell}/>
             {alarmOpen && <Alarm closealarm={handlealarmOpen}/>}
-            <div>
-              <img src={ require('../assets/dd.png') } alt="사진"/>
+            <div style={{cursor: "pointer"}}>
+              <Link to="/profile"><div className='imgdiv'><img src={ userData.image ||require('../assets/pingu.png') } alt="사진"/></div></Link>
             </div>
           </div>
         </header>

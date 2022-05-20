@@ -2,23 +2,18 @@ import React, { useEffect, useState } from 'react';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
-
-import {reversedatetrans} from '../../actions/TimeLapse.tsx'
-import {datetrans} from '../../actions/TimeLapse.tsx'
+import {datetrans, datetransnine} from '../../actions/_TimeLapse.tsx'
 
 import "../../style/_chatdetail.scss"
-import actionCreators from './actions/actionCreators.tsx';
 import { useSelector } from "react-redux";
 import RootState from "../../reducer/reducers.tsx"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
-import axios, { AxiosResponse } from 'axios';
+import { faComment } from "@fortawesome/free-solid-svg-icons";
+import axios, { AxiosResponse, AxiosError } from 'axios';
 import { createRoutesFromChildren } from 'react-router-dom';
 
 // 링크 props 받기
 import { useLocation } from 'react-router-dom'
-
-
 
 interface dataProps{
         userId:number;
@@ -27,15 +22,10 @@ interface dataProps{
         date:number;
 };
     
-    
-    
 function ChatDetail() {
-
-    
     //props로 받은 data
     const location = useLocation();
     const { roomId, name, type, numberUser, userList } = location.state;
-    // console.log("props 넘어오니", roomId, name, type, numberUser, userList);
     
     // 채팅 input 상자
     const [chattxt, setChattxt] = useState<string>("");
@@ -59,7 +49,7 @@ function ChatDetail() {
     })
 
 
-    const [state, setState] = useState({
+    const [state, setState] = useState<any>({
         loading: false,
         roomId: roomId,
         height: null,
@@ -74,14 +64,11 @@ function ChatDetail() {
     // websocket 연결
     const socketJs = new SockJS("http://k6e102.p.ssafy.io:8000/ws-stomp");
     const stomp = Stomp.over(socketJs);
-    // stomp.debug = () => {};
     
     // stomp 연결, 구독해서 정보 주고 받음
     useEffect(()=>{
-        console.log("구독 시작 전!")
         stomp.connect({}, ()=> {
-            stomp.subscribe(`/sub/chatting/room/${state.roomId}`, (data)=>{
-                console.log("구독 가넝")
+            stomp.subscribe(`/sub/chatting/room/${state.roomId}`, (data:any)=>{
                 const newMessage: dataProps = JSON.parse(data.body);
                 addMessage(newMessage);
             })
@@ -94,24 +81,20 @@ function ChatDetail() {
     },[]);
 
 
-    const addMessage = (message) => {
+    const addMessage = (message:any) => {
         setContents(prev=>[...prev,message]);
-        console.log("contents", contents);
     };  
 
 
 
     // 채팅 기록 불러오기
     const getHistory = () => {
-
-        console.log("채팅 기록 불러왕");
         axios.get(`chat-service/chat/message/${state.roomId}`)
-        .then((res)=>{
+        .then((res:AxiosResponse)=>{
             setHistoryMessages(res.data);
-            console.log("history", res.data);
         })
-        .catch((err)=>{
-            console.log("getHistory에러", err);
+        .catch((err:AxiosError)=>{
+            alert("오류입니다 관리자와 이야기 해주세요!")
         })
 
 
@@ -120,29 +103,35 @@ function ChatDetail() {
 
 
     const sendMessage = () => {
-        axios.post("chat-service/chat/message",
-            {
-                message: chattxt,
-                roomId: state.roomId,
-                userId: userId
-            },
-            {
-                headers: {
-                    "Content-type": "application/json",
-                    Accept: "*/*",
+        if (chattxt === ""){
+            alert("메시지를 입력하세요")
+        }else{
+            axios.post("chat-service/chat/message",
+                {
+                    message: chattxt,
+                    roomId: state.roomId,
+                    userId: userId
                 },
-            }).then((res)=>{
-                console.log("send message", res);
-                const newMessage: dataProps = {message: chattxt, roomId: state.roomId , userId: userId, userName: userName, date: new Date()};
-                stomp.send("/pub/chat/chatting",{},
-                JSON.stringify(newMessage));
-                setChattxt(null);
-            })
+                {
+                    headers: {
+                        "Content-type": "application/json",
+                        Accept: "*/*",
+                    },
+                }).then((res:AxiosResponse)=>{
+                    const newMessage: dataProps = {message: chattxt, roomId: state.roomId , userId: userId, userName: userName, date: new Date()};
+                    stomp.send("/pub/chat/chatting",{},
+                    JSON.stringify(newMessage));
+                    setChattxt("");
+                })
+                .catch((error:AxiosError)=>{
+                    alert("오류입니다 관리자에게 문의 해주세요")
+                })
+            }
     };
 
 
-    const handleKeyPress = (event) => {
-        if (event.key === 'Enter') {
+    const handleKeyPress = (e:any) => {
+        if (e.key === 'Enter') {
             sendMessage();
         }
     };
@@ -178,13 +167,13 @@ function ChatDetail() {
                         <div className="myChat">
                             <div className="myChatName">{d.userName}</div>
                             <div>{d.message}</div>
-                            <div>{reversedatetrans(d.date)}</div>
+                            <div>{datetransnine(d.date)}</div>
                         </div>
                         :
                         <div className="otherChat">
                             <div className="otherChatName">{d.userName}</div>
                             <div>{d.message}</div>
-                            <div>{reversedatetrans(d.date)}</div>
+                            <div>{datetransnine(d.date)}</div>
                         </div>
                         }
                     </div>
@@ -196,7 +185,7 @@ function ChatDetail() {
             <div className='chatinput'>
                 <input onChange={handleChattxt} value={chattxt||""} 
                 type="text" onKeyPress={handleKeyPress}></input>
-                <div onClick={sendMessage}><FontAwesomeIcon icon={faPen}/></div>
+                <div onClick={sendMessage}><FontAwesomeIcon icon={faComment}/></div>
             </div>
         </div>
     );

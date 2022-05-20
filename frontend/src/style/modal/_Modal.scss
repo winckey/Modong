@@ -1,5 +1,17 @@
 @import '../_base';
-
+.textover{
+  @include textoverflow;
+  max-width: 80%;
+}
+.outLineimgdiv{
+  @include flex-col;
+  justify-content:center;
+  align-items: center
+}
+.imgdivs{
+  @include imgDiv;
+  margin: 10px;
+}
 .modal {
     display: none;
     position: fixed;
@@ -53,6 +65,10 @@
               @include flex-col;
               align-items: flex-start;
               margin: 5%;
+              >div{
+                width: 90%;
+                @include textoverflow;
+              }
             }
 
             .totalPrice {
@@ -68,12 +84,12 @@
               @include button;
             }
 
-            .historyBox div {
+            .historyBox >div {
               display: flex;
               justify-content: space-between;
               font-size: 1.1rem;
 
-              img {
+              >img {
                 margin: 5% 0;
                 border-radius: 50%;
                 object-fit: cover;
@@ -104,7 +120,7 @@
             >div{
               @include flex-row;
               justify-content: space-between;
-              width: 80%;
+              width: 100%;
               margin-bottom: 15px;
             }
           }
@@ -190,8 +206,40 @@
     /* 팝업이 열릴때 스르륵 열리는 효과 */
     animation: modal-bg-show 0.3s;
   }
-  
-  
+  .h1size{
+    font-size: 25px;
+    margin-top: 15px;
+  }
+  .flex-r{
+    @include flex-row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    align-items: center;
+    >div{
+      @include flex-row;
+      align-items: center;
+    }
+  }
+  .flex-r-p{
+    @include flex-row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 5px;
+  }
+  .bottomline{
+    border-bottom: 1px solid black;
+  }
+  .sizing{
+    height: 150px;
+    overflow: hidden;
+  }
+  .leftstart{
+    text-align:left;
+    padding-top:10px;
+    padding-bottom:15px;
+    padding-left: 10px;
+    background-color: $gray1;
+  }
   @keyframes modal-show {
     from {
       opacity: 0;

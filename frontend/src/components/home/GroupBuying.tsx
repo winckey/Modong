@@ -5,26 +5,33 @@ import Modal from '../modal/GroupBuyingApplyModal.tsx'
 import { useSelector } from 'react-redux';
 import axios, {AxiosResponse, AxiosError} from "axios";
 
-import {reversedatetrans} from '../../actions/TimeLapse.tsx'
+import {reversedatetrans} from '../../actions/_TimeLapse.tsx'
 
 import { gropupbuyingmodalpropstype } from "../../actions/_interfaces.tsx"
-// import Rootstate from "../../reducer/reducers.tsx"
-// import { useDispatch } from 'react-redux';
-// import actionCreators from "../../actions/actionCreators.tsx"
 
-
+import RootState from "../../reducer/reducers.tsx"
 
 function GroupBuying() {
 
-    const [ modalOpen, setModalOpen] = useState(false);
-    const [ groupBuyingList, setGroupBuyingList ] = useState([]);
+    const [ modalOpen, setModalOpen] = useState<boolean>(false);
+    const [ groupBuyingList, setGroupBuyingList ] = useState<gropupbuyingmodalpropstype[]>([]);
     const [ modalprops, setModalprops] = useState<gropupbuyingmodalpropstype>(); 
 
+    const userId = useSelector<number>((state:RootState) => {
+        return state.accounts.data.user.id
+    })
 
     const openModal = (data:gropupbuyingmodalpropstype) => {
-        setModalOpen(true);
-        setModalprops(data);
-        console.log("판매자 정보 있니", data);
+        if(data.userInfo.id !== userId){
+            if(new Date(data.closeTime) > new Date()){
+                setModalOpen(true);
+                setModalprops(data);
+            }else{
+                alert("주문 시간을 확인 해주세요");
+            }
+        }else{
+            alert("자신의 게시글에는 예약 할 수 없습니다.")
+        }
     };
 
 
@@ -35,13 +42,12 @@ function GroupBuying() {
 
 
     const handlegetList = () => {
-        axios.get(`/board-service/group-purchase`)
+        axios.get(`/board-service/group-purchase/list/${userId}`)
             .then((response:AxiosResponse) => {
-            console.log(response.data, "from 공구");
-            setGroupBuyingList(response.data.content)
+                setGroupBuyingList(response.data.content)
             })
             .catch((error:AxiosError) => {
-            console.log(error, "에러");
+                alert("오류입니다 관리자와 이야기 해주세요!")
             })
     };
     useEffect(()=>{

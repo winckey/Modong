@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import '../../style/_base.scss'
 
+import Rootstate from '../../reducer/reducers.tsx'
 
 export default function AddressModal() {
   const [open, setOpen] = React.useState<boolean>(false);
@@ -19,12 +20,10 @@ export default function AddressModal() {
 
   const [mode, setMode] = React.useState<number>(0);
 
- 
-  const [city, setCityList] = useState([]);
-  const [dong, setDongList] = useState([]);
+  const [city, setCityList] = useState<string[]>([]);
+  const [dong, setDongList] = useState<string[]>([]);
 
-
-  const [sigu,setInfo] = useState(['서울특별시', '부산광역시', '대구광역시','인천광역시','광주광역시',
+  const [sigu, setInfo] = useState<string[]>(['서울특별시', '부산광역시', '대구광역시','인천광역시','광주광역시',
   '대전광역시', '울산광역시','세종특별자치시','경기도','강원도','충청북도','충청남도','전라북도',
   '전라남도','경상북도', '경상남도']);
 
@@ -52,24 +51,19 @@ export default function AddressModal() {
   }, [siguSelected, citySelected]);
 
   const getCity = async() => {
-    axios.get(`/user-service/gugun/${siguSelected}`
-    ).then((res)=>{
-      // console.log("city info", res.data);
-      setCityList(res.data);}
-      );
+    axios.get(`/user-service/gugun/${siguSelected}`)
+    .then((res)=>{
+      setCityList(res.data);
+    });
 
   }
 
   const getDong = async() => {
     axios.get(`/user-service/dong/${citySelected}/${siguSelected}`
     ).then((res)=> {
-      // console.log("dong info", res.data)
       setDongList(res.data);}
       );
   }
-
-
-
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -78,7 +72,7 @@ export default function AddressModal() {
     setOpen(false);
   };
 
-  const openModal = (number) => {
+  const openModal = (number:any) => {
     setMode(number)
     setModalOpen(true);
   };
@@ -90,10 +84,10 @@ export default function AddressModal() {
   return (
     <div>
       <TextField onClick={handleClickOpen}
-                  fullWidth
-                  id="filled-basic" 
-                  value={dongSelected? dongSelected:"주소를 입력해주세요"} 
-                  variant="filled" />
+        fullWidth
+        id="filled-basic" 
+        value={dongSelected? dongSelected:"주소를 입력해주세요"} 
+        variant="filled" />
       
       <Dialog 
       PaperProps={{ sx: { width: "100%", height: "55vh", 
@@ -106,7 +100,6 @@ export default function AddressModal() {
           <TextField
             margin="dense"
             id="sigu"
-            // label="시/구 선택하기"
             fullWidth
             variant="filled"
             onClick={()=>{openModal(0)}}
@@ -119,7 +112,6 @@ export default function AddressModal() {
           <TextField
             margin="dense"
             id="city"
-            // label="구/군 선택하기"
             fullWidth
             variant="filled"
             autoComplete="off"
@@ -129,7 +121,6 @@ export default function AddressModal() {
           <TextField
             margin="dense"
             id="dong"
-            // label="동/읍/면 선택하기"
             fullWidth
             variant="filled"
             autoComplete="off"
@@ -150,8 +141,6 @@ export default function AddressModal() {
               확인
             </Button>
         </DialogActions>
-
-        
       </Dialog>
     </div>
   );
