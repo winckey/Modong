@@ -6,9 +6,6 @@ spring:
   application:
     name: order-service
 
-  redis:
-    host: k6e102.p.ssafy.io
-    port: 6379
   rabbitmq:
     host: 127.0.0.1
     port: 5672

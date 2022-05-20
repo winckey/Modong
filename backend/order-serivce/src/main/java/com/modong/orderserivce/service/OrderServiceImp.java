@@ -9,9 +9,6 @@ import com.modong.orderserivce.entity.Order;
 import com.modong.orderserivce.entity.OrderType;
 import com.modong.orderserivce.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -97,7 +94,7 @@ public class OrderServiceImp implements OrderService {
         return reqOrderDtos;
     }
 
-    private BoardDto getBoard(OrderType orderType, Long boardId) {
+    public BoardDto getBoard(OrderType orderType, Long boardId) {
 
         switch (orderType) {
             case ORDER_DELIVERY:
@@ -134,5 +131,23 @@ public class OrderServiceImp implements OrderService {
         return reqOrderDtos;
     }
 
+    @Override
+    public List<ReqOrderDto> deleteOrderByBoardId(Long boadId, OrderType orderType) {
+        List<Order> orderList = orderRepository.findByBoardIdAndOrderType(boadId, orderType);
 
+        List<ReqOrderDto> reqOrderDtos = new ArrayList<>();
+
+        for (Order order : orderList) {
+            ReqOrderDto reqOrderDto = ReqOrderDto.builder()
+                    .boardId(order.getBoardId())
+                    .userId(order.getUserId())
+                    .orderType(order.getOrderType())
+                    .build();
+            reqOrderDto.setUserDto(getUser(order.getUserId()));
+            reqOrderDtos.add(reqOrderDto);
+
+        }
+        orderRepository.deleteByBoardId(reqOrderDtos.get(0).getBoardId());
+        return reqOrderDtos;
+    }
 }
