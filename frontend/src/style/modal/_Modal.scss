@@ -209,6 +209,7 @@
   .h1size{
     font-size: 25px;
     margin-top: 15px;
+    @include textoverflow;
   }
   .flex-r{
     @include flex-row;
