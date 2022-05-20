@@ -12,8 +12,11 @@ public class RoomEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     // 채팅방 이름
-//    @Column(nullable = false, unique = false, length = 50) ^^
+    @Column(nullable = false, unique = false, length = 50)
     private String name;
+
+    @Column(nullable = false, unique = false, length = 20)
     private String type; // 구매, 배달, 심부름, ...
 }

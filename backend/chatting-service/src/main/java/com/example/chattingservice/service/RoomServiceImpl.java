@@ -33,14 +33,15 @@ public class RoomServiceImpl implements RoomService {
 
         // entity화-저장
         RoomEntity entity = mapper.map(dto, RoomEntity.class);
+        RoomEntity saveEntity;
         try{
-            roomRepository.save(entity);
+            saveEntity = roomRepository.save(entity);
         }catch(Exception e){
             e.printStackTrace();
             return null;
         }
 
-        return entity.getId();
+        return saveEntity.getId();
     }
 
     @Override
@@ -54,6 +55,8 @@ public class RoomServiceImpl implements RoomService {
             for (UserDto user:userList) {
                 RoomUserDto dto = new RoomUserDto(roomId, user);
                 UserEntity entity = mapper.map(dto, UserEntity.class);
+                RoomEntity room = roomRepository.findById(roomId).get();
+                entity.setRoom(room);
                 userRepository.save(entity);
             }
         }catch (Exception e){
@@ -98,11 +101,11 @@ public class RoomServiceImpl implements RoomService {
         try{
             // 유저가 참여중인 방 목록 가져옴
             List<UserEntity> list = userRepository.findByUserId(userId).get();
-
+// ^^의심
             for(UserEntity user:list){
-                RoomEntity entity = roomRepository.findById(user.getRoomId()).get();
-                RoomDto dto = mapper.map(entity, RoomDto.class);
-                dto.setRoomId(entity.getId());
+//                RoomEntity entity = roomRepository.findById(user.getRoom()).get();
+                RoomDto dto = mapper.map(user.getRoom() , RoomDto.class);
+                dto.setRoomId(user.getRoom().getId());
                 res.add(dto);
             }
         }catch (Exception e){

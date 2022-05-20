@@ -1,19 +1,20 @@
 package com.example.chattingservice.service;
 
 import com.example.chattingservice.data.entity.MessageEntity;
+import com.example.chattingservice.data.entity.RoomEntity;
 import com.example.chattingservice.data.entity.UserEntity;
 import com.example.chattingservice.repository.MessageRepository;
 import com.example.chattingservice.data.dto.MessageDto;
 import com.example.chattingservice.data.dto.RoomDto;
 import com.example.chattingservice.repository.UserRepository;
+import org.apache.catalina.User;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -31,13 +32,17 @@ public class MessageServiceImpl implements MessageService {
 
         // 조회
         List<MessageEntity> list =  msgRepository.findByRoomId(roomId).get();
+
         List<MessageDto> res = new ArrayList<>();
         for (MessageEntity entity:list) {
             MessageDto msg = mapper.map(entity, MessageDto.class);
-//            msg.setDate(entity.getDate());
-            // ^^username조회->나중에 join해서 가져오는걸로 refactoring
-            List<UserEntity> user = userRepository.findByUserId(entity.getUserId()).get();
-            if(!user.isEmpty()) msg.setUserName(user.get(0).getUserName());
+            msg.setRoomId(entity.getRoom().getId());
+            msg.setUserId(entity.getUser().getUserId());
+            msg.setUserName(entity.getUser().getUserName());
+
+            System.out.println("==============================================================");
+            System.out.println(msg.getDate().toString());
+
             res.add(msg);
         }
 
@@ -51,7 +56,14 @@ public class MessageServiceImpl implements MessageService {
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         try{
+            // user조회
+            UserEntity user = userRepository.findByRoomIdAndUserId(dto.getRoomId(), dto.getUserId()).get();
+            // room조회
+            RoomEntity room = user.getRoom();
+
             MessageEntity entity = mapper.map(dto, MessageEntity.class);
+            entity.setUser(user);
+            entity.setRoom(room);
             msgRepository.save(entity);
         }catch (Exception e){
             e.printStackTrace();
