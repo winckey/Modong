@@ -41,7 +41,7 @@ public class JwtTokenUtil {
         //payload 안에서 private 값을 Claims 객체에 담아 관리가능!
         //Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 이거 안함
         return Jwts.parserBuilder()//Jwts.parseBuilder메서드를 이용해서 JwtParseBuilder인스턴스를 생성한다.
-                .setSigningKey((env.getProperty("token.secret")))//JWS 서명 검증을 위한 SecretKey 혹은 비대칭 PublicKey를 지정한다.
+                .setSigningKey(getSigningKey(env.getProperty("token.secret")))//JWS 서명 검증을 위한 SecretKey 혹은 비대칭 PublicKey를 지정한다.
                 .build()//스레드에 안전한 JwtPaser를 리턴하기 위해 JwtPaserBuilder의 build()메서드를 호출한다.
                 .parseClaimsJws(token)//마지막으로 원본 JWS를 생성하는 jws를 가지고 parseClaimsJws(String)메서드를 호출한다.
                 .getBody();//파싱이나 서명검증오류 경우에 try/catch구문으로 전체를 감싼다. 예외와 실패 원인은 나중에 다룬다.
@@ -50,8 +50,8 @@ public class JwtTokenUtil {
     }
 
     public String getUsername(String token) {
-        return extractAllClaims(token).get("username", String.class);
-
+        String username=  extractAllClaims(token).get("username", String.class);
+        return username;
     }
 
     private Key getSigningKey(String secretKey) {// 나중에 사용할지 말지 고민해보기
@@ -67,7 +67,7 @@ public class JwtTokenUtil {
     public Boolean validateToken(String token) {
         String username = getUsername(token);
         System.out.println("jwt 토큰 유틸 79 username : " + username);
-    
+
         return  !isTokenExpired(token);
         //username.equals(userDetails.getUsername())
         //       나중에 id 와 비교해 넣을 부분

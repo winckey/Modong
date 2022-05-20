@@ -1,0 +1,140 @@
+@import '_base';
+
+.communityDetailOutLine{
+    background-color: $gray1;
+    height: 82vh;
+    overflow: auto;
+    
+    .userdiv{
+        display: flex;
+        padding: 15px;
+        // border-bottom: 1px solid $gray0;
+
+        >div:nth-child(1){
+            overflow: hidden;
+            height: 50px;
+            width: 50px;
+            border-radius: 30px;
+            position: relative;
+            >img{
+                @include absolute-loc($top:0, $left:0);
+                height: 100%;
+                width: 100%;
+            }
+        }
+        >div:nth-child(2){
+            @include flex-col;
+            align-items: flex-start;
+            margin-left: 15px;
+            >div{
+                text-align: start;
+            }
+            >div:nth-child(1){
+                font-size: 18px;
+            }
+            >div:nth-child(2){
+                font-size: 16px;
+            }
+        }
+    }
+    .contentsdiv{
+        @include flex-col;
+        @include noneA;
+        margin: 10px;
+        padding: 5px;
+        margin-bottom: 7px;
+        border: 1px solid $gray0;
+        @include shadow;
+        >div{
+            padding: 10px 20px 10px 20px;
+            box-sizing: border-box;
+            width: 100%;
+            text-align: start;
+        }
+        >div:first-child{
+            font-size: 24px;
+            min-height: 200px;
+        }
+        >div:nth-child(2){
+            text-align: end;
+            padding-bottom: 0;
+        }
+        >div:nth-child(3){
+            padding-top: 0;
+            color:$gray2;
+        }
+    }
+    .userdiv2{
+        font-size: 13px;
+        display: flex;
+        margin: 2% 3%;
+        padding: 2%;
+        justify-content: flex-start;
+        position: relative;
+        >div:nth-child(1){
+            overflow: hidden;
+            height: 30px;
+            width: 30px;
+            border-radius: 20px;
+            position: relative;
+            >img{
+                @include absolute-loc($top:0, $left:0);
+                height: 100%;
+                width: 100%;
+            }
+        }
+        >div:nth-child(2){
+            
+            @include flex-col;
+            margin-left: 15px;
+            >div{
+                text-align: start;
+            }
+            >div:nth-child(1){
+                font-size: 15px;
+            }
+            >div:nth-child(2){
+                margin: 3px;
+                font-size: 17px;
+            }
+        }
+        >div:nth-child(3){
+            @include absolute-loc($right:10px);
+        }
+    }
+    .replywrite{
+        display: flex;
+        justify-content: center;
+        background-color: $gray1;
+        width: 100%;
+        z-index: 10;
+        margin-top: 20px;
+        padding-bottom: 5px;
+        >input{
+            font-size: 18px;
+            border: none;
+            padding: 10px;
+            width: 75%;
+            margin: 5px;
+            margin-right: 10px;
+            border-radius: 15px;
+            @include shadow;
+        }
+        >div{
+            font-size: 25px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width:10%;
+            color: $blue1;
+            background-color: $mint1;
+            margin: 3px;
+            @include shadow;
+        }
+    }
+}
+
+.communityDetailOutLine::-webkit-scrollbar {
+    display: none; 
+}

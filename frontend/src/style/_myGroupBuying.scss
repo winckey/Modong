@@ -1,0 +1,65 @@
+@import '_base';
+
+.myGroupBuyingInList{
+    overflow: auto;
+    height: 600px;
+    padding-bottom: 20px;
+    box-sizing: border-box;
+    >div{
+        border-radius: 20px;
+        @include flex-col;
+        background-color: $gray1;
+        margin-top: 16px;
+        overflow: hidden;
+        position: relative;
+        >div{
+            text-overflow:ellipsis;
+            overflow: hidden;
+            margin: 10px 15px 10px 15px;
+            white-space:nowrap;
+            max-width: 50%;
+        }
+        >div:nth-child(1){
+            align-self: flex-start;
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+        >div:nth-child(2){
+            align-self: flex-end;
+        }
+        .myGroupCardTwoBtn{
+            display: flex;
+            justify-content: space-around;
+            align-self: center;
+            background-color: $blue2;
+            width: 100%;
+            color: white;
+            padding:8px;
+            border-radius: 0 0 15px 15px;
+            max-width: 100%;
+            margin: 2px 15px 0px 15px;
+            >div{
+                width: 50%;
+            }
+            >div:nth-child(1){
+                border-right: 1px solid white;
+            }
+        }
+        .myGroupCardOneBtn{
+            display: flex;
+            justify-content: space-around;
+            align-self: center;
+            background-color: $blue2;
+            width: 100%;
+            color: white;
+            padding:8px;
+            border-radius: 0 0 15px 15px;
+            max-width: 100%;
+            margin: 2px 15px 0px 15px;
+        }
+    }
+}
+
+.myGroupBuyingInList::-webkit-scrollbar {
+    display: none; 
+}

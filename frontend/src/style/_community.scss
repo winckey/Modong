@@ -1,0 +1,63 @@
+@import '_base';
+
+
+
+.communityOutLine{
+    overflow: auto;
+    height: 82vh;
+    position: relative;
+
+    .communityCard{
+        @include flex-col;
+        @include card;
+        margin: 20px auto;
+        div{
+            >div{
+                padding: 10px 20px 10px 20px;
+                width: 90%;
+                text-align: start;
+            }
+            >div:first-child{
+                font-size: 24px;
+                @include textoverflow;
+                padding: 10px 20px 10px 20px;
+                min-height: 20%;
+            }
+            >div:nth-child(2){
+                text-align: end;
+            }
+            >div:nth-child(3){
+                padding-top: 0;
+                color:$gray2;
+            }
+            >div:nth-child(4){
+                border-top: 1px solid black;
+                >svg{
+                    margin-right: 10px;
+                }
+            }
+        }
+ 
+    }
+}
+.writemark{
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    background-color: $mint1;
+    border-radius: 200px;
+    margin:auto;
+    font-size: 35px;
+    right:30px;
+    bottom: 110px;
+    z-index:10;
+    color: $blue1;
+    @include shadow;
+}
+
+.communityOutLine::-webkit-scrollbar {
+    display: none; 
+}

@@ -1,0 +1,52 @@
+@import '_base';
+
+
+.outBox{
+    position: relative;
+    height: 82vh;
+    overflow: auto;
+
+    .madeliverycard{
+        @include card;
+        @include flex-col;
+        // align-items: flex-end;
+
+        >div{
+            display: flex;
+            margin: 10px;
+        }
+        >div:nth-child(1){
+            justify-content: space-between;
+            @include flex-row;
+            width: 95%;
+            >div:nth-child(1){
+                width: 65%;
+                margin: 5px;
+                font-size: 22px;
+                @include textoverflow;
+            }
+        }
+        >div:nth-child(2){
+            width: 100%;
+            >div{
+                margin: 5px;
+                margin-left: 15px;
+                text-align: start;
+
+            }
+            >div:nth-child(2){
+                max-width: 90%;
+                @include textoverflow;
+                // @include absolute-loc($bottom:0, $left:0);
+            }
+            // justify-content: space-between;
+            @include flex-col;
+        }
+        
+    }
+};
+
+
+.outBox::-webkit-scrollbar {
+    display: none; 
+}
