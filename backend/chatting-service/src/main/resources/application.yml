@@ -1,0 +1,60 @@
+server:
+  port: 8882
+#  port: ${random.int(50000,50001)}
+  # address: localhost
+
+greeting:
+  message: Welcome to the Simple E-commerce.
+
+
+spring:
+  application:
+    name: chat-service
+#  rabbitmq:
+#    host: 127.0.0.1
+#    port: 5672
+#    username: guest
+#    password: guest
+
+  datasource:
+    url: jdbc:mysql://k6e1021.p.ssafy.io:3308/modong?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      username: root
+      # password: 
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+        default_batch_fetch_size: 100
+    database: mysql
+
+  devtools:
+    livereload:
+      enabled: true
+
+eureka:
+ instance:
+   instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+   prefer-ip-address: true
+   ip-address: ${server.address}
+ client:
+   service-url:
+     defaultZone: http://k6e102.p.ssafy.io:8761/eureka/
+   fetch-registry: true
+   register-with-eureka: true
+
+
+logging:
+  level:
+    com.example.userservice.client: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, busrefresh, info, metrics, prometheus

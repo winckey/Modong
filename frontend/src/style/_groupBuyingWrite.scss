@@ -1,0 +1,14 @@
+@import '_base';
+
+.gboutLine {
+    @include flex-col;
+    align-items: center;
+
+    .button{
+        @include button;
+        @include absolute-loc($bottom:13%);
+        width: 77%;
+        height: 3%;
+        padding: 15px;
+    }
+}
