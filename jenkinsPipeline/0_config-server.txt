@@ -1,0 +1,31 @@
+node {
+    stage ('clone') {
+        git branch: 'backend/config-server/develpo' , credentialsId: 'modong1', url: 'https://lab.ssafy.com/s06-final/S06P31E102'
+    }
+    
+    stage ('gradle build') {
+        dir('backend/config-serivce'){
+            sh 'chmod +x gradlew'
+            sh './gradlew build'
+        }
+    }
+    
+    
+    stage ('docker build') {
+        dir('backend/config-serivce'){
+            sh 'docker build -t config-service:1.0 .'
+        }
+    }
+    
+    stage ('docker run') {
+        sh 'docker stop config-service'
+        sh 'docker rm config-service'
+        sh 'docker run -d \
+             -p 8888:8888 \
+             --network modong-net\
+             -e "spring.rabbitmq.host=rabbitmq" \
+             -e "spring.profiles.active=default" \
+             --name config-service config-service:1.0'
+    }
+    
+}

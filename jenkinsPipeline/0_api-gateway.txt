@@ -1,0 +1,33 @@
+node {
+    stage ('clone') {
+        git branch: 'backend/api-gateway/develop', credentialsId: 'modong1', url: 'https://lab.ssafy.com/s06-final/S06P31E102'
+    }
+    
+    stage ('gradle build') {
+        dir('backend/apigateway'){
+            sh 'chmod +x gradlew'
+            sh './gradlew build --exclude-task test'
+        }
+    }
+    
+    
+    stage ('docker build') {
+        dir('backend/apigateway'){
+            sh 'docker build -t apigateway-service:1.0 .'
+        }
+    }
+    
+    stage ('docker run') {
+        sh 'docker stop apigateway-service'
+        sh 'docker rm apigateway-service'
+        sh 'docker run -d \
+             -p 8000:8080 \
+             --network modong-net \
+             -e "spring.cloud.config.uri=http://config-service:8888" \
+             -e "spring.rabbitmq.host=rabbitmq" \
+             -e "eureka.client.serviceUrl.defaultZone=http://service-discovery:8761/eureka/" \
+             --name apigateway-service \
+             apigateway-service:1.0'
+    }
+    
+}

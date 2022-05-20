@@ -1,0 +1,27 @@
+node {
+    stage ('clone') {
+        git branch: 'frontend/develop', credentialsId: 'modong1', url: 'https://lab.ssafy.com/s06-final/S06P31E102'
+    }
+    
+    
+    stage ('docker build') {
+        dir('frontend'){
+            sh 'docker build -t frontend:1.0 .'
+        }
+    }
+    
+    stage ('docker run') {
+        sh 'docker stop frontend'
+        sh 'docker rm frontend'
+        sh 'docker run -d \
+         -p 80:80 \
+         --network modong-net \
+         --name frontend \
+         --volume "/home/ubuntu/docker-volume/ssl:/var/www/html" \
+         -v /etc/localtime:/etc/localtime:ro \
+         -e TZ=Asia/Seoul \
+         -e "logging.file=/api-logs/frontend-ws.log" \
+         frontend:1.0'
+    }
+    
+}

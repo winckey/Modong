@@ -1,0 +1,16 @@
+node {
+    stage ('clone') {
+        git branch: 'backend/kafka/develop', credentialsId: 'modong1', url: 'https://lab.ssafy.com/s06-final/S06P31E102'
+    }
+    
+    stage ('docker compose') {
+        dir('backend/kafka-docker'){
+            sh 'docker stop kafka-docker_kafka_1 || true'
+            sh 'docker rm kafka-docker_kafka_1 || true'
+            sh 'docker stop kafka-docker_zookeeper_1 || true'
+            sh 'docker rm kafka-docker_zookeeper_1 || true'
+			sh 'docker-compose -f docker-compose-swarm.yml up -d' 
+        }
+    }
+    
+}

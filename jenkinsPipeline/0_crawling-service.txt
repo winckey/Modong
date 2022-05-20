@@ -1,0 +1,23 @@
+node {
+    stage ('clone') {
+        git branch: 'backend/crawling-service/develop', credentialsId: 'modong1', url: 'https://lab.ssafy.com/s06-final/S06P31E102'
+    }
+
+    stage ('docker build') {
+        dir('backend/crawling-Service'){
+            sh 'ls'
+            sh 'docker build -t crawling-service .'
+        }
+    } 
+    
+    
+    stage ('docker run') {
+        sh 'docker stop crawling-service||true'
+        sh 'docker rm crawling-service||true'
+        sh 'docker run -d \
+         -p 5000:5000 \
+         --name crawling-service \
+         --network modong-net \
+         crawling-service '
+    } 
+}

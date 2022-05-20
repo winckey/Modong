@@ -1,0 +1,45 @@
+node {
+    stage ('clone') {
+        git branch: 'backend/chat-service/develop', credentialsId: 'modong1', url: 'https://lab.ssafy.com/s06-final/S06P31E102'
+    }
+
+    
+    stage ('gradle build') {
+        dir('backend/chatting-service'){
+            sh 'chmod +x gradlew'
+            sh './gradlew build --exclude-task test'
+            sh 'ls build/libs'
+        }
+    }
+    
+    
+    stage ('docker build') {
+        dir('backend/chatting-service'){
+            sh 'docker build -t chat-service:1.0 .'
+        }
+    }
+    
+    stage ('docker run') {
+        sh 'docker stop chat-service||true'
+        sh 'docker rm chat-service||true'
+        sh 'docker run -d \
+          --name chat-service \
+         -p 8882:8882 \
+         -e "server.port=8882" \
+         -e "spring.cloud.config.uri=http://k6e102.p.ssafy.io:8888" \
+         -e "spring.rabbitmq.host=k6e102.p.ssafy.io" \
+         -e "spring.rabbitmq.username=mountain" \
+         -e "spring.rabbitmq.password=rabbit*" \
+         -e "spring.zipkin.base-url=http://k6e102.p.ssafy.io:9411" \
+         -e "eureka.instance.prefer-ip-address=true" \
+         -e "eureka.instance.ip-address=k6e1021.p.ssafy.io" \
+         -e "eureka.client.serviceUrl.defaultZone=http://k6e102.p.ssafy.io:8761/eureka/" \
+         -e "spring.datasource.url=jdbc:mysql://k6e1021.p.ssafy.io:3308/modong?serverTimezone=Asia/Seoul&characterEncoding=UTF-8" \
+         -e "spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver" \
+         -e "spring.datasource.hikari.username=root" \
+         -e "spring.datasource.hikari.password=podoYorgurt%" \
+         -e "logging.file=/api-logs/chat-ws.log" \
+         chat-service:1.0'
+    }
+    
+}
