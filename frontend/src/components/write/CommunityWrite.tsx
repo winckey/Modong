@@ -35,13 +35,11 @@ function CommunityWrite() {
                 }
             )
             .then((response:AxiosResponse) => {
-                console.log(response.data, "게시판 생성");
                 dispatch(actionCreators.setFooterSelected(2));
                 navigate("/community");
             })
             .catch((error:AxiosError) => {
                 alert("오류입니다 관리자와 이야기해주세요")
-                console.log(error);
             })
         }
       };

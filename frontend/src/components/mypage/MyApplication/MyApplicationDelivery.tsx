@@ -5,7 +5,7 @@ import Modal from '../../modal/_ApplyHistoryModal2.tsx';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile } from "@fortawesome/free-solid-svg-icons";
 
-import axios, {AxiosResponse, AxiosError} from "axios";
+import axios, {AxiosResponse} from "axios";
 
 import { useSelector } from 'react-redux';
 import RootState from "../../../reducer/reducers.tsx"
@@ -21,14 +21,9 @@ function MyApplicationDelivery() {
     })
 
     const getapplicationdata = () =>{
-        console.log(`/order-service/user/${userId}/ORDER_DELIVERY`);
         axios.get(`/order-service/user/${userId}/ORDER_DELIVERY`)
         .then((response:AxiosResponse) => {
-        console.log(response, "채팅 데이터 가져오기");
         setMyApplicationDeliveryData(response.data)
-        })
-        .catch((error:AxiosError) => {
-        console.log(error, "에러");
         })
     }
 

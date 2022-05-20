@@ -19,7 +19,6 @@ export default function _ApplyHistoryModal(props:any)  {
     })
   }
   useEffect(()=>{
-    console.log("2222222222222", info)
     if(info != null){
       totalprice();
     }

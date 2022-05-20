@@ -6,7 +6,7 @@ import "../style/_chat.scss"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTruck, faRightToBracket, faBowlFood } from '@fortawesome/free-solid-svg-icons';
 import Modal from './modal/ChatExitModal.tsx'
-import axios, {AxiosResponse, AxiosError} from "axios";
+import axios, {AxiosResponse} from "axios";
 
 import { useSelector } from "react-redux";
 import RootState from "./reducer/reducers.tsx"
@@ -35,10 +35,6 @@ export default function Chat() {
     axios.get(`/chat-service/chat/${userId}`)
       .then((response:AxiosResponse) => {
         setChatList(response.data)
-        console.log("방 리스트", response.data)
-      })
-      .catch((error:AxiosError) => {
-        console.log(error, "에러");
       })
   }
 

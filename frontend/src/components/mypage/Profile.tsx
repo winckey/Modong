@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import '../../style/_profile.scss'
 import Modal from '../modal/ProfileEditModal.tsx'
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,20 +11,13 @@ function Profile() {
     const user = useSelector((state:Rootstate) => {
         return state.accounts.data.user
     });
-    const dong = useSelector((state:Rootstate) => {
-        return state.address.data.dong
-    });
 
-    const [profileImage, setProfileImage] = useState<string>("");
     const fileInput = useRef(null);
 
     // 프로필 이미지 수정
     const handleProfileImage = (e:any) => {
-        console.log(e.target.files[0]);
         var image = new FormData();
         image.append("image", e.target.files[0]);
-        console.log("image는 몬가요", image);
-
         axios.put(`/user-service/users/image?userId=${user.id}`,
         image,
         {
@@ -34,11 +27,9 @@ function Profile() {
             }
         }
         ).then((res)=>{
-            console.log(res.data);
             dispatch(actionCreators.setUser(res.data));
         }).catch((err)=>{
             alert("오류입니다 관리자와 이야기 해주세요")
-            console.log("이미지 업로드 실패", err);
         })
     };
     return (

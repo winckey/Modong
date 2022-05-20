@@ -28,21 +28,16 @@ function MyCommunity() {
     const handleDelCommunity = (myCommunityId:number) =>{
         axios.delete(`/board-service/`,{data:{id:myCommunityId}})
         .then((response:AxiosResponse) => {
-            console.log(response.data, "나의 게시판 나가기")
+            getMycommunityList();
         })
         .catch((error:AxiosError) => {
-            console.log(error, "에러");
             alert("오류 입니다 관리자와 이야기해주세요!")
         })
     }
     const getMycommunityList=()=>{
         axios.get(`/board-service/${userId}`)
         .then((response:AxiosResponse) => {
-            console.log(response.data, "from qoekf");
             setMyCommunityList(response.data.content)
-            })
-            .catch((error:AxiosError) => {
-            console.log(error, "에러");
             })
     }
     

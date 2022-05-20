@@ -4,24 +4,15 @@ import { useDispatch } from "react-redux";
 import actionCreators from '../actions/actionCreators.tsx';
 
 import "../style/_mypage.scss"
-import { useSelector } from 'react-redux';
-
-import Rootstate from '../reducer/reducers.tsx'
 
 function Mypage() {
 
-  const user = useSelector((state:Rootstate)=> {
-    return state.accounts.data
-  });
-
   const dispatch = useDispatch();
   const logout = () => {
-    console.log("로그아웃 전이얌", user);
     dispatch(actionCreators.setUser({}));
     dispatch(actionCreators.setToken(null));
     dispatch(actionCreators.setRefreshToken(null));
     dispatch(actionCreators.setIsLogin(false));
-    console.log("로그아웃 후", user);
   };
 
   return (

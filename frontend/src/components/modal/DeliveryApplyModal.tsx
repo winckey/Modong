@@ -59,10 +59,8 @@ export default function DeliveryModal(props:any)  {
     axios.get(`/board-service/group-delivery/read/${info.id}`)
       .then((response:AxiosResponse) => {
         transmenu(response.data.menus)
-        console.log("크롤링 리스트", response.data)
       })
       .catch((error:AxiosError) => {
-        console.log(error, "에러");
         alert("오류 입니다 관리자와 이야기해주세요!")
       })
   }
@@ -110,11 +108,9 @@ export default function DeliveryModal(props:any)  {
       })
       .then((response:AxiosResponse) => {
         setModalOpen(true);
-        console.log(response.data, "Rmx")
       })
       .catch((error:AxiosError) => {
-          console.log(error, "에러");
-          alert("오류입니다 관리자와 이야기해주세요")
+        alert("오류입니다 관리자와 이야기해주세요")
       })
     }
   }

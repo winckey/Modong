@@ -6,7 +6,7 @@ import Modal from '../../modal/_ApplyHistoryModal1.tsx';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile } from "@fortawesome/free-solid-svg-icons";
 
-import axios, {AxiosResponse, AxiosError} from "axios";
+import axios, {AxiosResponse} from "axios";
 
 import { useSelector } from 'react-redux';
 import RootState from "../../../reducer/reducers.tsx"
@@ -21,14 +21,9 @@ function MyApplicationGroupBuying() {
     })
 
     const getapplicationdata = () =>{
-        console.log(1111111111, userId)
         axios.get(`/order-service/user/${userId}/ORDER_GROUP`)
         .then((response:AxiosResponse) => {
-        console.log(response.data, "공구 데이터 가져오기");
         setMyApplicationGroupBuyingData(response.data)
-        })
-        .catch((error:AxiosError) => {
-        console.log(error, "에러");
         })
     }
     

@@ -38,11 +38,9 @@ function Delivery() {
     const handlegetList = () => {
         axios.get(`/board-service/group-delivery/list/${userId}`)
         .then((response:AxiosResponse) => {
-        console.log(response.data, "from qoekf");
         setDeliveryList(response.data.content)
         })
         .catch((error:AxiosError) => {
-        console.log(error, "에러");
         alert("오류입니다 관리자와 이야기 해주세요!")
         })
     };

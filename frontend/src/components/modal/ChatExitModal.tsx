@@ -25,11 +25,9 @@ export default function ChatExitModal(props:any)  {
       }
     },)
       .then((response:AxiosResponse) => {
-        console.log(response.data, "채팅 나가기")
         window.location.reload();
       })
       .catch((error:AxiosError) => {
-        console.log(error, "에러");
         alert("오류 입니다 관리자와 이야기해주세요!")
       })
   };

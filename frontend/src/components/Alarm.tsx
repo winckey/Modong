@@ -3,16 +3,16 @@ import "../style/_alarm.scss"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { getMessaging, onMessage } from 'firebase/messaging'
+// import { getMessaging, onMessage } from 'firebase/messaging'
 
 const data =[{ contents:"추후 개발 예정입니다."}]
 function Alarm(props:any) {
-  useEffect(()=>{
-    const messaging = getMessaging();
-    onMessage(messaging, (payload)=>{
-      console.log("fb에서 메시지 받은거", payload.notification);
-    })
-  });
+  // useEffect(()=>{
+  //   const messaging = getMessaging();
+  //   onMessage(messaging, (payload)=>{
+  //     console.log("fb에서 메시지 받은거", payload.notification);
+  //   })
+  // });
 
   return (
     <>

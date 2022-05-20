@@ -67,10 +67,8 @@ function ChatDetail() {
     
     // stomp 연결, 구독해서 정보 주고 받음
     useEffect(()=>{
-        console.log("구독 시작 전!")
         stomp.connect({}, ()=> {
-            stomp.subscribe(`/sub/chatting/room/${state.roomId}`, (data)=>{
-                console.log("구독 가넝")
+            stomp.subscribe(`/sub/chatting/room/${state.roomId}`, (data:any)=>{
                 const newMessage: dataProps = JSON.parse(data.body);
                 addMessage(newMessage);
             })
@@ -85,22 +83,17 @@ function ChatDetail() {
 
     const addMessage = (message:any) => {
         setContents(prev=>[...prev,message]);
-        console.log("contents", contents);
     };  
 
 
 
     // 채팅 기록 불러오기
     const getHistory = () => {
-
-        console.log("채팅 기록 불러왕");
         axios.get(`chat-service/chat/message/${state.roomId}`)
         .then((res:AxiosResponse)=>{
             setHistoryMessages(res.data);
-            console.log("history111111111111", res.data);
         })
         .catch((err:AxiosError)=>{
-            console.log("getHistory에러", err);
             alert("오류입니다 관리자와 이야기 해주세요!")
         })
 
@@ -125,7 +118,6 @@ function ChatDetail() {
                         Accept: "*/*",
                     },
                 }).then((res:AxiosResponse)=>{
-                    console.log("send message", res);
                     const newMessage: dataProps = {message: chattxt, roomId: state.roomId , userId: userId, userName: userName, date: new Date()};
                     stomp.send("/pub/chat/chatting",{},
                     JSON.stringify(newMessage));

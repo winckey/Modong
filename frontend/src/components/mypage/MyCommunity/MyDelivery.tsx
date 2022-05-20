@@ -26,7 +26,6 @@ function MyDelivery() {
     const openModal = (data:deliverytype) => {
         setModalOpen(true);
         setModalPropsData(data);
-        console.log(data);
     };
 
     const closeModal = () => {
@@ -39,7 +38,6 @@ function MyDelivery() {
         }else{
             setCloseModalOpen(true);
             setModalPropsData(data);
-            console.log(data);
         }
     }
 
@@ -55,10 +53,9 @@ function MyDelivery() {
     const handleDelCommunity = (myCommunityId:number) =>{
         axios.delete(`/board-service/group-delivery`,{data:{id:myCommunityId}})
         .then((response:AxiosResponse) => {
-            console.log(response.data, "나의 배달 나가기")
+            getMyDeliveryList()
         })
         .catch((error:AxiosError) => {
-            console.log(error, "배달 나가기 에러");
             alert("오류입니다 관리자와 이야기 해주세요!")
         })
     }
@@ -66,11 +63,7 @@ function MyDelivery() {
     const getMyDeliveryList=()=>{
         axios.get(`/board-service/group-delivery/${user.id}`)
         .then((response:AxiosResponse) => {
-            console.log(response.data, "배달리스트");
             setMyDeliveryList(response.data.content)
-            })
-            .catch((error:AxiosError) => {
-            console.log(error, "배달리스트에러");
             })
     }
     useEffect(()=>{
@@ -78,7 +71,6 @@ function MyDelivery() {
     },[]);
 
     const handleFinish = (data:any) => {
-        console.log(data, "Data")
         const deldata = {
             data: {
                 closeTime: data.closeTime,
@@ -91,9 +83,8 @@ function MyDelivery() {
         }
         axios.delete('/board-service/group-delivery',deldata
         ).then((res)=>{
-            console.log("배달마감성공",res);
+            getMyDeliveryList()
         }).catch((err)=>{
-            console.log("배달마감실패",err);
             alert("오류입니다 관리자와 이야기 해주세요!")
         })
     };

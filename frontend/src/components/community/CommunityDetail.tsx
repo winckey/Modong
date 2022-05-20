@@ -40,12 +40,10 @@ function CommunityDetail() {
         axios.delete(`/board-service/comment`, deldata,
         )
         .then((response:AxiosResponse) => {
-            console.log(response.data, "글지우기");
             handleUpdatedata();
         })
         .catch((error:AxiosError) => {
             alert("오류입니다 관리자와 이야기 해주세요!")
-            console.log(error, "에러");
         })
     }
     const handleReplySubmit=()=>{
@@ -65,12 +63,10 @@ function CommunityDetail() {
                 },
             })
             .then((response:AxiosResponse) => {
-                console.log(response.data, "글쓰기");
                 handleUpdatedata();
                 setReplytxt("");
             })
             .catch((error:AxiosError) => {
-                console.log(error, "에러");
                 alert("에러입니다 관리자와 이야기 해주세요")
             })
         }
@@ -82,10 +78,8 @@ function CommunityDetail() {
             setUserNick(response.data.userInfo.nickname);
             setUserImg(response.data.userInfo.image);
             setUserLoc(response.data.userInfo.dongDto.dong);
-            console.log(response.data, "글가져오기");
         })
         .catch((error:AxiosError) => {
-            console.log(error, "에러");
             alert("오류입니다 관리자와 이야기 해주세요!")
         })
     }

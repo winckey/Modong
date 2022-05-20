@@ -22,18 +22,15 @@ export default function GroupBuyingRequestedModal(props:any)  {
       total+=d.itemDtoList[0].quantity
     ))
     setProductTotalNum(total)
-    console.log(productTotalNum);
   };
 
   const getGroupApplicationList =()=>{
      axios.get(`/order-service/board/${info.id}/ORDER_GROUP`)
      .then((response:AxiosResponse) => {
-      console.log("배달 정보!",response.data);
       setGroupApplicationList(response.data);
       sumTotalNum(response.data);
       })
       .catch((error:AxiosError) => {
-        console.log(error, "에러");
         alert("오류 입니다 관리자와 이야기해주세요!")
       })
   };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -77,7 +77,6 @@ export default function SignUp(props:any) {
     }else if(dongCodeSelected == null){
       alert("동 선택을 확인해주세요")
     }else{
-      console.log(data);
       axios
         .post("/user-service/register", data, {
           headers: {
@@ -86,7 +85,6 @@ export default function SignUp(props:any) {
           },
         })
         .then((response) => {
-          console.log(response);
           dispatch(actionCreators.setSigu(null));
           dispatch(actionCreators.setCity(null));
           dispatch(actionCreators.setDong(null));

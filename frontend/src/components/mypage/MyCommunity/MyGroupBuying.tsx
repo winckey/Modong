@@ -23,7 +23,6 @@ function MyGroupBuying() {
     const [ modalPropsData, setModalPropsData] = React.useState<groupbuyingtype>(null);
 
     const openModal = (data:groupbuyingtype) => {
-        console.log("공구 정보!", data);
         setModalOpen(true);
         setModalPropsData(data);
     };
@@ -33,7 +32,6 @@ function MyGroupBuying() {
 
     const openCloseModal = (data:groupbuyingtype) => {
         setModalPropsData(data);
-        console.log("공구 정보", data);
         setCloseModalOpen(true);
     }
     const closeCloseModal = () => {
@@ -47,10 +45,9 @@ function MyGroupBuying() {
     const handleDelCommunity = (myCommunityId:number) =>{
         axios.delete(`/board-service/group-purchase`,{data:{id:myCommunityId}})
         .then((response:AxiosResponse) => {
-            console.log(response.data, "나의 공구 나가기")
+            handlegetMyList()
         })
         .catch((error:AxiosError) => {
-            console.log(error, "에러");
             alert("오류입니다 관리자와 이야기 해주세요!")
         })
     }
@@ -58,11 +55,7 @@ function MyGroupBuying() {
     const handlegetMyList = () => {
         axios.get(`/board-service/group-purchase/${user.id}`)
             .then((response:AxiosResponse) => {
-            console.log(response.data, "from 공구");
             setMyGroupBuyingList(response.data.content)
-            })
-            .catch((error:AxiosError) => {
-            console.log(error, "에러");
             })
     };
 
@@ -72,7 +65,6 @@ function MyGroupBuying() {
 
 
     const handleFinish = (data:any) => {
-        console.log(data, "Data")
         const deldata = {
             data: {
                 closeTime: data.closeTime,
@@ -86,10 +78,8 @@ function MyGroupBuying() {
         }
         axios.delete('/board-service/group-purchase',deldata
         ).then((res)=>{
-            console.log("마감성공",res);
             handlegetMyList();
         }).catch((err)=>{
-            console.log("마감실패",err);
             alert("오류입니다 관리자와 이야기 해주세요!")
         })
     };

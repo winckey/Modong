@@ -14,7 +14,7 @@ import { faPen, faComments } from "@fortawesome/free-solid-svg-icons";
 
 import {datetrans} from '../actions/_TimeLapse.tsx'
 
-import axios, {AxiosResponse, AxiosError} from "axios";
+import axios, {AxiosResponse} from "axios";
 
 import { communitytype } from "../actions/_interfaces.tsx"
 
@@ -30,11 +30,7 @@ function Community() {
   const handlegetList = (pageNum:number) => {
     axios.get(`/board-service/list/${userId}?pageNumber=${pageNum}&size=10`)
       .then((response:AxiosResponse) => {
-        console.log(response.data, "from login");
         setBoardData(response.data.content)
-      })
-      .catch((error:AxiosError) => {
-        console.log(error, "에러");
       })
   };
   

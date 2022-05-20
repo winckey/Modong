@@ -53,16 +53,13 @@ export default function Login(props:any) {
           }
         )
         .then((response) => {
-          console.log(response, "Login Success");
           localStorage.setItem("jwt", response.data.token);
           dispatch(actionCreators.setUser(response.data.user));
           dispatch(actionCreators.setToken(response.data.token));
           dispatch(actionCreators.setRefreshToken(response.data.RefeshToken));
-          console.log("userInfo-loginpage", userInfo);
         })
         .catch((response) => {
           alert("아이디 비번을 확인 해주세요")
-          console.log(response, "Login Error");
         });
     }
   };
@@ -106,9 +103,6 @@ export default function Login(props:any) {
               autoComplete="current-password"
               variant="standard"
             />
-            <FormGroup>
-              <FormControlLabel control={<Checkbox/>} label="로그인 상태 유지" />
-            </FormGroup>
             <Button
               style={{backgroundColor: "#0064FF", fontSize: "1.2rem", borderRadius: "10px"}}
               size="large"

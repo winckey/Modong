@@ -23,8 +23,6 @@ export default function GroupBuyingApplyModal(props:any)  {
 
   const handleChangeProductNum=(e:any)=>{
     setProductNum(e.target.value);
-    console.log("묯개", productNum);
-    console.log(info);
   }
 
   // 신청 완료 모달 
@@ -32,7 +30,6 @@ export default function GroupBuyingApplyModal(props:any)  {
 
   const openModal = () => {
     if (productNum){
-      console.log(productNum, typeof(productNum))
       if (new Date(info.closeTime) < new Date()){
         alert("주문시간이 초과 하였습니다.")
         close();
@@ -59,12 +56,10 @@ export default function GroupBuyingApplyModal(props:any)  {
           },
         })
         .then((response:AxiosResponse) => {
-          console.log(response.data, "모달 오픈해랏!")
           setModalOpen(true);
         })
         .catch((error:AxiosError) => {
           alert("오류입니다 관리자와 이야기 해주세요")
-          console.log(error, "공구 신청 에러~~");
         })
       }
     }

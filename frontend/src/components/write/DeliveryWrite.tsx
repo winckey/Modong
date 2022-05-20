@@ -62,12 +62,10 @@ function DeliveryWrite() {
                 }
             )
             .then((response:AxiosResponse) => {
-                console.log(response.data, "배달 생성");
                 dispatch(actionCreators.setFooterSelected(1));
                 navigate("/");
             })
             .catch((error:AxiosError) => {
-                console.log(error);
                 alert("오류입니다 관리자와 이야기 해주세요")
             })
         }
