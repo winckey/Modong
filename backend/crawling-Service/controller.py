@@ -3,14 +3,14 @@ import json
 from flask import request
 from flask_restx import Api, Resource, reqparse, Namespace, fields
 
-import redis
+import redis, datetime
 
 import yogiyo
 
 rest_port = 8080
 
 # redis
-rd = redis.StrictRedis(host='k6e102.p.ssafy.io', port=6379, db=0)
+rd = redis.StrictRedis(host='k6e102.p.ssafy.io', port=6380, db=0)
 
 Menu = Namespace(
     name="Menus",
@@ -35,18 +35,33 @@ class Crawling(Resource):
     @Menu.expect(menu_fields)
     def post(self):
         board_id = request.get_json()['board_id']
-        server = yogiyo.UpdateMenu()
-        menus = json.dumps(server.menu_information(board_id), ensure_ascii=False).encode('utf-8')
 
-        # Redis 저장 - 키값(board_id)
-        rd.set(board_id, menus)
+        # 이미 크롤링한 가게라면
+        if rd.exists(board_id):
+            menus = rd.get(board_id)
+            return menus.decode('utf-8')
+        else : # 크롤링하지 않은 가게라면
+            server = yogiyo.UpdateMenu()
+            menus = json.dumps(server.menu_information(board_id), ensure_ascii=False).encode('utf-8')
 
-        return menus.decode('utf-8')
+            # Redis 저장 - 키값(board_id)
+            rd.set(board_id, menus, datetime.timedelta(hours=18))
+
+            return menus.decode('utf-8')
 
 
 @Menu.route('/<int:board_id>')
 class Get(Resource):
     # 메뉴 크롤링 체크
     def get(self, board_id):
-        menus = rd.get(board_id)
-        return menus.decode('utf-8')
+        if rd.exists(board_id):
+            menus = rd.get(board_id)
+            return menus.decode('utf-8')
+        else : # 크롤링하지 않은 가게라면
+            server = yogiyo.UpdateMenu()
+            menus = json.dumps(server.menu_information(board_id), ensure_ascii=False).encode('utf-8')
+
+            # Redis 저장 - 키값(board_id)
+            rd.set(board_id, menus, datetime.timedelta(hours=18))
+
+            return menus.decode('utf-8')
