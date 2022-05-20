@@ -27,5 +27,5 @@ public class PurchaseResDTO {
     //글 작성자 정보
     UserResDTO userInfo;
 
-    
+    private Boolean chatOpen;
 }

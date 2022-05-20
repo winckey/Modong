@@ -28,6 +28,9 @@ public class Board extends BaseEntity {
     @Column(nullable = false)
     private Long userId;
 
+    @Column(nullable = false)
+    private Long dongCode;
+
     public Board(String description, Long userId) {
         this.description = description;
         this.userId = userId;

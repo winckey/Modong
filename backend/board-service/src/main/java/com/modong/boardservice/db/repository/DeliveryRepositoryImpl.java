@@ -2,7 +2,6 @@ package com.modong.boardservice.db.repository;
 
 
 import com.modong.boardservice.db.entity.*;
-import com.modong.boardservice.response.BoardResDTO;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -22,10 +20,10 @@ public class DeliveryRepositoryImpl {
 
     QDelivery qDelivery = QDelivery.delivery;
 
-    public Page<Delivery> findAllByTimeLimit(Pageable pageable){
+    public Page<Delivery> findAllByTimeLimit(Pageable pageable, Long dongCode){
 
 
-        List<Delivery> deliveries = jpaQueryFactory.selectFrom(qDelivery).where(qDelivery.closeTime.gt(LocalDateTime.now()))
+        List<Delivery> deliveries = jpaQueryFactory.selectFrom(qDelivery).where(qDelivery.closeTime.gt(LocalDateTime.now()).and(qDelivery.dongCode.eq(dongCode)))
                 .limit(pageable.getPageSize())
                 .offset(pageable.getOffset())
                 .fetch();

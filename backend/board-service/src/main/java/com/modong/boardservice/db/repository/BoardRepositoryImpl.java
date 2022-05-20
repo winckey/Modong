@@ -26,9 +26,9 @@ public class BoardRepositoryImpl {
     QComment qComment = QComment.comment;
     QBoard qBoard = QBoard.board;
 
-    public Page<BoardResDTO> findAllByDeletedIsFalseAndCommentNumber(Pageable pageable) {
+    public Page<BoardResDTO> findAllByDeletedIsFalseAndCommentNumber(Pageable pageable, Long dongCode) {
 
-        List<Board> boards = jpaQueryFactory.selectFrom(qBoard).where(qBoard.deleted.eq(false))
+        List<Board> boards = jpaQueryFactory.selectFrom(qBoard).where(qBoard.deleted.eq(false).and(qBoard.dongCode.eq(dongCode)))
                 .limit(pageable.getPageSize())
                 .offset(pageable.getOffset())
                 .fetch();

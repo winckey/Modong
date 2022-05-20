@@ -4,6 +4,7 @@ import com.modong.boardservice.client.CrawlingClient;
 import com.modong.boardservice.db.entity.Delivery;
 import com.modong.boardservice.db.repository.DeliveryRepository;
 import com.modong.boardservice.db.repository.DeliveryRepositoryImpl;
+import com.modong.boardservice.messagequeue.KafkaProducer;
 import com.modong.boardservice.request.DeliveryReqDTO;
 import com.modong.boardservice.response.DeliveryResDTO;
 import com.modong.boardservice.response.UserResDTO;
@@ -35,6 +36,9 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Autowired
     CrawlingClient crawlingClient;
 
+    @Autowired
+    KafkaProducer kafkaProducer;
+
     @Override
     public Delivery createDelivery(DeliveryReqDTO deliveryReqDTO) {
 
@@ -44,13 +48,16 @@ public class DeliveryServiceImpl implements DeliveryService {
         String url = urlList[urlList.length - 1];
 
         map.put("board_id", url);
+        Long dongCode = Long.valueOf(userClientService.getUser(deliveryReqDTO.getUserId()).getDongDto().get("dongcode"));
 
         Delivery delivery = Delivery.builder()
                 .url(url)
                 .storeName(deliveryReqDTO.getStoreName())
                 .pickupLocation(deliveryReqDTO.getPickupLocation())
                 .closeTime(deliveryReqDTO.getCloseTime())
+                .chatOpen(false)
                 .userId(deliveryReqDTO.getUserId())
+                .dongCode(dongCode)
                 .build();
 
         crawlingClient.crawlingMenu(map);
@@ -65,13 +72,17 @@ public class DeliveryServiceImpl implements DeliveryService {
         Delivery delivery = deliveryRepository.getById(id);
 
         delivery.setCloseTime(LocalDateTime.now());
+        delivery.setChatOpen(true);
+        kafkaProducer.send("order-topic" , delivery.getId() ,"ORDER_DELIVERY" , delivery.getStoreName() , Long.toString(delivery.getUserId()));
 
         return deliveryRepository.save(delivery);
     }
 
     @Override
-    public Page<DeliveryResDTO> deliveryListCalling(Pageable pageable) {
-        Page<Delivery> deliveries = deliveryRepositoryImpl.findAllByTimeLimit(pageable);
+    public Page<DeliveryResDTO> deliveryListCalling(Pageable pageable, Long userId) {
+        Long dongCode = Long.valueOf(userClientService.getUser(userId).getDongDto().get("dongcode"));
+
+        Page<Delivery> deliveries = deliveryRepositoryImpl.findAllByTimeLimit(pageable, dongCode);
 
         List<DeliveryResDTO> deliveryResDTOS = new ArrayList<>();
         for (Delivery d : deliveries.getContent()) {
@@ -105,6 +116,7 @@ public class DeliveryServiceImpl implements DeliveryService {
                     .closeTime(d.getCloseTime())
                     .pickupLocation(d.getPickupLocation())
                     .storeName(d.getStoreName())
+                    .chatOpen(d.getChatOpen())
                     .url(d.getUrl())
                     .userInfo(user)
                     .build();

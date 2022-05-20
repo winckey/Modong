@@ -54,7 +54,8 @@ dependencies {
     implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
     implementation "com.querydsl:querydsl-core:${queryDslVersion}"
 
-
+    //kafka
+    implementation 'org.springframework.kafka:spring-kafka'
 
     // 유레카
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'

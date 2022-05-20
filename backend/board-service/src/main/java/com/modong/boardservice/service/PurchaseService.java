@@ -10,7 +10,7 @@ public interface PurchaseService {
 
     void createPurchase(PurchaseReqDTO purchaseReqDTO);
 
-    Page<PurchaseResDTO> purchaseListCalling(Pageable pageable);
+    Page<PurchaseResDTO> purchaseListCalling(Pageable pageable, Long userId);
 
     Page<PurchaseResDTO> myPurchaseListCalling(Pageable pageable, Long userId);
 

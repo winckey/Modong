@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 
 @RequestMapping("/board-service/group-delivery")
 @RestController
@@ -22,8 +24,9 @@ public class DeliveryController {
     //글 등록
     @PostMapping
     public ResponseEntity deliveryCreate(@RequestBody DeliveryReqDTO deliveryReqDTO) {
-
-
+        // 시간 보정
+        LocalDateTime realTime = deliveryReqDTO.getCloseTime().plusHours(9);
+        deliveryReqDTO.setCloseTime(realTime);
         deliveryService.createDelivery(deliveryReqDTO);
 
         return new ResponseEntity<>("Success", HttpStatus.OK);
@@ -39,11 +42,11 @@ public class DeliveryController {
     }
 
     //목록 조회(Pagination, 10개)
-    @GetMapping
-    public ResponseEntity deliveryList(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+    @GetMapping("/list/{userId}")
+    public ResponseEntity deliveryList(@PageableDefault(page = 0, size = 10) Pageable pageable, @PathVariable Long userId) {
 
 
-        return new ResponseEntity<>(deliveryService.deliveryListCalling(pageable), HttpStatus.OK);
+        return new ResponseEntity<>(deliveryService.deliveryListCalling(pageable, userId), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}")

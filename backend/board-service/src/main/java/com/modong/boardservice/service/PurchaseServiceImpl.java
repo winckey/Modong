@@ -3,6 +3,7 @@ package com.modong.boardservice.service;
 import com.modong.boardservice.db.entity.Purchase;
 import com.modong.boardservice.db.repository.PurchaseRepository;
 import com.modong.boardservice.db.repository.PurchaseRepositoryImpl;
+import com.modong.boardservice.messagequeue.KafkaProducer;
 import com.modong.boardservice.request.PurchaseReqDTO;
 import com.modong.boardservice.response.PurchaseResDTO;
 import com.modong.boardservice.response.UserResDTO;
@@ -28,16 +29,22 @@ public class PurchaseServiceImpl implements PurchaseService{
     @Autowired
     UserClientService userClientService;
 
+    @Autowired
+    KafkaProducer kafkaProducer;
 
     @Override
     public void createPurchase(PurchaseReqDTO purchaseReqDTO) {
+        Long dongCode = Long.valueOf(userClientService.getUser(purchaseReqDTO.getUserId()).getDongDto().get("dongcode"));
+
         Purchase purchase = Purchase.builder()
                 .closeTime(purchaseReqDTO.getCloseTime())
                 .price(purchaseReqDTO.getPrice())
+                .chatOpen(false)
                 .productName(purchaseReqDTO.getProductName())
                 .pickupLocation(purchaseReqDTO.getPickupLocation())
                 .url(purchaseReqDTO.getUrl())
                 .userId(purchaseReqDTO.getUserId())
+                .dongCode(dongCode)
                 .build();
 
         purchaseRepository.save(purchase);
@@ -48,15 +55,17 @@ public class PurchaseServiceImpl implements PurchaseService{
         Purchase purchase = purchaseRepository.getById(id);
 
         purchase.setCloseTime(LocalDateTime.now());
-
-
+        purchase.setChatOpen(true);
+        kafkaProducer.send("order-topic" , purchase.getId() ,"ORDER_GROUP" , purchase.getProductName() , Long.toString(purchase.getUserId()));
         purchaseRepository.save(purchase);
     }
 
 
     @Override
-    public Page<PurchaseResDTO> purchaseListCalling(Pageable pageable) {
-        Page<Purchase> purchases = purchaseRepositoryImpl.findAllByTimeLimit(pageable);
+    public Page<PurchaseResDTO> purchaseListCalling(Pageable pageable, Long userId) {
+        Long dongCode = Long.valueOf(userClientService.getUser(userId).getDongDto().get("dongcode"));
+
+        Page<Purchase> purchases = purchaseRepositoryImpl.findAllByTimeLimit(pageable,dongCode);
 
         List<PurchaseResDTO> purchaseList = new ArrayList<>();
 
@@ -93,6 +102,7 @@ public class PurchaseServiceImpl implements PurchaseService{
                     .id(p.getId())
                     .pickupLocation(p.getPickupLocation())
                     .price(p.getPrice())
+                    .chatOpen(p.getChatOpen())
                     .productName(p.getProductName())
                     .url(p.getUrl())
                     .userInfo(user)

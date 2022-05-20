@@ -21,12 +21,17 @@ public class BoardServiceImpl implements BoardService {
     @Autowired
     BoardRepositoryImpl boardRepositoryImpl;
 
+    @Autowired
+    UserClientService userClientService;
+
     @Override
     public Board createBoard(BoardReqDTO boardReqDTO) {
 
+        Long dongCode = Long.valueOf(userClientService.getUser(boardReqDTO.getUserId()).getDongDto().get("dongcode"));
         Board board = Board.builder()
                 .description(boardReqDTO.getDescription())
                 .userId(boardReqDTO.getUserId())
+                .dongCode(dongCode)
                 .build();
 
         return (Board) boardRepository.save(board);
@@ -56,8 +61,10 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Page<BoardResDTO> boardListCalling(Pageable pageable) {
-        Page<BoardResDTO> boards = boardRepositoryImpl.findAllByDeletedIsFalseAndCommentNumber(pageable);
+    public Page<BoardResDTO> boardListCalling(Pageable pageable, Long userId) {
+        Long dongCode = Long.valueOf(userClientService.getUser(userId).getDongDto().get("dongcode"));
+
+        Page<BoardResDTO> boards = boardRepositoryImpl.findAllByDeletedIsFalseAndCommentNumber(pageable,dongCode);
 
 
 

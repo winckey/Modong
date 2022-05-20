@@ -1,6 +1,7 @@
 package com.modong.boardservice.db.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -34,4 +35,10 @@ public class Purchase{
 
     @Column(nullable = false)
     private Long userId;
+
+    @Column(nullable = false)
+    private Long dongCode;
+
+
+    private Boolean chatOpen;
 }

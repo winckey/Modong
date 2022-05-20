@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 
 @RequestMapping("/board-service/group-purchase")
 @RestController
@@ -23,8 +25,10 @@ public class PurchaseController {
     //글 등록
     @PostMapping
     public ResponseEntity purchaseCreate(@RequestBody PurchaseReqDTO purchaseReqDTO) {
-
-
+        // 시간 보정
+        LocalDateTime realTime = purchaseReqDTO.getCloseTime().plusHours(9);
+        purchaseReqDTO.setCloseTime(realTime);
+        
         purchaseService.createPurchase(purchaseReqDTO);
 
         return new ResponseEntity<>("Success", HttpStatus.OK);
@@ -40,11 +44,11 @@ public class PurchaseController {
     }
 
     //목록 조회(Pagination, 10개)
-    @GetMapping
-    public ResponseEntity purchaseList(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+    @GetMapping("/list/{userId}")
+    public ResponseEntity purchaseList(@PageableDefault(page = 0, size = 10) Pageable pageable, @PathVariable Long userId) {
 
 
-        return new ResponseEntity<>(purchaseService.purchaseListCalling(pageable), HttpStatus.OK);
+        return new ResponseEntity<>(purchaseService.purchaseListCalling(pageable, userId), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}")
