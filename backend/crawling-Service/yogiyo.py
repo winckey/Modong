@@ -1,7 +1,7 @@
 import requests
 
-API_header = {'x-apisecret': 'fe5183cc3dea12bd0ce299cf110a75a2',
-              'x-apikey': 'iphoneap'}
+API_header = {'x-apisecret': '${시크릿}',
+              'x-apikey': '${키}'}
 
 
 class UpdateMenu:
