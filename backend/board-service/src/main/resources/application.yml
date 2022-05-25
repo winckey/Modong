@@ -10,9 +10,9 @@ spring:
 #     username: root
 #     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://k6e102.p.ssafy.io:3307/modong?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    # url: jdbc:mysql://${ip:port/데이터베이스}?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
-    password: plainYorgurt%
+    # password: ${비밀번호}
   jpa:
     open-in-view: true
     hibernate:
