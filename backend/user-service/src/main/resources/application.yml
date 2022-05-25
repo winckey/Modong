@@ -18,16 +18,11 @@ spring:
     password: guest
 
   datasource:
-    url: jdbc:mysql://k6e102.p.ssafy.io:3306/modong?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/msa_db?serverTimezone=UTC&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       username: root
-      password: plainYorgurt%
-    # url: jdbc:mysql://localhost:3306/msa_db?serverTimezone=UTC&characterEncoding=UTF-8
-    # driver-class-name: com.mysql.cj.jdbc.Driver
-    # hikari:
-    #   username: root
-    #   password: admin
+      password: admin
   jpa:
     hibernate:
       ddl-auto: update
@@ -76,12 +71,12 @@ management:
 #    private String bucket = "modong-bucket";
     
     # AWS Account Credentials (AWS 접근 키)
-cloud.aws.credentials.accessKey: AKIA3IY7CXD5GXD4R2V5
-cloud.aws.credentials.secretKey: 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
+# cloud.aws.credentials.accessKey: ${키}
+# cloud.aws.credentials.secretKey: ${시크릿}
 
 # AWS S3 bucket Info (S3 버킷정보)
-cloud.aws.s3.bucket: modong-bucket
-cloud.aws.region.static: ap-northeast-2
+cloud.aws.s3.bucket: ${버킷}
+cloud.aws.region.static: ${지역}
 cloud.aws.stack.auto: false
 
 # file upload max size (파일 업로드 크기 설정)
@@ -89,4 +84,4 @@ spring.servlet.multipart.max-file-size: 20MB
 spring.servlet.multipart.max-request-size: 20MB
 
 # AWS S3 Bucket URL
-cloud.aws.s3.bucket.url: https://s3.ap-northeast-2.amazonaws.com/modong-bucket
+cloud.aws.s3.bucket.url: https://${지역}.amazonaws.com/${버킷}
