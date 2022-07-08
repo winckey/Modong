@@ -6,23 +6,30 @@ import com.modong.orderserivce.dto.ItemDto;
 import com.modong.orderserivce.dto.OptionDto;
 import com.modong.orderserivce.dto.ReqOrderDto;
 import com.modong.orderserivce.entity.OrderType;
+import com.modong.orderserivce.entity.Orders;
 import com.modong.orderserivce.repository.OrderRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 //@DataJpaTest//https://webcoding-start.tistory.com/20
 @DataJpaTest
-@ExtendWith({MockitoExtension.class , SpringExtension.class})
-@ActiveProfiles("test")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)//객체 생성전략 변경 한개ㅂ만 생성하도록!
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ExtendWith({MockitoExtension.class})
+
 class OrderServiceImpTest {
 
 
@@ -33,7 +40,7 @@ class OrderServiceImpTest {
     @Mock
     UserClient userClient;
 
-//    @Test
+    @Test
     void createOreder() {
         //given
         OrderService orderService = new OrderServiceImp(orderRepository , boardClient , userClient);
@@ -57,17 +64,18 @@ class OrderServiceImpTest {
 
         //when
 
-        orderService.createOreder(reqOrderDto);
+        Orders orders = orderService.createOreder(reqOrderDto);
 
 
         //then
-//        assertEquals(testOrdser , order);
-
+        assertEquals( OrderType.ORDER_DELIVERY, orders.getOrderType());
+        assertEquals( 1L, orders.getBoardId());
     }
 
     @Test
-    void test() {
+    void a_test_임시() {
         System.out.println("test");
+        assertEquals( 1L, 1L);
     }
 
 

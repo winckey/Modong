@@ -1,6 +1,6 @@
 package com.modong.orderserivce.dto;
 
-import com.modong.orderserivce.entity.Items;
+import com.modong.orderserivce.entity.Prodocts;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,18 +29,18 @@ public class ItemDto {
 
 
 
-    public static List<ItemDto> of(List<Items> itemsList) {
+    public static List<ItemDto> of(List<Prodocts> prodoctList) {
 
         List<ItemDto> itemDtoList = new ArrayList<>();
 
-        for (Items items : itemsList){
+        for (Prodocts prodoct : prodoctList){
             ItemDto itemDto = ItemDto.builder()
-                    .itemContent(items.getItemContent())
-                    .quantity(items.getQuantity())
-                    .price(items.getPrice())
+                    .itemContent(prodoct.getItemContent())
+                    .quantity(prodoct.getQuantity())
+                    .price(prodoct.getPrice())
                     .build();
 
-            itemDto.setOptions(OptionDto.of(items.getOptionList()));
+//            itemDto.setOptions(OptionDto.of(prodoct.getOptionList()));
 
             itemDtoList.add(itemDto);
         }

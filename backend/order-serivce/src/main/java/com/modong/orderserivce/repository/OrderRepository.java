@@ -1,30 +1,27 @@
 package com.modong.orderserivce.repository;
 
 
-import com.modong.orderserivce.entity.Option;
-import com.modong.orderserivce.entity.Order;
 import com.modong.orderserivce.entity.OrderType;
+import com.modong.orderserivce.entity.Orders;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Transactional
 @Repository
-public interface OrderRepository extends JpaRepository<Order, Long> {
+public interface OrderRepository extends JpaRepository<Orders, Long> {
 
 
-    List<Order> findByUserId(Long userId);
+    List<Orders> findByUserId(Long userId);
 
-    List<Order> findByUserIdAndOrderType(Long userId , OrderType orderType);
+    List<Orders> findByUserIdAndOrderType(Long userId , OrderType orderType);
 
 
-    List<Order> findByBoardId(Long boadId);
+    List<Orders> findByBoardId(Long boadId);
 
-    List<Order> findByBoardIdAndOrderType(Long boadId, OrderType orderType);
+    List<Orders> findByBoardIdAndOrderType(Long boadId, OrderType orderType);
 
     void deleteByBoardId(Long boardId);
 }

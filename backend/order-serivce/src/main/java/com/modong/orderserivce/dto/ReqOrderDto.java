@@ -1,7 +1,7 @@
 package com.modong.orderserivce.dto;
 
-import com.modong.orderserivce.entity.Order;
 import com.modong.orderserivce.entity.OrderType;
+import com.modong.orderserivce.entity.Orders;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -39,14 +39,14 @@ public class ReqOrderDto {
     private List<ItemDto> itemDtoList;
 
 
-    public static ReqOrderDto of(Order order) {
+    public static ReqOrderDto of(Orders orders) {
         ReqOrderDto orderDto = ReqOrderDto.builder()
-                .boardId(order.getBoardId())
-                .userId(order.getUserId())
-                .orderType(order.getOrderType())
+                .boardId(orders.getBoardId())
+                .userId(orders.getUserId())
+                .orderType(orders.getOrderType())
 
                 .build();
-        orderDto.setItemDtoList(ItemDto.of(order.getItemsList()));
+//        orderDto.setItemDtoList(ItemDto.of(order.getProdoctList()));
         return orderDto;
     }
 

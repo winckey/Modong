@@ -17,18 +17,20 @@ public class Option {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item", referencedColumnName = "id")
-    private Items items;
-
     private String optionContent;
+
+
+    @ManyToOne
+    @JoinColumn(name = "prodocts_id")
+    private Prodocts prodocts;
+
+    public void setProdocts(Prodocts prodocts) {
+        this.prodocts = prodocts;
+    }
 
     public Option() {
 
     }
 
-    public void changeItem(Items items) {
 
-        items.getOptionList().add(this);
-    }
 }
