@@ -1,9 +1,8 @@
 package com.modong.orderserivce.service;
 
-import com.modong.orderserivce.dto.BoardDto;
 import com.modong.orderserivce.dto.ReqIdOrderDto;
 import com.modong.orderserivce.dto.ReqOrderDto;
-import com.modong.orderserivce.dto.UserDto;
+import com.modong.orderserivce.entity.Order;
 import com.modong.orderserivce.entity.OrderType;
 
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.List;
 public interface OrderService {
 
 
-    void createOreder(ReqOrderDto reqOrderDto);
+    Order createOreder(ReqOrderDto reqOrderDto);
 
     void deleteOrder(ReqIdOrderDto reqDeleteOrderDto);
 

@@ -1,6 +1,5 @@
 package com.modong.orderserivce.dto;
 
-import com.modong.orderserivce.entity.Item;
 import com.modong.orderserivce.entity.Order;
 import com.modong.orderserivce.entity.OrderType;
 import io.swagger.annotations.ApiModel;
@@ -10,7 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.User;
 
 import java.util.List;
 
@@ -48,7 +46,7 @@ public class ReqOrderDto {
                 .orderType(order.getOrderType())
 
                 .build();
-        orderDto.setItemDtoList(ItemDto.of(order.getItemList()));
+        orderDto.setItemDtoList(ItemDto.of(order.getItemsList()));
         return orderDto;
     }
 

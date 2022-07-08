@@ -1,138 +1,74 @@
 package com.modong.orderserivce.service;
 
+import com.modong.orderserivce.client.BoardClient;
+import com.modong.orderserivce.client.UserClient;
 import com.modong.orderserivce.dto.ItemDto;
 import com.modong.orderserivce.dto.OptionDto;
-import com.modong.orderserivce.entity.Item;
-import com.modong.orderserivce.entity.Option;
-import com.modong.orderserivce.entity.Order;
+import com.modong.orderserivce.dto.ReqOrderDto;
 import com.modong.orderserivce.entity.OrderType;
+import com.modong.orderserivce.repository.OrderRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
 
+
+//@DataJpaTest//https://webcoding-start.tistory.com/20
+@DataJpaTest
+@ExtendWith({MockitoExtension.class , SpringExtension.class})
+@ActiveProfiles("test")
 class OrderServiceImpTest {
 
-    @Test
+
+    @Autowired // junit5는 di를 스스로 지원 다른방식은 junit이 먼저 생성자를 생성하려 해서 안댐
+    OrderRepository orderRepository;
+    @Mock
+    BoardClient boardClient;
+    @Mock
+    UserClient userClient;
+
+//    @Test
     void createOreder() {
         //given
-        Order order = Order.builder()
-                .id(1L)
+        OrderService orderService = new OrderServiceImp(orderRepository , boardClient , userClient);
+
+        OptionDto optionDto = OptionDto.builder()
+                .optionContent("option")
+                .build();
+        ItemDto itemDto = ItemDto.builder()
+                .price(1000)
+                .quantity(1)
+                .itemContent("item")
+                .options(new ArrayList<>())
+                .build();
+        itemDto.getOptions().add(optionDto);
+        ReqOrderDto reqOrderDto = ReqOrderDto.builder()
                 .boardId(1L)
                 .orderType(OrderType.ORDER_DELIVERY)
+                .itemDtoList(new ArrayList<>())
                 .build();
+        reqOrderDto.getItemDtoList().add(itemDto);
+
         //when
 
-
+        orderService.createOreder(reqOrderDto);
 
 
         //then
-        for (ItemDto itemDto : reqOrderDto.getItemDtoList()) {
-            Item item = Item.builder()
-                    .itemContent(itemDto.getItemContent())
-                    .orders(order)
-                    .quantity(itemDto.getQuantity())
-                    .price(itemDto.getPrice())
-                    .build();
-
-
-            for (OptionDto optionDto : itemDto.getOptions()) {
-                Option option = Option.builder()
-                        .optionContent(optionDto.getOptionContent())
-                        .item(item)
-                        .build();
-
-                option.changeItem(item);
-            }
-
-            item.changeOrder(order);
-        }
-
-        orderRepository.save(order);
-    }
-
-    @Test
-    void deleteOrder() {
-        //given
-        Order order = Order.builder()
-                .id(1L)
-                .boardId(1L)
-                .orderType(OrderType.ORDER_DELIVERY)
-                .build();
-        //when
-
-
-
-
-        //then
+//        assertEquals(testOrdser , order);
 
     }
 
     @Test
-    void getOrderByUserId() {
-        //given
-        Order order = Order.builder()
-                .id(1L)
-                .boardId(1L)
-                .orderType(OrderType.ORDER_DELIVERY)
-                .build();
-        //when
-
-
-
-
-        //then
-
-    }
-
-    @Test
-    void getBoard() {
-        //given
-        Order order = Order.builder()
-                .id(1L)
-                .boardId(1L)
-                .orderType(OrderType.ORDER_DELIVERY)
-                .build();
-        //when
-
-
-
-
-        //then
-
+    void test() {
+        System.out.println("test");
     }
 
 
-    @Test
-    void getOrderByBoardId() {
-        //given
-        Order order = Order.builder()
-                .id(1L)
-                .boardId(1L)
-                .orderType(OrderType.ORDER_DELIVERY)
-                .build();
-        //when
-
-
-
-
-        //then
-
-    }
-
-    @Test
-    void deleteOrderByBoardId() {
-        //given
-        Order order = Order.builder()
-                .id(1L)
-                .boardId(1L)
-                .orderType(OrderType.ORDER_DELIVERY)
-                .build();
-        //when
-
-
-
-
-        //then
-
-    }
 }

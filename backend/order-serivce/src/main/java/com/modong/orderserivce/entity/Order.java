@@ -1,7 +1,5 @@
 package com.modong.orderserivce.entity;
 
-import com.modong.orderserivce.dto.BoardDto;
-import com.modong.orderserivce.dto.ReqOrderDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,7 +29,7 @@ public class Order {
     private Long userId;
     @OneToMany(mappedBy = "orders", cascade = {CascadeType.PERSIST , CascadeType.REMOVE} )
     @Builder.Default
-    private List<Item> itemList = new ArrayList<>();
+    private List<Items> itemsList = new ArrayList<>();
 
     public Order() {
 

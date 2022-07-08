@@ -19,7 +19,7 @@ public class Option {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item", referencedColumnName = "id")
-    private Item item;
+    private Items items;
 
     private String optionContent;
 
@@ -27,8 +27,8 @@ public class Option {
 
     }
 
-    public void changeItem(Item item) {
+    public void changeItem(Items items) {
 
-        item.getOptionList().add(this);
+        items.getOptionList().add(this);
     }
 }

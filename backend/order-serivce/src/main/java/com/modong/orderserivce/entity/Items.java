@@ -1,7 +1,5 @@
 package com.modong.orderserivce.entity;
 
-import com.modong.orderserivce.dto.ItemDto;
-import com.modong.orderserivce.dto.ReqOrderDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +12,7 @@ import java.util.List;
 @Entity
 @Builder
 @AllArgsConstructor
-public class Item {
+public class Items {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +22,7 @@ public class Item {
     @JoinColumn(name = "orders", referencedColumnName = "id")
     private Order orders;
 
-    @OneToMany(mappedBy = "item", cascade = {CascadeType.PERSIST , CascadeType.REMOVE} )
+    @OneToMany(mappedBy = "items", cascade = {CascadeType.PERSIST , CascadeType.REMOVE} )
     @Builder.Default
     private List<Option> optionList = new ArrayList<>();
 
@@ -35,14 +33,14 @@ public class Item {
     private String itemContent;
 
 
-    public Item() {
+    public Items() {
 
     }
 
 
     public void changeOrder(Order order) {
 
-        order.getItemList().add(this);
+        order.getItemsList().add(this);
     }
 
 

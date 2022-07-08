@@ -3,7 +3,7 @@ package com.modong.orderserivce.service;
 import com.modong.orderserivce.client.BoardClient;
 import com.modong.orderserivce.client.UserClient;
 import com.modong.orderserivce.dto.*;
-import com.modong.orderserivce.entity.Item;
+import com.modong.orderserivce.entity.Items;
 import com.modong.orderserivce.entity.Option;
 import com.modong.orderserivce.entity.Order;
 import com.modong.orderserivce.entity.OrderType;
@@ -24,7 +24,7 @@ public class OrderServiceImp implements OrderService {
     private final UserClient userClient;
 
     @Override
-    public void createOreder(ReqOrderDto reqOrderDto) {
+    public Order createOreder(ReqOrderDto reqOrderDto) {
 
 
         Order order = Order.builder()
@@ -34,7 +34,7 @@ public class OrderServiceImp implements OrderService {
                 .build();
 
         for (ItemDto itemDto : reqOrderDto.getItemDtoList()) {
-            Item item = Item.builder()
+            Items items = Items.builder()
                     .itemContent(itemDto.getItemContent())
                     .orders(order)
                     .quantity(itemDto.getQuantity())
@@ -45,16 +45,16 @@ public class OrderServiceImp implements OrderService {
             for (OptionDto optionDto : itemDto.getOptions()) {
                 Option option = Option.builder()
                         .optionContent(optionDto.getOptionContent())
-                        .item(item)
+                        .items(items)
                         .build();
 
-                option.changeItem(item);
+                option.changeItem(items);
             }
 
-            item.changeOrder(order);
+            items.changeOrder(order);
         }
 
-        orderRepository.save(order);
+        return orderRepository.save(order);
 
     }
 

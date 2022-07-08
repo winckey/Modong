@@ -1,6 +1,5 @@
 package com.modong.orderserivce.dto;
 
-import com.modong.orderserivce.entity.Item;
 import com.modong.orderserivce.entity.Option;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
