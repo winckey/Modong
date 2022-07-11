@@ -29,10 +29,10 @@ public class Prodocts {
     @ManyToOne
     @JoinColumn(name = "orders_id")
     private Orders orders;
-
-    @OneToMany
-    @JoinColumn(name = "id")
-    private List<Option> optionList = new ArrayList<>();
+//
+//    @OneToMany
+//    @JoinColumn(name = "id")
+//    private List<Option> optionList = new ArrayList<>();
 
 
     public void setOrders(Orders orders) {

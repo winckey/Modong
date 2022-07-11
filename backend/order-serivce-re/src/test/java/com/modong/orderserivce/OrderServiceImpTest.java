@@ -1,4 +1,4 @@
-package com.modong.orderserivce.service;
+package com.modong.orderserivce;
 
 import com.modong.orderserivce.client.BoardClient;
 import com.modong.orderserivce.client.UserClient;
@@ -8,15 +8,17 @@ import com.modong.orderserivce.dto.ReqOrderDto;
 import com.modong.orderserivce.entity.OrderType;
 import com.modong.orderserivce.entity.Orders;
 import com.modong.orderserivce.repository.OrderRepository;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import org.springframework.boot.test.context.SpringBootTest;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.ArrayList;
 
@@ -24,12 +26,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 //@DataJpaTest//https://webcoding-start.tistory.com/20
-@DataJpaTest
+@SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)//객체 생성전략 변경 한개ㅂ만 생성하도록!
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ExtendWith({MockitoExtension.class})
 
+@Testcontainers
 class OrderServiceImpTest {
+
+
 
 
     @Autowired // junit5는 di를 스스로 지원 다른방식은 junit이 먼저 생성자를 생성하려 해서 안댐
@@ -39,7 +43,23 @@ class OrderServiceImpTest {
     @Mock
     UserClient userClient;
 
-    @Test
+
+    @Container
+    static PostgreSQLContainer postgreSQLContainer= new PostgreSQLContainer().withDatabaseName("test");
+
+
+    @BeforeAll
+    static void beforeAll(){
+        postgreSQLContainer.start();
+        System.out.println("---------------------");
+        System.out.println(postgreSQLContainer.getJdbcUrl());
+    }
+    @AfterAll
+    static void afterAll(){
+        postgreSQLContainer.stop();
+
+    }
+//    @Test
     void createOreder() {
         //given
         OrderService orderService = new OrderServiceImp(orderRepository , boardClient , userClient);
