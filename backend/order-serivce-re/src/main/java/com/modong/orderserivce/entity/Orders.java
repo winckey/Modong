@@ -25,9 +25,9 @@ public class Orders {
     private OrderType orderType;
 
 
-//    @OneToMany
-//    @JoinColumn(name = "id")
-//    private List<Prodocts> prodoctsList = new ArrayList<>();
+    @OneToMany
+    @JoinColumn(name = "id")
+    private List<Prodocts> prodoctsList = new ArrayList<>();
 
 
 
