@@ -5,7 +5,7 @@ package com.modong.orderserivce.controller;
 import com.modong.orderserivce.dto.ReqIdOrderDto;
 import com.modong.orderserivce.dto.ReqOrderDto;
 import com.modong.orderserivce.entity.OrderType;
-import com.modong.orderserivce.OrderService;
+import com.modong.orderserivce.service.OrderService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.v3.oas.annotations.Operation;

@@ -10,6 +10,7 @@ import com.modong.orderserivce.entity.OrderType;
 import com.modong.orderserivce.entity.Orders;
 import com.modong.orderserivce.entity.Prodocts;
 import com.modong.orderserivce.repository.OrderRepository;
+import com.modong.orderserivce.service.OrderServiceImp;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -93,6 +94,7 @@ class OrderServiceImpTest {
                 .userId(reqOrderDto.getUserId())
                 .boardId(reqOrderDto.getBoardId())
                 .orderType(reqOrderDto.getOrderType())
+                .prodoctsList(new ArrayList<>())
                 .build();
 
         for (ItemDto itemDto : reqOrderDto.getItemDtoList()) {
@@ -101,12 +103,16 @@ class OrderServiceImpTest {
                     .orders(orders)
                     .quantity(itemDto.getQuantity())
                     .price(itemDto.getPrice())
+                    .optionList(new ArrayList<>())
                     .build();
+
+            orders.getProdoctsList().add(prodocts);
             for (OptionDto optionDto : itemDto.getOptions()) {
                 Option option = Option.builder()
                         .optionContent(optionDto.getOptionContent())
                         .prodocts(prodocts)
                         .build();
+                orders.getProdoctsList().get(0).getOptionList().add(option);
             }
         }
 

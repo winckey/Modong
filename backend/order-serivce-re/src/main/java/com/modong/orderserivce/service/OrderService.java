@@ -1,4 +1,4 @@
-package com.modong.orderserivce;
+package com.modong.orderserivce.service;
 
 import com.modong.orderserivce.dto.ReqIdOrderDto;
 import com.modong.orderserivce.dto.ReqOrderDto;

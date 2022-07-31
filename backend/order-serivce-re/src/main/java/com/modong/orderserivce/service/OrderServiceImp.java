@@ -1,4 +1,4 @@
-package com.modong.orderserivce;
+package com.modong.orderserivce.service;
 
 import com.modong.orderserivce.client.BoardClient;
 import com.modong.orderserivce.client.UserClient;
@@ -27,7 +27,9 @@ public class OrderServiceImp implements OrderService {
     public Orders createOreder(ReqOrderDto reqOrderDto) {
 
 
-        Orders orders = com.modong.orderserivce.entity.Orders.builder()
+
+
+        Orders orders = Orders.builder()
                 .userId(reqOrderDto.getUserId())
                 .boardId(reqOrderDto.getBoardId())
                 .orderType(reqOrderDto.getOrderType())
@@ -42,7 +44,9 @@ public class OrderServiceImp implements OrderService {
                     .build();
 
 
-            for (OptionDto optionDto : itemDto.getOptions()) {
+            for (OptionDto optionDto : itemDto.getOptions()) {// option외에 추가 또는 변경 될경우 서비스수정이 불가피함
+                                                                // option 파라미터가 추가될경우 추가변경(이부분은 똑같은듯?)
+                                                                //
                 Option option = Option.builder()
                         .optionContent(optionDto.getOptionContent())
                         .prodocts(prodocts)
